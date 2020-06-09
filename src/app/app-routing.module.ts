@@ -47,6 +47,22 @@ const routes: Routes = [
     path: 'orders',
     loadChildren: () => import('./pages/orders/orders.module').then( m => m.OrdersPageModule)
   },
+  {
+    path: 'verify-number-code',
+    loadChildren: () => import('./pages/verify-number-code/verify-number-code.module').then( m => m.VerifyNumberCodePageModule)
+  },
+  {
+    path: 'recovery-password-email-step1',
+    loadChildren: () => import('./pages/recovery-password-email-step1/recovery-password-email-step1.module').then( m => m.RecoveryPasswordEmailStep1PageModule)
+  },
+  {
+    path: 'recovery-password-code-step2',
+    loadChildren: () => import('./pages/recovery-password-code-step2/recovery-password-code-step2.module').then( m => m.RecoveryPasswordCodeStep2PageModule)
+  },
+  {
+    path: 'change-password',
+    loadChildren: () => import('./pages/change-password/change-password.module').then( m => m.ChangePasswordPageModule)
+  },
 ];
 
 @NgModule({

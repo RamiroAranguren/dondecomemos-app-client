@@ -8,6 +8,7 @@ import { LoaderService } from '../../services/loader/loader.service';
 import { UsersService } from '../../services/users/user.service';
 
 import { restaurant } from '../../interfaces/restaurant';
+import { Router, NavigationExtras } from '@angular/router';
 
 
 @Component({
@@ -18,10 +19,13 @@ import { restaurant } from '../../interfaces/restaurant';
 export class LoginPage implements OnInit {
 
   type = 'password'
-  email: any;
-  password: any;
+
   errors: any
   restaurant: restaurant;
+
+  user = {
+    email: null
+  };
 
   form: FormGroup;
   error = {
@@ -31,6 +35,7 @@ export class LoginPage implements OnInit {
   };
 
   constructor(
+    private route: Router,
     public navCtrl: NavController,
     public alertCtrl: AlertController,
     public formBuild: FormBuilder,
@@ -56,6 +61,11 @@ export class LoginPage implements OnInit {
   }
 
   ngOnInit() {
+    try {
+      this.user = this.route.getCurrentNavigation().extras.state.data;
+    } catch (error) {
+      console.log("Init-Login");
+    }
 
   }
 
@@ -80,6 +90,11 @@ export class LoginPage implements OnInit {
         this.error.mensaje = "Error: Email y/o contraseña inválidos."
         this.loader.hide();
       })
+  }
+
+  forgotPassword() {
+    let navigationExtras: NavigationExtras = {state: {data: this.user}};
+    this.navCtrl.navigateForward(['/recovery-password-email-step1'], navigationExtras);
   }
 
   async forgotPasswordAlert() {

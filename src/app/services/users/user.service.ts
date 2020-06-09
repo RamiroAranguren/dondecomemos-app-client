@@ -100,7 +100,7 @@ export class UsersService {
       this.http.post(`${apiUrl}users/`, body).subscribe((response) => {
         resolve(response);
       }, (errorResponse) => {
-        reject(JSON.parse(errorResponse._body));
+        reject(errorResponse.error);
       });
     });
   }
@@ -120,7 +120,7 @@ export class UsersService {
       this.http.post(`${apiUrl}fcm/`, body, { headers }).subscribe((response) => {
         resolve(response);
       }, (errorResponse) => {
-        reject(JSON.parse(errorResponse._body));
+        reject(errorResponse.error);
       })
     })
   }
@@ -138,11 +138,11 @@ export class UsersService {
     return new Promise((resolve, reject) => {
       this.http.put(`${apiUrl}users/${this.user.id}/change/`, body, { headers })
         .subscribe(async (response: any) => {
-          let returnedUser: UserInterface = JSON.parse(response._body)
+          let returnedUser: UserInterface = response;
           this.user = { ...returnedUser, token: this.user.token }
-          resolve(response)
+          resolve(response);
         }, (errorResponse) => {
-          reject(JSON.parse(errorResponse._body))
+          reject(errorResponse.error);
         })
     })
   }

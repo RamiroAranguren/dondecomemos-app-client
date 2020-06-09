@@ -4,20 +4,20 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { VerifyNumberPageRoutingModule } from './verify-number-routing.module';
+import { RecoveryPasswordEmailStep1PageRoutingModule } from './recovery-password-email-step1-routing.module';
 
-import { VerifyNumberPage } from './verify-number.page';
+import { RecoveryPasswordEmailStep1Page } from './recovery-password-email-step1.page';
 import { ComponentsModule } from '../../components/components.module';
 
 @NgModule({
   imports: [
     CommonModule,
     IonicModule,
-    VerifyNumberPageRoutingModule,
     ComponentsModule,
+    RecoveryPasswordEmailStep1PageRoutingModule,
     FormsModule,
     ReactiveFormsModule
   ],
-  declarations: [VerifyNumberPage]
+  declarations: [RecoveryPasswordEmailStep1Page]
 })
-export class VerifyNumberPageModule {}
+export class RecoveryPasswordEmailStep1PageModule {}

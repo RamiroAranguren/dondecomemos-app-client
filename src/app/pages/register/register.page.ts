@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, Validators, FormBuilder, ReactiveFormsModule } from '@angular/forms';
+import { NavController, AlertController } from '@ionic/angular';
+import { NavigationExtras } from '@angular/router';
 
 
 @Component({
@@ -23,12 +25,15 @@ export class RegisterPage implements OnInit {
   userRegister = {
     email: "",
     password: "",
-    passwordConfirmation: "",
-    firstName: "",
-    lastName: ""
+    first_name: "",
+    last_name: ""
   }
 
-  constructor(public formBuild: FormBuilder) {
+  constructor(
+    public formBuild: FormBuilder,
+    public navCtrl: NavController,
+    private alertCtrl: AlertController
+  ) {
     this.form = this.formBuild.group({
         "first_name": ["", [Validators.required], []],
         "last_name": ["", [Validators.required], []],
@@ -45,53 +50,49 @@ export class RegisterPage implements OnInit {
   ngOnInit() {
   }
 
-  doRegister(event) {
-    // if (this.form.valid) {
-      // if (this.userRegister.password === this.userRegister.passwordConfirmation) {
-      //   this.userRegister.email = this.userRegister.email
-      //   this.loader.display('Registrando')
-      //   this.userProvider.register(this.userRegister).then(() => {
-      //     this.navCtrl.setRoot(LoginPage)
-      //     this.loader.hide()
-      //   }).catch((error) => {
-      //     if (error.username && error.username.length > 0)
-      //       this.errors.email.push("Este email ya se encuentra en uso")
-      //     this.loader.hide()
-      //   })
-      // } else {
-        // this.toastProvider.show("Las contraseñas no coinciden")
-      // }
-    // }
+  doRegister() {
+
+    if (this.form.valid) {
+      let navigationExtras: NavigationExtras = {
+        state: {data: this.userRegister}
+      };
+      this.navCtrl.navigateForward(['/verify-number'], navigationExtras);
+    }
+
   }
 
-  // checkErrors() {
-  //   this.checkPassword();
-  //   this.checkEmail();
-  //   // this.checkFirstName();
-  // }
+  async showAlert() {
+    const alert = await this.alertCtrl.create({
+      header: 'Cuenta ya existente',
+      message: 'El email ya se encuentra asociado a una',
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: () => {
+            console.log('Confirm Cancel');
+          }
+        }, {
+          text: 'Iniciar sesión',
+          handler: () => {
+            this.navCtrl.navigateRoot('/login');
+          }
+        }
+      ]
+    });
 
-  // checkFirstName() {
-  //   this.errors.firstName = []
-  //   if (this.field('firstName').invalid)
-  //     this.addError("firstName", "El nombre es demasiado corto")
-  // }
-
-  // checkLastName() {
-  //   this.errors.lastName = []
-  //   if (this.field('lastName').invalid)
-  //     this.addError("lastName", "El apellido es demasiado corto")
-  // }
+    await alert.present();
+  }
 
   checkPassword() {
-    this.errors.password = []
-    console.log("checkPassword", this.field('password'));
+    this.errors.password = [];
     if (this.field('password').invalid)
       this.addError("password", "Error: La contraseña tiene menos de 6 carateres.");
   }
 
   checkEmail() {
-    this.errors.email = []
-    console.log("checkEmail", this.field('email'));
+    this.errors.email = [];
     if (this.field('email').invalid)
       this.addError("email", "Error: Email inválido.");
   }
@@ -103,10 +104,6 @@ export class RegisterPage implements OnInit {
   field(fieldName) {
     return this.form.controls[fieldName]
   }
-
-  // isValid() {
-  //   return this.form.valid && this.userRegister.password === this.userRegister.passwordConfirmation
-  // }
 
   showPassword() {
     this.type = this.type == 'password' ? 'text' : 'password'

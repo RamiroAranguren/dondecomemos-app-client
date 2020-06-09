@@ -4,20 +4,20 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { VerifyNumberPageRoutingModule } from './verify-number-routing.module';
+import { VerifyNumberCodePageRoutingModule } from './verify-number-code-routing.module';
 
-import { VerifyNumberPage } from './verify-number.page';
+import { VerifyNumberCodePage } from './verify-number-code.page';
 import { ComponentsModule } from '../../components/components.module';
 
 @NgModule({
   imports: [
     CommonModule,
     IonicModule,
-    VerifyNumberPageRoutingModule,
+    VerifyNumberCodePageRoutingModule,
     ComponentsModule,
     FormsModule,
     ReactiveFormsModule
   ],
-  declarations: [VerifyNumberPage]
+  declarations: [VerifyNumberCodePage]
 })
-export class VerifyNumberPageModule {}
+export class VerifyNumberCodePageModule {}

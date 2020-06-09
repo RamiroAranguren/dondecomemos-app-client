@@ -24,6 +24,7 @@
                       <ion-item>
                           <ion-label position="floating">Email</ion-label>
                           <ion-input
+                            [(ngModel)]="user.email"
                             formControlName="email"
                             name="email"
                             type="email"
@@ -33,7 +34,6 @@
                       <ion-item>
                           <ion-label position="floating">Contraseña</ion-label>
                           <ion-input
-                            [(ngModel)]="password"
                             formControlName="password"
                             type="{{type}}"
                             name="password"
@@ -66,7 +66,7 @@
   <ion-toolbar>
       <span
         class="forgot"
-        (click)="forgotPasswordAlert()"
+        (click)="forgotPassword()"
         fill="clear">
         Olvidé mi contraseña
       </span>

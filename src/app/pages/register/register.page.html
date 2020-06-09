@@ -4,7 +4,7 @@
     <div class="header-content">
     </div>
     <div class="body-content">
-        <form novalidate (submit)="doRegister($event)" [formGroup]="form">
+        <form novalidate (submit)="doRegister()" [formGroup]="form">
             <ion-fab horizontal="end" horizontal="end" slot="fixed" edge="true">
                 <ion-button [disabled]="form.invalid" size="large" type="submit">
                     <ion-icon name="arrow-forward-outline"></ion-icon>
@@ -22,6 +22,7 @@
                             <ion-item>
                                 <ion-label position="floating">Nombre</ion-label>
                                 <ion-input
+                                    [(ngModel)]="userRegister.first_name"
                                     formControlName="first_name"
                                     name="first_name"
                                     type="text"
@@ -31,6 +32,7 @@
                             <ion-item>
                                 <ion-label position="floating">Apellido</ion-label>
                                 <ion-input
+                                    [(ngModel)]="userRegister.last_name"
                                     formControlName="last_name"
                                     name="last_name"
                                     type="text"

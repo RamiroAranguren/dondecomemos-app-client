@@ -2,6 +2,9 @@
 
 <ion-content>
   <div class="header-content">
+    <div class="logo">
+      <img src="assets/img/sms_verify.png">
+   </div>
   </div>
   <div class="body-content">
       <form novalidate (submit)="doVerify()" [formGroup]="form">
@@ -13,33 +16,31 @@
           <ion-grid fixed>
             <ion-row>
                 <ion-col>
-                    <label for="" style="font-size: 15px; font-weight: lighter;">Ya casi terminamos</label>
+                    <label for="" style="font-size: 15px; font-weight: lighter;">Último paso</label>
                 </ion-col>
             </ion-row>
               <ion-row>
                   <ion-col>
-                      <h1>Bienvenido</h1>
+                      <h1>Verificación</h1>
                   </ion-col>
               </ion-row>
               <ion-row>
                   <ion-col>
-                      <label for="" style="font-size: 22px; font-weight: lighter;">Por favor, ingrese su número de celular</label>
+                      <label for="" style="font-size: 20px; font-weight: lighter;">
+                        Ingrese el código que enviamos al número +54{{ user.phone }}
+                      </label>
                       <ion-list>
                           <ion-item>
-                              <ion-label position="floating">Celular</ion-label>
+                              <ion-label position="floating">Código</ion-label>
                               <ion-input
-                                [(ngModel)]="numberRegister.phone"
-                                formControlName="phone"
-                                name="phone"
-                                type="number"
-                                required></ion-input>
+                                  formControlName="code"
+                                  name="code"
+                                  type="text"
+                                  required></ion-input>
                           </ion-item>
 
-                          <span *ngIf="errors.phone" class="error-message">
-                              {{errors.phone}}
-                          </span>
-                          <span style="color: lightgray;" *ngIf="errors.phone.length <= 0">
-                              Incluir código de área.
+                          <span *ngIf="errors.code" class="error-message">
+                              {{errors.code}}
                           </span>
                       </ion-list>
                   </ion-col>
