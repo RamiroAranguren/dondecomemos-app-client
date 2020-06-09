@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-
+import { NavController, AlertController } from '@ionic/angular';
+import { MenuController } from '@ionic/angular';
+import { FormGroup, Validators, FormBuilder, ReactiveFormsModule } from '@angular/forms';
 
 import { ErrorHandlerService } from '../../services/error-handler/error-handler.service';
 import { LoaderService } from '../../services/loader/loader.service';
 import { UsersService } from '../../services/users/user.service';
 
 import { restaurant } from '../../interfaces/restaurant';
-import { NavController, AlertController } from '@ionic/angular';
-import { MenuController } from '@ionic/angular';
 
 
 @Component({
@@ -18,14 +18,22 @@ import { MenuController } from '@ionic/angular';
 export class LoginPage implements OnInit {
 
   type = 'password'
-  email: string
-  password: string
+  email: any;
+  password: any;
   errors: any
   restaurant: restaurant;
+
+  form: FormGroup;
+  error = {
+      mensaje: "Ok",
+      status: 200,
+      ok: true
+  };
 
   constructor(
     public navCtrl: NavController,
     public alertCtrl: AlertController,
+    public formBuild: FormBuilder,
     public menuCtrl: MenuController,
     private userService: UsersService,
     // public restaurantProvider: RestaurantProvider,
@@ -36,20 +44,28 @@ export class LoginPage implements OnInit {
     // public viewController: ViewController
     ) {
 
-    // this.menuCtrl.swipeEnable(false);
-    // this.restaurant = navParams.get('restaurant');
-
+      this.form = this.formBuild.group({
+          "email": ["", [
+              Validators.required,
+              Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$')
+          ], []],
+          "password": ["", [
+            Validators.required, Validators.minLength(5)
+          ], []],
+      });
   }
 
   ngOnInit() {
 
   }
 
-  doLogin() {
+  doLogin( event ) {
+
+    this.error.mensaje = "";
 
     this.loader.display('Iniciando sesión');
 
-    this.userService.login(this.email, this.password)
+    this.userService.login(this.form.value.email, this.form.value.password)
       .then(() => {
         if (this.restaurant) {
           // this.viewController.dismiss()
@@ -59,7 +75,9 @@ export class LoginPage implements OnInit {
         this.loader.hide();
       })
       .catch(errors => {
-        this.errorHandlerService.handleError('INVALID_CREDENTIALS');
+        this.error.status = errors.status;
+        this.error.ok = false;
+        this.error.mensaje = "Error: Email y/o contraseña inválidos."
         this.loader.hide();
       })
   }

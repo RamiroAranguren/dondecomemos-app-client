@@ -13,6 +13,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { ComponentsModule } from './components/components.module';
 import { IonicStorageModule } from '@ionic/storage';
 import { FCM } from '@ionic-native/fcm/ngx';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
 
 @NgModule({
   declarations: [AppComponent],
@@ -23,6 +25,8 @@ import { FCM } from '@ionic-native/fcm/ngx';
     AppRoutingModule,
     ComponentsModule,
     HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule,
     IonicStorageModule.forRoot()
   ],
   providers: [

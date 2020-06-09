@@ -1,69 +1,92 @@
 <app-header title=""></app-header>
 
 <ion-content>
-<div class="header-content">
-</div>
-<div class="body-content">
-    <ion-fab horizontal="end" slot="fixed">
-        <ion-fab-button size="large">
-            <ion-icon name="arrow-forward-outline"></ion-icon>
-        </ion-fab-button>
-    </ion-fab>
-    <form>
-        <ion-grid fixed>
-            <ion-row>
-                <ion-col>
-                    <h2>Registro</h2>
-                </ion-col>
-            </ion-row>
-            <ion-row>
-                <ion-col>
-                    <ion-list>
-                        <ion-item>
-                            <ion-label position="floating">Nombre</ion-label>
-                            <ion-input name="first_name"
-                                        type="text"
-                                        required></ion-input>
-                        </ion-item>
+    <div class="header-content">
+    </div>
+    <div class="body-content">
+        <form novalidate (submit)="doRegister($event)" [formGroup]="form">
+            <ion-fab horizontal="end" horizontal="end" slot="fixed" edge="true">
+                <ion-button [disabled]="form.invalid" size="large" type="submit">
+                    <ion-icon name="arrow-forward-outline"></ion-icon>
+                </ion-button>
+            </ion-fab>
+            <ion-grid fixed>
+                <ion-row>
+                    <ion-col>
+                        <h2>Registro</h2>
+                    </ion-col>
+                </ion-row>
+                <ion-row>
+                    <ion-col>
+                        <ion-list>
+                            <ion-item>
+                                <ion-label position="floating">Nombre</ion-label>
+                                <ion-input
+                                    formControlName="first_name"
+                                    name="first_name"
+                                    type="text"
+                                    required></ion-input>
+                            </ion-item>
 
-                        <ion-item>
-                            <ion-label position="floating">Apellido</ion-label>
-                            <ion-input name="last_name"
-                                        type="text"
-                                        required></ion-input>
-                        </ion-item>
+                            <ion-item>
+                                <ion-label position="floating">Apellido</ion-label>
+                                <ion-input
+                                    formControlName="last_name"
+                                    name="last_name"
+                                    type="text"
+                                    required></ion-input>
+                            </ion-item>
 
-                        <ion-item>
-                            <ion-label position="floating">Email</ion-label>
-                            <ion-input name="email"
-                                        type="email"
-                                        required></ion-input>
-                        </ion-item>
+                            <ion-item>
+                                <ion-label position="floating">Email</ion-label>
+                                <ion-input
+                                    [(ngModel)]="userRegister.email"
+                                    (ionChange)="checkEmail()"
+                                    formControlName="email"
+                                    name="email"
+                                    type="email"
+                                    ></ion-input>
+                            </ion-item>
+                            <span *ngIf="errors.email" class="error-message">
+                                {{errors.email}}
+                            </span>
 
-                        <ion-item>
-                            <ion-label position="floating">Contraseña</ion-label>
-                            <ion-input name="password"
-                                        type="password"
-                                        required></ion-input>
-                        </ion-item>
+                            <ion-item>
+                                <ion-label position="floating">Contraseña</ion-label>
+                                <ion-input
+                                    [(ngModel)]="userRegister.password"
+                                    (ionChange)="checkPassword()"
+                                    formControlName="password"
+                                    type="{{type}}"
+                                    name="password"
+                                ></ion-input>
+                                <ion-icon
+                                    *ngIf="type==='text'"
+                                    slot="end"
+                                    (click)="showPassword()" name="eye"></ion-icon>
+                                <ion-icon
+                                    *ngIf="type==='password'"
+                                    slot="end"
+                                    (click)="showPassword()" name="eye-off"></ion-icon>
+                            </ion-item>
+                            <span *ngIf="errors.password" class="error-message">
+                                {{errors.password}}
+                            </span>
+                            <span style="color: lightgray;" *ngIf="errors.password.length <= 0">
+                                Por favor, revise que escribió su contraseña correctamente.
+                            </span>
 
-                    </ion-list>
-                </ion-col>
-            </ion-row>
-
-            <!-- <ion-row>
-                <ion-col>
-                    <ion-button type="submit"
-                                color="primary"
-                                shape="round">
-                    Login
-                    </ion-button>
-                </ion-col>
-            </ion-row> -->
-
-        </ion-grid>
-    </form>
-    <br><br>
-    <span style="color:black; text-align: center;">Creandote una cuenta aceptas las <a (click)="showTermsModal()">condiciones de uso</a> y <a (click)="showPrivacyModal()">políticas de privacidad</a> del sitio</span>
-</div>
+                        </ion-list>
+                    </ion-col>
+                </ion-row>
+            </ion-grid>
+        </form>
+    </div>
 </ion-content>
+<ion-footer class="ion-text-justify" class="footer-message">
+    <ion-toolbar>
+        <span>
+            Creándose una cuenta usted aceptas las <a (click)="showTermsModal()">condiciones de uso</a> y <a (click)="showPrivacyModal()">políticas de privacidad</a> del sitio.
+        </span>
+    </ion-toolbar>
+</ion-footer>
