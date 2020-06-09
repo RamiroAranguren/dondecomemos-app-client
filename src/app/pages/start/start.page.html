@@ -1,0 +1,48 @@
+<ion-content class="ion-text-center">
+  <div class="header-content">
+     <div class="logo" margin-bottom>
+        <img src="assets/img/register.png">
+        <h3>donde comemos</h3>
+     </div>
+  </div>
+  <div class="body-content">
+    <ion-button
+      routerLink="/register"
+      color="btn-dc"
+      class="cnx_btn"
+      shape="round" expand="block">
+      Registrarse
+    </ion-button>
+    <ion-button
+      (click)="loginFcbk()"
+      color="btn-dc"
+      class="cnx_btn"
+      shape="round" expand="block">
+      Ingresar con Facebook &nbsp;<ion-icon name="logo-facebook"></ion-icon>
+    </ion-button>
+    <ion-button
+      (click)="loginGoogle()"
+      color="btn-dc"
+      shape="round" expand="block">
+      Ingresar con Google &nbsp;<ion-icon name="logo-google"></ion-icon>
+    </ion-button>
+  </div>
+  <div class="footer-content">
+     <ion-row>
+        <ion-col size="4">
+          <ion-button
+            routerLink="/login"
+            expand="block" fill="clear">
+            Iniciar sesión
+          </ion-button>
+        </ion-col>
+        <ion-col size="8">
+          <ion-button
+              (click)="loginAsGuestUser()"
+              expand="block" fill="clear">
+              Ingresar como invitado
+          </ion-button>
+        </ion-col>
+     </ion-row>
+  </div>
+</ion-content>

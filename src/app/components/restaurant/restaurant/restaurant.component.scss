@@ -1,0 +1,19 @@
+
+
+ion-card{
+    border-radius: 15px;
+}
+
+img{
+    border-radius: 20px;
+    padding: 2px;
+    // height: 125px;
+}
+
+@media (min-width: 576px) {
+    img{
+        border-radius: 20px;
+        padding: 10px;
+        // height: auto;
+    }
+}

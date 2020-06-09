@@ -1,0 +1,96 @@
+
+.header-content {
+    height: 7%;
+}
+
+.pic-content {
+    width: 145px;
+    height: 145px;
+    margin: 0 45% -2% 45%;
+    position: relative;
+    z-index: 2;
+    border-radius: 200px 200px 200px 200px;
+    -moz-border-radius: 200px 200px 200px 200px;
+    -webkit-border-radius: 200px 200px 200px 200px;
+    background-color: #FFBB61 !important;
+
+    -webkit-box-shadow: 2px 8px 5px -5px rgba(209,209,209,1);
+    -moz-box-shadow: 2px 8px 5px -5px rgba(209,209,209,1);
+    box-shadow: 2px 8px 5px -5px rgba(209,209,209,1);
+
+    h1{
+        text-align: center;
+        position: relative;
+        top: 50%;
+        -ms-transform: translateY(-50%);
+        -webkit-transform: translateY(-50%);
+        transform: translateY(-50%);
+    }
+}
+
+.body-content {
+    // position: absolute;
+    z-index: 1;
+    background-color: #fff3e0 !important;
+    border-radius: 58px 58px 0 0;
+    padding: 30px;
+    height: 66%;
+}
+
+ion-row {
+    margin-bottom: 30px;
+    h1 {
+        font-size: 25px;
+    }
+    label {
+        font-size: 18px;
+        font-weight: lighter;
+        font-family: Arial, Helvetica, sans-serif;
+    }
+}
+
+@media (max-width: 576px) {
+    // PARA CELULAR
+    .pic-content {
+        margin: 0 45% -10% 32%;
+    }
+
+    .body-content {
+        height: 73.02%;
+    }
+
+    ion-row {
+        h1 {
+            font-size: 35px;
+        }
+    }
+}
+
+
+@media (max-width:900px) and (min-width:731px) {
+    // PARA CELULAR CUANDO GIRA
+    .header-content {
+        height: 5%;
+    }
+    .pic-content {
+        margin: 0 0 -3% 42%;
+    }
+
+    .body-content {
+        height: 78%;
+    }
+
+    ion-row {
+        margin-bottom: 5px;
+        h1 {
+            font-size: 22px;
+        }
+        label {
+            font-size: 15px;
+            font-weight: lighter;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+    }
+}
+
+

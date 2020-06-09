@@ -1,0 +1,69 @@
+<app-header title=""></app-header>
+
+<ion-content>
+<div class="header-content">
+</div>
+<div class="body-content">
+    <ion-fab horizontal="end" slot="fixed">
+        <ion-fab-button size="large">
+            <ion-icon name="arrow-forward-outline"></ion-icon>
+        </ion-fab-button>
+    </ion-fab>
+    <form>
+        <ion-grid fixed>
+            <ion-row>
+                <ion-col>
+                    <h2>Registro</h2>
+                </ion-col>
+            </ion-row>
+            <ion-row>
+                <ion-col>
+                    <ion-list>
+                        <ion-item>
+                            <ion-label position="floating">Nombre</ion-label>
+                            <ion-input name="first_name"
+                                        type="text"
+                                        required></ion-input>
+                        </ion-item>
+
+                        <ion-item>
+                            <ion-label position="floating">Apellido</ion-label>
+                            <ion-input name="last_name"
+                                        type="text"
+                                        required></ion-input>
+                        </ion-item>
+
+                        <ion-item>
+                            <ion-label position="floating">Email</ion-label>
+                            <ion-input name="email"
+                                        type="email"
+                                        required></ion-input>
+                        </ion-item>
+
+                        <ion-item>
+                            <ion-label position="floating">Contraseña</ion-label>
+                            <ion-input name="password"
+                                        type="password"
+                                        required></ion-input>
+                        </ion-item>
+
+                    </ion-list>
+                </ion-col>
+            </ion-row>
+
+            <!-- <ion-row>
+                <ion-col>
+                    <ion-button type="submit"
+                                color="primary"
+                                shape="round">
+                    Login
+                    </ion-button>
+                </ion-col>
+            </ion-row> -->
+
+        </ion-grid>
+    </form>
+    <br><br>
+    <span style="color:black; text-align: center;">Creandote una cuenta aceptas las <a (click)="showTermsModal()">condiciones de uso</a> y <a (click)="showPrivacyModal()">políticas de privacidad</a> del sitio</span>
+</div>
+</ion-content>

@@ -1,0 +1,10 @@
+.transparent_header{
+    --background: #FFBB61;
+    --color: white;
+    &:after{
+        background-image: none;
+    }
+    .toolbar-background-md{
+        --background: transparent;
+    }
+}

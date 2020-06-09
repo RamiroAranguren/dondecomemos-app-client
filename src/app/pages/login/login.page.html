@@ -1,0 +1,95 @@
+<app-header title=""></app-header>
+
+<ion-content>
+  <div class="header-content">
+
+  </div>
+  <div class="body-content">
+    <ion-fab horizontal="end" slot="fixed">
+        <ion-fab-button size="large" (click)="doLogin()">
+            <ion-icon name="arrow-forward-outline"></ion-icon>
+        </ion-fab-button>
+    </ion-fab>
+    <form>
+      <ion-grid fixed>
+          <ion-row>
+              <ion-col>
+                  <h2>Iniciar Sesión</h2>
+              </ion-col>
+          </ion-row>
+          <ion-row>
+              <ion-col>
+                  <ion-list>
+
+                      <ion-item>
+                          <ion-label position="floating">Email</ion-label>
+                          <ion-input name="email"
+                                      type="email"
+                                      required></ion-input>
+                      </ion-item>
+
+                      <ion-item>
+                          <ion-label position="floating">Contraseña</ion-label>
+                          <ion-input  type="{{type}}" [(ngModel)]="password" name="password"
+                                      required></ion-input>
+                          <button (click)="showPassword()" slot="icon-only"fill="clear" slot="end">
+                            <ion-icon *ngIf="type==='text'" name="eye-outline"></ion-icon>
+                            <ion-icon *ngIf="type==='password'" name="eye-off-outline"></ion-icon>
+                          </button>
+                      </ion-item>
+
+                  </ion-list>
+              </ion-col>
+          </ion-row>
+
+      </ion-grid>
+  </form>
+    <!-- <ion-list>
+      <ion-item no-lines>
+        <h1>Iniciar Sesión</h1>
+      </ion-item>
+    </ion-list>
+    <ion-list>
+      <ion-item no-lines>
+        <ion-icon color="dark" name="mail-outline" slot="start"></ion-icon>
+        <ion-input type="email" [(ngModel)]="email" placeholder="Email"></ion-input>
+      </ion-item>
+
+      <ion-item no-lines>
+        <ion-icon color="dark" name="lock-closed-outline" slot="start"></ion-icon>
+        <ion-input type="{{type}}" [(ngModel)]="password" placeholder="Contraseña"></ion-input>
+        <button (click)="showPassword()" color="GrayColor" slot="icon-only"fill="clear" slot="end">
+          <ion-icon *ngIf="type==='text'" name="eye-outline"></ion-icon>
+          <ion-icon *ngIf="type==='password'" name="eye-off-outline"></ion-icon>
+        </button>
+      </ion-item>
+      <ion-label class="login-error" *ngFor="let error of errors">{{error}}</ion-label>
+    </ion-list>
+    <br> -->
+    <!-- <ion-row>
+      <ion-col size="12">
+        <ion-button
+          (click)="doLogin()"
+          color="btn-dc"
+          shape="round" expand="block">
+          Iniciar sesión
+        </ion-button>
+      </ion-col>
+    </ion-row> -->
+  </div>
+</ion-content>
+<ion-footer>
+  <ion-toolbar>
+    <div class="footer-content">
+      <ion-row>
+        <ion-col size="12">
+          <ion-button
+            (click)="forgotPasswordAlert()"
+            expand="block" fill="clear">
+            Olvidé mi contraseña
+          </ion-button>
+        </ion-col>
+      </ion-row>
+    </div>
+  </ion-toolbar>
+</ion-footer>

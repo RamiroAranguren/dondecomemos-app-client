@@ -1,0 +1,16 @@
+
+
+  <ion-row>
+    <ion-col
+      size-lg="3" size-md="3" size-sm="6" size-sx="6"
+      *ngFor="let restaurant of restaurants">
+      <ion-card>
+        <img [src]="restaurant.profile_picture" [alt]="restaurant.name"/>
+        <ion-card-header>
+          <ion-card-title>{{ restaurant.name }}</ion-card-title>
+          <ion-card-subtitle>Italiana/Argentina</ion-card-subtitle>
+          <p>$$$$ {{ restaurant | openClose }} 4.8 <ion-icon color="btn-dc" name="star"></ion-icon></p>
+        </ion-card-header>
+      </ion-card>
+    </ion-col>
+  </ion-row>

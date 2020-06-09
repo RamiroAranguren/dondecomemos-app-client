@@ -1,0 +1,19 @@
+@import "../../../theme/custom.scss";
+
+.header-content {
+    height: 10%;
+}
+
+.body-content {
+    border-radius: 58px 58px 0 0;
+    padding: 30px;
+    height: 90%;
+}
+
+ion-item {
+    margin-top: 20px;
+}
+
+ion-fab {
+    margin: -50px 20px 0 0;
+}

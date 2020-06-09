@@ -1,0 +1,7 @@
+{
+  "name": "dondecomemos-app-client",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "angular"
+}

@@ -1,0 +1,40 @@
+{
+    "project_info": {
+      "project_number": "958354498223",
+      "firebase_url": "https://dondecomemos-a73db.firebaseio.com",
+      "project_id": "dondecomemos-a73db",
+      "storage_bucket": "dondecomemos-a73db.appspot.com"
+    },
+    "client": [
+      {
+        "client_info": {
+          "mobilesdk_app_id": "1:958354498223:android:bb20fa09ff349771662a5a",
+          "android_client_info": {
+            "package_name": "com.gaia.dondecomemos"
+          }
+        },
+        "oauth_client": [
+          {
+            "client_id": "958354498223-23qb7d2kavn9c4l3771b31m23nknhlg9.apps.googleusercontent.com",
+            "client_type": 3
+          }
+        ],
+        "api_key": [
+          {
+            "current_key": "AIzaSyDi1TL6koAGoWwAgD1CslLupGrwNICiU60"
+          }
+        ],
+        "services": {
+          "appinvite_service": {
+            "other_platform_oauth_client": [
+              {
+                "client_id": "958354498223-23qb7d2kavn9c4l3771b31m23nknhlg9.apps.googleusercontent.com",
+                "client_type": 3
+              }
+            ]
+          }
+        }
+      }
+    ],
+    "configuration_version": "1"
+  }
