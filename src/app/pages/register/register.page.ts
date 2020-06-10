@@ -1,9 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, Validators, FormBuilder, ReactiveFormsModule } from '@angular/forms';
-import { NavController, AlertController } from '@ionic/angular';
+import { NavController, AlertController, ModalController } from '@ionic/angular';
 import { NavigationExtras } from '@angular/router';
 import { LoaderService } from '../../services/loader/loader.service';
 import { UsersService } from '../../services/users/user.service';
+
+import { LegalModalPage } from '../legal-modal/legal-modal.page';
+import { TermsModalPage } from '../terms-modal/terms-modal.page';
 
 
 @Component({
@@ -33,6 +36,7 @@ export class RegisterPage implements OnInit {
 
   constructor(
     public formBuild: FormBuilder,
+    private modalCtrl: ModalController,
     public navCtrl: NavController,
     private alertCtrl: AlertController,
     private loader: LoaderService,
@@ -122,14 +126,24 @@ export class RegisterPage implements OnInit {
     this.type = this.type == 'password' ? 'text' : 'password'
   }
 
-  showPrivacyModal() {
-    // let modal = this.modal.create(PrivacyPolicyPage, {show: true});
-    // modal.present();
+  async showPrivacyModal(){
+    let modal = await this.modalCtrl.create({
+      component: TermsModalPage,
+      backdropDismiss: false,
+      keyboardClose: false,
+    });
+
+    await modal.present();
   }
 
-  showTermsModal() {
-    // let modal = this.modal.create(TermsOfServicePage, {show: true});
-    // modal.present();
+  async showTermsModal(){
+    let modal = await this.modalCtrl.create({
+      component: LegalModalPage,
+      backdropDismiss: false,
+      keyboardClose: false,
+    });
+
+    await modal.present();
   }
 
 }
