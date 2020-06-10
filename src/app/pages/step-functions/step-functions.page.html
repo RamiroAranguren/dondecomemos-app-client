@@ -1,43 +1,73 @@
-<ion-header class="transparent_header" [ngClass]="{ bgcolor:activeDefault }">
-  <ion-toolbar class="transparent_header" [ngClass]="{ bgcolor:activeDefault }">
-    <ion-buttons slot="end" *ngIf="nexButton">
-      <ion-button fill="clear" routerLink="/start"><span class="skip">SALTAR</span></ion-button>
-    </ion-buttons>
-  </ion-toolbar>
+<ion-header class="ion-no-border" [ngClass]="{ bgcolor:activeDefault }">
+    <ion-toolbar class="transparent_header" [ngClass]="{ bgcolor:activeDefault }">
+        <ion-buttons slot="end" *ngIf="nexButton">
+            <ion-button fill="clear" routerLink="/start" class="skip">SALTAR</ion-button>
+        </ion-buttons>
+    </ion-toolbar>
 </ion-header>
 
-<ion-content [ngClass]="{ bgcolor:activeDefault }" slot="fixed">
+<!-- <ion-header class="transparent_header ion-no-border" [ngClass]="{ bgcolor:activeDefault }">
+    <ion-toolbar class="transparent_header" [ngClass]="{ bgcolor:activeDefault }">
+        <ion-buttons slot="end" *ngIf="nexButton">
+            <ion-button fill="clear" routerLink="/start"><span class="skip">SALTAR</span></ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header> -->
 
-  <ion-slides pager="false" [options]="slideOptions">
-    <ion-slide *ngFor="let slide of slides">
-      <div class="img-slide">
-        <img [src]="slide.img" [alt]="slide.alt">
-      </div>
-      <div class="text-slide">
-        <h1>{{ slide.title }}</h1>
-        <h3 [innerHTML]="slide.description"></h3>
-      </div>
-    </ion-slide>
-  </ion-slides>
+<ion-content [ngClass]="{ bgcolor:activeDefault }" slot="fixed" scroll-y="false">
+
+    <ion-slides pager="false" [options]="slideOptions">
+        <ion-slide *ngFor="let slide of slides">
+            <div class="img-slide">
+                <img [src]="slide.img" [alt]="slide.alt">
+            </div>
+            <div class="text-slide">
+                <h1>{{ slide.title }}</h1>
+                <h3 [innerHTML]="slide.description"></h3>
+            </div>
+        </ion-slide>
+    </ion-slides>
 
 </ion-content>
 
 <ion-footer [ngClass]="{ bgcolor:activeDefault }" class="ion-no-border">
-  <ion-toolbar [ngClass]="{ bgcolor:activeDefault }">
-    <ion-grid>
-      <ion-row>
-        <ion-col size="10">
-          <img class="img-steps" [src]="imgActive" alt="step-active">
-        </ion-col>
-        <ion-col size="2">
-          <ion-fab-button color="default" (click)="next()" *ngIf="nexButton">
-            <ion-icon name="arrow-forward-outline"></ion-icon>
-          </ion-fab-button>
-          <ion-fab-button color="default" (click)="goStart()" *ngIf="!nexButton">
-            <ion-icon name="checkmark-done-outline"></ion-icon>
-          </ion-fab-button>
-        </ion-col>
-      </ion-row>
-    </ion-grid>
-  </ion-toolbar>
+    <ion-toolbar [ngClass]="{ bgcolor:activeDefault }">
+        <ion-grid>
+            <ion-row>
+                <ion-col size="9" class="ion-align-self-end">
+                    <img class="img-steps" [src]="imgActive" alt="step-active">
+                </ion-col>
+                <ion-col size="3">
+                    <ion-fab-button color="default" (click)="next()" *ngIf="nexButton">
+                        <ion-icon name="arrow-forward-outline"></ion-icon>
+                    </ion-fab-button>
+                    <ion-fab-button color="default" (click)="goStart()" *ngIf="!nexButton">
+                        <ion-icon name="arrow-forward-outline"></ion-icon>
+                    </ion-fab-button>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+    </ion-toolbar>
 </ion-footer>
+
+
+<!-- -----original----- -->
+<!-- <ion-footer [ngClass]="{ bgcolor:activeDefault }" class="ion-no-border">
+    <ion-toolbar [ngClass]="{ bgcolor:activeDefault }">
+        <ion-grid>
+            <ion-row>
+                <ion-col size="10">
+                    <img class="img-steps" [src]="imgActive" alt="step-active">
+                </ion-col>
+                <ion-col size="2">
+                    <ion-fab-button color="default" (click)="next()" *ngIf="nexButton">
+                        <ion-icon name="arrow-forward-outline"></ion-icon>
+                    </ion-fab-button>
+                    <ion-fab-button color="default" (click)="goStart()" *ngIf="!nexButton">
+                        <ion-icon name="checkmark-done-outline"></ion-icon>
+                    </ion-fab-button>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+    </ion-toolbar>
+</ion-footer> -->

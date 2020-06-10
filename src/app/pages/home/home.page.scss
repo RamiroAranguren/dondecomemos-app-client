@@ -1,4 +1,20 @@
-
+ion-header{
+    margin-top: 15px;
+    ion-toolbar{
+        padding-left: 4.5vw;
+        padding-right: 4.5vw;
+        ion-searchbar{
+            --border-radius: 30px;
+            width: 72vw;
+            padding-left: 1vw;
+            padding-right:1vw;
+            --box-shadow: 0px 0px 0px 1px black;           
+        }
+        ion-icon{
+            margin-right: 4.5vw;
+        }
+    }
+}
 
 ion-avatar{
     --border-radius:none;
@@ -8,19 +24,16 @@ ion-avatar{
     margin: 0 1px 0 10px;
 }
 
-.filter-icon {
-    margin: 0 10px 0 2px;
-}
-
 .bgcolor {
     --background: #FFD060 !important;
 }
 
 .filterColor {
-    --icon-color: #FFBB61 !important;
+    --icon-color: #FFBB61 !important;   
 }
 
 
 .bgcolorSearch {
     --icon-color: #FFBB61 !important;
+    --box-shadow: 0px 0px 0px 1px #1D432D !important;
 }
