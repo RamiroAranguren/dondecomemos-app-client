@@ -1,42 +1,35 @@
 //---------------------------------------------------------------------------------
-// ion-header {
-//     --background: transparent;
-//     --opacity: 0.6;
-// }
-.transparent_header {
+ion-header {
     height: 64px;
-    --background: transparent;
-    --opacity: 0.6;
+}
+
+.transparent_header {
+    height: 100%;
+    --min-height: 100%;
     .skip {
-        color: black;
-        font-weight: lighter;
+        --color: black;
+        // font-weight: lighter;
         font-size: medium;
+        margin-right: 16px;
+        font-family: FieldworkGeoThin;
     }
-    // &:after {
-    //     background-image: none;
-    // }
-    // .toolbar-background-md {
-    //     --background: transparent;
-    // }
 }
 
 h1 {
-    margin-top: -50px;
-    font-size: 1.8rem;
+    margin: -50px 0px 20px;
+    font-size: 1.6rem;
     font-family: DMSerifDisplayRegular;
-    line-height: 28px;
 }
 
 h3 {
-    margin-bottom: 60px;
     font-weight: lighter;
     letter-spacing: 1px;
-    font-size: 1.1rem;
+    font-size: 1rem;
     white-space: nowrap;
-    font-family: FieldworkHumHairDemo;
+    font-family: FieldworkGeoThin;
 }
 
-ion-footer {
+ion-footer ion-toolbar {
     padding-bottom: 44px;
 }
 
@@ -51,15 +44,19 @@ ion-fab-button {
     --border-width: 1px;
     --box-shadow: none;
     --background: transparent;
-    width: 70px;
-    height: 70px;
+    width: 60px;
+    height: 60px;
+    margin: 0 auto;
     ion-icon {
         font-size: 30px;
         color: var(--primary-grey);
     }
 }
 
-//---------------------------------------------------------------------------------
+.bgcolor {
+    --background: var(--bg-primary) !important;
+}
+
 ion-slide {
     display: block;
 }
@@ -68,7 +65,7 @@ ion-slide {
     img {
         width: 99%;
     }
-    padding-top: 25px;
+    // padding-top: 25px;
     height: 55%;
 }
 
@@ -78,6 +75,22 @@ ion-slide {
     height: 45%;
 }
 
+//---------------------------------------------------------------------------------
+// ion-slide {
+//     display: block;
+// }
+// .img-slide {
+//     img {
+//         width: 99%;
+//     }
+//     padding-top: 25px;
+//     height: 55%;
+// }
+// .text-slide {
+//     text-align: start;
+//     padding: 25px;
+//     height: 45%;
+// }
 // h1 {
 //     margin-top: -50px;
 // }
@@ -85,10 +98,9 @@ ion-slide {
 //     margin-bottom: 60px;
 //     font-weight: lighter;
 // }
-.bgcolor {
-    --background: #ffd060 !important;
-}
-
+// .bgcolor {
+//     --background: #ffd060 !important;
+// }
 // .transparent_header {
 //     --color: black;
 //     &:after {

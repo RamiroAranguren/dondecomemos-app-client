@@ -39,8 +39,13 @@
 }
 
 @font-face {
-    font-family: FieldworkGeoFatDemo;
-    src: url("./assets/fonts/fieldwork/Fieldwork-Geo-Fat-Demo.otf") format("opentype");
+    font-family: FieldworkGeoRegular;
+    src: url("./assets/fonts/fieldwork/Fieldwork10GeoRegular.otf") format("opentype");
+}
+
+@font-face {
+    font-family: FieldworkGeoThin;
+    src: url("./assets/fonts/fieldwork/Fieldwork4GeoThin.otf") format("opentype");
 }
 
 @font-face {
