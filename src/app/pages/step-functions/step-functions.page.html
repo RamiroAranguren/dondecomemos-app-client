@@ -1,7 +1,7 @@
 <ion-header class="ion-no-border" [ngClass]="{ bgcolor:activeDefault }">
     <ion-toolbar class="transparent_header" [ngClass]="{ bgcolor:activeDefault }">
         <ion-buttons slot="end" *ngIf="nexButton">
-            <ion-button fill="clear" routerLink="/start">SALTAR</ion-button>
+            <ion-button fill="clear" routerLink="/start" class="skip">SALTAR</ion-button>
         </ion-buttons>
     </ion-toolbar>
 </ion-header>
@@ -14,7 +14,7 @@
     </ion-toolbar>
 </ion-header> -->
 
-<ion-content [ngClass]="{ bgcolor:activeDefault }" slot="fixed">
+<ion-content [ngClass]="{ bgcolor:activeDefault }" slot="fixed" scroll-y="false">
 
     <ion-slides pager="false" [options]="slideOptions">
         <ion-slide *ngFor="let slide of slides">
