@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, Validators, FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { Router, NavigationExtras } from '@angular/router';
 import { NavController } from '@ionic/angular';
+import { LoaderService } from '../../services/loader/loader.service';
+import { UsersService } from '../../services/users/user.service';
 
 @Component({
   selector: 'app-recovery-password-email-step1',
@@ -11,7 +13,7 @@ import { NavController } from '@ionic/angular';
 export class RecoveryPasswordEmailStep1Page implements OnInit {
 
   type = 'password';
-
+  user:any;
   form: FormGroup;
 
   errors = {
@@ -23,6 +25,9 @@ export class RecoveryPasswordEmailStep1Page implements OnInit {
   }
 
   constructor(
+    private loader: LoaderService,
+    private userService: UsersService,
+    private route: Router,
     public formBuild: FormBuilder,
     public navCtrl: NavController,
   ) {
@@ -35,6 +40,8 @@ export class RecoveryPasswordEmailStep1Page implements OnInit {
   }
 
   ngOnInit() {
+    this.user = this.route.getCurrentNavigation().extras.state.data;
+    this.userRegister.email = this.user.email;
   }
 
   doRegister() {
@@ -43,7 +50,15 @@ export class RecoveryPasswordEmailStep1Page implements OnInit {
       let navigationExtras: NavigationExtras = {
         state: {data: this.userRegister}
       };
-      this.navCtrl.navigateForward(['/recovery-password-code-step2'], navigationExtras);
+      this.loader.display('Verificando email');
+      this.userService.recoverPassword(this.userRegister.email).then(res => {
+        this.loader.hide();
+        this.navCtrl.navigateForward(['/recovery-password-code-step2'], navigationExtras);
+      }).catch(err => {
+        this.loader.hide();
+        this.errors.email = ["Error: Email inválido."];
+      })
+
     }
 
   }
@@ -55,7 +70,7 @@ export class RecoveryPasswordEmailStep1Page implements OnInit {
   }
 
   addError(key, msg) {
-    this.errors[key].push(msg)
+    this.errors[key].push(msg);
   }
 
   field(fieldName) {

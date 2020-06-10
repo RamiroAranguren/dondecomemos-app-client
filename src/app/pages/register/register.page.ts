@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, Validators, FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { NavController, AlertController } from '@ionic/angular';
 import { NavigationExtras } from '@angular/router';
+import { LoaderService } from '../../services/loader/loader.service';
+import { UsersService } from '../../services/users/user.service';
 
 
 @Component({
@@ -32,7 +34,9 @@ export class RegisterPage implements OnInit {
   constructor(
     public formBuild: FormBuilder,
     public navCtrl: NavController,
-    private alertCtrl: AlertController
+    private alertCtrl: AlertController,
+    private loader: LoaderService,
+    private userService: UsersService
   ) {
     this.form = this.formBuild.group({
         "first_name": ["", [Validators.required], []],
@@ -52,13 +56,22 @@ export class RegisterPage implements OnInit {
 
   doRegister() {
 
-    if (this.form.valid) {
-      let navigationExtras: NavigationExtras = {
-        state: {data: this.userRegister}
-      };
-      this.navCtrl.navigateForward(['/verify-number'], navigationExtras);
+      if (this.form.valid) {
+        this.loader.display('Registrando...');
+        console.log(this.userRegister);
+        this.userService.register(this.userRegister).then(() => {
+          this.loader.hide();
+          let navigationExtras: NavigationExtras = {
+            state: {data: this.userRegister}
+          };
+          this.navCtrl.navigateForward(['/verify-number'], navigationExtras);
+        }).catch((error) => {
+          this.loader.hide();
+          if (error.username && error.username.length > 0){
+            this.showAlert();
+          }
+        });
     }
-
   }
 
   async showAlert() {

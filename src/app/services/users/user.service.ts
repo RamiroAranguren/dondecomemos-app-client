@@ -89,13 +89,15 @@ export class UsersService {
   }
 
   register(form) {
+    console.log("SERVICE", form, form.email);
     const body = {
       username: form.email,
       password: form.password,
       email: form.email,
-      first_name: form.firstName,
-      last_name: form.lastName
+      first_name: form.first_name,
+      last_name: form.last_name
     }
+    console.log("SERV-BODY", body);
     return new Promise((resolve, reject) => {
       this.http.post(`${apiUrl}users/`, body).subscribe((response) => {
         resolve(response);
@@ -158,5 +160,88 @@ export class UsersService {
   loginFcbk() {
     console.log("Fcbk");
   }
+
+  recoverPassword(email) {
+    const body = { email };
+    return new Promise((resolve, reject) => {
+      this.http.post(`${apiUrl}recover-password/mail/`, body).subscribe((response: any) => {
+        resolve(response)
+      }, (errorResponse) => {
+        reject(errorResponse.error)
+      })
+    })
+  }
+
+  checkCodeProvider(code, email){
+    const body = { code, email }
+    return new Promise((resolve, reject) => {
+      this.http.post(`${apiUrl}recover-password/checkCode/`, body).subscribe((response: any) => {
+        this.user.token = response.token;
+        resolve()
+      }, (errorResponse) => {
+        reject(errorResponse.error)
+      })
+    });
+  }
+
+  set_password(email, new_password){
+    const body = { new_password, email };
+
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Token ${this.user.token}`
+    });
+
+    console.log(body);
+    console.log(headers);
+
+    return new Promise((resolve, reject) => {
+      this.http.post(`${apiUrl}recover-password/set_password/`, body, {headers}).subscribe((response: any) => {
+        resolve();
+      }, (errorResponse) => {
+        reject();
+      })
+    })
+  }
+
+  change_password(old_password, new_password) {
+    const body = { old_password, new_password };
+
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Token ${this.user.token}`
+    });
+
+    return new Promise((resolve, reject) => {
+      this.http.post(`${apiUrl}recover-password/change_password/`, body, {headers}).subscribe((response: any) => {
+        resolve(response);
+      }, (errorResponse) => {
+        reject(errorResponse.error);
+      })
+    })
+  }
+
+  sendCodeSms(email, phone) {
+    const body = { email, phone };
+    return new Promise((resolve, reject) => {
+      this.http.post(`${apiUrl}verify-number-code/sms/`, body).subscribe((response: any) => {
+        resolve(response)
+      }, (errorResponse) => {
+        reject(errorResponse.error)
+      })
+    })
+  }
+
+  checkCodeSms(code){
+    const body = { code };
+    return new Promise((resolve, reject) => {
+      this.http.post(`${apiUrl}verify-number-code/checkCode/`, body).subscribe((response: any) => {
+        resolve(response);
+      }, (errorResponse) => {
+        reject(errorResponse.error);
+      })
+    });
+  }
+
 
 }
