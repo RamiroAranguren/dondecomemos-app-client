@@ -4,8 +4,13 @@
     <ion-col
       size="6"
       *ngFor="let restaurant of restaurants">
+      
       <ion-card>
+       <ion-text id="dto1">
+        para llevar 30% dto
+      </ion-text>
         <img [src]="restaurant.profile_picture" [alt]="restaurant.name"/>
+        
         <ion-card-header>
           <ion-card-title >{{ restaurant.name }}</ion-card-title>
           <ion-card-subtitle>Italiana/Argentina</ion-card-subtitle>

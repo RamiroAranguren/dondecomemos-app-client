@@ -5,6 +5,18 @@ ion-card{
     height: 40vh;
     box-shadow: none;
     margin-bottom: 0;
+    #dto1{
+        position: absolute;
+        font-size: 4vw;
+        background-color: orange;
+        height: 5vw;
+        top: 4%;
+        right: 0;
+        padding-left: 1vw;
+        color: black;
+        border-radius: 6px 0px 0px 6px;
+        font-family: FieldworkGeoRegular;
+    }
     img{
         border-radius: 15px;
         width: 100%;
@@ -20,12 +32,13 @@ ion-card{
             font-size: 5vw;
         }
         ion-card-subtitle{
+            font-family: FieldworkGeoRegular;
             margin-top: 4px;
             font-size: 4vw;
             text-transform: capitalize;
         }
         p{
-           
+            font-family: FieldworkGeoRegular;
             font-size: 4vw;
             margin-top: 4px;
             margin-bottom: 0;
@@ -33,6 +46,7 @@ ion-card{
     }
    
 }
+
 ion-col{
     padding: 0;
 }
