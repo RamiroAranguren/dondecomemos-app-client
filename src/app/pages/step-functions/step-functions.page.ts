@@ -19,7 +19,7 @@ export class StepFunctionsPage implements OnInit {
     {
       img: 'assets/img/step-functions/step-1.png',
       alt: 'step-1',
-      title: 'Búsque un restaurante',
+      title: 'Busque un restaurante',
       description: 'Podrá encontrar sus restaurantes<br>favoritos, con cartas actualizadas<br> y menús del día.',
     },
     {
