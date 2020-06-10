@@ -1,22 +1,24 @@
 ion-content {
-    --background: #FFD060 !important;
+    --background: #ffd060 !important;
 }
 
-.header-content{
+.header-content {
     height: 43%;
 }
 
+
 /*logo*/
+
 .logo {
-    img{
+    img {
         width: 95%;
         height: 85%;
     }
-    h3{
+    h3 {
         color: white;
         margin: 5px 0;
     }
-    p{
+    p {
         font-size: 1.1rem;
         letter-spacing: 3px;
         color: white;
@@ -28,36 +30,51 @@ ion-content {
     height: 47%;
     background-color: white !important;
     border-radius: 58px 58px 0 0;
-    padding: 30px;
+    padding: 40px 40px 0px;
 }
 
 .footer-content {
-    height: 10%;
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+    height: 15%;
     width: 100%;
     background-color: white;
-    ion-button{
-        color: rgb(214, 96, 0);
+    padding: 0px 0px 44px;
+    ion-button {
+        color: var(--primary-grey);
+        font-size: 1.1rem;
+    }
+    .inic_ses {
+        color: black;
     }
 }
 
 .cnx_btn {
-    color: white;
-    margin-bottom: 20px;
+    --color: black;
+    margin-bottom: 30px;
+    text-transform: none;
+    font-family: FieldworkHumHair;
+    --background: var(--bg-primary-tint);
+    font-size: 1rem;
+    --padding-bottom: 23px;
+    --padding-top: 23px;
+    letter-spacing: 0.05rem;
 }
 
 @media (min-width: 576px) {
     .logo {
-        img{
+        img {
             margin-top: -55px;
             width: 30%;
             height: 30%;
         }
-        h3{
+        h3 {
             //color: color($colors,light);
             font-size: 2.6rem;
             margin: 5px 0;
         }
-        p{
+        p {
             font-size: 1.1rem;
             letter-spacing: 3px;
             //color: color($colors,light);

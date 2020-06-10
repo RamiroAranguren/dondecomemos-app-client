@@ -1,47 +1,47 @@
 <ion-content class="ion-text-center">
-  <div class="header-content">
-     <div class="logo">
-        <img src="assets/img/register.png">
-     </div>
-  </div>
-  <div class="body-content">
-    <ion-button
-      routerLink="/register"
-      color="btn-dc"
-      class="cnx_btn"
-      shape="round" expand="block">
-        Registrarse
-    </ion-button>
-    <ion-button
-      (click)="loginFcbk()"
-      color="btn-dc"
-      class="cnx_btn"
-      shape="round" expand="block">
-        Ingresar con Facebook &nbsp;<ion-icon name="logo-facebook"></ion-icon>
-    </ion-button>
-    <ion-button
-      (click)="loginGoogle()"
-      color="btn-dc"
-      shape="round" expand="block">
-        Ingresar con Google &nbsp;<ion-icon name="logo-google"></ion-icon>
-    </ion-button>
-  </div>
-  <div class="footer-content">
-     <ion-row>
-        <ion-col size="4">
-          <ion-button
-            routerLink="/login"
-            expand="block" fill="clear">
-              Iniciar sesión
-          </ion-button>
-        </ion-col>
-        <ion-col size="8">
-          <ion-button
-              (click)="loginAsGuestUser()"
-              expand="block" fill="clear">
-                Ingresar como invitado
-          </ion-button>
-        </ion-col>
-     </ion-row>
-  </div>
+
+    <div class="header-content">
+        <div class="logo">
+            <img src="assets/img/register.png">
+        </div>
+    </div>
+
+    <div class="body-content">
+        <ion-button routerLink="/register" class="cnx_btn" shape="round" expand="block">
+            Registrarse
+        </ion-button>
+
+        <ion-button (click)="loginFcbk()" class="cnx_btn" shape="round" expand="block">
+            Ingresar con Facebook
+            <!-- Ingresar con Facebook &nbsp; -->
+            <!-- <ion-icon name="logo-facebook"></ion-icon> -->
+        </ion-button>
+
+        <ion-button (click)="loginGoogle()" class="cnx_btn" shape="round" expand="block">
+            Ingresar con Google
+            <!-- Ingresar con Google &nbsp; -->
+            <!-- <ion-icon name="logo-google"></ion-icon> -->
+        </ion-button>
+
+    </div>
+
+
+    <div class="footer-content">
+        <ion-row class="ion-justify-content-center">
+
+            <ion-col size="4">
+                <ion-button routerLink="/login" class="inic_ses" expand="block" fill="clear">
+                    Iniciar sesión
+                </ion-button>
+            </ion-col>
+
+            <ion-col size="6">
+                <ion-button (click)="loginAsGuestUser()" expand="block" fill="clear">
+                    Ingresar como invitado
+                </ion-button>
+            </ion-col>
+
+        </ion-row>
+    </div>
+
 </ion-content>
