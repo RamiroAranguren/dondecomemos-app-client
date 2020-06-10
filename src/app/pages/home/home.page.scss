@@ -1,4 +1,13 @@
-
+ion-header{
+    margin-top: 13px;
+    margin-left: 8px;
+    ion-toolbar{
+        ion-searchbar{
+            --border-radius: 30px;
+            width: 82vw;
+        }
+    }
+}
 
 ion-avatar{
     --border-radius:none;
