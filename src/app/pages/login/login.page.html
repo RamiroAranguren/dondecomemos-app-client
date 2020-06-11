@@ -7,8 +7,8 @@
     <div class="body-content">
         <form novalidate (submit)="doLogin($event)" [formGroup]="form">
 
-            <ion-button [disabled]="form.invalid" size="large" class="login-btn" type="submit">
-                <ion-icon name="arrow-forward-outline"></ion-icon>
+            <ion-button [disabled]="form.invalid" size="large" class="login-btn" type="submit" fill="solid">
+                <ion-icon name="arrow-forward"></ion-icon>
             </ion-button>
 
             <!-- <ion-fab horizontal="end" slot="fixed">
