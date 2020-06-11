@@ -118,3 +118,19 @@ ion-row {
     font-size: 20px;
     margin: 10px;
 }
+
+.formProfile {
+    ion-item {
+        margin: 10px 10px 0 10px;
+    }
+}
+
+.legend {
+    --color: rgb(143, 142, 142);
+    margin-left: 10px;
+}
+
+.error-message {
+    color: red;
+    margin-left: 10px;
+}

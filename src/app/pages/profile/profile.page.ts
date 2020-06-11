@@ -14,9 +14,13 @@ import { StorageService } from '../../services/storage/storage.service';
 })
 export class ProfilePage implements OnInit {
 
+  initTab = true;
   guestStatus = false;
   menuHide = false;
   profile = false;
+  legal = false;
+
+  initals = "";
 
   form: FormGroup;
 
@@ -34,7 +38,6 @@ export class ProfilePage implements OnInit {
     lastName: []
   }
 
-  initals = "N/A";
   user:any = {
     id:"",
     username: "",
@@ -67,8 +70,10 @@ export class ProfilePage implements OnInit {
             Validators.required,
             Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$')
         ], []],
-        "password": ["", [
-          Validators.required, Validators.minLength(6)
+        "phone": ["", [
+          Validators.required,
+          Validators.minLength(8),
+          Validators.pattern('\d{1}[a-zA-Z]{2}\d{6}')
         ], []],
     });
   }
@@ -124,7 +129,15 @@ export class ProfilePage implements OnInit {
     await alert.present();
   }
 
-  async legal(){
+  legalView(){
+    this.initTab = false;
+    this.menuHide = false;
+    this.guestStatus = false;
+    this.profile = false;
+    this.legal = true;
+  }
+
+  async legalModal(){
     let modal = await this.modalCtrl.create({
       component: LegalModalPage,
       backdropDismiss: false,
@@ -134,10 +147,12 @@ export class ProfilePage implements OnInit {
     await modal.present();
   }
 
-  data() {
+  dataView() {
+    this.initTab = false;
     this.menuHide = false;
     this.guestStatus = false;
     this.profile = true;
+    this.legal = false;
   }
 
   login() {
@@ -158,9 +173,74 @@ export class ProfilePage implements OnInit {
 
   // FUNCTIONS PROFILE DATA
   saveProfile(){
-    // this.menuHide = false;
-    // this.guestStatus = false;
-    // this.profile = true;
+    console.log('cklik close');
+    this.initTab = false;
+    this.menuHide = true;
+    this.guestStatus = false;
+    this.profile = false;
+    this.legal = false;
+  }
+
+  closeProfile() {
+    console.log('cklik close');
+    this.initTab = false;
+    this.menuHide = true;
+    this.guestStatus = false;
+    this.profile = false;
+    this.legal = false;
+  }
+
+  closeLegal() {
+    this.initTab = false;
+    this.menuHide = true;
+    this.guestStatus = false;
+    this.profile = false;
+    this.legal = false;
+  }
+
+  changePassword() {
+    console.log('change passw');
+  }
+
+  ///
+
+  checkEmail() {
+    this.errors.email = [];
+    if (this.field('email').invalid){
+      this.addError("email", "Error: Email inválido.");
+    } else {
+      this.errors.email = [];
+    }
+  }
+
+  checkPhone() {
+    this.errors.phone = [];
+    let phone_number = this.field('phone').value.toString();
+
+    if (this.field('phone').invalid){
+      this.addError("phone", "Error: número muy corto.");
+    } else {
+      this.errors.phone = [];
+    }
+
+    
+    // if(phone_number){
+    //   if(phone_number.length < 8){
+    //     this.addError("phone", "Error: número muy corto.");
+    //   } else {
+    //     this.errors.phone = [];
+    //   }
+    // } else {
+    //   this.errors.phone = [];
+    // }
+  }
+
+  addError(key, msg) {
+    this.errors[key].push(msg)
+  }
+
+  field(fieldName) {
+    return this.form.controls[fieldName]
   }
 
 }
