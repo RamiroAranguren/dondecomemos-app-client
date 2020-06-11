@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, Validators, FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { NavController } from '@ionic/angular';
 import { Router, NavigationExtras } from '@angular/router';
+import { UsersService } from '../../services/users/user.service';
+import { LoaderService } from '../../services/loader/loader.service';
 
 @Component({
   selector: 'app-verify-number-code',
@@ -25,7 +27,9 @@ export class VerifyNumberCodePage implements OnInit {
   constructor(
     private route: Router,
     public formBuild: FormBuilder,
-    private navCtrl: NavController
+    private navCtrl: NavController,
+    private userService: UsersService,
+    private loader: LoaderService
   ) {
     this.form = this.formBuild.group({
         "code": ["", [
@@ -36,16 +40,34 @@ export class VerifyNumberCodePage implements OnInit {
 
   ngOnInit() {
     this.user = this.route.getCurrentNavigation().extras.state.data;
+    this.sendSMS();
+  }
+
+  sendSMS() {
+    this.userService.sendCodeSms(this.user.email, this.user.phone);
   }
 
   doVerify() {
-    console.log("doVerifyCode");
-    console.log("validando code...");
-    setTimeout(() => {
-      let navigationExtras: NavigationExtras = {state: {data: this.user}};
-      this.navCtrl.navigateRoot(['/login'], navigationExtras);
-      // this.navCtrl.navigateRoot('/login');
-    }, 3000);
+    this.loader.display('Verificando código...');
+    this.userService.checkCodeSms(this.numberRegister.code).then(() => {
+      setTimeout(() => {
+        this.loader.hide();
+        this.navCtrl.navigateRoot('/login');
+      }, 3000);
+    }).catch((error) => {
+      this.errors.code = ["Error: no se pudo validar el código, intente de nuevo."];
+      this.loader.hide();
+    })
+  }
+
+  reSendSMS() {
+    this.loader.display('Enviando nuevo código...');
+    this.userService.sendCodeSms(this.user.email, this.user.phone).then(() => {
+      this.loader.hide();
+    }).catch(() => {
+      this.loader.hide();
+      this.errors.code = ["Error: no se pudo enviar, intente de nuevo."];
+    })
   }
 
 }

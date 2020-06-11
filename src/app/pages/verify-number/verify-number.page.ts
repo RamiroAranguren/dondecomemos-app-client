@@ -45,17 +45,6 @@ export class VerifyNumberPage implements OnInit {
   }
 
   doVerify() {
-    console.log("doVerify");
-    // this.loader.display('Registrando...');
-      // this.userService.register(this.userRegister).then(() => {
-      //   this.navCtrl.navigateForward('/verify-number-code');
-      //   this.loader.hide()
-      // }).catch((error) => {
-      //   this.loader.hide();
-      //   if (error.username && error.username.length > 0){
-      //     this.showAlert();
-      //   }
-      // });
     this.user.phone = this.numberRegister.phone;
     let navigationExtras: NavigationExtras = {state: {data: this.user}};
     this.navCtrl.navigateForward(['/verify-number-code'], navigationExtras);

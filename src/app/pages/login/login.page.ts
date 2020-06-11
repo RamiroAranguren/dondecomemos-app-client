@@ -24,7 +24,8 @@ export class LoginPage implements OnInit {
   restaurant: restaurant;
 
   user = {
-    email: null
+    email: null,
+    password: null
   };
 
   form: FormGroup;
@@ -61,6 +62,11 @@ export class LoginPage implements OnInit {
   }
 
   ngOnInit() {
+    this.error.mensaje = "";
+    this.user = {
+      email: "",
+      password: ""
+    };
     try {
       this.user = this.route.getCurrentNavigation().extras.state.data;
     } catch (error) {
