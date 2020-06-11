@@ -1,23 +1,46 @@
-ion-header{
+ion-header {
     margin-top: 15px;
-    ion-toolbar{
+    margin-bottom: 15px;
+    ion-toolbar {
         padding-left: 4.5vw;
         padding-right: 4.5vw;
-        ion-searchbar{
-            --border-radius: 30px;
-            width: 72vw;
-            padding-left: 1vw;
-            padding-right:1vw;
-            --box-shadow: 0px 0px 0px 1px black;           
-        }
-        ion-icon{
-            margin-right: 4.5vw;
+        div {
+            display: flex;
+            flex-direction: row;
+            ion-searchbar {
+                --border-radius: 30px;
+                width: 70vw;
+                padding-left: 1vw;
+                padding-right: 1vw;
+                --box-shadow: 0px 0px 0px 1px black;
+            }
+            span {
+                display: flex;
+                flex-direction: column;
+                margin-left: 7vw;
+                vertical-align: middle;              
+                ion-icon{
+                    height: 20px;
+                }
+                p {
+                    font-family: FieldworkGeoRegular;
+                    text-align: center;
+                    font-size: 3.2vw;
+                    margin: 0;
+                }
+            }
         }
     }
 }
-
-ion-avatar{
-    --border-radius:none;
+.f-family {
+    font-family: FieldworkGeoRegular;
+}
+.text-on-bottom {
+    display: block;
+    flex-direction: column;
+}
+ion-avatar {
+    --border-radius: none;
 }
 
 .menu-icon {
@@ -25,15 +48,14 @@ ion-avatar{
 }
 
 .bgcolor {
-    --background: #FFD060 !important;
+    --background: #ffd060 !important;
 }
 
 .filterColor {
-    --icon-color: #FFBB61 !important;   
+    --icon-color: #ffbb61 !important;
 }
 
-
 .bgcolorSearch {
-    --icon-color: #FFBB61 !important;
-    --box-shadow: 0px 0px 0px 1px #1D432D !important;
+    --icon-color: #ffbb61 !important;
+    --box-shadow: 0px 0px 0px 1px #1d432d !important;
 }
