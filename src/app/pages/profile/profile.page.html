@@ -1,10 +1,70 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>Perfil</ion-title>
+    <ion-title *ngIf="!profile">Perfil</ion-title>
+    <ion-title *ngIf="profile">Mis datos</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="onClick()">
+        <!-- <ion-icon slot="end" name="add"></ion-icon> -->
+        GUARDAR
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content *ngIf="guestStatus">
+  <ion-grid fixed>
+    <ion-row>
+      <ion-col size="3"></ion-col>
+      <ion-col size="6">
+        <div class="header-content">
+            <div class="logo">
+                <img src="assets/img/register.png">
+            </div>
+        </div>
+      </ion-col>
+      <ion-col size="3"></ion-col>
+    </ion-row>
+    <ion-row class="legendh1">
+      <ion-col size="12" class="ion-text-justify">
+        <span>Por favor inicie sesión o regístrese
+          para ver sus restaurantes favoritos</span>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size="12">
+        <ion-button (click)="login()" class="cnx_btn" expand="block" fill="clear" shape="round">
+          Iniciar Sesión
+        </ion-button>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size="12">
+        <ion-button (click)="register()" class="cnx_btn" expand="block" fill="clear" shape="round">
+          Registrarse
+        </ion-button>
+      </ion-col>
+    </ion-row>
+    <ion-row class="legendh1">
+      <ion-col size="12" class="ion-text-center">
+        <span>O ingresar con</span>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size="6">
+        <ion-button (click)="loginGoogle()" class="cnx_btn" expand="block" fill="clear" shape="round">
+          Google
+        </ion-button>
+      </ion-col>
+      <ion-col size="6">
+        <ion-button (click)="loginFcbk()" class="cnx_btn" expand="block" fill="clear" shape="round">
+          Facebook
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
+
+<ion-content *ngIf="menuHide && !guestStatus">
   <div class="header-content">
   </div>
   <div class="pic-content">
@@ -12,14 +72,11 @@
   </div>
   <div class="body-content">
     <ion-grid fixed class="ion-text-center">
-      <ion-row *ngIf="!user.guest">
+      <ion-row>
         <ion-col size="12"><h1>{{ user.first_name }} {{ user.last_name }}</h1></ion-col>
       </ion-row>
-      <ion-row *ngIf="user.guest">
-        <ion-col size="12"><h1>Invitado</h1></ion-col>
-      </ion-row>
       <ion-row>
-        <ion-col size="12"><label>Mis datos</label></ion-col>
+        <ion-col size="12" (click)="data()"><label>Mis datos</label></ion-col>
       </ion-row>
       <ion-row>
         <ion-col size="12" (click)="legal()"><label>Legal</label></ion-col>
@@ -31,3 +88,70 @@
     <br>
   </div>
 </ion-content>
+
+<ion-content *ngIf="profile">
+  <form novalidate (submit)="saveProfile()" [formGroup]="form">
+    <ion-grid fixed>
+        <ion-row>
+            <ion-col>
+                <ion-list>
+                    <ion-item>
+                        <ion-label position="floating">Nombre</ion-label>
+                        <ion-input
+                            [(ngModel)]="profileData.first_name"
+                            formControlName="first_name"
+                            name="first_name"
+                            type="text"
+                            required></ion-input>
+                    </ion-item>
+
+                    <ion-item>
+                        <ion-label position="floating">Apellido</ion-label>
+                        <ion-input
+                            [(ngModel)]="profileData.last_name"
+                            formControlName="last_name"
+                            name="last_name"
+                            type="text"
+                            required></ion-input>
+                    </ion-item>
+
+                    <ion-item>
+                        <ion-label position="floating">Email</ion-label>
+                        <ion-input
+                            [(ngModel)]="profileData.email"
+                            (ionChange)="checkEmail()"
+                            formControlName="email"
+                            name="email"
+                            type="email"
+                            ></ion-input>
+                    </ion-item>
+                    <span *ngIf="errors.email" class="error-message">
+                        {{errors.email}}
+                    </span>
+
+                    <ion-item>
+                        <ion-label position="floating">Celular</ion-label>
+                        <ion-input
+                            [(ngModel)]="profileData.phone"
+                            (ionChange)="checkPhone()"
+                            formControlName="phone"
+                            type="{{type}}"
+                            name="phone"
+                        ></ion-input>
+                    </ion-item>
+                    <span *ngIf="errors.phone" class="error-message">
+                        {{errors.phone}}
+                    </span>
+
+                </ion-list>
+            </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col size="12">
+            <label for="">Cambiar contraseña</label>
+          </ion-col>
+        </ion-row>
+    </ion-grid>
+</form>
+</ion-content>
+

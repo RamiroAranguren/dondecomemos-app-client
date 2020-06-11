@@ -44,6 +44,7 @@ export class UsersService {
     this.setUpUser();
     this.user.first_name = "Invitado";
     this.user.guest = true;
+    // this.storage.addObject("user", this.user);
   }
 
   isGuestUser() {
@@ -163,6 +164,7 @@ export class UsersService {
 
   recoverPassword(email) {
     const body = { email };
+    console.log("Serv", email);
     return new Promise((resolve, reject) => {
       this.http.post(`${apiUrl}recover-password/mail/`, body).subscribe((response: any) => {
         resolve(response)

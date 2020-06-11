@@ -67,6 +67,10 @@ const routes: Routes = [
     path: 'terms-modal',
     loadChildren: () => import('./pages/terms-modal/terms-modal.module').then( m => m.TermsModalPageModule)
   },
+  {
+    path: 'profile-form',
+    loadChildren: () => import('./pages/profile-form/profile-form.module').then( m => m.ProfileFormPageModule)
+  }
 ];
 
 @NgModule({
