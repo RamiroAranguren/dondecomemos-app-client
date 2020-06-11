@@ -1,10 +1,15 @@
-.transparent_header{
-    --background: #FFD060;
+.transparent_header {
+    --background: #ffd060;
     --color: white;
-    &:after{
+    ion-back-button {
+        margin: 10px 10px;
+        color: var(--primary-grey);
+        // font-size: 15px;
+    }
+    &:after {
         background-image: none;
     }
-    .toolbar-background-md{
+    .toolbar-background-md {
         --background: transparent;
     }
 }

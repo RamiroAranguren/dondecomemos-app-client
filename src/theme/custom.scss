@@ -4,26 +4,31 @@ ion-content {
 
 .header-content {
     height: 43%;
+    position: relative;
+    .logo {
+        height: 100%;
+        img {
+            width: 100%;
+            height: 100%;
+        }
+    }
+    p {
+        position: absolute;
+        left: 50%;
+        top: 60%;
+        font-size: 1.2rem;
+        letter-spacing: 0.1px;
+        color: black;
+        text-align: left;
+        font-family: FieldworkGeoThin;
+        line-height: 23px;
+        margin-right: 5px;
+        white-space: nowrap;
+    }
 }
 
 
 /*logo*/
-
-.logo {
-    img {
-        width: 95%;
-        height: 85%;
-    }
-    h3 {
-        color: white;
-        margin: 5px 0;
-    }
-    p {
-        font-size: 1.1rem;
-        letter-spacing: 3px;
-        color: white;
-    }
-}
 
 .body-content {
     width: 100%;
@@ -31,6 +36,7 @@ ion-content {
     background-color: white !important;
     border-radius: 58px 58px 0 0;
     padding: 40px 40px 0px;
+    margin: 5px 0px 0px;
 }
 
 .footer-content {
@@ -63,22 +69,16 @@ ion-content {
     letter-spacing: 0.05rem;
 }
 
-@media (min-width: 576px) {
-    .logo {
-        img {
-            margin-top: -55px;
-            width: 30%;
-            height: 30%;
-        }
-        h3 {
-            //color: color($colors,light);
-            font-size: 2.6rem;
-            margin: 5px 0;
-        }
+@media (max-width: 376px) {
+    .header-content {
         p {
-            font-size: 1.1rem;
-            letter-spacing: 3px;
-            //color: color($colors,light);
+            font-size: 1rem;
+            letter-spacing: 0.01px;
+        }
+    }
+    .footer-content {
+        ion-button {
+            font-size: 4.5vw;
         }
     }
 }
