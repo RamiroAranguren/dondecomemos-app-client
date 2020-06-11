@@ -1,83 +1,110 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-buttons>
-      <ion-back-button defaultHref="/"></ion-back-button>
-    </ion-buttons>
-    <ion-title>Filtros</ion-title>
-  </ion-toolbar>
+    <ion-toolbar>
+        <ion-buttons>
+            <ion-back-button defaultHref="/"></ion-back-button>
+        </ion-buttons>
+        <ion-title>Filtros</ion-title>
+    </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <ion-grid fixed>
-    <ion-row>
-      <h2>Que cuente con</h2>
-      <ion-col size="12">
-        <ion-chip>
-          <ion-label>Retiro por el local</ion-label>
-          <!-- <ion-icon name="close"></ion-icon> -->
-        </ion-chip>
-        <ion-chip>
-          <ion-label>Delivery</ion-label>
-        </ion-chip>
-      </ion-col>
-    </ion-row>
-    <ion-row>
-      <h2>Precio</h2>
-      <ion-col size="12">
-        <ion-chip>
-          <ion-label>$</ion-label>
-        </ion-chip>
-        <ion-chip>
-          <ion-label>$$</ion-label>
-        </ion-chip>
-        <ion-chip>
-          <ion-label>$$$</ion-label>
-        </ion-chip>
-        <ion-chip>
-          <ion-label>$$$$</ion-label>
-        </ion-chip>
-        <ion-chip>
-          <ion-label>$$$$$</ion-label>
-        </ion-chip>
-      </ion-col>
-    </ion-row>
-    <ion-row>
-      <label for="">Cocina</label>
-      <ion-col size="12">
-        <ion-chip>
-          <ion-label>Arabe</ion-label>
-        </ion-chip>
-        <ion-chip>
-          <ion-label>Argentina</ion-label>
-        </ion-chip>
-        <ion-chip>
-          <ion-label>Italiana</ion-label>
-        </ion-chip>
-        <ion-chip>
-          <ion-label>Peruana</ion-label>
-        </ion-chip>
-      </ion-col>
-    </ion-row>
-    <br><br>
-    <ion-row>
-      <ion-col size="12">
-        <ion-button
-          (click)="applicateFilters()"
-          color="btn-dc"
-          expand="block" shape="round">
-          Aplicar filtros
-        </ion-button>
-      </ion-col>
-    </ion-row>
-    <ion-row>
-      <ion-col size="12">
-        <ion-button
-          (click)="resetFilters()"
-          color="dark"
-          expand="block" shape="round">
-          Resetear
-        </ion-button>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
+    <ion-grid fixed class="ion-padding-start ion-padding-end">
+        <ion-row>
+            <h2>Que cuente con</h2>
+            <ion-col size="12">
+                <ion-chip outline>
+                    <ion-label>Retiro por el local</ion-label>
+                    <!-- <ion-icon name="close"></ion-icon> -->
+                </ion-chip>
+                <ion-chip outline>
+                    <ion-label>Delivery</ion-label>
+                </ion-chip>
+            </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col size="12">
+                <h2>Precio</h2>
+            </ion-col>
+            <ion-col size="12">
+                <ion-row class="ion-padding-start ion-padding-end">
+                    <ion-col size="3">
+                        <ion-chip outline>
+                            <ion-label>$</ion-label>
+                        </ion-chip>
+                    </ion-col>
+                    <ion-col  size="3">
+                        <ion-chip outline>
+                            <ion-label>$$</ion-label>
+                        </ion-chip>
+                    </ion-col>
+                    <ion-col  size="3">
+                        <ion-chip outline>
+                            <ion-label>$$$</ion-label>
+                        </ion-chip>
+                    </ion-col>
+                    <ion-col  size="3">
+                        <ion-chip outline>
+                            <ion-label>$$$$</ion-label>
+                        </ion-chip>
+                    </ion-col>
+                </ion-row>
+            </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col size="12">
+                <h2>Cocina</h2>
+            </ion-col>
+            <ion-col size="12">
+                <ion-row class="ion-padding-start ion-padding-end">
+                    <ion-col >
+                        <ion-chip outline>
+                            <ion-label>Arabe</ion-label>
+                        </ion-chip>
+                    </ion-col>
+                    <ion-col  >
+                        <ion-chip outline>
+                            <ion-label>Argentina</ion-label>
+                        </ion-chip>
+                    </ion-col>
+                    <ion-col  >
+                        <ion-chip outline>
+                            <ion-label>Italiana</ion-label>
+                        </ion-chip>
+                    </ion-col>
+                    <ion-col  >
+                        <ion-chip outline>
+                            <ion-label>Peruana</ion-label>
+                        </ion-chip>
+                    </ion-col>
+                </ion-row>
+                <!-- <ion-chip outline class="ion-padding-end">
+                    <ion-label></ion-label>
+                </ion-chip>
+                <ion-chip outline class="ion-padding-end">
+                    <ion-label>Argentina</ion-label>
+                </ion-chip>
+                <ion-chip outline class="ion-padding-end">
+                    <ion-label>Italiana</ion-label>
+                </ion-chip>
+                <ion-chip outline class="ion-padding-end">
+                    <ion-label>Peruana</ion-label>
+                </ion-chip> -->
+            </ion-col>
+        </ion-row>
+        <br><br>
+        <ion-row>
+            <ion-col size="12">
+                <ion-button (click)="applicateFilters()" color="btn-dc" expand="block" shape="round">
+                    Aplicar filtros
+                </ion-button>
+            </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col size="12">
+                <ion-button (click)="resetFilters()" color="dark" expand="block" shape="round">
+                    Resetear
+                </ion-button>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
 </ion-content>

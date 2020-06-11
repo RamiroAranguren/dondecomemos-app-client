@@ -6,21 +6,29 @@
       class="menu-icon"
       name="menu"
       slot="start" size="large"></ion-icon> -->
-    <ion-searchbar
-      [ngClass]="{ bgcolorSearch: filterColor }"
-      (ionInput)="searchFilter( $event )"
-      (ionCancel)="onCancel( $event )"
-      [(ngModel)]="valueSearch"
-      debounce="2000"
-      autocomplete="on"
-      placeholder='Buscar restaurantes, ciudad...'
-      showCancelButton="focus"></ion-searchbar>
-    <ion-icon
-      color="{{ filterColor }}"
-      *ngIf="!searchChange"
-      (click)="openFilters()"
-      name="filter"
-      slot="end" size="large"></ion-icon>
+    <div>
+        <ion-searchbar
+          [ngClass]="{ bgcolorSearch: filterColor }"
+          (ionInput)="searchFilter( $event )"
+          (ionCancel)="onCancel( $event )"
+          [(ngModel)]="valueSearch"
+          debounce="2000"
+          autocomplete="on"
+          placeholder='Buscar restaurantes, ciudad...'
+          showCancelButton="focus"></ion-searchbar>
+        <span>
+            <ion-icon
+            color="{{ filterColor }}"
+            *ngIf="!searchChange"
+            (click)="openFilters()"
+            name="filter"
+            slot="end" size="large"></ion-icon>  
+            <p>Filtro</p>
+        </span>
+    </div>
+    
+          
+    
   </ion-toolbar>
 
 </ion-header>
@@ -54,7 +62,7 @@
   <ion-grid fixed>
     <ion-row>
       <ion-col size="12">
-        <ion-chip *ngFor="let chip of chips">
+        <ion-chip class="f-family" *ngFor="let chip of chips">
           <ion-label>{{ chip }}</ion-label>
           <ion-icon name="close" (click)="removeChip(chip)"></ion-icon>
         </ion-chip>
