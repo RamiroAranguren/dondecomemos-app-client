@@ -1,0 +1,49 @@
+ion-header {
+    ion-title {
+        font-family: DMSerifDisplayRegular;
+    }
+}
+ion-content {
+    #price-chips {
+        ion-col {
+            ion-chip {
+                width: 15vw;
+                height: 18vw;
+                border-radius: 50px;
+            }
+        }
+    }
+    #type-chips {
+        ion-col {
+            ion-chip {
+                width: 100%;
+                ion-label {
+                    width: 100%;
+                    text-align: center;
+                }
+            }
+        }
+    }
+    #country-chips{
+        ion-col {
+            ion-chip {
+                
+                ion-label {
+                    width: 100%;
+                    text-align: center;
+                }
+            }
+        }
+    }
+    h4 {
+        font-family: DMSerifDisplayRegular;
+    }
+    ion-chip {
+        font-family: FieldworkGeoRegular;
+    }
+}
+
+.label-center {
+    width: 100%;
+    text-align: center;
+}
