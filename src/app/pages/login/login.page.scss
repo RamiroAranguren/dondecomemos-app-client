@@ -29,17 +29,23 @@
 
 .forgot {
     margin: 0 0 0 32px;
+    font-family: FieldworkGeoThin;
 }
 
 ion-col {
     h2 {
         font-size: 28px;
         margin: 0 0 0 10px;
+        font-family: DMSerifDisplayRegular;
+        font-weight: lighter;
     }
 }
 
 ion-item {
     margin-top: 20px;
+    ion-label {
+        font-family: FieldworkGeoThin;
+    }
 }
 
 // ion-fab {
