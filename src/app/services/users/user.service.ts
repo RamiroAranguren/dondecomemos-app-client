@@ -6,6 +6,11 @@ import { environment } from '../../../environments/environment.prod';
 import { StorageService } from '../storage/storage.service';
 import { Platform } from '@ionic/angular';
 import { FCM } from '@ionic-native/fcm/ngx';
+// import { GooglePlus } from '@ionic-native/google-plus';
+
+import { AngularFireAuth } from '@angular/fire/auth';
+import { auth } from 'firebase/app';
+// import * as firebase from 'firebase';
 
 const baseUrl = environment.baseUrl;
 const apiUrl = environment.apiUrl;
@@ -23,6 +28,8 @@ export class UsersService {
     private storage: StorageService,
     private platform: Platform,
     private fcm: FCM,
+    public afAuth: AngularFireAuth
+    // private google: GooglePlus
   ) {
     this.setUpUser();
   }
@@ -151,16 +158,25 @@ export class UsersService {
     })
   }
 
-  loginGoogle() {
-    console.log("G+ | User");
-    // this.google.login(firebaseConfig).then(res => {
-    //   console.log(res);
-    //   const user_data_google = res;
-    // });
+  async loginGoogle() {
+    try {
+      const { user } = await this.afAuth.auth.signInWithPopup(new auth.GoogleAuthProvider());
+      console.log("Login ok", user);
+      return user;
+    } catch(error) {
+      console.log("error", error);
+    }
   }
 
-  loginFcbk() {
+  async loginFcbk() {
     console.log("Fcbk");
+    try {
+      const { user } = await this.afAuth.auth.signInWithPopup(new auth.GoogleAuthProvider());
+      console.log("Login ok", user);
+      return user;
+    } catch(error) {
+      console.log("error", error);
+    }
   }
 
   recoverPassword(email) {

@@ -52,7 +52,14 @@ export class VerifyNumberCodePage implements OnInit {
     this.userService.checkCodeSms(this.numberRegister.code).then(() => {
       setTimeout(() => {
         this.loader.hide();
-        this.navCtrl.navigateRoot('/login');
+        if (this.user.net !== null) {
+          // CUANDO EL REGISTRO VIENE DE UNA RED SOCIAL, LLAMA A LA FUNCION
+          // LOGIN Y LOGUEA DIRECTAMENTE AL USUARIO
+          this.loginNet();
+        } else {
+          // CUANDO ES UN REGISTRO CLASICO REDIRECCIONA AL LOGIN
+          this.navCtrl.navigateRoot('/login');
+        }
       }, 3000);
     }).catch((error) => {
       this.errors.code = ["Error: no se pudo validar el código, intente de nuevo."];
@@ -67,6 +74,17 @@ export class VerifyNumberCodePage implements OnInit {
     }).catch(() => {
       this.loader.hide();
       this.errors.code = ["Error: no se pudo enviar, intente de nuevo."];
+    })
+  }
+
+  loginNet() {
+    console.log("loginNet", this.user.email, this.user.password);
+    this.userService.login(this.user.email, this.user.password).then(res => {
+      console.log("Verify-Login", res);
+      this.navCtrl.navigateRoot('/tabs/home');
+
+    }).catch(errors => {
+      console.log(errors);
     })
   }
 

@@ -31,7 +31,8 @@ export class RegisterPage implements OnInit {
     email: "",
     password: "",
     first_name: "",
-    last_name: ""
+    last_name: "",
+    net: null
   }
 
   constructor(
@@ -62,7 +63,6 @@ export class RegisterPage implements OnInit {
 
       if (this.form.valid) {
         this.loader.display('Registrando...');
-        console.log(this.userRegister);
         this.userService.register(this.userRegister).then(() => {
           this.loader.hide();
           let navigationExtras: NavigationExtras = {
@@ -71,6 +71,7 @@ export class RegisterPage implements OnInit {
           this.navCtrl.navigateForward(['/verify-number'], navigationExtras);
         }).catch((error) => {
           this.loader.hide();
+          console.log(error);
           if (error.username && error.username.length > 0){
             this.showAlert();
           }

@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "dondecomemos-a73db": {
+      "hosting": {
+        "app": [
+          "dondecomemos-a73db"
+        ]
+      }
+    }
+  }
+}

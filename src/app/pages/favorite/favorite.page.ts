@@ -31,4 +31,15 @@ export class FavoritePage implements OnInit {
     this.navCtrl.navigateRoot('/register');
   }
 
+  loginGoogle() {
+    console.log('g+');
+  // this.google.login({})
+  //     .then(res => console.log(res))
+  //     .catch(err => console.error(err));
+  }
+
+  loginFcbk() {
+    console.log('fcbk');
+  }
+
 }
