@@ -4,10 +4,41 @@
     height: 10%;
 }
 
+
+.bg-btn {
+    border-radius: 50%;
+    background: rgba(168, 168, 168, 0.8);
+ 
+}
+
+
+.register-btn {
+    //   position: absolute;
+    //   top: -38px;
+    //   right: 44px;
+    --border-radius: 50%;
+    --box-shadow: 0px 9px 5px rgba(0, 0, 0, 0.4);
+    --background: var(--bg-primary-tint);
+    width: 70px;
+    height: 70px;
+    --opacity: 1;
+    &.button-disabled {
+        --color: var(--primary-grey);
+        --background: var(--secondary-grey);
+        // --background: red;
+        --box-shadow: none;
+        --opacity: 1;
+    }
+}
+
 .body-content {
     border-radius: 58px 58px 0 0;
     padding: 30px;
     height: 90%;
+}
+
+.registerFont{
+    font-family: DMSerifDisplayRegular;
 }
 
 .error-message {

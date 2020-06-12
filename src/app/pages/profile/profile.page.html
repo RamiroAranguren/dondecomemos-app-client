@@ -1,8 +1,8 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title *ngIf="menuHide">Perfil</ion-title>
-    <ion-title *ngIf="legal">Legal</ion-title>
-    <ion-title *ngIf="profile">Mis datos</ion-title>
+    <ion-title *ngIf="menuHide" class="perfilTitulo">Perfil</ion-title>
+    <ion-title *ngIf="legal" class="perfilTitulo">Legal</ion-title>
+    <ion-title *ngIf="profile" class="perfilTitulo">Mis datos</ion-title>
 
     <ion-buttons slot="start" *ngIf="legal">
       <ion-button (click)="closeLegal()">
@@ -17,7 +17,7 @@
     </ion-buttons>
 
     <ion-buttons slot="end" *ngIf="profile">
-      <ion-button (click)="saveProfile()">
+      <ion-button (click)="saveProfile()" class="guardarHeader">
         GUARDAR
       </ion-button>
     </ion-buttons>
@@ -89,16 +89,16 @@
         </div>
         <ion-grid fixed class="ion-text-center">
           <ion-row>
-            <ion-col size="12"><h1>{{ user.first_name }} {{ user.last_name }}</h1></ion-col>
+            <ion-col size="12"><h1 class="DMSerifDisplayRegular" style="font-size: 28px;">{{ user.first_name }} {{ user.last_name }}</h1></ion-col>
           </ion-row>
           <ion-row>
-            <ion-col size="12" (click)="dataView()"><label>Mis datos</label></ion-col>
+            <ion-col size="12" (click)="dataView()"><label class="DMSerifDisplayRegular" style="font-size: 16px;">Mis datos</label></ion-col>
           </ion-row>
           <ion-row>
-            <ion-col size="12" (click)="legalView()"><label>Legal</label></ion-col>
+            <ion-col size="12" (click)="legalView()"><label class="DMSerifDisplayRegular" style="font-size: 16px;">Legal</label></ion-col>
           </ion-row>
           <ion-row>
-            <ion-col size="12" (click)="logOut()"><label>Cerrar Sesión</label></ion-col>
+            <ion-col size="12" (click)="logOut()"><label class="DMSerifDisplayRegular" style="font-size: 16px;">Cerrar Sesión</label></ion-col>
           </ion-row>
         </ion-grid>
     </div>
@@ -129,7 +129,7 @@
             <ion-col>
                 <ion-list>
                     <ion-item>
-                        <ion-label position="floating">Nombre</ion-label>
+                        <ion-label position="floating" style="font-family: FieldworkGeoRegular;">Nombre</ion-label>
                         <ion-input
                             [(ngModel)]="user.first_name"
                             formControlName="first_name"
@@ -139,7 +139,7 @@
                     </ion-item>
 
                     <ion-item>
-                        <ion-label position="floating">Apellido</ion-label>
+                        <ion-label position="floating" style="font-family: FieldworkGeoRegular;">Apellido</ion-label>
                         <ion-input
                             [(ngModel)]="user.last_name"
                             formControlName="last_name"
@@ -149,7 +149,7 @@
                     </ion-item>
 
                     <ion-item>
-                        <ion-label position="floating">Email</ion-label>
+                        <ion-label position="floating" style="font-family: FieldworkGeoRegular;">Email</ion-label>
                         <ion-input
                             [(ngModel)]="user.email"
                             (input)="checkEmail()"
@@ -163,7 +163,7 @@
                     </span>
 
                     <ion-item>
-                        <ion-label position="floating">Celular</ion-label>
+                        <ion-label position="floating" style="font-family: FieldworkGeoRegular;">Celular</ion-label>
                         <ion-input
                             [(ngModel)]="user.phone"
                             formControlName="phone"

@@ -9,6 +9,20 @@ ion-header {
     }
 }
 
+.DMSerifDisplayRegular{
+    font-family: DMSerifDisplayRegular;
+}
+
+.guardarHeader{
+    font-family: FieldworkGeoRegular;
+    font-size: 16px;
+}
+
+.perfilTitulo{
+    font-family: DMSerifDisplayRegular;
+    font-size: 24px;
+}
+
 .content {
     display: flex;
     flex-direction: column;
@@ -85,6 +99,8 @@ ion-row {
 .legend {
     color: rgb(129, 129, 129);
     margin-left: 30px;
+    font-family: FieldworkGeoRegular;
+    font-size: 12px;
 }
 
 .change-passw {
@@ -97,5 +113,6 @@ ion-row {
 }
 
 .legal-css {
+    font-size: 20px;
     font-family: DMSerifDisplayRegular;
 }
