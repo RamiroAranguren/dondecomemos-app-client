@@ -282,4 +282,11 @@ export class ProfilePage implements OnInit {
     return this.form.controls[fieldName]
   }
 
+  ionViewWillLeave() {
+    this.guestStatus = false;
+    this.menuHide = true;
+    this.profile = false;
+    this.legal = false;
+  }
+
 }
