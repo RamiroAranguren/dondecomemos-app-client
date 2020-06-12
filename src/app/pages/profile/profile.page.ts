@@ -6,6 +6,10 @@ import { UsersService } from '../../services/users/user.service';
 import { LegalModalPage } from '../legal-modal/legal-modal.page';
 import { UserInterface } from '../../interfaces/user';
 import { StorageService } from '../../services/storage/storage.service';
+import { TermsModalPage } from '../terms-modal/terms-modal.page';
+import { LoaderService } from '../../services/loader/loader.service';
+import { ToastService } from '../../services/toast/toast.service';
+import { NavigationExtras } from '@angular/router';
 
 @Component({
   selector: 'app-profile',
@@ -14,7 +18,6 @@ import { StorageService } from '../../services/storage/storage.service';
 })
 export class ProfilePage implements OnInit {
 
-  initTab = true;
   guestStatus = false;
   menuHide = false;
   profile = false;
@@ -23,13 +26,6 @@ export class ProfilePage implements OnInit {
   initals = "";
 
   form: FormGroup;
-
-  profileData = {
-    phone: "",
-    email: "",
-    first_name: "",
-    last_name: "",
-  }
 
   errors = {
     email: [],
@@ -46,7 +42,8 @@ export class ProfilePage implements OnInit {
     first_name: "",
     last_name: "",
     token: "",
-    guest: false
+    guest: false,
+    phone: null
   };
 
   options = {
@@ -60,8 +57,9 @@ export class ProfilePage implements OnInit {
     private navCtrl: NavController,
     private userService: UsersService,
     private storage: StorageService,
+    private loader: LoaderService,
     public formBuild: FormBuilder,
-    // private loader: LoaderService,
+    private toast: ToastService
   ) {
     this.form = this.formBuild.group({
         "first_name": ["", [Validators.required], []],
@@ -71,9 +69,7 @@ export class ProfilePage implements OnInit {
             Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$')
         ], []],
         "phone": ["", [
-          Validators.required,
-          Validators.minLength(8),
-          Validators.pattern('\d{1}[a-zA-Z]{2}\d{6}')
+          Validators.required
         ], []],
     });
   }
@@ -98,7 +94,8 @@ export class ProfilePage implements OnInit {
           first_name: "",
           last_name: "",
           token: "",
-          guest: true
+          guest: true,
+          phone: null
         };
       });
     }
@@ -130,11 +127,20 @@ export class ProfilePage implements OnInit {
   }
 
   legalView(){
-    this.initTab = false;
     this.menuHide = false;
     this.guestStatus = false;
     this.profile = false;
     this.legal = true;
+  }
+
+  async policyModal() {
+    let modal = await this.modalCtrl.create({
+      component: TermsModalPage,
+      backdropDismiss: false,
+      keyboardClose: false,
+    });
+
+    await modal.present();
   }
 
   async legalModal(){
@@ -148,7 +154,6 @@ export class ProfilePage implements OnInit {
   }
 
   dataView() {
-    this.initTab = false;
     this.menuHide = false;
     this.guestStatus = false;
     this.profile = true;
@@ -173,25 +178,37 @@ export class ProfilePage implements OnInit {
 
   // FUNCTIONS PROFILE DATA
   saveProfile(){
-    console.log('cklik close');
-    this.initTab = false;
-    this.menuHide = true;
+    this.menuHide = false;
     this.guestStatus = false;
-    this.profile = false;
     this.legal = false;
+
+    this.loader.display("Guardando cambios...")
+    this.userService.saveChanges(this.user.first_name, this.user.last_name, this.user.email, this.user.phone)
+      .then(() => {
+        this.loader.hide();
+        this.toast.show("Datos modificados con éxito", 2500);
+        this.storage.addObject("user", this.userService.user);
+      })
+      .catch(errors => {
+        console.log(errors);
+        this.toast.show("Ocurrió un error al intentar modificar", 2500);
+        this.loader.hide()
+      });
   }
 
   closeProfile() {
-    console.log('cklik close');
-    this.initTab = false;
-    this.menuHide = true;
-    this.guestStatus = false;
-    this.profile = false;
-    this.legal = false;
+    let changes = this.changeForm();
+
+    if(!changes){
+      this.menuHide = true;
+      this.guestStatus = false;
+      this.profile = false;
+      this.legal = false;
+    }
+
   }
 
   closeLegal() {
-    this.initTab = false;
     this.menuHide = true;
     this.guestStatus = false;
     this.profile = false;
@@ -199,8 +216,52 @@ export class ProfilePage implements OnInit {
   }
 
   changePassword() {
-    console.log('change passw');
+    let navigationExtras: NavigationExtras = {state: {data: this.user}};
+    this.navCtrl.navigateForward(['/change-old-password'], navigationExtras);
   }
+
+  changeForm() {
+    let result = false;
+    if (this.user.first_name !== this.userService.user.first_name ||
+          this.user.last_name !== this.userService.user.last_name ||
+          this.user.email !== this.userService.user.email ||
+          this.user.phone !== this.userService.user.phone) {
+            this.showAlert();
+            result = true;
+      } else {
+        result = false;
+      }
+
+      console.log("RES", result);
+      return result;
+  }
+
+  async showAlert(){
+    const alert = await this.alertCtrl.create({
+      header: '¿Descartar cambios?',
+      buttons: [
+        {
+          text: 'Descartar',
+          handler: data => {
+            this.menuHide = true;
+            this.guestStatus = false;
+            this.profile = false;
+            this.legal = false;
+            return;
+          }
+        },
+        {
+          text: 'Cancelar',
+          handler: data => {
+            return;
+          }
+        }
+      ]
+    });
+
+    await alert.present();
+  }
+
 
   ///
 
@@ -211,28 +272,6 @@ export class ProfilePage implements OnInit {
     } else {
       this.errors.email = [];
     }
-  }
-
-  checkPhone() {
-    this.errors.phone = [];
-    let phone_number = this.field('phone').value.toString();
-
-    if (this.field('phone').invalid){
-      this.addError("phone", "Error: número muy corto.");
-    } else {
-      this.errors.phone = [];
-    }
-
-    
-    // if(phone_number){
-    //   if(phone_number.length < 8){
-    //     this.addError("phone", "Error: número muy corto.");
-    //   } else {
-    //     this.errors.phone = [];
-    //   }
-    // } else {
-    //   this.errors.phone = [];
-    // }
   }
 
   addError(key, msg) {

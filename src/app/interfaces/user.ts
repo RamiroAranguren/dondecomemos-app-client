@@ -6,5 +6,6 @@ export interface UserInterface {
     first_name: string,
     last_name: string,
     token: string,
-    guest: boolean
+    guest: boolean,
+    phone: string
 }

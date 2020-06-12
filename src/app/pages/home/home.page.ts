@@ -155,7 +155,6 @@ export class HomePage implements OnInit {
   }
 
   searchFilter( event )  {
-    console.log("search", event.detail);
     this.restaurantMap = [];
     if (event.detail !== null){
       if (event.detail.data !== null){

@@ -5,7 +5,6 @@ import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { StorageService } from './services/storage/storage.service';
 import { UsersService } from './services/users/user.service';
-import { LoaderService } from './services/loader/loader.service';
 import { ToastService } from './services/toast/toast.service';
 
 
@@ -22,7 +21,6 @@ export class AppComponent {
     private navCtrl: NavController,
     private storageService: StorageService,
     private userService: UsersService,
-    // private loaderService: LoaderService,
     private toastService: ToastService
   ) {
     this.initializeApp();
@@ -36,11 +34,9 @@ export class AppComponent {
 
     this.storageService.getObject("user")
       .then((storedUser) => {
-        // this.loaderService.display('Espere por favor, iniciando...');
         this.userService.login(storedUser.username, storedUser.password)
           .then(() => {
             this.navCtrl.navigateRoot('/tabs/home');
-            // this.loaderService.hide();
           })
           .catch(errors => {
             this.toastService.show('Ha habido un problema con las credenciales almacenadas');
@@ -50,7 +46,6 @@ export class AppComponent {
             });
 
             this.navCtrl.navigateRoot('/start');
-            // this.loaderService.hide();
           })
       })
       .catch((error) => {

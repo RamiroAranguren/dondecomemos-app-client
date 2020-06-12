@@ -7,25 +7,32 @@ ion-header {
         div {
             display: flex;
             flex-direction: row;
+            height: 2.5em;
             ion-searchbar {
                 --border-radius: 30px;
                 width: 70vw;
                 padding-left: 1vw;
                 padding-right: 1vw;
                 --box-shadow: 0px 0px 0px 1px black;
+                font-family: FieldworkGeoThin;
             }
             span {
                 display: flex;
                 flex-direction: column;
                 margin-left: 7vw;
-                vertical-align: middle;              
+                vertical-align: middle;
+                height: 2.5em;
+                align-self: center;
                 ion-icon{
-                    height: 20px;
+                    height: 52%;
                 }
+            // .md span{
+            //     align-self: center;
+            // }
                 p {
                     font-family: FieldworkGeoRegular;
                     text-align: center;
-                    font-size: 3.2vw;
+                    font-size: 0.7em;
                     margin: 0;
                 }
             }

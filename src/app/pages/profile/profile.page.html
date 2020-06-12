@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title *ngIf="initTab">Perfil</ion-title>
+    <ion-title *ngIf="menuHide">Perfil</ion-title>
     <ion-title *ngIf="legal">Legal</ion-title>
     <ion-title *ngIf="profile">Mis datos</ion-title>
 
@@ -25,7 +25,7 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content *ngIf="guestStatus">
+<ion-content *ngIf="guestStatus" fullscreeen>
   <ion-grid fixed>
     <ion-row>
       <ion-col size="3"></ion-col>
@@ -78,47 +78,51 @@
   </ion-grid>
 </ion-content>
 
-<ion-content *ngIf="menuHide && !guestStatus">
-  <div class="header-content">
-  </div>
-  <div class="pic-content">
-    <h1>{{ initals }}</h1>
-  </div>
-  <div class="body-content">
-    <ion-grid fixed class="ion-text-center">
-      <ion-row>
-        <ion-col size="12"><h1>{{ user.first_name }} {{ user.last_name }}</h1></ion-col>
-      </ion-row>
-      <ion-row>
-        <ion-col size="12" (click)="dataView()"><label>Mis datos</label></ion-col>
-      </ion-row>
-      <ion-row>
-        <ion-col size="12" (click)="legalView()"><label>Legal</label></ion-col>
-      </ion-row>
-      <ion-row>
-        <ion-col size="12" (click)="logOut()"><label>Cerrar Sesión</label></ion-col>
-      </ion-row>
-    </ion-grid>
-    <br>
+<ion-content *ngIf="menuHide && !guestStatus" fullscreeen>
+  <div class="content">
+    <div class="body-content">
+
+        <div class="pic">
+            <div class="pic-content">
+                <h1>{{ initals }}</h1>
+            </div>
+        </div>
+        <ion-grid fixed class="ion-text-center">
+          <ion-row>
+            <ion-col size="12"><h1>{{ user.first_name }} {{ user.last_name }}</h1></ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col size="12" (click)="dataView()"><label>Mis datos</label></ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col size="12" (click)="legalView()"><label>Legal</label></ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col size="12" (click)="logOut()"><label>Cerrar Sesión</label></ion-col>
+          </ion-row>
+        </ion-grid>
+    </div>
   </div>
 </ion-content>
 
-<ion-content *ngIf="legal">
+<ion-content *ngIf="legal" fullscreeen>
   <ion-grid fixed>
     <ion-row>
-      <ion-col size="12">
-        <h2 (click)="legalModal()">Legal</h2>
+      <ion-col size="1"></ion-col>
+      <ion-col size="11">
+        <h2 (click)="legalModal()" class="legal-css">Condiciones de uso</h2>
       </ion-col>
     </ion-row>
     <ion-row>
-      <ion-col size="12">
-        <h2>Terminos</h2>
+      <ion-col size="1"></ion-col>
+      <ion-col size="11">
+        <h2 (click)="policyModal()" class="legal-css">Políticas de privacidad</h2>
       </ion-col>
     </ion-row>
   </ion-grid>
 </ion-content>
 
-<ion-content *ngIf="profile">
+<ion-content *ngIf="profile" fullscreeen>
   <form class="formProfile" novalidate (submit)="saveProfile()" [formGroup]="form">
     <ion-grid fixed>
         <ion-row>
@@ -127,7 +131,7 @@
                     <ion-item>
                         <ion-label position="floating">Nombre</ion-label>
                         <ion-input
-                            [(ngModel)]="profileData.first_name"
+                            [(ngModel)]="user.first_name"
                             formControlName="first_name"
                             name="first_name"
                             type="text"
@@ -137,7 +141,7 @@
                     <ion-item>
                         <ion-label position="floating">Apellido</ion-label>
                         <ion-input
-                            [(ngModel)]="profileData.last_name"
+                            [(ngModel)]="user.last_name"
                             formControlName="last_name"
                             name="last_name"
                             type="text"
@@ -147,7 +151,7 @@
                     <ion-item>
                         <ion-label position="floating">Email</ion-label>
                         <ion-input
-                            [(ngModel)]="profileData.email"
+                            [(ngModel)]="user.email"
                             (input)="checkEmail()"
                             formControlName="email"
                             name="email"
@@ -161,8 +165,7 @@
                     <ion-item>
                         <ion-label position="floating">Celular</ion-label>
                         <ion-input
-                            [(ngModel)]="profileData.phone"
-                            (input)="checkPhone()"
+                            [(ngModel)]="user.phone"
                             formControlName="phone"
                             type="number"
                             name="phone"
@@ -171,7 +174,7 @@
                     <span *ngIf="errors.phone" class="error-message">
                         {{errors.phone}}
                     </span>
-                    <span  class="legend" style="color: lightgray;" *ngIf="errors.phone.length <= 0">
+                    <span  class="legend" *ngIf="errors.phone.length <= 0">
                       Incluir código de área.
                     </span>
 
@@ -183,7 +186,6 @@
 </ion-content>
 <ion-footer *ngIf="profile">
   <ion-toolbar>
-    <span class="legend" (click)="changePassword()">Cambiar contraseña</span>
+    <span class="change-passw" (click)="changePassword()">Cambiar contraseña</span>
   </ion-toolbar>
 </ion-footer>
-

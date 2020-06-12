@@ -36,7 +36,8 @@ export class UsersService {
       first_name: "",
       last_name: "",
       token: "",
-      guest: false
+      guest: false,
+      phone: null
     }
   }
 
@@ -90,7 +91,6 @@ export class UsersService {
   }
 
   register(form) {
-    console.log("SERVICE", form, form.email);
     const body = {
       username: form.email,
       password: form.password,
@@ -98,7 +98,6 @@ export class UsersService {
       first_name: form.first_name,
       last_name: form.last_name
     }
-    console.log("SERV-BODY", body);
     return new Promise((resolve, reject) => {
       this.http.post(`${apiUrl}users/`, body).subscribe((response) => {
         resolve(response);
@@ -128,10 +127,12 @@ export class UsersService {
     })
   }
 
-  saveChanges(first_name: string, last_name: string) {
+  saveChanges(first_name: string, last_name: string, email: string, phone) {
     const body = {
       first_name,
-      last_name
+      last_name,
+      email,
+      phone
     }
 
     const headers = new HttpHeaders({
@@ -164,7 +165,6 @@ export class UsersService {
 
   recoverPassword(email) {
     const body = { email };
-    console.log("Serv", email);
     return new Promise((resolve, reject) => {
       this.http.post(`${apiUrl}recover-password/mail/`, body).subscribe((response: any) => {
         resolve(response)
@@ -193,9 +193,6 @@ export class UsersService {
       'Content-Type': 'application/json',
       'Authorization': `Token ${this.user.token}`
     });
-
-    console.log(body);
-    console.log(headers);
 
     return new Promise((resolve, reject) => {
       this.http.post(`${apiUrl}recover-password/set_password/`, body, {headers}).subscribe((response: any) => {

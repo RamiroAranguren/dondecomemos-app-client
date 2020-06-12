@@ -3,48 +3,56 @@
         <ion-buttons>
             <ion-back-button defaultHref="/"></ion-back-button>
         </ion-buttons>
-        <ion-title>Filtros</ion-title>
+        <ion-title>Filtro</ion-title>
     </ion-toolbar>
 </ion-header>
 
 <ion-content>
     <ion-grid fixed class="ion-padding-start ion-padding-end">
         <ion-row>
-            <h2>Que cuente con</h2>
             <ion-col size="12">
-                <ion-chip outline>
-                    <ion-label>Retiro por el local</ion-label>
-                    <!-- <ion-icon name="close"></ion-icon> -->
-                </ion-chip>
-                <ion-chip outline>
-                    <ion-label>Delivery</ion-label>
-                </ion-chip>
+                <h4>Que cuente con</h4>
+            </ion-col>            
+            <ion-col id="type-chips" size="12">
+                 <ion-row class="ion-padding-start ion-padding-end">
+                    <ion-col >
+                        <ion-chip outline>
+                            <ion-label>Retiro por local</ion-label>
+                        </ion-chip>
+                    </ion-col>
+                    <ion-col >
+                        <ion-chip outline>
+                            <ion-label>Delivery</ion-label>
+                        </ion-chip>
+                    </ion-col>
+                 </ion-row>
+                
             </ion-col>
         </ion-row>
         <ion-row>
             <ion-col size="12">
-                <h2>Precio</h2>
+                <h4>Precio</h4>
             </ion-col>
-            <ion-col size="12">
+            <ion-col id="price-chips" size="12">
                 <ion-row class="ion-padding-start ion-padding-end">
                     <ion-col size="3">
                         <ion-chip outline>
-                            <ion-label>$</ion-label>
+                            <ion-label class="label-center">$</ion-label>
                         </ion-chip>
                     </ion-col>
                     <ion-col  size="3">
                         <ion-chip outline>
-                            <ion-label>$$</ion-label>
+                            <ion-label class="label-center">$$</ion-label>
                         </ion-chip>
                     </ion-col>
                     <ion-col  size="3">
                         <ion-chip outline>
-                            <ion-label>$$$</ion-label>
+                            <ion-label class="label-center">$$$</ion-label>
                         </ion-chip>
                     </ion-col>
                     <ion-col  size="3">
                         <ion-chip outline>
-                            <ion-label>$$$$</ion-label>
+                            <ion-label >$$$$</ion-label>
                         </ion-chip>
                     </ion-col>
                 </ion-row>
@@ -52,11 +60,11 @@
         </ion-row>
         <ion-row>
             <ion-col size="12">
-                <h2>Cocina</h2>
+                <h4>Cocina</h4>
             </ion-col>
-            <ion-col size="12">
-                <ion-row class="ion-padding-start ion-padding-end">
-                    <ion-col >
+            <ion-col id="country-chips" size="12">
+                <ion-row  class="ion-padding-start ion-padding-end">
+                    <ion-col>
                         <ion-chip outline>
                             <ion-label>Arabe</ion-label>
                         </ion-chip>
@@ -77,29 +85,17 @@
                         </ion-chip>
                     </ion-col>
                 </ion-row>
-                <!-- <ion-chip outline class="ion-padding-end">
-                    <ion-label></ion-label>
-                </ion-chip>
-                <ion-chip outline class="ion-padding-end">
-                    <ion-label>Argentina</ion-label>
-                </ion-chip>
-                <ion-chip outline class="ion-padding-end">
-                    <ion-label>Italiana</ion-label>
-                </ion-chip>
-                <ion-chip outline class="ion-padding-end">
-                    <ion-label>Peruana</ion-label>
-                </ion-chip> -->
             </ion-col>
         </ion-row>
         <br><br>
-        <ion-row>
+        <ion-row class="ion-padding-start ion-padding-end">
             <ion-col size="12">
                 <ion-button (click)="applicateFilters()" color="btn-dc" expand="block" shape="round">
                     Aplicar filtros
                 </ion-button>
             </ion-col>
         </ion-row>
-        <ion-row>
+        <ion-row class="ion-padding-start ion-padding-end">
             <ion-col size="12">
                 <ion-button (click)="resetFilters()" color="dark" expand="block" shape="round">
                     Resetear
