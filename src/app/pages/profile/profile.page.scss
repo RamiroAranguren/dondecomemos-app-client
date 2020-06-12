@@ -96,24 +96,6 @@ ion-row {
     }
 }
 
-ion-item.item-native{
-   background-color: red !important;
-   --ion-background-color: red !important;
-}
-
-.item-native::after {
-    background: blue !important;
-    background-color: green !important;
-    --ion-background-color: red !important;
-}
-
-.item-inner::after {
-    --ion-background-color: red !important;
-    background: blue !important;
-    background-color: green !important;
-}
-
-
 .legend {
     color: rgb(129, 129, 129);
     margin-left: 30px;
