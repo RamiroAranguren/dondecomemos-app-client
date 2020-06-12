@@ -6,14 +6,16 @@
     <div class="body-content">
         <form novalidate (submit)="doRegister()" [formGroup]="form">
             <ion-fab horizontal="end" horizontal="end" slot="fixed" edge="true">
-                <ion-button [disabled]="form.invalid" size="large" type="submit">
-                    <ion-icon name="arrow-forward-outline"></ion-icon>
-                </ion-button>
+                <div class="bg-btn">
+                    <ion-button [disabled]="form.invalid" size="large" type="submit" class="register-btn">
+                        <ion-icon name="arrow-forward-outline"></ion-icon>
+                    </ion-button>
+                </div>
             </ion-fab>
             <ion-grid fixed>
                 <ion-row>
                     <ion-col>
-                        <h2>Registro</h2>
+                        <h2 class="registerFont">Registro</h2>
                     </ion-col>
                 </ion-row>
                 <ion-row>
@@ -74,7 +76,7 @@
                             <span *ngIf="errors.password" class="error-message">
                                 {{errors.password}}
                             </span>
-                            <span style="color: lightgray;" *ngIf="errors.password.length <= 0">
+                            <span style="color: lightgray; font-family: FieldworkGeoThin;" *ngIf="errors.password.length <= 0">
                                 Por favor, revise que escribió su contraseña correctamente.
                             </span>
 
