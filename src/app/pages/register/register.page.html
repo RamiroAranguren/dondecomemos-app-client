@@ -21,9 +21,10 @@
                 <ion-row>
                     <ion-col>
                         <ion-list>
-                            <ion-item>
-                                <ion-label position="floating">Nombre</ion-label>
+                            <ion-item color="input-background">
+                                <ion-label position="floating" class="colorBlack">Nombre</ion-label>
                                 <ion-input
+                                    class="colorBlack"
                                     [(ngModel)]="userRegister.first_name"
                                     formControlName="first_name"
                                     name="first_name"
@@ -31,9 +32,10 @@
                                     required></ion-input>
                             </ion-item>
 
-                            <ion-item>
-                                <ion-label position="floating">Apellido</ion-label>
+                            <ion-item color="input-background">
+                                <ion-label position="floating" style="color:black">Apellido</ion-label>
                                 <ion-input
+                                    class="colorBlack"
                                     [(ngModel)]="userRegister.last_name"
                                     formControlName="last_name"
                                     name="last_name"
@@ -41,9 +43,10 @@
                                     required></ion-input>
                             </ion-item>
 
-                            <ion-item>
-                                <ion-label position="floating">Email</ion-label>
+                            <ion-item color="input-background">
+                                <ion-label position="floating" style="color:black">Email</ion-label>
                                 <ion-input
+                                    class="colorBlack"
                                     [(ngModel)]="userRegister.email"
                                     (ionChange)="checkEmail()"
                                     formControlName="email"
@@ -55,20 +58,23 @@
                                 {{errors.email}}
                             </span>
 
-                            <ion-item>
-                                <ion-label position="floating">Contraseña</ion-label>
+                            <ion-item color="input-background">
+                                <ion-label position="floating" style="color:black">Contraseña</ion-label>
                                 <ion-input
+                                    class="colorBlack"
                                     [(ngModel)]="userRegister.password"
                                     (ionChange)="checkPassword()"
                                     formControlName="password"
                                     type="{{type}}"
                                     name="password"
                                 ></ion-input>
-                                <ion-icon
+                                <ion-icon 
+                                    color="dark"
                                     *ngIf="type==='text'"
                                     slot="end"
                                     (click)="showPassword()" name="eye"></ion-icon>
                                 <ion-icon
+                                    color="dark"
                                     *ngIf="type==='password'"
                                     slot="end"
                                     (click)="showPassword()" name="eye-off"></ion-icon>

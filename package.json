@@ -29,6 +29,7 @@
     "@ionic/angular": "^5.0.0",
     "@ionic/storage": "^2.2.0",
     "cordova-android": "8.1.0",
+    "cordova-ios": "5.1.1",
     "cordova-plugin-androidx": "^2.0.0",
     "cordova-plugin-androidx-adapter": "^1.1.1",
     "cordova-plugin-facebook4": "^6.4.0",
@@ -96,7 +97,8 @@
       },
       "cordova-plugin-googleplus": {
         "REVERSED_CLIENT_ID": "com.googleusercontent.apps.958354498223-uk0evpabnkj4c5bh40kp5k88bl1sm551",
-        "WEB_APPLICATION_CLIENT_ID": "958354498223-23qb7d2kavn9c4l3771b31m23nknhlg9.apps.googleusercontent.com"
+        "WEB_APPLICATION_CLIENT_ID": "958354498223-23qb7d2kavn9c4l3771b31m23nknhlg9.apps.googleusercontent.com",
+        "PLAY_SERVICES_VERSION": "15.0.1"
       },
       "cordova-plugin-facebook4": {
         "APP_ID": "201306844351657",
@@ -108,7 +110,8 @@
       "cordova-plugin-androidx-adapter": {}
     },
     "platforms": [
-      "android"
+      "android",
+      "ios"
     ]
   }
 }

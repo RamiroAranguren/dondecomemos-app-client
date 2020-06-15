@@ -86,6 +86,13 @@
     --ion-color-btn-dc-contrast-rgb: 0, 0, 0;
     --ion-color-btn-dc-shade: #e06500;
     --ion-color-btn-dc-tint: #ff811a;
+
+    --ion-color-input-background: #F5F5F5;
+    --ion-color-input-background-rgb: 105,187,123;
+    --ion-color-input-background-contrast: #ffffff;
+    --ion-color-input-background-contrast-rgb: 255,255,255;
+    --ion-color-input-background-shade: #F5F5F5;
+    --ion-color-input-background-tint: #F5F5F5;
 }
 
 .ion-color-btn-dc {
@@ -96,6 +103,16 @@
     --ion-color-shade: var(--ion-color-btn-dc-shade) !important;
     --ion-color-tint: var(--ion-color-btn-dc-tint) !important;
 }
+
+.ion-color-input-background {
+    --ion-color-base: var(--ion-color-input-background);
+    --ion-color-base-rgb: var(--ion-color-input-background-rgb);
+    --ion-color-contrast: var(--ion-color-input-background-contrast);
+    --ion-color-contrast-rgb: var(--ion-color-input-background-contrast-rgb);
+    --ion-color-shade: var(--ion-color-input-background-shade);
+    --ion-color-tint: var(--ion-color-input-background-tint);
+  }
+
 
 // @media (prefers-color-scheme: dark) {
 //   /*
