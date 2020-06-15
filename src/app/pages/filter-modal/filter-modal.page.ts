@@ -82,4 +82,8 @@ export class FilterModalPage implements OnInit {
     }]});
   }
 
+  closeFilters() {
+    this.modalCtrl.dismiss({filters: this.filters});
+  }
+
 }

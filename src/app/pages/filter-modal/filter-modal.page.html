@@ -1,7 +1,9 @@
 <ion-header>
     <ion-toolbar>
         <ion-buttons slot="start">
-            <ion-back-button defaultHref="/"></ion-back-button>
+            <ion-button (click)="closeFilters()">
+                <ion-icon slot="start" name="arrow-back"></ion-icon>
+            </ion-button>
         </ion-buttons>
         <ion-title>Filtro</ion-title>
     </ion-toolbar>

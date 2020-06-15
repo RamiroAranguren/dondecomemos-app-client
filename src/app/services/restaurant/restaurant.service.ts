@@ -35,11 +35,15 @@ export class RestaurantService extends BaseService {
   }
 
   getRestaurantsByLocation(idLocation) {
-    return this.restaurants.filter((restaurant) =>restaurant.influence_range == idLocation)
+    return this.restaurants.filter((resto:restaurant) => resto.influence_range === idLocation)
   }
 
   getRestaurantById(restaurantId) {
-    return this.restaurants.filter((restaurant) => restaurant.id == restaurantId)
+    return this.restaurants.filter((resto:restaurant) => resto.id === restaurantId)
+  }
+
+  getRestaurantByCity(city) {
+    return this.restaurants.filter((resto:restaurant) => resto.influence_range === city.influence_range);
   }
 
   getRestaurantByFilters(filters): any {

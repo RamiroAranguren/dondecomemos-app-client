@@ -3,14 +3,14 @@ import { ModalController, AlertController } from '@ionic/angular';
 
 import { FilterModalPage } from '../filter-modal/filter-modal.page';
 
-import { UsersService } from '../../services/users/user.service';
 import { RestaurantService } from '../../services/restaurant/restaurant.service';
 import { LoaderService } from '../../services/loader/loader.service';
 import { LocationService } from '../../services/location/location.service';
+import { StorageService } from '../../services/storage/storage.service';
 
 import { restaurant } from '../../interfaces/restaurant';
 import { LocationInterface } from '../../interfaces/location';
-import { StorageService } from '../../services/storage/storage.service';
+
 
 @Component({
   selector: 'app-home',
@@ -34,10 +34,14 @@ export class HomePage implements OnInit {
   items: Array<any>;
 
   locations = [];
+  dict_locations = {};
   restaurants = [];
   restaurantsCopy = [];
 
   resultSearch = [];
+  resultSearchResto = [];
+  resultSearchCity = [];
+
   restaurantMap = [];
   myInputs = [];
 
@@ -54,7 +58,6 @@ export class HomePage implements OnInit {
     public restaurantService: RestaurantService,
     public alertCtrl: AlertController,
     public locationService: LocationService,
-    public userService: UsersService,
     private loaderService: LoaderService,
     private storage: StorageService
   ) {
@@ -74,24 +77,26 @@ export class HomePage implements OnInit {
       this.restaurantService.get().then((res:any) => {
 
         this.restaurants = res;
+        console.log(this.restaurants);
         this.restaurantsCopy = res;
-        this.storage.getObject("location").then(location => {
-          this.filterRestaurants(location);
-        }).catch(() => {
-          let currentLocation = this.locationService.getCurrentLocation();
-          if (!currentLocation) {
-            this.locationService.get().then((locations:any) => {
-              this.locations = locations;
-              if (this.locations.length > 0)
-                this.presentAlert();
-            })
-          } else {
-            this.filterRestaurants(currentLocation);
-          }
-        });
-
         this.loaderService.hide();
       });
+    });
+
+    this.storage.getObject("locations").then(locations => {
+      this.locations = locations;
+      if(!locations){
+        this.locationService.get().then((locations:any) => {
+          this.storage.addObject("locations", locations);
+          this.locations = locations;
+        });
+      }
+      this.locations.filter((location:LocationInterface) => {
+        this.dict_locations[location.id] = location.name;
+      });
+      console.log("INIT", this.dict_locations);
+    }).catch(error => {
+      console.log("error locations");
     });
   }
 
@@ -144,7 +149,9 @@ export class HomePage implements OnInit {
   }
 
   searchFilter( event )  {
-    this.resultSearch = [];
+    this.resultSearchResto = [];
+    this.resultSearchCity = [];
+    let count = 0;
     let val = event.target.value;
 
     this.inputSearch = val;
@@ -155,15 +162,19 @@ export class HomePage implements OnInit {
 
         this.searchChange = true;
 
-        this.restaurants.filter((res:restaurant) =>{
-          if (res.address.toLowerCase().search(val.toLowerCase()) !== -1) {
-            res.type = "address";
-            this.resultSearch.push(res);
+        this.restaurants.filter((resto:restaurant) =>{
+
+          if(resto.name.toLowerCase().search(val.toLowerCase()) !== -1) {
+            resto.type = "resto";
+            this.resultSearchResto.push(resto);
             return;
           }
-          if(res.name.toLowerCase().search(val.toLowerCase()) !== -1) {
-            res.type = "resto";
-            this.resultSearch.push(res);
+
+          let resto_city = this.dict_locations[resto.influence_range];
+          if(resto_city.toLowerCase().search(val.toLowerCase()) !== -1) {
+            resto.type = "city";
+            this.resultSearchCity.push(
+              {"influence_range": resto.influence_range, "name": resto_city, "type": "city", "count": count});
             return;
           }
         });
@@ -175,7 +186,21 @@ export class HomePage implements OnInit {
       this.filterColor = '';
     }
 
-    this.resultSearch = this.resultSearch.reduce((newTempArr, el) => (newTempArr.includes(el) ? newTempArr : [...newTempArr, el]), [])
+    this.resultSearchCity = Array.from(
+      new Set(this.resultSearchCity.map(res => res.influence_range)))
+      .map(influ => {
+        console.log(this.resultSearchCity.filter(city => city.influence_range === influ), influ);
+        return {
+          influence_range: influ,
+          name: this.resultSearchCity.find(city => city.influence_range === influ).name,
+          count: this.restaurants.filter(resto => resto.influence_range === influ).length,
+          type: "city"
+        }
+      });
+    this.resultSearchResto = this.resultSearchResto.reduce((newTempArr, el) => (newTempArr.includes(el) ? newTempArr : [...newTempArr, el]), [])
+
+    console.log(this.resultSearchCity);
+    this.resultSearch = this.resultSearchCity.concat(this.resultSearchResto);
 
   }
 
@@ -190,7 +215,11 @@ export class HomePage implements OnInit {
     this.valueSearch = item.name;
     this.searchChange = false;
     this.filterColor = 'btn-dc';
-    this.restaurants =  this.restaurantService.getRestaurantById(item.id)
+    if (item.type === 'city'){
+      this.restaurants =  this.restaurantService.getRestaurantByCity(item);
+    } else {
+      this.restaurants =  this.restaurantService.getRestaurantById(item.id)
+    }
   }
 
   async openFilters(){

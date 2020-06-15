@@ -15,7 +15,6 @@ import { Facebook, FacebookLoginResponse } from '@ionic-native/facebook/ngx';
 import { GooglePlus } from '@ionic-native/google-plus/ngx';
 
 
-const baseUrl = environment.baseUrl;
 const apiUrl = environment.apiUrl;
 
 @Injectable({
@@ -25,6 +24,28 @@ export class UsersService {
 
   user: UserInterface;
   isShowingPopUp = false;
+
+  userGplus = {
+    uid: "",
+    username: "",
+    password: "",
+    email: "",
+    first_name: "",
+    last_name: "",
+    name: "",
+    picture:""
+  }
+
+  userFcbk = {
+    uid: "",
+    username: "",
+    password: "",
+    email: "",
+    first_name: "",
+    last_name: "",
+    name: "",
+    picture:""
+  }
 
   constructor(
     private http: HttpClient,
@@ -98,7 +119,7 @@ export class UsersService {
 
   async logout() {
     await this.storage.removeObject("user");
-    await this.storage.removeObject("location");
+    await this.storage.removeObject("locations");
   }
 
   register(form) {
@@ -165,43 +186,29 @@ export class UsersService {
   }
 
   async loginGoogle() {
-    return await this.google.login({});
-    //   this.user.password = res.uid;
-    //   this.user.username = res.email;
-    //   this.user.email = res.email;
-    //   this.user.first_name = res.displayName.split(" ")[0];
-    //   this.user.last_name = res.displayName.split(" ")[1];
-    //   console.log(res);
-    //   // console.log(JSON.stringify(res));
-    //   return res;
-    // }).catch(error => {
-    //   console.error("error login g+", error);;
-    // });
-    // try {
-    //   const { user } = await this.afAuth.auth.signInWithPopup(new auth.GoogleAuthProvider());
-    //   console.log("Login ok", user);
-    //   return user;
-    // } catch(error) {
-    //   console.log("error", error);
-    // }
+    const res = await this.google.login({});
+    const googleCredential = auth.GoogleAuthProvider.credential(res.idToken);
+    const resConfirmed = await this.afAuth.auth.signInWithCredential(googleCredential);
+    const userGplus = resConfirmed.user;
+    console.log("userGplus", userGplus);
+    this.storage.addObject("userGplus", userGplus);
+    return userGplus;
   }
 
   async loginFcbk() {
-    return await this.facebook.login(['public_profile', 'email']).then((rta: FacebookLoginResponse) => {
-      console.log("RES-SERVICE-loginFcbk", rta, rta.status);
-      if(rta.status == 'connected'){
-        return this.getInfo();
-      };
-    })
-    .catch(error => {
-      console.error( error );
-    });
+    const res: FacebookLoginResponse = await this.facebook.login(['public_profile', 'email']);
+    const facebookCredential = auth.FacebookAuthProvider.credential(res.authResponse.accessToken);
+    const resConfirmed = await this.afAuth.auth.signInWithCredential(facebookCredential);
+    const dataFcbk = resConfirmed.user;
+    console.log("userFcbk", dataFcbk);
+    this.storage.addObject("userFcbk", dataFcbk);
+    return dataFcbk;
   }
 
   getInfo(){
     this.facebook.api('/me?fields=id,name,email,first_name,picture,last_name,gender',['public_profile','email'])
     .then(data => {
-      console.log("FCBK-getInfo", data);
+      console.log("data_fcbk-antes", data);
       return data;
     })
     .catch(error =>{
