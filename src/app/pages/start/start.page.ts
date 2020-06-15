@@ -86,15 +86,18 @@ export class StartPage implements OnInit {
   loginGoogle(){
     console.log('g+');
     this.userService.loginGoogle().then(res => {
-      console.log("START-DATA-USER-G+", res);
+      const userGplus = res.user;
+      console.log("START-DATA-USER-G+", userGplus);
       this.loginSocialGplus.net = "google";
-      this.loginSocialGplus.email = res.email;
-      this.loginSocialGplus.password = res.uid;
-      if (res.displayName && res.displayName !== "") {
-        let namelong = res.displayName.split(" ");
+      this.loginSocialGplus.email = userGplus.email;
+      this.loginSocialGplus.password = userGplus.uid;
+      if (userGplus.displayName && userGplus.displayName !== "") {
+        let namelong = userGplus.displayName.split(" ");
         this.loginSocialGplus.first_name = namelong[0];
         this.loginSocialGplus.last_name = namelong[1];
       }
+
+      console.log("Data for register", this.loginSocialGplus);
       // INTENTA REGISTRAR AL USER G+
       this.userService.register(this.loginSocialGplus).then(() => {
         let navigationExtras: NavigationExtras = {

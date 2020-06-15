@@ -13,6 +13,7 @@ import { auth } from 'firebase/app';
 import { Facebook, FacebookLoginResponse } from '@ionic-native/facebook/ngx';
 
 import { GooglePlus } from '@ionic-native/google-plus/ngx';
+import { UserNetInterface } from '../../interfaces/user-net';
 
 
 const apiUrl = environment.apiUrl;
@@ -185,14 +186,18 @@ export class UsersService {
     })
   }
 
-  async loginGoogle() {
-    const res = await this.google.login({});
-    const googleCredential = auth.GoogleAuthProvider.credential(res.idToken);
-    const resConfirmed = await this.afAuth.auth.signInWithCredential(googleCredential);
-    const userGplus = resConfirmed.user;
-    console.log("userGplus", userGplus);
-    this.storage.addObject("userGplus", userGplus);
-    return userGplus;
+  loginGoogle() {
+    return this.google.login({}).then(result => {
+      const googleCredential = auth.GoogleAuthProvider.credential(null, result.accessToken);
+      return this.afAuth.auth.signInWithCredential(googleCredential);
+    });
+    // const res = await this.google.login({});
+    // const googleCredential = auth.GoogleAuthProvider.credential(res.idToken);
+    // const resConfirmed = await this.afAuth.auth.signInWithCredential(googleCredential);
+    // const userGplus = resConfirmed.user;
+    // console.log("userGplus", userGplus);
+    // this.storage.addObject("userGplus", userGplus);
+    // return userGplus;
   }
 
   async loginFcbk() {
