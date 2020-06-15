@@ -10,16 +10,14 @@
         <ion-searchbar
           [ngClass]="{ bgcolorSearch: filterColor }"
           (ionInput)="searchFilter( $event )"
-          (ionCancel)="onCancel( $event )"
+          (ionCancel)="onCancel()"
+          (ionClear)="onCancel()"
           [(ngModel)]="valueSearch"
-          debounce="2000"
-          autocomplete="on"
           placeholder='Buscar restaurantes, ciudad...'
           showCancelButton="focus"></ion-searchbar>
         <span>
             <ion-icon
             color="{{ filterColor }}"
-            *ngIf="!searchChange"
             (click)="openFilters()"
             name="filter"
             slot="end" size="large"></ion-icon>
@@ -35,21 +33,16 @@
   <ion-list>
     <ion-item *ngFor="let item of resultSearch" (click)="selectResult( item )">
         <ion-avatar slot="start">
-          <img [src]="item.profile_picture">
           <img [src]="item.profile_picture" *ngIf="item.type === 'resto'">
           <ion-icon size="large" name="location" *ngIf="item.type === 'address'"></ion-icon>
         </ion-avatar>
-        <ion-label>
-          <h2>{{ item.name }}</h2>
-          <h3>{{ item.address }}</h3>
-        </ion-label>
-        <!-- <ion-label *ngIf="item.type === 'resto'">
-          <h2>{{ item.name }}</h2>
+        <ion-label *ngIf="item.type === 'resto'">
+          <h2>{{ item.name }} {{ item.type }}</h2>
           <h3>{{ item.address }}</h3>
         </ion-label>
         <ion-label *ngIf="item.type === 'address'">
-          <h2>{{ item.address }}</h2>
-        </ion-label> -->
+          <h2>{{ item.address }} {{ item.type }}</h2>
+        </ion-label>
     </ion-item>
   </ion-list>
 
@@ -60,7 +53,7 @@
     <ion-row>
       <ion-col size="12">
         <ion-chip class="f-family" *ngFor="let chip of chips">
-          <ion-label>{{ chip }}</ion-label>
+          <ion-label>{{ chip.name }}</ion-label>
           <ion-icon name="close" (click)="removeChip(chip)"></ion-icon>
         </ion-chip>
       </ion-col>

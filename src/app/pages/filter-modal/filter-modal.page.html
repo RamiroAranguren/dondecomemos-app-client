@@ -1,6 +1,6 @@
 <ion-header>
     <ion-toolbar>
-        <ion-buttons>
+        <ion-buttons slot="start">
             <ion-back-button defaultHref="/"></ion-back-button>
         </ion-buttons>
         <ion-title>Filtro</ion-title>
@@ -12,21 +12,20 @@
         <ion-row>
             <ion-col size="12">
                 <h4>Que cuente con</h4>
-            </ion-col>            
+            </ion-col>
             <ion-col id="type-chips" size="12">
                  <ion-row class="ion-padding-start ion-padding-end">
                     <ion-col >
-                        <ion-chip outline>
+                        <ion-chip id="place-1" (click)="addChip('place', {'id': 1, 'name': 'Retiro por local'})">
                             <ion-label>Retiro por local</ion-label>
                         </ion-chip>
                     </ion-col>
                     <ion-col >
-                        <ion-chip outline>
+                        <ion-chip id="place-2" (click)="addChip('place', {'id': 2, 'name': 'Delivery'})">
                             <ion-label>Delivery</ion-label>
                         </ion-chip>
                     </ion-col>
                  </ion-row>
-                
             </ion-col>
         </ion-row>
         <ion-row>
@@ -36,22 +35,22 @@
             <ion-col id="price-chips" size="12">
                 <ion-row class="ion-padding-start ion-padding-end">
                     <ion-col size="3">
-                        <ion-chip outline>
+                        <ion-chip id="level-1" (click)="addChip('level', {'id': 1, 'name': '$'})">
                             <ion-label class="label-center">$</ion-label>
                         </ion-chip>
                     </ion-col>
                     <ion-col  size="3">
-                        <ion-chip outline>
+                        <ion-chip id="level-2" (click)="addChip('level', {'id': 2, 'name': '$$'})">
                             <ion-label class="label-center">$$</ion-label>
                         </ion-chip>
                     </ion-col>
                     <ion-col  size="3">
-                        <ion-chip outline>
+                        <ion-chip id="level-3" (click)="addChip('level', {'id': 3, 'name': '$$$'})">
                             <ion-label class="label-center">$$$</ion-label>
                         </ion-chip>
                     </ion-col>
-                    <ion-col  size="3">
-                        <ion-chip outline>
+                    <ion-col size="3">
+                        <ion-chip id="level-4" (click)="addChip('level', {'id': 4, 'name': '$$$$'})">
                             <ion-label >$$$$</ion-label>
                         </ion-chip>
                     </ion-col>
@@ -64,24 +63,9 @@
             </ion-col>
             <ion-col id="country-chips" size="12">
                 <ion-row  class="ion-padding-start ion-padding-end">
-                    <ion-col>
-                        <ion-chip outline>
-                            <ion-label>Arabe</ion-label>
-                        </ion-chip>
-                    </ion-col>
-                    <ion-col  >
-                        <ion-chip outline>
-                            <ion-label>Argentina</ion-label>
-                        </ion-chip>
-                    </ion-col>
-                    <ion-col  >
-                        <ion-chip outline>
-                            <ion-label>Italiana</ion-label>
-                        </ion-chip>
-                    </ion-col>
-                    <ion-col  >
-                        <ion-chip outline>
-                            <ion-label>Peruana</ion-label>
+                    <ion-col size="4" *ngFor="let chip of chips">
+                        <ion-chip id="cook-{{ chip.tag.id }}"  (click)="addChip('cook', chip.tag)">
+                            <ion-label>{{ chip.tag.name }}</ion-label>
                         </ion-chip>
                     </ion-col>
                 </ion-row>

@@ -6,11 +6,14 @@ import { environment } from '../../../environments/environment.prod';
 import { StorageService } from '../storage/storage.service';
 import { Platform } from '@ionic/angular';
 import { FCM } from '@ionic-native/fcm/ngx';
-// import { GooglePlus } from '@ionic-native/google-plus';
 
 import { AngularFireAuth } from '@angular/fire/auth';
 import { auth } from 'firebase/app';
-// import * as firebase from 'firebase';
+
+import { Facebook, FacebookLoginResponse } from '@ionic-native/facebook/ngx';
+
+import { GooglePlus } from '@ionic-native/google-plus/ngx';
+
 
 const baseUrl = environment.baseUrl;
 const apiUrl = environment.apiUrl;
@@ -28,8 +31,9 @@ export class UsersService {
     private storage: StorageService,
     private platform: Platform,
     private fcm: FCM,
-    public afAuth: AngularFireAuth
-    // private google: GooglePlus
+    public afAuth: AngularFireAuth,
+    private facebook: Facebook,
+    private google: GooglePlus
   ) {
     this.setUpUser();
   }
@@ -107,8 +111,10 @@ export class UsersService {
     }
     return new Promise((resolve, reject) => {
       this.http.post(`${apiUrl}users/`, body).subscribe((response) => {
+        console.log(response);
         resolve(response);
       }, (errorResponse) => {
+        console.log(errorResponse.error);
         reject(errorResponse.error);
       });
     });
@@ -159,24 +165,48 @@ export class UsersService {
   }
 
   async loginGoogle() {
-    try {
-      const { user } = await this.afAuth.auth.signInWithPopup(new auth.GoogleAuthProvider());
-      console.log("Login ok", user);
-      return user;
-    } catch(error) {
-      console.log("error", error);
-    }
+    return await this.google.login({});
+    //   this.user.password = res.uid;
+    //   this.user.username = res.email;
+    //   this.user.email = res.email;
+    //   this.user.first_name = res.displayName.split(" ")[0];
+    //   this.user.last_name = res.displayName.split(" ")[1];
+    //   console.log(res);
+    //   // console.log(JSON.stringify(res));
+    //   return res;
+    // }).catch(error => {
+    //   console.error("error login g+", error);;
+    // });
+    // try {
+    //   const { user } = await this.afAuth.auth.signInWithPopup(new auth.GoogleAuthProvider());
+    //   console.log("Login ok", user);
+    //   return user;
+    // } catch(error) {
+    //   console.log("error", error);
+    // }
   }
 
   async loginFcbk() {
-    console.log("Fcbk");
-    try {
-      const { user } = await this.afAuth.auth.signInWithPopup(new auth.GoogleAuthProvider());
-      console.log("Login ok", user);
-      return user;
-    } catch(error) {
-      console.log("error", error);
-    }
+    return await this.facebook.login(['public_profile', 'email']).then((rta: FacebookLoginResponse) => {
+      console.log("RES-SERVICE-loginFcbk", rta, rta.status);
+      if(rta.status == 'connected'){
+        return this.getInfo();
+      };
+    })
+    .catch(error => {
+      console.error( error );
+    });
+  }
+
+  getInfo(){
+    this.facebook.api('/me?fields=id,name,email,first_name,picture,last_name,gender',['public_profile','email'])
+    .then(data => {
+      console.log("FCBK-getInfo", data);
+      return data;
+    })
+    .catch(error =>{
+      console.error( error );
+    });
   }
 
   recoverPassword(email) {
@@ -260,3 +290,17 @@ export class UsersService {
 
 
 }
+
+
+// FACEBOOK RESULT
+// email: "formingdeveloper@gmail.com"
+// first_name: "Forming"
+// id: "844450479412313"
+// last_name: "Develop"
+// name: "Forming Develop"
+// picture:
+// data:
+// height: 50
+// is_silhouette: false
+// url: "https://platform-lookaside.fbsbx.com/platform/profilepic/?asid=844450479412313&height=50&width=50&ext=1594593139&hash=AeTKJm2_oYq5vUjQ"
+// width: 50

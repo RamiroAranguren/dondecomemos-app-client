@@ -4,17 +4,22 @@
     <ion-col
       size="6"
       *ngFor="let restaurant of restaurants">
-      
+
       <ion-card>
-       <ion-text id="dto1">
-        para llevar 30% dto
-      </ion-text>
-        <img [src]="restaurant.profile_picture" [alt]="restaurant.name"/>
-        
+        <ion-text *ngFor="let discount of restaurant.placediscounts; let i = index" id="dto{{ i+1 }}">
+          <span *ngIf="discount.place === 'DEL'">Delivery -{{ discount.amount }}%</span>
+          <span *ngIf="discount.place === 'LOC'">Take-away -{{ discount.amount }}%</span>
+          <span *ngIf="discount.place === 'RES'">Reserva -{{ discount.amount }}%</span>
+        </ion-text>
+        <img *ngIf="restaurant.profile_picture" [src]="restaurant.profile_picture" [alt]="restaurant.name"/>
+        <img *ngIf="!restaurant.profile_picture" src="assets/img/icon.png" alt="img_resto" />
+
         <ion-card-header>
           <ion-card-title >{{ restaurant.name }}</ion-card-title>
-          <ion-card-subtitle>Italiana/Argentina</ion-card-subtitle>
-          <p>$$$$ {{ restaurant | openClose }} 4.8 <ion-icon color="btn-dc" name="star"></ion-icon></p>
+          <ion-card-subtitle>{{ restaurant | chips }}</ion-card-subtitle>
+          <p>{{ restaurant | level }} {{ restaurant | openClose }} <span class="qualify">{{ restaurant | score }}</span>
+            <ion-icon *ngIf="restaurant.qualifications.length > 0" color="btn-dc" name="star"></ion-icon>
+          </p>
         </ion-card-header>
       </ion-card>
     </ion-col>

@@ -64,10 +64,6 @@ const routes: Routes = [
     loadChildren: () => import('./pages/change-password/change-password.module').then( m => m.ChangePasswordPageModule)
   },
   {
-    path: 'terms-modal',
-    loadChildren: () => import('./pages/terms-modal/terms-modal.module').then( m => m.TermsModalPageModule)
-  },
-  {
     path: 'change-old-password',
     loadChildren: () => import('./pages/change-old-password/change-old-password.module').then( m => m.ChangeOldPasswordPageModule)
   }

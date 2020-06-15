@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { restaurant } from '../../../interfaces/restaurant';
 
 
 @Component({
@@ -8,7 +9,7 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class RestaurantComponent implements OnInit {
 
-  @Input() restaurants;
+  @Input() restaurants: restaurant[];
 
   constructor() { }
 

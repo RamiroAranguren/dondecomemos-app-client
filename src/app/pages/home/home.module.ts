@@ -8,14 +8,20 @@ import { HomePageRoutingModule } from './home-routing.module';
 
 import { HomePage } from './home.page';
 import { ComponentsModule } from '../../components/components.module';
+import { FilterModalPage } from '../filter-modal/filter-modal.page';
+import { FilterModalPageModule } from '../filter-modal/filter-modal.module';
 
 @NgModule({
+  entryComponents: [
+    FilterModalPage
+  ],
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
     HomePageRoutingModule,
-    ComponentsModule
+    ComponentsModule,
+    FilterModalPageModule
   ],
   declarations: [HomePage]
 })

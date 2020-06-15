@@ -17,6 +17,30 @@ ion-card{
         border-radius: 6px 0px 0px 6px;
         font-family: FieldworkHumHair;
     }
+    #dto2{
+        position: absolute;
+        font-size: 4vw;
+        background-color: orange;
+        height: 5vw;
+        top: 12%;
+        right: 0;
+        padding-left: 1vw;
+        color: black;
+        border-radius: 6px 0px 0px 6px;
+        font-family: FieldworkHumHair;
+    }
+    #dto3{
+        position: absolute;
+        font-size: 4vw;
+        background-color: orange;
+        height: 5vw;
+        top: 20%;
+        right: 0;
+        padding-left: 1vw;
+        color: black;
+        border-radius: 6px 0px 0px 6px;
+        font-family: FieldworkHumHair;
+    }
     img{
         border-radius: 15px;
         width: 100%;
@@ -56,16 +80,8 @@ ion-col{
         height: 32vh;
     }
 }
-// img{
-//     border-radius: 20px;
-//     padding: 2px;
-//     // height: 125px;
-// }
 
-// @media (min-width: 576px) {
-//     img{
-//         border-radius: 20px;
-//         padding: 10px;
-//         // height: auto;
-//     }
-// }
+.qualify {
+    color: #ff7300;
+    font-family: FieldworkGeoRegular;
+}

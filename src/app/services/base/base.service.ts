@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { environment } from '../../../environments/environment.prod';
 import { UserInterface } from '../../interfaces/user';
+import { StorageService } from '../storage/storage.service';
 
 const apiUrl = environment.apiUrl;
 
@@ -16,12 +17,12 @@ export class BaseService {
 
   constructor(
     public http: HttpClient,
-    public storage) {
+    public storage: StorageService) {
 
   }
 
   getUserStore() {
-    return this.storage.getUser().then((userStore:UserInterface) => {
+    return this.storage.getObject("user").then((userStore:UserInterface) => {
       return userStore;
     });
   }

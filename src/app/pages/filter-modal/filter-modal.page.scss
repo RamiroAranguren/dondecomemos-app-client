@@ -27,7 +27,6 @@ ion-content {
     #country-chips{
         ion-col {
             ion-chip {
-                
                 ion-label {
                     width: 100%;
                     text-align: center;
@@ -40,10 +39,17 @@ ion-content {
     }
     ion-chip {
         font-family: FieldworkGeoRegular;
+        background-color: white;
+        border:1px solid lightgrey;
     }
 }
 
 .label-center {
     width: 100%;
     text-align: center;
+}
+
+.chip-checked {
+    background-color: #ffbb61 !important;
+    border:1px solid lightgrey !important;
 }

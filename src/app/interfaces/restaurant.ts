@@ -18,6 +18,9 @@ export interface restaurant {
     renewal_time: String,
     public_key:string,
     placediscounts: any[],
-    type:string
+    chips: any[],
+    qualifications: any[],
+    level:number,
+    type:string,
 }
 
