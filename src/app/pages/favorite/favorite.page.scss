@@ -1,8 +1,17 @@
+ion-toolbar {
+    padding: 5px;
+    h1 {
+        font-family: DMSerifDisplayRegular;
+        font-size: 1.6rem;
+        font-weight: normal;
+        margin: 10px 0px 10px 10vw;
+    }
+}
+
 .cnx_btn {
     --color: black;
-    margin-bottom: 30px;
-    margin-left: 15px;
-    margin-right: 15px;
+    // margin: 0px 15px 20px;
+    margin: 0px 15px;
     text-transform: none;
     font-family: FieldworkHumHair;
     --background: var(--bg-primary-tint);
@@ -12,15 +21,108 @@
     letter-spacing: 0.05rem;
 }
 
-.header-content {
-    img {
-        width: 200px;
+.img-cont {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+}
+
+//pantalla con inicio de sesion
+.pnt-inicio {
+    .logo {
+        width: 100%;
+        max-width: 400px;
+    }
+    .legendh1 {
+        p {
+            color: black;
+            font-family: FieldworkGeoThin;
+            font-size: 20px;
+            text-align: center;
+        }
     }
 }
 
-.legendh1 {
-    --color: black;
-    font-family: FieldworkHumHair;
-    font-size: 20px;
-    margin: 15px;
+//pantalla con los favoritos
+.most-favoritos {
+    ion-item {
+        margin: 2vh 2vh 0vh;
+        --border-color: white;
+        box-shadow: 0px 0px 3px 0px var(--ion-color-medium);
+        border-radius: 8px;
+        ion-thumbnail {
+            height: 30vw;
+            width: 30vw;
+        }
+        ion-label {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+            align-content: flex-start;
+            .titulos {
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+                h2 {
+                    font-family: DMSerifDisplayRegular;
+                    font-weight: lighter;
+                    font-size: 1.5rem;
+                }
+                h3 {
+                    font-family: FieldworkGeoThin;
+                    font-size: 1rem;
+                    color: var(--primary-grey);
+                }
+            }
+            .iconos {
+                display: flex;
+                flex-direction: row;
+                height: 30px;
+                margin-top: 10px;
+                ion-icon {
+                    color: var(--bg-primary-tint);
+                }
+                span {
+                    color: var(--bg-primary-tint);
+                    margin-left: 5px;
+                }
+                #icon-rate {
+                    width: 85%;
+                    margin-top: 0.2em;
+                }
+                #heart-icon {
+                    width: 15%;
+                    font-size: 1.5em;
+                }
+            }
+        }
+    }
+}
+
+//pantalla para buscar un restauante
+.bus-resto {
+    .logo {
+        width: 80%;
+        max-width: 400px;
+    }
+    ion-grid {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-content: center;
+        height: 100%;
+    }
+    p {
+        white-space: pre;
+        color: var(--primary-grey);
+        font-size: 1.2rem;
+        text-align: center;
+        margin: 5vh 0px;
+        font-family: FieldworkGeoThin;
+    }
+    .cnx_btn {
+        text-transform: uppercase;
+    }
 }

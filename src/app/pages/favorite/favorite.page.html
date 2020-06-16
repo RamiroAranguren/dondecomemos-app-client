@@ -1,62 +1,117 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>Favoritos</ion-title>
-  </ion-toolbar>
+    <ion-toolbar>
+        <h1>Favoritos</h1>
+    </ion-toolbar>
 </ion-header>
 
-<ion-content *ngIf="menuHide">
-  Mostrar favoritos
+
+<!--! cambiar la condicion de IF -->
+<ion-content *ngIf="false" class="most-favoritos">
+    <ion-item>
+
+        <ion-thumbnail slot="end">
+            <img src="assets/img/resta_default.png">
+        </ion-thumbnail>
+
+        <ion-label>
+            <div class="titulos">
+                <h2>Las Juanas</h2>
+                <h3>Mexicana</h3>
+            </div>
+            <div class="iconos">
+                <div id="icon-rate">
+                    <ion-icon name="star"></ion-icon> <span>5.0</span>
+                </div>
+                <ion-icon id="heart-icon" name="heart"></ion-icon>
+            </div>
+        </ion-label>
+    </ion-item>
 </ion-content>
 
-<ion-content *ngIf="!menuHide">
-  <ion-grid fixed>
-    <ion-row>
-      <ion-col size="3"></ion-col>
-      <ion-col size="6">
-        <div class="header-content">
-            <div class="logo">
-                <img src="assets/img/register.png">
-            </div>
-        </div>
-      </ion-col>
-      <ion-col size="3"></ion-col>
-    </ion-row>
-    <ion-row class="legendh1">
-      <ion-col size="12" class="ion-text-justify">
-        <span>Por favor inicie sesión o regístrese
-          para ver sus restaurantes favoritos</span>
-      </ion-col>
-    </ion-row>
-    <ion-row>
-      <ion-col size="12">
-        <ion-button (click)="login()" class="cnx_btn" expand="block" fill="clear" shape="round">
-          Iniciar Sesión
-        </ion-button>
-      </ion-col>
-    </ion-row>
-    <ion-row>
-      <ion-col size="12">
-        <ion-button (click)="register()" class="cnx_btn" expand="block" fill="clear" shape="round">
-          Registrarse
-        </ion-button>
-      </ion-col>
-    </ion-row>
-    <ion-row class="legendh1">
-      <ion-col size="12" class="ion-text-center">
-        <span>O ingresar con</span>
-      </ion-col>
-    </ion-row>
-    <ion-row>
-      <ion-col size="6">
-        <ion-button (click)="loginGoogle()" class="cnx_btn" expand="block" fill="clear" shape="round">
-          Google
-        </ion-button>
-      </ion-col>
-      <ion-col size="6">
-        <ion-button (click)="loginFcbk()" class="cnx_btn" expand="block" fill="clear" shape="round">
-          Facebook
-        </ion-button>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
+
+
+<!-- !cambiar la condicion de IF -->
+<ion-content class="pnt-inicio" *ngIf="true">
+    <ion-grid fixed>
+        <ion-row class="ion-justify-content-center ion-margin-top">
+            <ion-col size="8">
+                <div class="img-cont">
+                    <img class="logo" src="../../../assets/img/favoritos.svg">
+                </div>
+            </ion-col>
+        </ion-row>
+
+        <ion-row class="legendh1">
+            <ion-col size="12">
+                <p>Por favor inicie sesión o regístrese para ver sus restaurantes favoritos</p>
+            </ion-col>
+        </ion-row>
+
+        <ion-row>
+            <ion-col size=" 12 " class="ion-padding-top ion-padding-bottom">
+                <ion-button (click)="login() " class="cnx_btn " expand="block " fill="clear " shape="round ">
+                    Iniciar Sesión
+                </ion-button>
+            </ion-col>
+        </ion-row>
+
+        <ion-row>
+            <ion-col size="12 " class="ion-padding-top">
+                <ion-button (click)="register() " class="cnx_btn " expand="block " fill="clear " shape="round ">
+                    Registrarse
+                </ion-button>
+            </ion-col>
+        </ion-row>
+
+        <ion-row class="legendh1">
+            <ion-col size="12">
+                <p>O ingresar con</p>
+            </ion-col>
+        </ion-row>
+
+        <ion-row>
+            <ion-col size="6 " class="ion-margin-bottom">
+                <ion-button (click)="loginGoogle() " class="cnx_btn " expand="block " fill="clear " shape="round ">
+                    Google
+                </ion-button>
+            </ion-col>
+            <ion-col size="6 " class="ion-margin-bottom">
+                <ion-button (click)="loginFcbk() " class="cnx_btn " expand="block " fill="clear " shape="round ">
+                    Facebook
+                </ion-button>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+</ion-content>
+
+<!-- !cambiar la condicion de IF -->
+<ion-content class="bus-resto" *ngIf="false" fullscreen>
+
+    <ion-grid fixed>
+
+        <ion-row class=" ion-justify-content-center ion-margin-top ">
+            <ion-col size="8 ">
+                <div class="img-cont">
+                    <img class="logo" src="../../../assets/img/favoritos.svg">
+                </div>
+            </ion-col>
+        </ion-row>
+
+        <ion-row class=" ion-justify-content-center">
+            <ion-col size=" 8 ">
+                <p>Aquí se mostrarán sus<br>restaurantes favoritos</p>
+            </ion-col>
+
+        </ion-row>
+
+        <ion-row class=" ion-justify-content-center">
+            <ion-col size="12 ">
+                <ion-button class="cnx_btn " expand="block " fill="clear " shape="round ">
+                    Buscar un restaurante
+                </ion-button>
+            </ion-col>
+        </ion-row>
+
+    </ion-grid>
+
 </ion-content>
