@@ -1,9 +1,7 @@
 
 
   <ion-row>
-    <ion-col
-      size="6"
-      *ngFor="let restaurant of restaurants">
+    <ion-col size="6" *ngFor="let restaurant of restaurants" (click)="details( restaurant )">
 
       <ion-card>
         <ion-text *ngFor="let discount of restaurant.placediscounts; let i = index" id="dto{{ i+1 }}">
@@ -17,7 +15,7 @@
         <ion-card-header>
           <ion-card-title >{{ restaurant.name }}</ion-card-title>
           <ion-card-subtitle>{{ restaurant | chips }}</ion-card-subtitle>
-          <p>{{ restaurant | level }} {{ restaurant | openClose }} <span class="qualify">{{ restaurant | score }}</span>
+          <p><span [innerHTML]='restaurant | level'></span> {{ restaurant | openClose }} <span class="qualify">{{ restaurant | score }}</span>
             <ion-icon *ngIf="restaurant.qualifications.length > 0" color="btn-dc" name="star"></ion-icon>
           </p>
         </ion-card-header>

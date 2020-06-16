@@ -10,19 +10,19 @@ export class LevelPipe implements PipeTransform {
     let level: string = "";
     switch (restaurant.level) {
       case 1:
-        level = "$";
+        level = "<b class='level'>$<b><span style='color:red !important'>$$$</span>";
         break;
       case 2:
-        level = "$$";
+        level = "<b class='level'>$$</b><span style='color:red !important'>$$</span>";
         break;
       case 3:
-        level = "$$$";
+        level = "<b class='level'>$$$</b><span style='color:red !important'>$</span>";
         break;
       case 4:
-        level = "$$$$";
+        level = "<b class='level'>$$$$</b>";
         break;
       default:
-        level = "$";
+        level = "<b class='level'>$</b><span style='color:red !important'>$$$</span>";
         break;
     }
 

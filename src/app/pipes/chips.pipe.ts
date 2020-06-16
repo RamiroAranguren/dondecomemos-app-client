@@ -13,7 +13,7 @@ export class ChipsPipe implements PipeTransform {
         chips.push(chip.tag.name);
       }
     });
-    return chips.join("/");
+    return chips.join(" / ");
   }
 
 }

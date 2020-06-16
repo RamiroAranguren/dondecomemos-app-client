@@ -1,4 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { NavController } from '@ionic/angular';
+import { NavigationExtras } from '@angular/router';
+
 import { restaurant } from '../../../interfaces/restaurant';
 
 
@@ -11,9 +14,16 @@ export class RestaurantComponent implements OnInit {
 
   @Input() restaurants: restaurant[];
 
-  constructor() { }
+  constructor(
+    private navCtrl: NavController
+  ) { }
 
   ngOnInit() {
+  }
+
+  details(resto:restaurant) {
+    let params: NavigationExtras = {state: {data: resto}};
+    this.navCtrl.navigateForward(['/details'], params);
   }
 
 }

@@ -187,10 +187,11 @@ export class UsersService {
   }
 
   loginGoogle() {
-    return this.google.login({}).then(result => {
-      const googleCredential = auth.GoogleAuthProvider.credential(null, result.accessToken);
-      return this.afAuth.auth.signInWithCredential(googleCredential);
-    });
+    let data_google = this.google.login({})
+      .then(result => console.log(result))
+      .catch(err => console.log(`Error ${JSON.stringify(err)}`));
+
+    return data_google;
     // const res = await this.google.login({});
     // const googleCredential = auth.GoogleAuthProvider.credential(res.idToken);
     // const resConfirmed = await this.afAuth.auth.signInWithCredential(googleCredential);

@@ -85,42 +85,44 @@ export class StartPage implements OnInit {
 
   loginGoogle(){
     console.log('g+');
-    this.userService.loginGoogle().then(res => {
-      const userGplus = res.user;
-      console.log("START-DATA-USER-G+", userGplus);
-      this.loginSocialGplus.net = "google";
-      this.loginSocialGplus.email = userGplus.email;
-      this.loginSocialGplus.password = userGplus.uid;
-      if (userGplus.displayName && userGplus.displayName !== "") {
-        let namelong = userGplus.displayName.split(" ");
-        this.loginSocialGplus.first_name = namelong[0];
-        this.loginSocialGplus.last_name = namelong[1];
-      }
+    
+    let data_gplus = this.userService.loginGoogle();
+    console.log("DATA", data_gplus);
+      // const userGplus = res;
+      // console.log("START-DATA-USER-G+", userGplus);
+      // this.loginSocialGplus.net = "google";
+      // this.loginSocialGplus.email = userGplus.email;
+      // this.loginSocialGplus.password = userGplus.uid;
+      // if (userGplus.displayName && userGplus.displayName !== "") {
+      //   let namelong = userGplus.displayName.split(" ");
+      //   this.loginSocialGplus.first_name = namelong[0];
+      //   this.loginSocialGplus.last_name = namelong[1];
+      // }
 
-      console.log("Data for register", this.loginSocialGplus);
-      // INTENTA REGISTRAR AL USER G+
-      this.userService.register(this.loginSocialGplus).then(() => {
-        let navigationExtras: NavigationExtras = {
-          state: {data: this.loginSocialGplus}
-        };
-        this.navCtrl.navigateForward(['/verify-number'], navigationExtras);
-      }).catch((error) => {
-        console.log("error-register", error);
-        // SI YA EXISTE USUARIO CON ESE EMAIL LO QUE HACE ES LOGUEAR A ESE USER
-        if (error.username && error.username.length > 0){
-          this.userService.login(this.loginSocialGplus.email, this.loginSocialGplus.password).then(res => {
-            console.log("LOGIN-START", res);
-            this.navCtrl.navigateRoot('/tabs/home');
-          })
-          .catch(errors => {
-            console.log(errors);
-            this.toast.show("Hubo un error al intentar login con Google", errors);
-          });
-        }
-      });
-    }).catch(error => {
-      this.toast.show("Hubo un error al intentar ingresar con Google", error);
-    })
+      // console.log("Data for register", this.loginSocialGplus);
+      // // INTENTA REGISTRAR AL USER G+
+      // this.userService.register(this.loginSocialGplus).then(() => {
+      //   let navigationExtras: NavigationExtras = {
+      //     state: {data: this.loginSocialGplus}
+      //   };
+      //   this.navCtrl.navigateForward(['/verify-number'], navigationExtras);
+      // }).catch((error) => {
+      //   console.log("error-register", error);
+      //   // SI YA EXISTE USUARIO CON ESE EMAIL LO QUE HACE ES LOGUEAR A ESE USER
+      //   if (error.username && error.username.length > 0){
+      //     this.userService.login(this.loginSocialGplus.email, this.loginSocialGplus.password).then(res => {
+      //       console.log("LOGIN-START", res);
+      //       this.navCtrl.navigateRoot('/tabs/home');
+      //     })
+      //     .catch(errors => {
+      //       console.log(errors);
+      //       this.toast.show("Hubo un error al intentar login con Google", errors);
+      //     });
+      //   }
+      // });
+    // }).catch(error => {
+    //   this.toast.show("Hubo un error al intentar ingresar con Google", error);
+    // })
   }
 
   loginAsGuestUser() {

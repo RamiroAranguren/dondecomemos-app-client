@@ -98,8 +98,7 @@
       },
       "cordova-plugin-googleplus": {
         "REVERSED_CLIENT_ID": "com.googleusercontent.apps.958354498223-uk0evpabnkj4c5bh40kp5k88bl1sm551",
-        "WEB_APPLICATION_CLIENT_ID": "958354498223-23qb7d2kavn9c4l3771b31m23nknhlg9.apps.googleusercontent.com",
-        "PLAY_SERVICES_VERSION": "15.0.1"
+        "WEB_APPLICATION_CLIENT_ID": "1093058886974-rl5goa09bu4vbehlot9qbmpjhkvq3tge.apps.googleusercontent.com"
       },
       "cordova-plugin-facebook4": {
         "APP_ID": "201306844351657",

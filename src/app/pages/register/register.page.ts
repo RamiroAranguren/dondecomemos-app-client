@@ -66,8 +66,7 @@ export class RegisterPage implements OnInit {
         this.userService.register(this.userRegister).then(() => {
           this.loader.hide();
           let navigationExtras: NavigationExtras = {
-            state: {data: this.userRegister}
-          };
+            state: {data: this.userRegister}};
           this.navCtrl.navigateForward(['/verify-number'], navigationExtras);
         }).catch((error) => {
           this.loader.hide();

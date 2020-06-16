@@ -1,0 +1,93 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-back-button icon="heart-outline"></ion-back-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-back-button icon="information-circle-outline"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-row>
+    <ion-col size="12">
+
+      <ion-card>
+        <ion-text *ngFor="let discount of restaurant.placediscounts; let i = index" id="dto{{ i+1 }}">
+          <span *ngIf="discount.place === 'DEL'">Delivery -{{ discount.amount }}%</span>
+          <span *ngIf="discount.place === 'LOC'">Take-away -{{ discount.amount }}%</span>
+          <span *ngIf="discount.place === 'RES'">Reserva -{{ discount.amount }}%</span>
+        </ion-text>
+        <img *ngIf="restaurant.profile_picture" [src]="restaurant.profile_picture" [alt]="restaurant.name"/>
+        <img *ngIf="!restaurant.profile_picture" src="assets/img/icon.png" alt="img_resto" />
+
+        <ion-card-header>
+          <ion-card-title >
+            <ion-grid fixed>
+              <ion-row>
+                <ion-col size="8">
+                  <span class="title_resto">{{ restaurant.name }} sdsdsdsdsd dfadsasd</span>
+                </ion-col>
+                <ion-col size="2" class="ion-text-center">
+                  <span [innerHTML]='restaurant | level'></span>
+                </ion-col>
+                <ion-col size="2" class="ion-text-end">
+                  <ion-icon *ngIf="restaurant.qualifications.length > 0" color="btn-dc" name="star"></ion-icon>
+                  &nbsp;<span class="qualify">{{ restaurant | score }}</span>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          </ion-card-title>
+
+          <ion-card-subtitle>{{ restaurant | chips }}</ion-card-subtitle>
+          <p>{{ restaurant | openClose }} - cierra a las {{ restaurant.hours[0].closing_hour }} hs</p>
+          <p>Cuenta con <span *ngIf="restaurant.self_service"> retiro por el local</span>
+            <span *ngIf="restaurant.delivery"> y delivery</span></p>
+        </ion-card-header>
+      </ion-card>
+    </ion-col>
+  </ion-row>
+  <ion-row class="section-qualify">
+    <ion-col size="12">
+      <span>Ver calificaciones y reseñas</span><ion-icon slot="end" name="chevron-forward-outline"></ion-icon>
+    </ion-col>
+  </ion-row>
+  <ion-row class="section-slides">
+    <ion-col size="12">
+      <ion-slides pager="false" [options]="slideOptions">
+        <ion-slide>
+          <img *ngIf="restaurant.profile_picture" [src]="restaurant.profile_picture" [alt]="restaurant.name"/>
+        </ion-slide>
+        <ion-slide>
+          <img *ngIf="restaurant.profile_picture" [src]="restaurant.profile_picture" [alt]="restaurant.name"/>
+        </ion-slide>
+        <ion-slide>
+          <img *ngIf="restaurant.profile_picture" [src]="restaurant.profile_picture" [alt]="restaurant.name"/>
+        </ion-slide>
+        <ion-slide>
+          <img *ngIf="restaurant.profile_picture" [src]="restaurant.profile_picture" [alt]="restaurant.name"/>
+        </ion-slide>
+        <ion-slide>
+          <img *ngIf="restaurant.profile_picture" [src]="restaurant.profile_picture" [alt]="restaurant.name"/>
+        </ion-slide>
+        <ion-slide>
+          <img *ngIf="restaurant.profile_picture" [src]="restaurant.profile_picture" [alt]="restaurant.name"/>
+        </ion-slide>
+      </ion-slides>
+    </ion-col>
+  </ion-row>
+
+  
+  <ion-fab vertical="bottom" horizontal="center" slot="fixed">
+    <!-- <ion-fab-button>
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button> -->
+    <ion-button expand="block">sdsdsdsd sdsdsdsd </ion-button>
+  </ion-fab>
+
+</ion-content>

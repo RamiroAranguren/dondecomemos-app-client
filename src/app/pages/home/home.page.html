@@ -37,7 +37,7 @@
           <ion-icon size="large" name="location" *ngIf="item.type === 'city'"></ion-icon>
         </ion-avatar>
         <ion-label *ngIf="item.type === 'resto'">
-          <h2>{{ item.name }} {{ item.type }}</h2>
+          <h2>{{ item.name }}</h2>
           <h3>{{ item.address }}</h3>
         </ion-label>
         <ion-label *ngIf="item.type === 'city'">
@@ -61,7 +61,7 @@
     </ion-row>
 
     <app-restaurant
-    [restaurants]="restaurants"></app-restaurant>
+      [restaurants]="restaurants"></app-restaurant>
 
   </ion-grid>
 </ion-content>

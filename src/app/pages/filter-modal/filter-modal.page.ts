@@ -32,7 +32,7 @@ export class FilterModalPage implements OnInit {
     });
   }
 
-  addChip(type:string, chip:chip){
+  addChip(type:string, chip:any){
     chip.type = type;
 
     let element = document.getElementById(`${type}-${chip.id}`);

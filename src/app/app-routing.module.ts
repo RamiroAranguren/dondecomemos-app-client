@@ -66,6 +66,10 @@ const routes: Routes = [
   {
     path: 'change-old-password',
     loadChildren: () => import('./pages/change-old-password/change-old-password.module').then( m => m.ChangeOldPasswordPageModule)
+  },
+  {
+    path: 'details',
+    loadChildren: () => import('./pages/restaurants/details/details.module').then( m => m.DetailsPageModule)
   }
 ];
 
