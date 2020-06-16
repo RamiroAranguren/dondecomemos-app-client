@@ -1,8 +1,32 @@
+ion-toolbar {
+    padding: 5px;
+    h1 {
+        font-family: DMSerifDisplayRegular;
+        font-size: 1.6rem;
+        font-weight: normal;
+        margin: 10px 0px 10px 10vw;
+    }
+}
+
+.pnt-inicio {
+    img {
+        width: 100%;
+        max-width: 400px;
+    }
+    .legendh1 {
+        p {
+            color: black;
+            font-family: FieldworkGeoThin;
+            font-size: 20px;
+            text-align: center;
+        }
+    }
+}
+
 .cnx_btn {
     --color: black;
-    margin-bottom: 30px;
-    margin-left: 15px;
-    margin-right: 15px;
+    // margin: 0px 15px 20px;
+    margin: 0px 15px;
     text-transform: none;
     font-family: FieldworkHumHair;
     --background: var(--bg-primary-tint);
@@ -10,17 +34,4 @@
     --padding-bottom: 23px;
     --padding-top: 23px;
     letter-spacing: 0.05rem;
-}
-
-.header-content {
-    img {
-        width: 200px;
-    }
-}
-
-.legendh1 {
-    --color: black;
-    font-family: FieldworkHumHair;
-    font-size: 20px;
-    margin: 15px;
 }
