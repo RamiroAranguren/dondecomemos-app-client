@@ -1,62 +1,77 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>Favoritos</ion-title>
-  </ion-toolbar>
+    <ion-toolbar>
+        <ion-title>Favoritos</ion-title>
+    </ion-toolbar>
 </ion-header>
 
 <ion-content *ngIf="menuHide">
-  Mostrar favoritos
+    <ion-item>
+        <ion-thumbnail slot="end">
+            <img src="assets/img/resta_default.png">
+        </ion-thumbnail>
+        <ion-label>
+            <h2>Las Juanas</h2>
+            <h3>Mexicana</h3>
+            <div>
+                <div id="icon-rate">
+                    <ion-icon color="primary" name="star"></ion-icon> <span>5.0</span>
+                </div>                
+                <ion-icon color="primary" id="heart-icon" name="heart"></ion-icon>
+            </div>
+        </ion-label>
+
+    </ion-item>
 </ion-content>
 
 <ion-content *ngIf="!menuHide">
-  <ion-grid fixed>
-    <ion-row>
-      <ion-col size="3"></ion-col>
-      <ion-col size="6">
-        <div class="header-content">
-            <div class="logo">
-                <img src="assets/img/register.png">
-            </div>
-        </div>
-      </ion-col>
-      <ion-col size="3"></ion-col>
-    </ion-row>
-    <ion-row class="legendh1">
-      <ion-col size="12" class="ion-text-justify">
-        <span>Por favor inicie sesión o regístrese
-          para ver sus restaurantes favoritos</span>
-      </ion-col>
-    </ion-row>
-    <ion-row>
-      <ion-col size="12">
-        <ion-button (click)="login()" class="cnx_btn" expand="block" fill="clear" shape="round">
-          Iniciar Sesión
-        </ion-button>
-      </ion-col>
-    </ion-row>
-    <ion-row>
-      <ion-col size="12">
-        <ion-button (click)="register()" class="cnx_btn" expand="block" fill="clear" shape="round">
-          Registrarse
-        </ion-button>
-      </ion-col>
-    </ion-row>
-    <ion-row class="legendh1">
-      <ion-col size="12" class="ion-text-center">
-        <span>O ingresar con</span>
-      </ion-col>
-    </ion-row>
-    <ion-row>
-      <ion-col size="6">
-        <ion-button (click)="loginGoogle()" class="cnx_btn" expand="block" fill="clear" shape="round">
-          Google
-        </ion-button>
-      </ion-col>
-      <ion-col size="6">
-        <ion-button (click)="loginFcbk()" class="cnx_btn" expand="block" fill="clear" shape="round">
-          Facebook
-        </ion-button>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
+    <ion-grid fixed>
+        <ion-row>
+            <ion-col size="3"></ion-col>
+            <ion-col size="6">
+                <div class="header-content">
+                    <div class="logo">
+                        <img src="assets/img/register.png">
+                    </div>
+                </div>
+            </ion-col>
+            <ion-col size="3"></ion-col>
+        </ion-row>
+        <ion-row class="legendh1">
+            <ion-col size="12" class="ion-text-justify">
+                <span>Por favor inicie sesión o regístrese
+                    para ver sus restaurantes favoritos</span>
+            </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col size="12">
+                <ion-button (click)="login()" class="cnx_btn" expand="block" fill="clear" shape="round">
+                    Iniciar Sesión
+                </ion-button>
+            </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col size="12">
+                <ion-button (click)="register()" class="cnx_btn" expand="block" fill="clear" shape="round">
+                    Registrarse
+                </ion-button>
+            </ion-col>
+        </ion-row>
+        <ion-row class="legendh1">
+            <ion-col size="12" class="ion-text-center">
+                <span>O ingresar con</span>
+            </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col size="6">
+                <ion-button (click)="loginGoogle()" class="cnx_btn" expand="block" fill="clear" shape="round">
+                    Google
+                </ion-button>
+            </ion-col>
+            <ion-col size="6">
+                <ion-button (click)="loginFcbk()" class="cnx_btn" expand="block" fill="clear" shape="round">
+                    Facebook
+                </ion-button>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
 </ion-content>

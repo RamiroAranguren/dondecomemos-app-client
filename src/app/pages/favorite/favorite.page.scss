@@ -24,3 +24,32 @@
     font-size: 20px;
     margin: 15px;
 }
+ion-content{
+    ion-item{
+        margin-right: 5vw;
+        margin-left: 5vw;
+        margin-top: 5vw;
+        --border-color:white;
+        box-shadow: 0px 0px 3px 0px var(--ion-color-medium);
+        border-radius: 8px;
+        ion-thumbnail{
+        height: 30vw;
+        width: 30vw;
+        }
+        ion-label{
+            div{
+                display: flex;
+                flex-direction: row;
+                height: 30px;
+                #icon-rate{
+                    width: 85%;
+                    margin-top: 0.2em;
+                }
+                #heart-icon{
+                    width: 15%;
+                    font-size: 1.5em;
+                }
+            }
+        }
+    }
+}
