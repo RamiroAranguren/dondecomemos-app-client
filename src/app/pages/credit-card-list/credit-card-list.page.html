@@ -1,11 +1,15 @@
-<ion-header>
-    <ion-toolbar>
-        <ion-title>credit-card-list</ion-title>
-    </ion-toolbar>
-</ion-header>
-
 <ion-content>
+
+    <ion-button expand="block" (click)="presentPopover()" shape="round">
+        Ver tarjetas
+    </ion-button>
+
+
+
     <ion-button [routerLink]="['/credit-card-add']" routerLinkActive="router-link-active" expand="block" fill="clear" shape="round">
         Agregar Tarjeta
     </ion-button>
+
+
+
 </ion-content>
