@@ -84,14 +84,24 @@ ion-col{
     }
 }
 
-.qualify {
-    color: #ff7300;
+.col-level, .col-score {
+    padding: 5px;
     font-family: FieldworkGeoRegular;
 }
 
+.col-score {
+    color: #ff7300;
+    font-family: FieldworkGeoRegular;
+    span {
+        padding-top: -5px;
+    }
+    ion-icon {
+        padding-top: 1px;
+    }
+}
 
 .level {
-    --color:red !important;
+    color:red !important;
 }
 
 .title_resto {
@@ -100,18 +110,18 @@ ion-col{
 }
 
 .section-qualify {
-    height: 10vw;
-    border:1px solid;
+    height: 12vw;
     background-color: rgb(252, 231, 217);
 }
 
 .section-qualify > ion-col {
     padding: 15px;
-    span {
-        font-size: 21px;
-        color: rgb(88, 88, 88);
-        // font-family: DMSerifDisplayRegular;
-    }
+    font-size: 21px;
+    color: rgb(88, 88, 88);
+}
+
+.qualify {
+    margin-top: -6px;
 }
 
 .section-slides {
@@ -130,3 +140,67 @@ ion-slide {
         border-radius: 12%;
     }
 }
+
+.fixed-btn {
+    position: fixed;
+    left: 10%;
+    bottom: 10px;
+    right: 0;
+    width: 80%;
+    height: 12vw;
+    z-index: 100;
+    --color: black;
+    text-transform: none;
+    font-family: FieldworkHumHair;
+    font-size: 1rem;
+    --padding-bottom: 23px;
+    --padding-top: 23px;
+    letter-spacing: 0.05rem;
+}
+
+.col-promo1 {
+    background-color: orange;
+    border-radius: 0px 8px 8px 0px;
+    height: 17vw;
+}
+
+.promo1-text {
+    text-align: justify;
+    font-size: 5vw;
+    top: 2%;
+    bottom: 2%;
+    left: 0;
+    padding: 3vw;
+    color: black;
+    font-family: FieldworkHumHair;
+}
+
+.contenedor {
+    border: 0.1rem solid lightgray;
+    border-radius: 10px;
+    width: 92%;
+}
+
+.title-menu {
+    border-bottom: 0.1rem solid lightgray;
+}
+
+.title-menu, .description-menu {
+    text-align: left;
+    margin: 12px;
+    font-family: DMSerifDisplayRegular;
+}
+
+.swiper-wrapper {
+    ion-slide {
+        width: 125px;
+        border-radius: 10px;
+        // margin-top: 10px;
+        // margin-left: 3px;
+    }
+}
+
+::-webkit-scrollbar, *::-webkit-scrollbar {
+    display: none !important;
+    overflow: hidden !important;
+ }

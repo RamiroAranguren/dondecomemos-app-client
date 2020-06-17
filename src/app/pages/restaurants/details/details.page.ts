@@ -14,7 +14,7 @@ export class DetailsPage implements OnInit {
   slideOptions = {
     slidesPerView: 2,
     slidesOffsetBefore: -55,
-    spaceBetween: 10,
+    spaceBetween: 8,
     coverflowEffect: {
       rotate: 50,
       stretch: 30,
@@ -22,6 +22,14 @@ export class DetailsPage implements OnInit {
       modifier: 1,
       slideShadows: true,
     }
+  }
+
+  slideOptionsMenu = {
+    slidesPerView: 1,
+    slidesOffsetBefore: -10,
+    width: 365,
+    // slidesOffsetAfter: -20,
+    spaceBetween: 1
   }
 
   constructor(
