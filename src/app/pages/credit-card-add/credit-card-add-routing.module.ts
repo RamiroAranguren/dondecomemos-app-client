@@ -6,7 +6,13 @@ import { CreditCardAddPage } from './credit-card-add.page';
 const routes: Routes = [
   {
     path: '',
-    component: CreditCardAddPage
+    component: CreditCardAddPage,
+     children: [
+      {
+        path: 'credit-card-list',
+        loadChildren: () => import('../credit-card-list/credit-card-list.module').then( m => m.CreditCardListPageModule)
+      },
+    ]
   }
 ];
 
