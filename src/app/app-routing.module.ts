@@ -71,7 +71,15 @@ const routes: Routes = [
   {
     path: 'details',
     loadChildren: () => import('./pages/restaurants/details/details.module').then( m => m.DetailsPageModule)
+  },  {
+    path: 'credit-card-list',
+    loadChildren: () => import('./pages/credit-card-list/credit-card-list.module').then( m => m.CreditCardListPageModule)
+  },
+  {
+    path: 'credit-card-add',
+    loadChildren: () => import('./pages/credit-card-add/credit-card-add.module').then( m => m.CreditCardAddPageModule)
   }
+
 ];
 
 @NgModule({
