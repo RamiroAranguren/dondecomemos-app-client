@@ -6,6 +6,7 @@ import { FavoritesService } from '../../services/favorites/favorites.service';
 import { LoaderService } from '../../services/loader/loader.service';
 import { StorageService } from '../../services/storage/storage.service';
 import { ToastService } from '../../services/toast/toast.service';
+import { UserInterface } from 'src/app/interfaces/user';
 
 
 @Component({
@@ -20,6 +21,8 @@ export class FavoritePage implements OnInit {
   resto_favs: any[] = [];
   favorites: any[] = [];
 
+  user:UserInterface;
+
   constructor(
     private navCtrl: NavController,
     private alertCtrl: AlertController,
@@ -31,7 +34,6 @@ export class FavoritePage implements OnInit {
   ) { }
 
   ngOnInit() {
-    
     this.storage.getObject("favorites").then(res => {
       if(res){
         this.favorites = res;
@@ -44,12 +46,13 @@ export class FavoritePage implements OnInit {
     if(isGuest){
       this.menuHide = false;
     } else {
-
+      this.user = this.userService.user;
       this.loader.display("Cargando favoritos...");
       setTimeout(() => {
-        this.favService.get().then((res:any) => {
+        this.favService.get(this.user.id).then((res:any) => {
           this.loader.hide();
           this.resto_favs = res;
+          this.storage.addObject("favorites", res);
         }).catch(err => {
           this.loader.hide();
           console.log('err-get-favs', err);
@@ -78,7 +81,7 @@ export class FavoritePage implements OnInit {
           handler: () => {
             this.storage.getObject("favorites").then(res => {
               this.favService.delete(id).then((res:any) => {
-                let id_fav_resto = this.favorites.filter(fav => fav.fav !== id);
+                let id_fav_resto = this.favorites.filter(fav => fav.id !== id);
                 this.storage.addObject("favorites", id_fav_resto);
                 this.resto_favs = this.resto_favs.filter(fav_resto => fav_resto.id !== id);
                 this.toastCtrl.show("Eliminado de Favoritos");

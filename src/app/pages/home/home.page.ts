@@ -11,6 +11,8 @@ import { StorageService } from '../../services/storage/storage.service';
 import { restaurant } from '../../interfaces/restaurant';
 import { LocationInterface } from '../../interfaces/location';
 import { FavoritesService } from '../../services/favorites/favorites.service';
+import { UsersService } from '../../services/users/user.service';
+import { UserInterface } from 'src/app/interfaces/user';
 
 
 @Component({
@@ -54,6 +56,8 @@ export class HomePage implements OnInit {
     place: []
   }
 
+  user:UserInterface;
+
   constructor(
     public modalCtrl: ModalController,
     public restaurantService: RestaurantService,
@@ -61,12 +65,9 @@ export class HomePage implements OnInit {
     public alertCtrl: AlertController,
     public locationService: LocationService,
     private loaderService: LoaderService,
-    private storage: StorageService
+    private storage: StorageService,
+    private userService: UsersService,
   ) {
-
-  }
-
-  ionViewWillEnter() {
 
   }
 
@@ -75,13 +76,6 @@ export class HomePage implements OnInit {
   }
 
   ngOnInit() {
-    this.loaderService.display('Cargando listado...').then(() => {
-      this.restaurantService.get().then((res:any) => {
-        this.restaurants = res;
-        this.restaurantsCopy = res;
-        this.loaderService.hide();
-      });
-    });
     this.getSotrageDataInit();
   }
 
@@ -95,33 +89,54 @@ export class HomePage implements OnInit {
         this.locationService.get().then((locations:any) => {
           this.storage.addObject("locations", locations);
           this.locations = locations;
+          this.locations.filter((location:LocationInterface) => {
+            this.dict_locations[location.id] = location.name;
+          });
+        });
+      } else {
+        this.locations.filter((location:LocationInterface) => {
+          this.dict_locations[location.id] = location.name;
         });
       }
-      this.locations.filter((location:LocationInterface) => {
-        this.dict_locations[location.id] = location.name;
-      });
-    }).catch(error => {
-      console.log("error locations");
+
+    }).catch(err => {
+      console.log("error locations", err);
     });
 
-    // TOMO LOS FAVORITOS SI EXISTEN EN EL STORAGE
+    // SI NO ES INVITADO: TOMO LOS FAVORITOS SI EXISTEN EN EL STORAGE
     // SINO LO TRAIGO DESDE EL SERVICE
-    setTimeout(() => {
-      this.storage.getObject("favorites").then(favs => {
-        if(favs === null){
-          this.favService.get().then((favs_data:any) => {
-            this.storage.addObject("favorites", favs_data);
-          });
-        } else if(favs.length <= 0 ) {
-          this.favService.get().then((favs_data:any) => {
-            this.storage.addObject("favorites", favs_data);
-          });
-        }
-      }).catch(error => {
-        console.log("error favs", error);
-      });
-    }, 2500);
+    let isGuest = this.userService.isGuestUser();
+    if(!isGuest){
+      this.user = this.userService.user;
+      setTimeout(() => {
+        this.favService.get().then((favs_data:any) => {
+          this.storage.addObject("favorites", favs_data);
+        }).catch(error => {
+          console.log("error favs", error);
+        });
+      }, 4500);
+    }
 
+  }
+
+  ionViewWillEnter() {
+    this.loaderService.display('Cargando listado...').then(() => {
+      this.restaurantService.get().then((res:any) => {
+        this.restaurants = res;
+        this.restaurantsCopy = res;
+        this.loaderService.hide();
+      });
+    });
+  }
+
+  doRefresh() {
+    this.loaderService.display('Cargando listado...').then(() => {
+      this.restaurantService.get().then((res:any) => {
+        this.restaurants = res;
+        this.restaurantsCopy = res;
+        this.loaderService.hide();
+      });
+    });
   }
 
   async presentAlert() {
@@ -213,7 +228,6 @@ export class HomePage implements OnInit {
     this.resultSearchCity = Array.from(
       new Set(this.resultSearchCity.map(res => res.influence_range)))
       .map(influ => {
-        console.log(this.resultSearchCity.filter(city => city.influence_range === influ), influ);
         return {
           influence_range: influ,
           name: this.resultSearchCity.find(city => city.influence_range === influ).name,
@@ -223,7 +237,6 @@ export class HomePage implements OnInit {
       });
     this.resultSearchResto = this.resultSearchResto.reduce((newTempArr, el) => (newTempArr.includes(el) ? newTempArr : [...newTempArr, el]), [])
 
-    console.log(this.resultSearchCity);
     this.resultSearch = this.resultSearchCity.concat(this.resultSearchResto);
 
   }

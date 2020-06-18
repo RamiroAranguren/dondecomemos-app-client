@@ -3,7 +3,7 @@
     <ion-buttons slot="start">
       <ion-back-button icon="arrow-back"></ion-back-button>
     </ion-buttons>
-    <ion-buttons slot="end">
+    <ion-buttons slot="end" *ngIf="!isGuest">
       <ion-icon *ngIf="isFav" name="heart" size="large" style="color:orange" (click)="removeFav(restaurant.id)"></ion-icon>
       <ion-icon *ngIf="!isFav" name="heart-outline" size="large" (click)="addFavorite(restaurant)"></ion-icon>
     </ion-buttons>&nbsp;
