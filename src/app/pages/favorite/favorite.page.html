@@ -9,11 +9,10 @@
 
 
 <!--! cambiar la condicion de IF -->
-
-<ion-content *ngIf="menuHide && resto_favs.length > 0" class="most-favoritos">
+<ion-content *ngIf="resto_favs.length > 0" class="most-favoritos">
     <ion-item *ngFor="let fav of resto_favs">
         <ion-thumbnail slot="end">
-            <img *ngIf="fav.restaurant.profile_picture" [src]="fav.restaurant.profile_picture" [alt]="fav.restaurant.name"/>
+            <img style="border-radius: 8px;" *ngIf="fav.restaurant.profile_picture" [src]="fav.restaurant.profile_picture" [alt]="fav.restaurant.name"/>
             <img *ngIf="!fav.restaurant.profile_picture" src="assets/img/icon.png" alt="img_resto" />
         </ion-thumbnail>
 
@@ -25,7 +24,7 @@
             <div class="iconos">
                 <div id="icon-rate">
                     <ion-icon name="star" *ngIf="fav.restaurant.qualifications.length > 0"></ion-icon> 
-                    <span>{{ fav.restaurant | score }} {{ fav.restaurant.score }}</span>
+                    <span style="font-family: FieldworkGeoLight;">{{ fav.restaurant | score }} {{ fav.restaurant.score }}</span>
                 </div>
                 <ion-icon id="heart-icon" name="heart" (click)="removeFav(fav.id)"></ion-icon>
             </div>
