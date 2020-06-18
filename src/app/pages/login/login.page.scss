@@ -8,6 +8,8 @@
     position: relative;
 }
 
+
+
 .bg-btn {
     position: absolute;
     top: -38px;
@@ -15,7 +17,7 @@
     border-radius: 50%;
     width: 70px;
     height: 70px;
-    background: rgba(168, 168, 168, 0.8);
+    background: #E0E0E0;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -43,7 +45,7 @@
 
 .forgot {
     margin: 0 0 0 32px;
-    font-family: FieldworkGeoThin;
+    font-family: FieldworkGeoLight;
 }
 
 ion-col {
@@ -55,6 +57,12 @@ ion-col {
     }
 }
 
+ion-footer {
+    &.footer-md::before {
+        background-image: none;
+    }
+}
+
 ion-item {
     border-radius: 6px 6px 0px 0px;
     margin-top: 20px;
@@ -62,7 +70,7 @@ ion-item {
     --highlight-color-focused:#F89B4C !important;
     --highlight-background:#F89B4C !important;
     ion-label {
-        font-family: FieldworkGeoThin;
+        font-family: FieldworkGeoLight;
     }
 }
 
