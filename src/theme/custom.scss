@@ -20,7 +20,7 @@ ion-content {
         letter-spacing: 0.1px;
         color: black;
         text-align: left;
-        font-family: FieldworkGeoThin;
+        font-family: FieldworkGeoLight;
         line-height: 23px;
         margin-right: 5px;
         white-space: nowrap;
@@ -53,21 +53,34 @@ ion-content {
         text-transform: none;
     }
     .inic_ses {
-        font-family: FieldworkHumHair;
+        font-family: FieldworkGeoLight;
         color: black;
+        font-size: 16px;
     }
 
     .inic_ses_invt {
         font-family: FieldworkHumHair;
+        font-size: 16px;
         color: black;
     }
+}
+.cnx_btn_invitado{
+    --color: black;
+    margin-bottom: 30px;
+    text-transform: none;
+    font-family: FieldworkGeoLight;
+    --background: var(--bg-primary-tint);
+    font-size: 16px;
+    --padding-bottom: 23px;
+    --padding-top: 23px;
+    letter-spacing: 0.05rem;
 }
 
 .cnx_btn {
     --color: black;
     margin-bottom: 30px;
     text-transform: none;
-    font-family: FieldworkHumHair;
+    font-family: FieldworkGeoLight;
     --background: var(--bg-primary-tint);
     font-size: 1rem;
     --padding-bottom: 23px;

@@ -9,9 +9,9 @@
 
 
 <!--! cambiar la condicion de IF -->
+
 <ion-content *ngIf="menuHide && resto_favs.length > 0" class="most-favoritos">
     <ion-item *ngFor="let fav of resto_favs">
-
         <ion-thumbnail slot="end">
             <img *ngIf="fav.restaurant.profile_picture" [src]="fav.restaurant.profile_picture" [alt]="fav.restaurant.name"/>
             <img *ngIf="!fav.restaurant.profile_picture" src="assets/img/icon.png" alt="img_resto" />
