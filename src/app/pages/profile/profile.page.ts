@@ -18,7 +18,7 @@ import { NavigationExtras } from '@angular/router';
 })
 export class ProfilePage implements OnInit {
 
-  guestStatus = false;
+  guestStatus = true;
   menuHide = false;
   profile = false;
   legal = false;
@@ -75,29 +75,32 @@ export class ProfilePage implements OnInit {
   }
 
   ngOnInit() {
+    this.storage.getObject("user").then((user:UserInterface) => {
+      this.user = user;
+      this.initals = `${this.user.first_name.slice(0, 1)}${this.user.last_name.slice(0, 1)}`;
+    }).catch(err => {
+      console.log(err);
+      this.user = {
+        id:"",
+        username: "",
+        password: "",
+        email: "",
+        first_name: "",
+        last_name: "",
+        token: "",
+        guest: true,
+        phone: null
+      };
+    });
+  }
+
+  ionViewDidEnter() {
     let isGuest = this.userService.isGuestUser();
     if(isGuest){
       this.guestStatus = true;
     } else {
       this.guestStatus = false;
       this.menuHide = true;
-      this.storage.getObject("user").then((user:UserInterface) => {
-        this.user = user;
-        this.initals = `${this.user.first_name.slice(0, 1)}${this.user.last_name.slice(0, 1)}`;
-      }).catch(err => {
-        console.log(err);
-        this.user = {
-          id:"",
-          username: "",
-          password: "",
-          email: "",
-          first_name: "",
-          last_name: "",
-          token: "",
-          guest: true,
-          phone: null
-        };
-      });
     }
   }
 
@@ -283,8 +286,8 @@ export class ProfilePage implements OnInit {
   }
 
   ionViewWillLeave() {
-    this.guestStatus = false;
-    this.menuHide = true;
+    this.guestStatus = true;
+    this.menuHide = false;
     this.profile = false;
     this.legal = false;
   }
