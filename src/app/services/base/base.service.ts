@@ -37,7 +37,6 @@ export class BaseService {
     this.addHeaders(headers);
 
     return new Promise((resolve , reject) => {
-      console.log(`${apiUrl}${this.getURL(params)}`);
       this.http.get(`${apiUrl}${this.getURL(params)}`, { headers }).subscribe((response:any) => {
         this.process_get(response)
         resolve(response)

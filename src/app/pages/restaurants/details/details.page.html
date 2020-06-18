@@ -4,11 +4,12 @@
       <ion-back-button icon="arrow-back"></ion-back-button>
     </ion-buttons>
     <ion-buttons slot="end">
-      <ion-back-button icon="heart-outline"></ion-back-button>
-    </ion-buttons>
+      <ion-icon *ngIf="isFav" name="heart" size="large" style="color:orange" (click)="removeFav(restaurant.id)"></ion-icon>
+      <ion-icon *ngIf="!isFav" name="heart-outline" size="large" (click)="addFavorite(restaurant)"></ion-icon>
+    </ion-buttons>&nbsp;
     <ion-buttons slot="end">
-      <ion-back-button icon="information-circle-outline"></ion-back-button>
-    </ion-buttons>
+      <ion-icon name="information-circle-outline" size="large"></ion-icon>
+    </ion-buttons>&nbsp;
   </ion-toolbar>
 </ion-header>
 
@@ -33,30 +34,31 @@
                 <ion-col size="8">
                   <span class="title_resto">{{ restaurant.name }} sdsdsdsdsd dfadsasd</span>
                 </ion-col>
-                <ion-col size="2" class="ion-text-center">
-                  <span [innerHTML]='restaurant | level'></span>
+                <ion-col size="2" class="ion-text-center col-level">
+                  <span [innerHTML]="restaurant | level:'0'"></span>
+                  <span [innerHTML]="restaurant | level:''" style="color: rgb(156, 156, 156);"></span>
                 </ion-col>
-                <ion-col size="2" class="ion-text-end">
+                <ion-col size="2" class="ion-text-end col-score">
                   <ion-icon *ngIf="restaurant.qualifications.length > 0" color="btn-dc" name="star"></ion-icon>
-                  &nbsp;<span class="qualify">{{ restaurant | score }}</span>
+                  <span class="qualify">{{ restaurant | score }}</span>
                 </ion-col>
               </ion-row>
             </ion-grid>
           </ion-card-title>
 
           <ion-card-subtitle>{{ restaurant | chips }}</ion-card-subtitle>
-          <p>{{ restaurant | openClose }} - cierra a las {{ restaurant.hours[0].closing_hour }} hs</p>
-          <p>Cuenta con <span *ngIf="restaurant.self_service"> retiro por el local</span>
+          <p style="color: black;">{{ restaurant | openClose }} - cierra a las {{ restaurant.hours[0].closing_hour?.substring(0,5) }} hs</p>
+          <p *ngIf="restaurant.self_service || restaurant.delivery">Cuenta con <span *ngIf="restaurant.self_service"> retiro por el local</span>
             <span *ngIf="restaurant.delivery"> y delivery</span></p>
         </ion-card-header>
       </ion-card>
     </ion-col>
   </ion-row>
+
   <ion-row class="section-qualify">
-    <ion-col size="12">
-      <span>Ver calificaciones y reseñas</span><ion-icon slot="end" name="chevron-forward-outline"></ion-icon>
-    </ion-col>
-  </ion-row>
+    <ion-col size="10"class="qualify">Ver calificaciones y reseñas</ion-col>
+    <ion-col class="2"><ion-icon name="chevron-forward-outline"></ion-icon></ion-col>
+  </ion-row><br>
   <ion-row class="section-slides">
     <ion-col size="12">
       <ion-slides pager="false" [options]="slideOptions">
@@ -80,14 +82,89 @@
         </ion-slide>
       </ion-slides>
     </ion-col>
+  </ion-row><br>
+
+  <ion-row *ngIf="restaurant.promotions">
+    <ion-col size="11" class="col-promo1">
+        <div class="promo1-text"><span>{{ restaurant.promotions.promotion }}</span></div>
+    </ion-col>
   </ion-row>
 
+  <ion-row class="section-menu">
+    <ion-col size="12">
+      <h1>Menús del día</h1>
+    </ion-col>
+    <ion-slides pager="false" [options]="slideOptionsMenu" class="slide-menu">
+      <ion-slide *ngFor="let item of [1,1,1,1,1]">
+        <div class="contenedor">
+          <div class="title-menu">
+            <span>Nombre menú</span><br>
+            <span>$350 Descripción</span>
+          </div>
+          <div class="description-menu">
+            <h3>Entrada</h3>
+            <p>Milanesita de mozzarella con salsa
+            de tomate y albahaca.</p>
+            <h3>Principal</h3>
+            <p>Arroz con pollo.</p>
+          </div>
+        </div>
+      </ion-slide>
+    </ion-slides>
+  </ion-row>
+  <br>
+  <br>
+  <ion-row class="section-menu">
+    <ion-col size="12">
+      <h1>Menús del día</h1>
+    </ion-col>
+    <ion-segment scrollable
+      mode="md"
+      color="primary">
+
+      <ion-segment-button
+        mode="md"
+        *ngFor="let category of ['Entrada','Salida',3,4,5,6,7,8,9,10]"
+        [value]="category"
+        >
+        
+        <ion-label text-capitalize>
+          <a routerLink="#{{category}}">{{category}}</a>
+        </ion-label>
+        
+
+      </ion-segment-button>
+
+    </ion-segment>
+  </ion-row>
+  <br>
+  <br>
+  <br>
+  <ion-row>
+    <ion-col size="12">
+      <div  id="Entrada"></div>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col size="12">sdsadasd</ion-col>
+  </ion-row>
+  <br>
+  <br>
+  <br><br>
+  <br>
+  <br>
+  <ion-row>
+    <ion-col size="12">sdsadasd</ion-col>
+  </ion-row>
+  <ion-row id="#Salida">
+    <ion-col size="12">Salida</ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col size="12">sdsadasd</ion-col>
+  </ion-row>
   
-  <ion-fab vertical="bottom" horizontal="center" slot="fixed">
-    <!-- <ion-fab-button>
-      <ion-icon name="add"></ion-icon>
-    </ion-fab-button> -->
-    <ion-button expand="block">sdsdsdsd sdsdsdsd </ion-button>
-  </ion-fab>
+  <ion-button class="fixed-btn" shape="round">
+    Reservar mesa
+  </ion-button>
 
 </ion-content>

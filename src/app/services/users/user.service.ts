@@ -121,6 +121,7 @@ export class UsersService {
   async logout() {
     await this.storage.removeObject("user");
     await this.storage.removeObject("locations");
+    await this.storage.removeObject("favorites");
   }
 
   register(form) {
@@ -133,7 +134,6 @@ export class UsersService {
     }
     return new Promise((resolve, reject) => {
       this.http.post(`${apiUrl}users/`, body).subscribe((response) => {
-        console.log(response);
         resolve(response);
       }, (errorResponse) => {
         console.log(errorResponse.error);

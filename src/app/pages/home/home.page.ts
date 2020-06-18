@@ -10,6 +10,7 @@ import { StorageService } from '../../services/storage/storage.service';
 
 import { restaurant } from '../../interfaces/restaurant';
 import { LocationInterface } from '../../interfaces/location';
+import { FavoritesService } from '../../services/favorites/favorites.service';
 
 
 @Component({
@@ -56,6 +57,7 @@ export class HomePage implements OnInit {
   constructor(
     public modalCtrl: ModalController,
     public restaurantService: RestaurantService,
+    private favService: FavoritesService,
     public alertCtrl: AlertController,
     public locationService: LocationService,
     private loaderService: LoaderService,
@@ -75,13 +77,17 @@ export class HomePage implements OnInit {
   ngOnInit() {
     this.loaderService.display('Cargando listado...').then(() => {
       this.restaurantService.get().then((res:any) => {
-
         this.restaurants = res;
-        console.log(this.restaurants);
         this.restaurantsCopy = res;
         this.loaderService.hide();
       });
     });
+    this.getSotrageDataInit();
+  }
+
+  getSotrageDataInit() {
+    // TOMO LAS LOCACIONES SI EXISTEN EN EL STORAGE
+    // SINO LO TRAIGO DESDE EL SERVICE
 
     this.storage.getObject("locations").then(locations => {
       this.locations = locations;
@@ -94,9 +100,25 @@ export class HomePage implements OnInit {
       this.locations.filter((location:LocationInterface) => {
         this.dict_locations[location.id] = location.name;
       });
-      console.log("INIT", this.dict_locations);
     }).catch(error => {
       console.log("error locations");
+    });
+
+    // TOMO LOS FAVORITOS SI EXISTEN EN EL STORAGE
+    // SINO LO TRAIGO DESDE EL SERVICE
+
+    this.storage.getObject("favorites").then(favs => {
+      if(favs === null){
+        this.favService.get().then((favs_data:any) => {
+          this.storage.addObject("favorites", favs_data);
+        });
+      } else if(favs.length <= 0 ) {
+        this.favService.get().then((favs_data:any) => {
+          this.storage.addObject("favorites", favs_data);
+        });
+      }
+    }).catch(error => {
+      console.log("error favs", error);
     });
   }
 

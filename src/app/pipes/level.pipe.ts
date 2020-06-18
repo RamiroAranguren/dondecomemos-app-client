@@ -6,27 +6,19 @@ import { restaurant } from '../interfaces/restaurant';
 })
 export class LevelPipe implements PipeTransform {
 
-  transform(restaurant:restaurant): string {
-    let level: string = "";
+  transform(restaurant:restaurant, index:string): string {
     switch (restaurant.level) {
       case 1:
-        level = "<b class='level'>$<b><span style='color:red !important'>$$$</span>";
-        break;
+        return index === '0' ? "$" : "$$$";
       case 2:
-        level = "<b class='level'>$$</b><span style='color:red !important'>$$</span>";
-        break;
+        return index === '0' ? "$$" : "$$";
       case 3:
-        level = "<b class='level'>$$$</b><span style='color:red !important'>$</span>";
-        break;
+        return index === '0' ? "$$$" : "$";
       case 4:
-        level = "<b class='level'>$$$$</b>";
-        break;
+        return index === '0' ? "$$$$" : "";
       default:
-        level = "<b class='level'>$</b><span style='color:red !important'>$$$</span>";
-        break;
+        return index === '0' ? "$" : "$$$";
     }
-
-    return level;
   }
 
 }
