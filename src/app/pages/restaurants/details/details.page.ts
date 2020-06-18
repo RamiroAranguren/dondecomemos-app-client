@@ -54,7 +54,7 @@ export class DetailsPage implements OnInit {
       if(res){
         this.favorites = res;
         let id_restos = this.favorites.map(data => {
-          return data.resto;
+          return data.restaurant.id;
         });
         if(id_restos.includes(this.restaurant.id))
           this.isFav = true;

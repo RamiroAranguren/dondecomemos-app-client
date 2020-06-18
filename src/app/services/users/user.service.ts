@@ -121,6 +121,7 @@ export class UsersService {
   async logout() {
     await this.storage.removeObject("user");
     await this.storage.removeObject("locations");
+    await this.storage.removeObject("favorites");
   }
 
   register(form) {

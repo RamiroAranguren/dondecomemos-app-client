@@ -6,6 +6,7 @@ import { restaurant } from 'src/app/interfaces/restaurant';
 
 import { UsersService } from '../users/user.service';
 import { environment } from '../../../environments/environment.prod';
+import { StorageService } from '../storage/storage.service';
 
 
 const apiUrl = environment.apiUrl;
@@ -21,9 +22,12 @@ export class FavoritesService {
 
   constructor(
     private http: HttpClient,
-    private userService: UsersService
+    private userService: UsersService,
+    private storage: StorageService
   ) {
-    this.user = this.userService.user;
+    this.storage.getObject("user").then((user:UserInterface) => {
+      this.user = user;
+    })
   }
 
   protected getURL(params) {
@@ -35,7 +39,8 @@ export class FavoritesService {
   }
 
   get(){
-    const params = {client: this.user.id}
+    const params = {client: this.user.id};
+    console.log(`${apiUrl}${this.getURL(params)}`);
     return new Promise((resolve , reject) => {
       this.http.get(`${apiUrl}${this.getURL(params)}`).subscribe((response:any) => {
         this.process_get(response)
