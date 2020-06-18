@@ -31,10 +31,7 @@ export class FavoritePage implements OnInit {
   ) { }
 
   ngOnInit() {
-    let isGuest = this.userService.isGuestUser();
-    if(isGuest){
-      this.menuHide = false;
-    }
+    
     this.storage.getObject("favorites").then(res => {
       if(res){
         this.favorites = res;
@@ -43,16 +40,22 @@ export class FavoritePage implements OnInit {
   }
 
   ionViewDidEnter() {
-    this.loader.display("Cargando favoritos...");
-    setTimeout(() => {
-      this.favService.get().then((res:any) => {
-        this.loader.hide();
-        this.resto_favs = res;
-      }).catch(err => {
-        this.loader.hide();
-        console.log('err-get-favs', err);
-      });
-    }, 1000);
+    let isGuest = this.userService.isGuestUser();
+    if(isGuest){
+      this.menuHide = false;
+    } else {
+
+      this.loader.display("Cargando favoritos...");
+      setTimeout(() => {
+        this.favService.get().then((res:any) => {
+          this.loader.hide();
+          this.resto_favs = res;
+        }).catch(err => {
+          this.loader.hide();
+          console.log('err-get-favs', err);
+        });
+      }, 1000);
+    }
   }
 
   removeFav(fav_id:number) {

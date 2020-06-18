@@ -1,14 +1,3 @@
-ion-header {
-    box-shadow: -3px 4px 5px rgba(0, 0, 0, 0.2);
-    h1 {
-        margin: 10px 0px 10px 14vw;
-        width: 100%;
-        font-size: 1.8rem;
-        font-family: DMSerifDisplayRegular;
-        font-weight: lighter;
-    }
-}
-
 .DMSerifDisplayRegular{
     font-family: DMSerifDisplayRegular;
 }
@@ -132,4 +121,49 @@ ion-item {
 .legal-css {
     font-size: 20px;
     font-family: DMSerifDisplayRegular;
+}
+
+.pnt-inicio {
+    .logo {
+        width: 90%;
+        max-width: 300px;
+    }
+    .legendh1 {
+        p {
+            color: black;
+            font-family: FieldworkGeoThin;
+            font-size: 20px;
+            text-align: center;
+        }
+    }
+}
+
+.cnx_btn {
+    --color: black;
+    // margin: 0px 15px 20px;
+    margin: 0px 15px;
+    text-transform: none;
+    font-family: FieldworkHumHair;
+    --background: var(--bg-primary-tint);
+    font-size: 1rem;
+    --padding-bottom: 23px;
+    --padding-top: 23px;
+    letter-spacing: 0.05rem;
+}
+
+.img-cont {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+}
+
+ion-toolbar {
+    padding: 5px;
+    h1 {
+        font-family: DMSerifDisplayRegular;
+        font-size: 1.6rem;
+        font-weight: normal;
+        margin: 10px 0px 10px 10vw;
+    }
 }

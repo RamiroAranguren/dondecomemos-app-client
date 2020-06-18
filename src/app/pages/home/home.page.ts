@@ -106,20 +106,22 @@ export class HomePage implements OnInit {
 
     // TOMO LOS FAVORITOS SI EXISTEN EN EL STORAGE
     // SINO LO TRAIGO DESDE EL SERVICE
+    setTimeout(() => {
+      this.storage.getObject("favorites").then(favs => {
+        if(favs === null){
+          this.favService.get().then((favs_data:any) => {
+            this.storage.addObject("favorites", favs_data);
+          });
+        } else if(favs.length <= 0 ) {
+          this.favService.get().then((favs_data:any) => {
+            this.storage.addObject("favorites", favs_data);
+          });
+        }
+      }).catch(error => {
+        console.log("error favs", error);
+      });
+    }, 2500);
 
-    this.storage.getObject("favorites").then(favs => {
-      if(favs === null){
-        this.favService.get().then((favs_data:any) => {
-          this.storage.addObject("favorites", favs_data);
-        });
-      } else if(favs.length <= 0 ) {
-        this.favService.get().then((favs_data:any) => {
-          this.storage.addObject("favorites", favs_data);
-        });
-      }
-    }).catch(error => {
-      console.log("error favs", error);
-    });
   }
 
   async presentAlert() {

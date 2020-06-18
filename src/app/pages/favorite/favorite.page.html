@@ -9,7 +9,7 @@
 
 
 <!--! cambiar la condicion de IF -->
-<ion-content *ngIf="resto_favs.length > 0" class="most-favoritos">
+<ion-content *ngIf="menuHide && resto_favs.length > 0" class="most-favoritos">
     <ion-item *ngFor="let fav of resto_favs">
 
         <ion-thumbnail slot="end">
@@ -37,7 +37,7 @@
 
 
 <!-- !cambiar la condicion de IF -->
-<ion-content class="pnt-inicio" *ngIf="false">
+<ion-content class="pnt-inicio" *ngIf="!menuHide">
     <ion-grid fixed>
         <ion-row class="ion-justify-content-center ion-margin-top">
             <ion-col size="8">
@@ -91,7 +91,7 @@
 </ion-content>
 
 <!-- !cambiar la condicion de IF -->
-<ion-content class="bus-resto" *ngIf="resto_favs.length <= 0" fullscreen>
+<ion-content class="bus-resto" *ngIf="menuHide && resto_favs.length <= 0" fullscreen>
 
     <ion-grid fixed>
 
