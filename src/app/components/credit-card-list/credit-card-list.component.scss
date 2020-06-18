@@ -1,0 +1,47 @@
+ion-list {
+    margin: 0px 5px;
+    padding: 0px;
+    overflow-y: scroll;
+    max-height: 50vh;
+    ion-item {
+        --padding-start: 0px;
+        ion-label {
+            font-family: FieldworkGeoThin;
+            font-size: 1.2rem;
+            letter-spacing: 0.2px;
+            display: flex;
+            align-items: center;
+        }
+        span {
+            font-size: 2rem;
+            letter-spacing: 2px;
+            color: black;
+        }
+    }
+    ion-thumbnail {
+        height: 80%;
+        img {
+            object-fit: contain;
+        }
+    }
+}
+
+.btn {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    padding: 10px 0px;
+}
+
+.cnx_btn {
+    --color: black;
+    text-transform: none;
+    font-family: FieldworkHumHair;
+    --background: var(--bg-primary-tint);
+    font-size: 1rem;
+    --padding-bottom: 15px;
+    --padding-top: 15px;
+    letter-spacing: 0.05rem;
+    margin: 0px auto;
+    text-transform: uppercase;
+}
