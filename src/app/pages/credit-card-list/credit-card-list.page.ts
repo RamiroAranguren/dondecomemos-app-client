@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { PopoverController } from '@ionic/angular';
+import { CreditCardListComponent } from 'src/app/components/credit-card-list/credit-card-list.component';
+
+
 
 @Component({
   selector: 'app-credit-card-list',
@@ -7,7 +11,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CreditCardListPage implements OnInit {
 
-  constructor() { }
+
+  constructor(public popOC: PopoverController) { }
+
+  async presentPopover(ev: any) {
+    const myCards = await this.popOC.create({
+      component: CreditCardListComponent,
+      cssClass: 'cardsPopover',
+      event: ev,
+      translucent: true
+    });
+    return await myCards.present();
+  }
+
+
+
 
   ngOnInit() {
   }

@@ -1,0 +1,13 @@
+<ion-list>
+
+    <ion-item *ngFor="let card of cards">
+        <ion-thumbnail slot="start">
+            <!-- <ion-img [src]="card.img"></ion-img> -->
+        </ion-thumbnail>
+        <ion-label>{{card.name}}</ion-label>
+    </ion-item>
+
+    <ion-button [routerLink]="['/credit-card-add']" routerLinkActive="router-link-active" expand="block" fill="clear" shape="round">
+        Agregar Tarjeta
+    </ion-button>
+</ion-list>
