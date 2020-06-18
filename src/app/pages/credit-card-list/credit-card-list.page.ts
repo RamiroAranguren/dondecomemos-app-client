@@ -11,8 +11,9 @@ import { CreditCardListComponent } from 'src/app/components/credit-card-list/cre
 })
 export class CreditCardListPage implements OnInit {
 
-
   constructor(public popOC: PopoverController) { }
+
+  ngOnInit() { }
 
   async presentPopover(ev: any) {
     const myCards = await this.popOC.create({
@@ -26,8 +27,6 @@ export class CreditCardListPage implements OnInit {
 
 
 
-
-  ngOnInit() {
-  }
+  
 
 }
