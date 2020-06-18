@@ -1,56 +1,43 @@
 <ion-header>
     <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-back-button></ion-back-button>
+        </ion-buttons>
         <h1>Favoritos</h1>
     </ion-toolbar>
 </ion-header>
 
 
 <!--! cambiar la condicion de IF -->
-<ion-content *ngIf="false" class="most-favoritos">
-    <ion-item>
+<ion-content *ngIf="resto_favs.length > 0" class="most-favoritos">
+    <ion-item *ngFor="let fav of resto_favs">
 
         <ion-thumbnail slot="end">
-            <img src="assets/img/resta_default.png">
+            <img *ngIf="fav.restaurant.profile_picture" [src]="fav.restaurant.profile_picture" [alt]="fav.restaurant.name"/>
+            <img *ngIf="!fav.restaurant.profile_picture" src="assets/img/icon.png" alt="img_resto" />
         </ion-thumbnail>
 
         <ion-label>
             <div class="titulos">
-                <h2>Las Juanas</h2>
-                <h3>Mexicana</h3>
+                <h2>{{ fav.restaurant.name }}</h2>
+                <h3>{{ fav.restaurant | chips }}</h3>
             </div>
             <div class="iconos">
                 <div id="icon-rate">
-                    <ion-icon name="star"></ion-icon> <span>5.0</span>
+                    <ion-icon name="star" *ngIf="fav.restaurant.qualifications.length > 0"></ion-icon> 
+                    <span>{{ fav.restaurant | score }} {{ fav.restaurant.score }}</span>
                 </div>
-                <ion-icon id="heart-icon" name="heart"></ion-icon>
+                <ion-icon id="heart-icon" name="heart" (click)="removeFav(fav.id)"></ion-icon>
             </div>
         </ion-label>
     </ion-item>
-    <ion-item>
 
-        <ion-thumbnail slot="end">
-            <img src="assets/img/resta_default.png">
-        </ion-thumbnail>
-
-        <ion-label>
-            <div class="titulos">
-                <h2>Las Juanas</h2>
-                <h3>Mexicana</h3>
-            </div>
-            <div class="iconos">
-                <div id="icon-rate">
-                    <ion-icon name="star"></ion-icon> <span>5.0</span>
-                </div>
-                <ion-icon id="heart-icon" name="heart"></ion-icon>
-            </div>
-        </ion-label>
-    </ion-item>
 </ion-content>
 
 
 
 <!-- !cambiar la condicion de IF -->
-<ion-content class="pnt-inicio" *ngIf="true">
+<ion-content class="pnt-inicio" *ngIf="false">
     <ion-grid fixed>
         <ion-row class="ion-justify-content-center ion-margin-top">
             <ion-col size="8">
@@ -104,7 +91,7 @@
 </ion-content>
 
 <!-- !cambiar la condicion de IF -->
-<ion-content class="bus-resto" *ngIf="false" fullscreen>
+<ion-content class="bus-resto" *ngIf="resto_favs.length <= 0" fullscreen>
 
     <ion-grid fixed>
 
@@ -125,7 +112,10 @@
 
         <ion-row class=" ion-justify-content-center">
             <ion-col size="12 ">
-                <ion-button class="cnx_btn " expand="block " fill="clear " shape="round ">
+                <ion-button
+                    routerLink="/tabs/home"
+                    class="cnx_btn "
+                    expand="block " fill="clear " shape="round ">
                     Buscar un restaurante
                 </ion-button>
             </ion-col>

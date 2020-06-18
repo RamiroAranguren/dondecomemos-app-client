@@ -133,7 +133,6 @@ export class UsersService {
     }
     return new Promise((resolve, reject) => {
       this.http.post(`${apiUrl}users/`, body).subscribe((response) => {
-        console.log(response);
         resolve(response);
       }, (errorResponse) => {
         console.log(errorResponse.error);
