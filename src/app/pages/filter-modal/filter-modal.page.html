@@ -16,10 +16,10 @@
                 <h4>Que cuente con</h4>
             </ion-col>
             <ion-col id="type-chips" size="12">
-                 <ion-row class="ion-padding-start ion-padding-end">
+                 <ion-row class="ion-padding-start ion-padding-end" style="text-align: center;">
                     <ion-col >
                         <ion-chip id="place-1" (click)="addChip('place', {'id': 1, 'name': 'Retiro por local'})">
-                            <ion-label>Retiro por local</ion-label>
+                            <ion-label>Retiro por el local</ion-label>
                         </ion-chip>
                     </ion-col>
                     <ion-col >
@@ -81,11 +81,11 @@
                 </ion-button>
             </ion-col>
         </ion-row>
-        <ion-row class="ion-padding-start ion-padding-end">
+        <ion-row class="ion-padding-start ion-padding-end" style="text-align: center;">
             <ion-col size="12">
-                <ion-button (click)="resetFilters()" color="dark" expand="block" shape="round">
+                <a (click)="resetFilters()" class="resetButton" expand="block" shape="round">
                     Resetear
-                </ion-button>
+                </a>
             </ion-col>
         </ion-row>
     </ion-grid>

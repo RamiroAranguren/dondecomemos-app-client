@@ -2,9 +2,14 @@
     font-family: DMSerifDisplayRegular;
 }
 
+.FieldworkGeoLight{
+    font-family: FieldworkGeoLight;
+}
+
 .guardarHeader{
     font-family: FieldworkGeoRegular;
     font-size: 16px;
+    color:#707070;
 }
 
 .perfilTitulo{
@@ -23,7 +28,7 @@
 .body-content {
     position: relative;
     z-index: 1;
-    background-color: #fff3e0 !important;
+    background-color: #fff9e6 !important;
     border-radius: 58px 58px 0 0;
     padding-top: 10vh;
     height: 66%;
@@ -44,12 +49,12 @@
     justify-content: center;
     align-items: center;
     border-radius: 50%;
-    background-color: var(--bg-primary-tint);
+    background-color: #FFDA75;
     width: 145px;
     height: 145px;
     h1 {
         text-transform: capitalize;
-        font-size: 2rem;
+        font-size: 36px;
         font-family: FieldworkGeoLight;
     }
 }

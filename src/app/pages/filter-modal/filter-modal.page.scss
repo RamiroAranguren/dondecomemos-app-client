@@ -16,7 +16,6 @@ ion-content {
     #type-chips {
         ion-col {
             ion-chip {
-                width: 100%;
                 ion-label {
                     width: 100%;
                     text-align: center;
@@ -44,12 +43,21 @@ ion-content {
     }
 }
 
+ion-row ion-col ion-chip{
+    text-align: center;
+    }
+
 .label-center {
     width: 100%;
     text-align: center;
 }
 
 .chip-checked {
-    background-color: #ffbb61 !important;
+    background-color: #FFC95A !important;
     border:1px solid lightgrey !important;
+}
+
+.resetButton{
+    color: black; 
+    font-size:16px;
 }
