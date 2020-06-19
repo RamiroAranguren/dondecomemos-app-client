@@ -1,80 +1,89 @@
-ion-header{
-    ion-toolbar{
-        ion-title{
+ion-header {
+    ion-toolbar {
+        ion-title {
             font-family: DMSerifDisplayRegular;
         }
-        ion-buttons{
-            ion-button{
+        ion-buttons {
+            ion-button {
                 font-family: FieldworkGeoThin;
             }
         }
     }
 }
-form{
+form {
     margin-right: 0;
     padding-right: 0;
 
-    ion-item{
+    ion-item {
         --background: var(--ion-color-input-background);
         margin-top: 2.5vh;
         font-family: FieldworkGeoThin;
         --highlight-color-valid: #ff7300;
         width: 75vw;
-        ion-label{
-            --color:var(--ion-color-medium);
+        ion-label {
+            --color: var(--ion-color-medium);
         }
-        ion-input{
-            font-family: FieldworkGeoThin;           
-        }    
+        ion-input {
+            font-family: FieldworkGeoThin;
+        }
     }
-    .danger-color{
+    .danger-color {
         color: var(--ion-color-danger);
     }
 }
 
-.focus-item{    
-        --highlight-color-invalid: #ff7300 !important; 
-    
+.focus-item {
+    --highlight-color-invalid: #ff7300 !important;
 }
 
-.item-question{
+.item-question {
     display: flex;
     flex-direction: row;
 }
-.icon-question{
+.icon-question {
     margin-top: 2.5vh;
     margin-left: 4vw;
     font-size: 2em;
     align-self: center;
 }
-.label-font-size{
+.label-font-size {
     font-size: 12px;
     font-family: FieldworkGeoThin;
     padding-left: 4vw;
 }
-.item-no-margin-top{
+.item-no-margin-top {
     margin-top: 0 !important;
 }
-.question-mark{
+.question-mark {
     --background: none;
-    ion-item{
+    ion-item {
         width: 100%;
     }
 }
-.logo-card{
+.logo-card {
     display: flex;
     flex-direction: row;
     align-self: center;
-    img{
-        max-width: 80%;
-        max-height: 2em;
-        margin-left: 10%;
+    img {
+        max-height: 3em;
     }
 }
-#american-max-height{
-        // padding-left: 30%;
-        max-height: 3em;
+.logo-height{
+    max-height: 2em !important;
 }
-#item-card-icon{
-    --inner-padding-end:0;
+
+#item-card-icon {
+    --inner-padding-end: 0;
+    ion-row {
+        padding-top: 0;
+        padding-bottom: 0;
+        width: 100%;
+        ion-col {
+            padding-top: 0;
+            padding-bottom: 0;
+            ion-input {
+                width: 45vw;
+            }
+        }
+    }
 }

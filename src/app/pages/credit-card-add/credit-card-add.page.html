@@ -49,26 +49,27 @@
                 </div> -->
 
                 <!-- NUMERO TARJETA -->
-                <ion-item id="item-card-icon"  [ngClass]="{'focus-item': isFocus.cardNumberFocus}">
+                <ion-item id="item-card-icon" [ngClass]="{'focus-item': isFocus.cardNumberFocus}">
                     <ion-row>
-                        <ion-col size="8">
+                        <ion-col size="9">
                             <ion-label position="floating">Número de tarjeta</ion-label>
                             <ion-input (ionBlur)="inputBlur('cardNumberFocus')"
                                 (ionFocus)="inputFocus('cardNumberFocus')" inputmode="numeric" type="number"
                                 formControlName="cardNumber"></ion-input>
                         </ion-col>
-                        <!-- <ion-col class="logo-card">
+                        <!-- <ion-col size="3" class="logo-card">
                             <img  src="../../../assets/logos/visa.png" alt="visa" >
                         </ion-col> -->
-                        <!-- <ion-col class="logo-card">
-                            <img  src="../../../assets/logos/Diners-Club.png" alt="diners-club" >
+                        <!-- <ion-col size="3" class="logo-card">
+                            <img class="logo-height"  src="../../../assets/logos/Diners-Club.png" alt="diners-club" >
                         </ion-col> -->
-                        <ion-col class="logo-card">
-                            <img id="american-max-height" src="../../../assets/logos/american-express.png" alt="a-express" >
+                        <!-- <ion-col size="3" class="logo-card">
+                                <img  src="../../../assets/logos/american-express.png"
+                                    alt="a-express">
+                        </ion-col> -->
+                        <ion-col size="3" class="logo-card">
+                            <img class="logo-height" src="../../../assets/logos/mastercard.png" alt="mastercard" >
                         </ion-col>
-                        <!-- <ion-col class="logo-card">
-                            <img src="../../../assets/logos/mastercard.png" alt="mastercard" >
-                        </ion-col> -->
                     </ion-row>
                 </ion-item>
                 <div *ngFor="let error of errorMessages.cardNumber">
