@@ -2,11 +2,12 @@ ion-header {
     ion-toolbar {
         ion-title {
             font-family: DMSerifDisplayRegular;
-            font-size: 24px;
+            font-size: 1.4em;
         }
         ion-buttons {
             ion-button {
                 font-family: FieldworkGeoThin;
+                font-size: 0.9em;
             }
         }
     }
@@ -86,6 +87,10 @@ form {
             }
         }
     }
+}
+.myClass{
+    background-color: red;
+    color: rebeccapurple;
 }
 
 .alerts{

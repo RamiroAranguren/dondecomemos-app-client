@@ -1,0 +1,42 @@
+ion-card {
+    margin: 10px 20px;
+    box-shadow: none;
+    height: 75vw;
+    img {
+        width: 100%;
+    }
+    ion-card-header {
+        padding-left: 0px;
+        padding-right: 0px;
+    }
+    ion-card-subtitle {
+        font-family: DMSerifDisplayRegular;
+        
+        color: black;
+        h5{
+            margin: 0;
+            padding: 0;
+            font-size: medium;
+            font-weight: lighter;
+        }
+    }
+    ion-card-content {
+        font-family: FieldworkGeoThin;
+        font-size: 1.2rem;
+        padding: 0px;
+        color: black;
+    }
+    ion-input {
+        background-color: var(--secondary-grey);
+        width: 25%;
+    }    
+
+}
+ion-button {
+    --color: white;
+    --background: black;
+    --border-radius: 50%;
+    width: 10vw;
+    height: 10vw;
+    font-size: 1.1rem;
+}

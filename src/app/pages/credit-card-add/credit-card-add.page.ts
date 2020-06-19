@@ -1,12 +1,19 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from "@angular/forms";
+import { PopoverController } from '@ionic/angular';
+import { ExpirationCardCodeComponent } from 'src/app/components/expiration-card-code/expiration-card-code.component';
+import { SecurityCardCodeComponent } from 'src/app/components/security-card-code/security-card-code.component';
+import { SecurityCardCodeAmericanComponent } from 'src/app/components/security-card-code-american/security-card-code-american.component';
+
+// import { PopoverComponent } from '../../component/';
+
 @Component({
     selector: 'app-credit-card-add',
     templateUrl: './credit-card-add.page.html',
     styleUrls: ['./credit-card-add.page.scss'],
 })
 export class CreditCardAddPage implements OnInit {
-
+    currentPopover: any;
     public isFocus = {
         nameFocus: false,
         dniFocus: false,
@@ -17,12 +24,52 @@ export class CreditCardAddPage implements OnInit {
 
     ngOnInit() {
     }
-    constructor(private formBuilder: FormBuilder) { }
 
-    inputFocus(itemName:string) {
+    constructor(
+        private formBuilder: FormBuilder,
+        public popoverController: PopoverController
+    ) { }
+    
+    // Popovers
+    async expirationPopover(ev: any) {
+        const popover = await this.popoverController.create({
+            component: ExpirationCardCodeComponent,
+            cssClass: 'addCardPopOver',
+            event: ev,
+            translucent: true
+        });
+        this.currentPopover = popover;
+        return await popover.present();
+    }
+     
+    // async securityPopover(ev: any) {
+    //     const popover = await this.popoverController.create({
+    //         component: SecurityCardCodeComponent,
+    //         cssClass: 'addCardPopOver',
+    //         event: ev,
+    //         translucent: true
+    //     });
+    //     this.currentPopover = popover;
+    //     return await popover.present();
+    // }
+
+    // american express popover
+    async securityPopover(ev: any) {
+        const popover = await this.popoverController.create({
+            component: SecurityCardCodeAmericanComponent,
+            cssClass: 'addCardPopOver',
+            event: ev,
+            translucent: true
+        });
+        this.currentPopover = popover;
+        return await popover.present();
+    }
+
+
+    inputFocus(itemName: string) {
         this.isFocus[itemName] = true;
     }
-    inputBlur(itemName:string) {
+    inputBlur(itemName: string) {
         this.isFocus[itemName] = false;
     }
 
@@ -72,7 +119,7 @@ export class CreditCardAddPage implements OnInit {
         dni: ['', [Validators.required]],
         cardNumber: ['', [Validators.required]],
         expirationDate: ['', [Validators.required]],
-        securityCode: ['', [ Validators.required,Validators.maxLength(4)]],
+        securityCode: ['', [Validators.required, Validators.maxLength(4)]],
     });
 
     submit() {

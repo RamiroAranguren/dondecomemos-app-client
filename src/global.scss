@@ -77,3 +77,8 @@
 .cardcodeclass .popover-content {
     width: 80% !important;
 }
+.addCardPopOver{
+    --width:80vw;
+    --height:95vw ;
+    // --backdrop-opacity:0.5;
+}

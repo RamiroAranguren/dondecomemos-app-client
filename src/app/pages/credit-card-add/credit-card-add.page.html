@@ -93,7 +93,7 @@
                             formControlName="expirationDate"></ion-input>
                     </ion-item>
                     <div class="icon-question">
-                        <ion-icon name="help-circle"></ion-icon>
+                        <ion-icon (click)="expirationPopover()" name="help-circle"></ion-icon>
                     </div>
                 </div>
                 <div class="alerts">
@@ -117,7 +117,7 @@
                             formControlName="securityCode" required></ion-input>
                     </ion-item>
                     <div class="icon-question">
-                        <ion-icon name="help-circle"></ion-icon>
+                        <ion-icon name="help-circle" (click)="securityPopover()"></ion-icon>
                     </div>
                 </div>
                 <div class="alerts">

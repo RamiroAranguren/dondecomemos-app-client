@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="172.265" height="109" viewBox="0 0 172.265 109">
+  <g id="Tarjetas_de_crédito_Ilustraciones_Fecha_de_expiración" data-name="Tarjetas de crédito Ilustraciones_Fecha de expiración" transform="translate(-289.5 -320.44)">
+    <rect id="Rectángulo_111" data-name="Rectángulo 111" width="171.265" height="108" rx="9.86" transform="translate(290 320.94)" fill="#fff"/>
+    <rect id="Rectángulo_112" data-name="Rectángulo 112" width="171.265" height="108" rx="9.86" transform="translate(290 320.94)" fill="none" stroke="#878787" stroke-miterlimit="10" stroke-width="1"/>
+    <rect id="Rectángulo_113" data-name="Rectángulo 113" width="138.499" height="13.355" rx="3.39" transform="translate(305.883 377.543)" fill="#dadada"/>
+    <rect id="Rectángulo_114" data-name="Rectángulo 114" width="54.623" height="12.794" rx="2.92" transform="translate(305.883 398.9)" fill="#dadada"/>
+    <g id="Grupo_85" data-name="Grupo 85" transform="translate(305.883 352.963)" opacity="0.8">
+      <rect id="Rectángulo_115" data-name="Rectángulo 115" width="34.876" height="18.575" rx="3" transform="translate(0)" fill="#ffeec0"/>
+    </g>
+    <circle id="Elipse_15" data-name="Elipse 15" cx="22.066" cy="22.066" r="22.066" transform="translate(368.1 383.233)" fill="#f49a4e" opacity="0.4"/>
+    <circle id="Elipse_16" data-name="Elipse 16" cx="14.451" cy="14.451" r="14.451" transform="translate(375.715 390.847)" fill="#fff"/>
+    <circle id="Elipse_17" data-name="Elipse 17" cx="15.602" cy="15.602" r="15.602" transform="translate(374.564 389.696)" fill="none" stroke="#f49a4e" stroke-miterlimit="10" stroke-width="1"/>
+    <text id="_03_23" data-name="03/23" transform="translate(378.623 407.37)" fill="#1d1d1b" font-size="8" font-family="SegoeUI-Light, Segoe UI" font-weight="300"><tspan x="0" y="0">0</tspan><tspan y="0" letter-spacing="-0.05em">3</tspan><tspan y="0">/23</tspan></text>
+  </g>
+</svg>
