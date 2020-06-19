@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { creditCard } from 'src/app/interfaces/credit-card';
 import { Router } from '@angular/router';
 import { PopoverController } from '@ionic/angular';
+import { CardCodeComponent } from '../card-code/card-code.component';
 
 
 @Component({
@@ -10,9 +11,6 @@ import { PopoverController } from '@ionic/angular';
   styleUrls: ['./credit-card-list.component.scss'],
 })
 export class CreditCardListComponent implements OnInit {
-
-
-
 
   public cards: Array<any> = [
     {
@@ -51,7 +49,6 @@ export class CreditCardListComponent implements OnInit {
   navigate(){
     //navegar 
     this.router.navigate(['/credit-card-add']); 
-
     // dissmis el popup
     this.DismissClick();
   }
@@ -59,6 +56,22 @@ export class CreditCardListComponent implements OnInit {
   async DismissClick() {
     await this.popoverController.dismiss();
   }
+
+
+  async presentCardCode(ev: any) {
+    this.DismissClick()
+    const cardCodePop = await this.popoverController.create({
+      component: CardCodeComponent,
+      cssClass: 'cardcodeclass',
+      event: ev,
+      translucent: true
+    });
+    return await cardCodePop.present();
+  }
+
+
+
+
 
 
 
