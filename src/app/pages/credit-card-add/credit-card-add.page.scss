@@ -2,6 +2,7 @@ ion-header {
     ion-toolbar {
         ion-title {
             font-family: DMSerifDisplayRegular;
+            font-size: 24px;
         }
         ion-buttons {
             ion-button {
@@ -16,14 +17,13 @@ form {
 
     ion-item {
         --background: var(--ion-color-input-background);
-        margin-top: 2.5vh;
         font-family: FieldworkGeoThin;
         --highlight-color-valid: #ff7300;
         width: 75vw;
-        ion-label {
-            --color: var(--ion-color-medium);
-        }
         ion-input {
+            font-family: FieldworkGeoThin;
+        }
+        ion-label{
             font-family: FieldworkGeoThin;
         }
     }
@@ -68,7 +68,7 @@ form {
         max-height: 3em;
     }
 }
-.logo-height{
+.logo-height {
     max-height: 2em !important;
 }
 
@@ -87,3 +87,13 @@ form {
         }
     }
 }
+
+.alerts{
+    height: 6vh;
+}
+// ion-input[type="'number'"] {
+//     -moz-appearance: none;
+//     appearance: none;
+//     -webkit-appearance: none;
+// }
+

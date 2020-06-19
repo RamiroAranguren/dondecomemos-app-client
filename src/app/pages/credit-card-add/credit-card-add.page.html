@@ -1,7 +1,7 @@
 <ion-header>
     <ion-toolbar>
         <ion-buttons slot="start">
-            <ion-back-button></ion-back-button>
+            <ion-back-button icon="close"></ion-back-button>
         </ion-buttons>
         <ion-title>Nueva Tarjeta</ion-title>
         <ion-buttons slot="end">
@@ -15,7 +15,7 @@
 
 <ion-content>
     <div class="ion-padding-start ion-padding-top">
-        <form class="ion-padding-start" id="card-form" [formGroup]="registrationForm" (ngSubmit)="submit()">
+        <form class="ion-padding-start ion-padding-top" id="card-form" [formGroup]="registrationForm" (ngSubmit)="submit()">
             <ion-list>
 
                 <!-- NOMBRE -->
@@ -24,29 +24,33 @@
                     <ion-input (ionBlur)="inputBlur('nameFocus')" (ionFocus)="inputFocus('nameFocus')"
                         class="ion-text-uppercase" autocapitalize inputmode="text" formControlName="name"></ion-input>
                 </ion-item>
-                <div>
-                    <ng-container>
-                        <small class="label-font-size">Tal cual está impreso en la tarjeta</small>
-                    </ng-container>
+                <div class="alerts">
+                    <div>
+                        <ng-container>
+                            <small class="label-font-size">Tal cual está impreso en la tarjeta</small>
+                        </ng-container>
+                    </div>
+                    <div *ngFor="let error of errorMessages.name">
+                        <ng-container *ngIf="name.hasError(error.type) && (name.dirty || name.touched)">
+                            <small class="label-font-size danger-color">{{error.message}}</small>
+                        </ng-container>
+                    </div>
                 </div>
-                <!-- <div *ngFor="let error of errorMessages.name">
-                    <ng-container *ngIf="name.hasError(error.type) && (name.dirty || name.touched)">
-                        <small class="label-font-size danger-color">{{error.message}}</small>
-                    </ng-container>
-                </div> -->
 
                 <!-- DNI -->
                 <ion-item [ngClass]="{'focus-item': isFocus.dniFocus}">
                     <ion-label position="floating">DNI del titular</ion-label>
                     <ion-input (ionBlur)="inputBlur('dniFocus')" (ionFocus)="inputFocus('dniFocus')" inputmode="numeric"
                         type="number" formControlName="dni"></ion-input>
-
                 </ion-item>
-                <!-- <div *ngFor="let error of errorMessages.dni">
+                <div class="alerts">
+                    <div *ngFor="let error of errorMessages.dni">
                     <ng-container *ngIf="dni.hasError(error.type) && (dni.dirty || dni.touched)">
                         <small class="label-font-size danger-color">{{error.message}}</small>
                     </ng-container>
-                </div> -->
+                </div>
+                </div>
+
 
                 <!-- NUMERO TARJETA -->
                 <ion-item id="item-card-icon" [ngClass]="{'focus-item': isFocus.cardNumberFocus}">
@@ -68,15 +72,17 @@
                                     alt="a-express">
                         </ion-col> -->
                         <ion-col size="3" class="logo-card">
-                            <img class="logo-height" src="../../../assets/logos/mastercard.png" alt="mastercard" >
+                            <img class="logo-height" src="../../../assets/logos/mastercard.png" alt="mastercard">
                         </ion-col>
                     </ion-row>
                 </ion-item>
-                <div *ngFor="let error of errorMessages.cardNumber">
-                    <ng-container *ngIf="cardNumber.hasError(error.type) && (cardNumber.dirty || cardNumber.touched)">
-                        <small class="label-font-size danger-color">{{error.message}}</small>
-                    </ng-container>
-                </div>
+                <div class="alerts">
+                    <div *ngFor="let error of errorMessages.cardNumber">
+                        <ng-container *ngIf="cardNumber.hasError(error.type) && (cardNumber.dirty || cardNumber.touched)">
+                            <small class="label-font-size danger-color">{{error.message}}</small>
+                        </ng-container>
+                    </div>
+                </div>                
 
                 <!-- FECHA EXPIRACION -->
                 <div class="item-question">
@@ -90,13 +96,17 @@
                         <ion-icon name="help-circle"></ion-icon>
                     </div>
                 </div>
-
-                <div *ngFor="let error of errorMessages.expirationDate">
-                    <ng-container
-                        *ngIf="expirationDate.hasError(error.type) && (expirationDate.dirty || expirationDate.touched)">
-                        <small class="label-font-size danger-color">{{error.message}}</small>
+                <div class="alerts">
+                    <ng-container>
+                        <small class="label-font-size">MM/AA</small>
                     </ng-container>
-                </div>
+                    <div *ngFor="let error of errorMessages.expirationDate">
+                        <ng-container
+                            *ngIf="expirationDate.hasError(error.type) && (expirationDate.dirty || expirationDate.touched)">
+                            <small class="label-font-size danger-color">{{error.message}}</small>
+                        </ng-container>
+                    </div>
+                </div>                
 
                 <!-- CODIGO SEGURIDAD -->
                 <div class="item-question">
@@ -110,10 +120,7 @@
                         <ion-icon name="help-circle"></ion-icon>
                     </div>
                 </div>
-                <div>
-                    <ng-container>
-                        <small class="label-font-size">MM/AA</small>
-                    </ng-container>
+                <div class="alerts">
                     <div *ngFor="let error of errorMessages.securityCode">
                         <ng-container
                             *ngIf="securityCode.hasError(error.type) && (securityCode.dirty || securityCode.touched)">
