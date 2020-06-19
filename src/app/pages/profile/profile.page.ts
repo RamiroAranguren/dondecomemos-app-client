@@ -34,8 +34,8 @@ export class ProfilePage implements OnInit {
     lastName: []
   }
 
-  user:any = {
-    id:"",
+  user: any = {
+    id: "",
     username: "",
     password: "",
     email: "",
@@ -62,26 +62,26 @@ export class ProfilePage implements OnInit {
     private toast: ToastService
   ) {
     this.form = this.formBuild.group({
-        "first_name": ["", [Validators.required], []],
-        "last_name": ["", [Validators.required], []],
-        "email": ["", [
-            Validators.required,
-            Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$')
-        ], []],
-        "phone": ["", [
-          Validators.required
-        ], []],
+      "first_name": ["", [Validators.required], []],
+      "last_name": ["", [Validators.required], []],
+      "email": ["", [
+        Validators.required,
+        Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$')
+      ], []],
+      "phone": ["", [
+        Validators.required
+      ], []],
     });
   }
 
   ngOnInit() {
-    this.storage.getObject("user").then((user:UserInterface) => {
+    this.storage.getObject("user").then((user: UserInterface) => {
       this.user = user;
       this.initals = `${this.user.first_name.slice(0, 1)}${this.user.last_name.slice(0, 1)}`;
     }).catch(err => {
       console.log(err);
       this.user = {
-        id:"",
+        id: "",
         username: "",
         password: "",
         email: "",
@@ -96,7 +96,7 @@ export class ProfilePage implements OnInit {
 
   ionViewDidEnter() {
     let isGuest = this.userService.isGuestUser();
-    if(isGuest){
+    if (isGuest) {
       this.guestStatus = true;
     } else {
       this.guestStatus = false;
@@ -129,7 +129,7 @@ export class ProfilePage implements OnInit {
     await alert.present();
   }
 
-  legalView(){
+  legalView() {
     this.menuHide = false;
     this.guestStatus = false;
     this.profile = false;
@@ -146,7 +146,7 @@ export class ProfilePage implements OnInit {
     await modal.present();
   }
 
-  async legalModal(){
+  async legalModal() {
     let modal = await this.modalCtrl.create({
       component: LegalModalPage,
       backdropDismiss: false,
@@ -180,29 +180,35 @@ export class ProfilePage implements OnInit {
   }
 
   // FUNCTIONS PROFILE DATA
-  saveProfile(){
-    this.menuHide = false;
-    this.guestStatus = false;
-    this.legal = false;
+  saveProfile() {
 
-    this.loader.display("Guardando cambios...")
-    this.userService.saveChanges(this.user.first_name, this.user.last_name, this.user.email, this.user.phone)
-      .then(() => {
-        this.loader.hide();
-        this.toast.show("Datos modificados con éxito", 2500);
-        this.storage.addObject("user", this.userService.user);
-      })
-      .catch(errors => {
-        console.log(errors);
-        this.toast.show("Ocurrió un error al intentar modificar", 2500);
-        this.loader.hide()
-      });
+    this.errors.email = [];
+    if (this.field('email').invalid) {
+      this.addError("email", "Error: Email inválido.");
+    } else {
+      this.menuHide = false;
+      this.guestStatus = false;
+      this.legal = false;
+
+      this.loader.display("Guardando cambios...")
+      this.userService.saveChanges(this.user.first_name, this.user.last_name, this.user.email, this.user.phone)
+        .then(() => {
+          this.loader.hide();
+          this.toast.show("Datos modificados con éxito", 2500);
+          this.storage.addObject("user", this.userService.user);
+        })
+        .catch(errors => {
+          console.log(errors);
+          this.toast.show("Ocurrió un error al intentar modificar", 2500);
+          this.loader.hide()
+        });
+    }
   }
 
   closeProfile() {
     let changes = this.changeForm();
 
-    if(!changes){
+    if (!changes) {
       this.menuHide = true;
       this.guestStatus = false;
       this.profile = false;
@@ -219,27 +225,27 @@ export class ProfilePage implements OnInit {
   }
 
   changePassword() {
-    let navigationExtras: NavigationExtras = {state: {data: this.user}};
+    let navigationExtras: NavigationExtras = { state: { data: this.user } };
     this.navCtrl.navigateForward(['/change-old-password'], navigationExtras);
   }
 
   changeForm() {
     let result = false;
     if (this.user.first_name !== this.userService.user.first_name ||
-          this.user.last_name !== this.userService.user.last_name ||
-          this.user.email !== this.userService.user.email ||
-          this.user.phone !== this.userService.user.phone) {
-            this.showAlert();
-            result = true;
-      } else {
-        result = false;
-      }
+      this.user.last_name !== this.userService.user.last_name ||
+      this.user.email !== this.userService.user.email ||
+      this.user.phone !== this.userService.user.phone) {
+      this.showAlert();
+      result = true;
+    } else {
+      result = false;
+    }
 
-      console.log("RES", result);
-      return result;
+    console.log("RES", result);
+    return result;
   }
 
-  async showAlert(){
+  async showAlert() {
     const alert = await this.alertCtrl.create({
       header: '¿Descartar cambios?',
       buttons: [
@@ -270,7 +276,7 @@ export class ProfilePage implements OnInit {
 
   checkEmail() {
     this.errors.email = [];
-    if (this.field('email').invalid){
+    if (this.field('email').invalid) {
       this.addError("email", "Error: Email inválido.");
     } else {
       this.errors.email = [];

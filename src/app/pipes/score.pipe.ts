@@ -11,7 +11,7 @@ export class ScorePipe implements PipeTransform {
     if ( cantidad_qualify > 0) {
       let scores = restaurant.qualifications.map(qualy => qualy.score);
       let score = scores.reduce((previous, current) => previous + current );
-      return (score / cantidad_qualify).toString();
+      return (score / cantidad_qualify).toFixed(1);
     }
     return "";
   }

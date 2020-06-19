@@ -8,13 +8,13 @@
       slot="start" size="large"></ion-icon> -->
     <div>
         <ion-searchbar
-          [ngClass]="{ bgcolorSearch: filterColor }"
           (ionInput)="searchFilter( $event )"
           (ionCancel)="onCancel()"
           (ionClear)="onCancel()"
           [(ngModel)]="valueSearch"
           placeholder='Buscar restaurantes, ciudad...'
-          showCancelButton="focus"></ion-searchbar>
+          showCancelButton="focus">
+        </ion-searchbar>
         <span>
             <ion-icon
             color="{{ filterColor }}"
