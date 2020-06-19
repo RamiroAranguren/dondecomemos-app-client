@@ -92,23 +92,26 @@ export class CreditCardAddPage implements OnInit {
     public errorMessages = {
         name: [
             { type: 'required', message: 'Este campo es obligatorio' },
-            { type: 'maxlength', message: 'Name cant be longer than 100 characters' }
         ],
         dni: [
             { type: 'required', message: 'Este campo es obligatorio' },
-            { type: 'pattern', message: 'Ingrese un Dni valido' }
         ],
         cardNumber: [
-            { type: 'required', message: 'Este campo es obligatorio' },
-            { type: 'pattern', message: 'Error: Numero de tarjeta invàlido' }
+            { type: 'pattern', message: 'Formato inválido'},
+            { type: 'required', message: 'Numero de tarjeta inválido' },
         ],
         expirationDate: [
             { type: 'required', message: 'Este campo es obligatorio' },
+            { type: 'maxlength', message: 'Formato inválido'},
+            { type: 'minlength', message: 'Formato inválido'},
+            { type: 'pattern', message: 'Formato inválido'},
 
         ],
         securityCode: [
             { type: 'required', message: 'Este campo es obligatorio' },
-
+            { type: 'maxlength', message: 'Ingrese un numero de 3 ó 4 dígitos'},
+            { type: 'minlength', message: 'Ingrese un numero de 3 ó 4 dígitos'},
+            { type: 'pattern', message: 'Ingrese solo numeros'}
         ]
     };
 
@@ -118,8 +121,8 @@ export class CreditCardAddPage implements OnInit {
         name: ['', [Validators.required]],
         dni: ['', [Validators.required]],
         cardNumber: ['', [Validators.required]],
-        expirationDate: ['', [Validators.required]],
-        securityCode: ['', [Validators.required, Validators.maxLength(4)]],
+        expirationDate: ['', [Validators.required, Validators.maxLength(5), Validators.minLength(5)]],
+        securityCode: ['', [ Validators.maxLength(4), Validators.required, Validators.minLength(3), Validators.pattern('[0-9]+')]],
     });
 
     submit() {

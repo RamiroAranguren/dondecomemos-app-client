@@ -89,7 +89,7 @@
                     <ion-item [ngClass]="{'focus-item':  isFocus.expirationDateFocus}">
                         <ion-label position="floating">Fecha de expiración</ion-label>
                         <ion-input (ionBlur)="inputBlur('expirationDateFocus')"
-                            (ionFocus)="inputFocus('expirationDateFocus')" inputmode="numeric" type="number"
+                            (ionFocus)="inputFocus('expirationDateFocus')"
                             formControlName="expirationDate"></ion-input>
                     </ion-item>
                     <div class="icon-question">
@@ -113,8 +113,8 @@
                     <ion-item [ngClass]="{'focus-item': isFocus.securityCodeFocus}">
                         <ion-label position="floating">Codigo de Seguridad</ion-label>
                         <ion-input (ionBlur)="inputBlur('securityCodeFocus')"
-                            (ionFocus)="inputFocus('securityCodeFocus')" inputmode="numeric" type="number"
-                            formControlName="securityCode" required maxlength="3" minlength="3" pattern="[0-9]{3}"></ion-input>
+                            (ionFocus)="inputFocus('securityCodeFocus')" inputmode="numeric"
+                            formControlName="securityCode"></ion-input>
                     </ion-item>
                     <div class="icon-question">
                         <ion-icon name="help-circle" (click)="securityPopover()"></ion-icon>
