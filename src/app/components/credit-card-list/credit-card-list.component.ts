@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { creditCard } from 'src/app/interfaces/credit-card';
+import { Router } from '@angular/router';
+import { PopoverController } from '@ionic/angular';
+import { CardCodeComponent } from '../card-code/card-code.component';
+
 
 @Component({
   selector: 'app-credit-card-list',
@@ -8,12 +12,12 @@ import { creditCard } from 'src/app/interfaces/credit-card';
 })
 export class CreditCardListComponent implements OnInit {
 
-  cards: creditCard[] = [
+  public cards: Array<any> = [
     {
       company: "VISA",
       number: 1564,
       name: "emilio",
-      img: "",
+      img: "../",
 
     },
     {
@@ -37,8 +41,38 @@ export class CreditCardListComponent implements OnInit {
 
   ];
 
-  constructor() { }
+  constructor(private router: Router,
+    private popoverController: PopoverController) { }
 
-  ngOnInit() {}
+  ngOnInit() { }
+
+  navigate(){
+    //navegar 
+    this.router.navigate(['/credit-card-add']); 
+    // dissmis el popup
+    this.DismissClick();
+  }
+
+  async DismissClick() {
+    await this.popoverController.dismiss();
+  }
+
+
+  async presentCardCode(ev: any) {
+    this.DismissClick()
+    const cardCodePop = await this.popoverController.create({
+      component: CardCodeComponent,
+      cssClass: 'cardcodeclass',
+      event: ev,
+      translucent: true
+    });
+    return await cardCodePop.present();
+  }
+
+
+
+
+
+
 
 }

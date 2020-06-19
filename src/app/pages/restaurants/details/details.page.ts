@@ -5,6 +5,8 @@ import { StorageService } from '../../../services/storage/storage.service';
 import { FavoritesService } from '../../../services/favorites/favorites.service';
 import { LoaderService } from '../../../services/loader/loader.service';
 import { AlertController } from '@ionic/angular';
+import { UsersService } from '../../../services/users/user.service';
+import { UserInterface } from 'src/app/interfaces/user';
 
 @Component({
   selector: 'app-details',
@@ -16,6 +18,7 @@ export class DetailsPage implements OnInit {
   restaurant:restaurant;
 
   isFav = false;
+  isGuest = true;
 
   slideOptions = {
     slidesPerView: 2,
@@ -39,13 +42,15 @@ export class DetailsPage implements OnInit {
   }
 
   favorites: any[] = [];
+  user:UserInterface;
 
   constructor(
     private alertCtrl: AlertController,
     private route: Router,
     private loader: LoaderService,
     private storage: StorageService,
-    private favService: FavoritesService
+    private favService: FavoritesService,
+    private userService: UsersService
   ) {}
 
   ngOnInit() {
@@ -60,6 +65,8 @@ export class DetailsPage implements OnInit {
           this.isFav = true;
       }
     });
+    this.isGuest = this.userService.isGuestUser();
+    this.user = this.userService.user;
   }
 
   addFavorite(resto: restaurant) {
@@ -67,7 +74,7 @@ export class DetailsPage implements OnInit {
     this.favService.post(resto).then((res:any) => {
       this.loader.hide();
       if(!this.favorites.includes(resto.id))
-        this.favorites.push({resto: resto.id, fav: res.id});
+        this.favorites.push({id: res.id, client: this.user.id,  restaurant: {id: resto.id}});
         this.storage.addObject("favorites", this.favorites);
       this.isFav = true;
     }).catch (err => {
@@ -95,13 +102,11 @@ export class DetailsPage implements OnInit {
           text: 'Eliminar',
           handler: () => {
             this.storage.getObject("favorites").then(res => {
-              let id_fav = this.favorites.map(data => {
-                if(data.resto === id)
-                  return data.fav;
-              });
-              this.favService.delete(id_fav[0]).then((res:any) => {
+              let id_fav = this.favorites.filter(data => data.restaurant.id === id);
+              console.log(id_fav);
+              this.favService.delete(id_fav[0].id).then((res:any) => {
                 let id_fav_resto = this.favorites.filter(fav => {
-                  if(fav.resto !== id)
+                  if(fav.restaurant.id !== id)
                     return fav;
                 });
                 this.storage.addObject("favorites", id_fav_resto);

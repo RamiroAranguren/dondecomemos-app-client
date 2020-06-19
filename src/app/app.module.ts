@@ -23,6 +23,7 @@ import { Facebook } from '@ionic-native/facebook/ngx';
 import { GooglePlus } from '@ionic-native/google-plus/ngx';
 
 
+
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
@@ -41,6 +42,7 @@ import { GooglePlus } from '@ionic-native/google-plus/ngx';
   providers: [
     StatusBar,
     SplashScreen,
+   
     FCM,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     GooglePlus,

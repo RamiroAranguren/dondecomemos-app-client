@@ -3,7 +3,9 @@
 .header-content {
     height: 40%;
 }
-
+.colorBlack{
+    color:black;
+}
 .body-content {
     border-radius: 58px 58px 0 0;
     padding: 30px;
@@ -19,8 +21,16 @@
     padding: 2px 55px 5px 32px;
 }
 
+
 ion-item {
+    border-radius: 6px 6px 0px 0px;
     margin-top: 20px;
+    --border-color: #1D252D;
+    --highlight-color-focused:#F89B4C !important;
+    --highlight-background:#F89B4C !important;
+    ion-label {
+        font-family: FieldworkGeoLight;
+    }
 }
 
 ion-fab {

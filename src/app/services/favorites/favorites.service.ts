@@ -22,7 +22,6 @@ export class FavoritesService {
 
   constructor(
     private http: HttpClient,
-    private userService: UsersService,
     private storage: StorageService
   ) {
     this.storage.getObject("user").then((user:UserInterface) => {
@@ -38,8 +37,11 @@ export class FavoritesService {
     }
   }
 
-  get(){
-    const params = {client: this.user.id};
+  get(id:number=0){
+    if(id === 0){
+      id = this.user.id;
+    }
+    const params = {client: id};
     console.log(`${apiUrl}${this.getURL(params)}`);
     return new Promise((resolve , reject) => {
       this.http.get(`${apiUrl}${this.getURL(params)}`).subscribe((response:any) => {
