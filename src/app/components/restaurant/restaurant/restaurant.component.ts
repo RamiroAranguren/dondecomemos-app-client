@@ -23,7 +23,7 @@ export class RestaurantComponent implements OnInit {
 
   details(resto:restaurant) {
     let params: NavigationExtras = {state: {data: resto}};
-    this.navCtrl.navigateForward(['/details'], params);
+    this.navCtrl.navigateForward(['/restaurant/details'], params);
   }
 
 }

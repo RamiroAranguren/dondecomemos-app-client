@@ -69,7 +69,7 @@ const routes: Routes = [
     loadChildren: () => import('./pages/change-old-password/change-old-password.module').then( m => m.ChangeOldPasswordPageModule)
   },
   {
-    path: 'details',
+    path: 'restaurant/details',
     loadChildren: () => import('./pages/restaurants/details/details.module').then( m => m.DetailsPageModule)
   },
   {
@@ -79,6 +79,14 @@ const routes: Routes = [
   {
     path: 'credit-card-add',
     loadChildren: () => import('./pages/credit-card-add/credit-card-add.module').then( m => m.CreditCardAddPageModule)
+  },
+  {
+    path: 'restaurant/info',
+    loadChildren: () => import('./pages/info/info.module').then( m => m.InfoPageModule)
+  },
+  {
+    path: 'restaurant/qualify-review',
+    loadChildren: () => import('./pages/qualify-review/qualify-review.module').then( m => m.QualifyReviewPageModule)
   }
 
 ];

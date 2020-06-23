@@ -1,0 +1,49 @@
+
+ion-content{
+    --background: black !important;
+}
+
+
+ion-slide {
+    height: 100%;
+    img {
+        border-radius: 15px;
+        width: 100%;
+        height: auto;
+        top: 0;
+        left: 0;
+        // width: 500px;
+        // height: 500px;
+        max-width:100%;
+        max-height:100%;
+        border-radius: 5px;
+        margin-top: 40px; /* Half the height */
+        // margin-left: 50px; /* Half the width */
+    }
+}
+
+.swiper-button-prev, .swiper-button-next {
+    position: absolute;
+    top: 55%;
+    width: 27px;
+    height: 44px;
+    margin-top: -18px;
+    z-index: 10;
+    cursor: pointer;
+    background-size: 27px 44px;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.swiper-button-black {
+    background-color: rgba(211, 211, 211, 0.082);
+}
+
+.swiper-container {
+    margin: -49px auto;
+    position: relative;
+    overflow: hidden;
+    list-style: none;
+    padding: 0;
+    z-index: 1;
+}

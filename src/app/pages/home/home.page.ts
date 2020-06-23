@@ -124,6 +124,7 @@ export class HomePage implements OnInit {
       this.restaurantService.get().then((res:any) => {
         this.restaurants = res;
         this.restaurantsCopy = res;
+        console.log(this.restaurants);
         this.loaderService.hide();
       });
     });
@@ -134,6 +135,7 @@ export class HomePage implements OnInit {
       this.restaurantService.get().then((res:any) => {
         this.restaurants = res;
         this.restaurantsCopy = res;
+        console.log(this.restaurants);
         this.loaderService.hide();
       });
     });

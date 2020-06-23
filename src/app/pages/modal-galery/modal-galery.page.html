@@ -1,0 +1,12 @@
+
+<ion-content class="ion-padding">
+
+ <ion-slides #slides mode="md" [options]="options">
+   <ion-slide *ngFor="let pic of pictures">
+     <img [src]="pic.brand_picture" alt="">
+     <button type="submit" ion-button color="light" class="swiper-button-prev swiper-button-black" (click)="prevSlide()"></button>
+     <button type="submit" ion-button color="light" class="swiper-button-next swiper-button-black" (click)="nextSlide()"></button>
+   </ion-slide>
+ </ion-slides>
+
+</ion-content>

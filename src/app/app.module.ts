@@ -42,7 +42,6 @@ import { GooglePlus } from '@ionic-native/google-plus/ngx';
   providers: [
     StatusBar,
     SplashScreen,
-   
     FCM,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     GooglePlus,

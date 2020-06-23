@@ -1,0 +1,69 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Reseñas</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-grid fixed>
+    <ion-row *ngIf="restaurant.qualifications.length > 0">
+      <ion-col size="12">
+        <h1 class="titles">Calificaciones</h1>
+      </ion-col>
+      <ion-col size="4" class="ion-align-items-end">
+        <div class="score_avg">
+          <span>{{ restaurant | score }}</span>
+          <ion-icon name="star"></ion-icon>
+        </div>
+      </ion-col>
+      <ion-col size="8">
+        <ion-row *ngFor="let qualify of restaurant.qualifications">
+          <ion-col size="6"> {{ qualify.score_category.name }}</ion-col>
+          <ion-col size="6"><ion-icon name="star"></ion-icon> {{ qualify.score }} </ion-col>
+        </ion-row>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size="12">
+        <h1 class="titles">Reseñas</h1>
+      </ion-col>
+    </ion-row>
+    <ion-row *ngFor="let item of [1,1,1,1,1]" class="row_review">
+      <ion-col size="12">
+        <ion-row>
+          <ion-col size="2">
+            <div class="initials">
+              CM
+            </div>
+          </ion-col>
+          <ion-col size="10">
+            <ion-row>
+              <ion-col size="9">Camila M.</ion-col>
+              <ion-col size="3" class="ion-text-right">
+                <ion-icon name="star" class="star_review"></ion-icon> 4.7 <br>
+              </ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col size="12">12 de diciembre de 2020</ion-col>
+            </ion-row>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col size="12" class="ion-text-justify">
+            I took my boyfriend here for his birthday and
+            everything was just perfect and so romantic.
+            When i made the reservations, I asked for
+            booth and they accommodated that.
+            The wait wasn ́t to long. He really enjoyed
+            having dinner here.
+          </ion-col>
+        </ion-row>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+</ion-content>

@@ -1,12 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { restaurant } from '../../../interfaces/restaurant';
 import { Router } from '@angular/router';
 import { StorageService } from '../../../services/storage/storage.service';
 import { FavoritesService } from '../../../services/favorites/favorites.service';
 import { LoaderService } from '../../../services/loader/loader.service';
-import { AlertController } from '@ionic/angular';
+import { AlertController, ModalController, IonContent, NavController } from '@ionic/angular';
 import { UsersService } from '../../../services/users/user.service';
 import { UserInterface } from 'src/app/interfaces/user';
+import { ModalGaleryPage } from '../../modal-galery/modal-galery.page';
+import { PicturesService } from '../../../services/pictures/pictures.service';
+import { CategoriesService } from '../../../services/products/categories.service';
 
 @Component({
   selector: 'app-details',
@@ -15,7 +18,12 @@ import { UserInterface } from 'src/app/interfaces/user';
 })
 export class DetailsPage implements OnInit {
 
+  @ViewChild('content', {static: false}) content: IonContent;
+
   restaurant:restaurant;
+  pictures:any [] = [];
+  product_categories:any [] = [];
+  product_titles:any [] = [];
 
   isFav = false;
   isGuest = true;
@@ -46,11 +54,15 @@ export class DetailsPage implements OnInit {
 
   constructor(
     private alertCtrl: AlertController,
+    private modalCtrl: ModalController,
+    private navCtrl: NavController,
     private route: Router,
     private loader: LoaderService,
     private storage: StorageService,
     private favService: FavoritesService,
-    private userService: UsersService
+    private userService: UsersService,
+    private picsService: PicturesService,
+    private productCategoriesService: CategoriesService
   ) {}
 
   ngOnInit() {
@@ -67,6 +79,27 @@ export class DetailsPage implements OnInit {
     });
     this.isGuest = this.userService.isGuestUser();
     this.user = this.userService.user;
+  }
+
+  ionViewDidEnter(){
+    this.picsService.get(this.restaurant.id).then((pics:any) => {
+      this.pictures = pics;
+      console.log('pictures', this.pictures)
+    });
+
+    //SERVICE GET PRODUCTS-CATEGORIES
+    this.productCategoriesService.get(this.restaurant.id).then((categories:any) => {
+      this.product_categories = categories;
+      console.log('product_categories', this.product_categories)
+      this.product_titles = this.product_categories.map(category => category.name);
+    });
+  }
+
+  scrollTo(elementId: string) {
+    // console.log(elementId);
+    let y = document.getElementById(elementId);
+    // console.log("Y", y, y.offsetTop);
+    this.content.scrollToPoint(0, y.offsetTop, 5000);
   }
 
   addFavorite(resto: restaurant) {
@@ -121,6 +154,27 @@ export class DetailsPage implements OnInit {
     });
 
     await alert.present();
+  }
+
+  async showModalGalery(index) {
+    let modal = await this.modalCtrl.create({
+      component: ModalGaleryPage,
+      cssClass: 'custom-galery-modal-css',
+      componentProps: {
+        pictures: this.pictures,
+        index
+      }
+    });
+
+    await modal.present();
+  }
+
+  info(restaurant:restaurant) {
+    this.navCtrl.navigateForward(['/restaurant/info'], {state: {data: restaurant}});
+  }
+
+  review(restaurant:restaurant) {
+    this.navCtrl.navigateForward(['/restaurant/qualify-review'], {state: {data: restaurant}});
   }
 
 }

@@ -1,0 +1,25 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Información</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <h2>Ubicación</h2>
+  <p>{{ restaurant.address }}</p>
+  <h2>Horarios</h2>
+  <p>{{ restaurant.hours.opening_hour }} - {{ restaurant.hours.closing_hour }}</p>
+  <h2>Métodos de pago</h2>
+  <div *ngIf="payment_methods.length > 0">
+    <p *ngFor="let method of payment_methods">{{ method.name }}</p>
+    <p>Efectivo.</p>
+  </div>
+  <p *ngIf="payment_methods.length <= 0" style="color: orange;">Sólo efectivo.</p>
+  <h2>Servicios</h2>
+  <p *ngIf="services"> {{ services }}.</p>
+  <h2>Descripción</h2>
+  <p>{{ restaurant.description }}</p>
+</ion-content>

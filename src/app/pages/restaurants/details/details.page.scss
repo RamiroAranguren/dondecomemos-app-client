@@ -71,7 +71,7 @@ ion-card{
             margin-bottom: 0;
         }
     }
-   
+
 }
 
 ion-col{
@@ -204,3 +204,68 @@ ion-slide {
     display: none !important;
     overflow: hidden !important;
  }
+
+ .title_category {
+     margin-left: 20px;
+ }
+
+ .content_categories {
+    margin-left: 30px;
+    border-bottom: 1px solid lightgray;
+    padding: 8px;
+    margin-bottom: 5px;
+}
+
+.title_product {
+    font-size: 20px;
+    font-weight: bold;
+    font-family: FieldworkHumHair;
+}
+
+ion-segment-button::part(indicator) {
+    width: 0;
+}
+
+ion-segment-button {
+    height: 30px;
+    min-height: 30px;
+    ion-label {
+        margin: 2px;
+    }
+}
+
+.segment-options {
+    margin-left: 20px;
+}
+
+.segment-button-checked {
+    --border-color: orange;
+    --border: 1px solid red;
+    --border-radius: 25px;
+    --border-style: solid;
+    --height: 10vw;
+}
+
+:host(.segment-button-has-label-only) ::slotted(ion-label) {
+    margin-top: 3px;
+    margin-bottom: 3px;
+}
+
+.segment-button {
+    border-style: none;
+    border-color: #e62100;
+    color: #e62100;
+    border-width: thin;
+  }
+
+.segment-activated {
+    background-color: #e62100;
+    color: #ffffff;
+    --border-style: solid;
+}
+
+ion-toolbar {
+    ion-buttons {
+        padding:0 10px 0 10px;
+    }
+}

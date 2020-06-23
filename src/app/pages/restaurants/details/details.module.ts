@@ -8,14 +8,20 @@ import { DetailsPageRoutingModule } from './details-routing.module';
 
 import { DetailsPage } from './details.page';
 import { PipesModule } from '../../../pipes/pipes.module';
+import { ModalGaleryPage } from '../../modal-galery/modal-galery.page';
+import { ModalGaleryPageModule } from '../../modal-galery/modal-galery.module';
 
 @NgModule({
+  entryComponents: [
+    ModalGaleryPage
+  ],
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
     DetailsPageRoutingModule,
-    PipesModule
+    PipesModule,
+    ModalGaleryPageModule
   ],
   declarations: [DetailsPage]
 })

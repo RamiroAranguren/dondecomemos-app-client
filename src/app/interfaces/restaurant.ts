@@ -15,6 +15,7 @@ export interface restaurant {
         opening_hour: String,
         closing_hour: String
     }
+    hours_week: any[],
     renewal_time: String,
     public_key:string,
     promotions: any,

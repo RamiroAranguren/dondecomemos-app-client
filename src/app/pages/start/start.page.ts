@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { LoaderService } from '../../services/loader/loader.service';
 import { UsersService } from '../../services/users/user.service';
-import { NavController } from '@ionic/angular';
+import { NavController, Platform } from '@ionic/angular';
 import { NavigationExtras } from '@angular/router';
 import { ToastService } from '../../services/toast/toast.service';
 
@@ -31,6 +31,7 @@ export class StartPage implements OnInit {
 
   constructor(
     private navCtrl: NavController,
+    private platform: Platform,
     private loader: LoaderService,
     private userService: UsersService,
     private toast: ToastService
@@ -39,15 +40,23 @@ export class StartPage implements OnInit {
   ngOnInit() {
   }
 
+  ionViewDidEnter() {
+    this.platform.backButton.subscribe(()=>{
+      console.log ('exit');
+      navigator['app'].exitApp();
+    });
+  }
+
+  ionViewWillLeave(){
+    this.platform.backButton.unsubscribe();
+  }
+
   activeButton(){
     console.log('ok');
   }
 
   loginFcbk(){
-    console.log('Fcbk');
-    // let data_fcbk = this.userService.loginFcbk();
     this.userService.loginFcbk().then(res => {
-      console.log("START-DATA-USER-FCBK", res);
       this.loginSocialFcbk.net = "facebook";
       this.loginSocialFcbk.email = res.email;
       this.loginSocialFcbk.password = res.uid;
@@ -65,64 +74,50 @@ export class StartPage implements OnInit {
         this.navCtrl.navigateForward(['/verify-number'], navigationExtras);
       }).catch((error) => {
         console.log(error);
-        this.toast.show("Hubo un error al intentar login con Facebook", error);
         // SI YA EXISTE USUARIO CON ESE EMAIL LO QUE HACE ES LOGUEAR A ESE USER
         if (error.username && error.username.length > 0){
-          this.userService.login(this.loginSocialFcbk.email, this.loginSocialFcbk.password).then(res => {
-            console.log("LOGIN-START", res);
-            this.navCtrl.navigateRoot('/tabs/home');
-          })
-          .catch(errors => {
-            console.log(errors);
-            this.toast.show("Hubo un error al intentar login con Facebook", errors);
-          });
+          this.toast.show("Ya existe un usuario registrado con esa cuenta");
         }
       });
     }).catch(error => {
-      this.toast.show("Hubo un error al intentar ingresar con Facebook", error);
+      console.log(error);
+      this.toast.show("Hubo un error al intentar ingresar con Facebook");
     })
   }
 
   loginGoogle(){
     console.log('g+');
-    
-    let data_gplus = this.userService.loginGoogle();
-    console.log("DATA", data_gplus);
-      // const userGplus = res;
-      // console.log("START-DATA-USER-G+", userGplus);
-      // this.loginSocialGplus.net = "google";
-      // this.loginSocialGplus.email = userGplus.email;
-      // this.loginSocialGplus.password = userGplus.uid;
-      // if (userGplus.displayName && userGplus.displayName !== "") {
-      //   let namelong = userGplus.displayName.split(" ");
-      //   this.loginSocialGplus.first_name = namelong[0];
-      //   this.loginSocialGplus.last_name = namelong[1];
-      // }
+    this.userService.loginGoogle().then((res:any) => {
+      console.log("DATA-RES-G+", res);
+      const userGplus = res;
+      console.log("START-DATA-USER-G+", userGplus);
+      this.loginSocialGplus.net = "google";
+      this.loginSocialGplus.email = userGplus.email;
+      this.loginSocialGplus.password = userGplus.uid;
+      if (userGplus.displayName && userGplus.displayName !== "") {
+        let namelong = userGplus.displayName.split(" ");
+        this.loginSocialGplus.first_name = namelong[0];
+        this.loginSocialGplus.last_name = namelong[1];
+      }
 
-      // console.log("Data for register", this.loginSocialGplus);
-      // // INTENTA REGISTRAR AL USER G+
-      // this.userService.register(this.loginSocialGplus).then(() => {
-      //   let navigationExtras: NavigationExtras = {
-      //     state: {data: this.loginSocialGplus}
-      //   };
-      //   this.navCtrl.navigateForward(['/verify-number'], navigationExtras);
-      // }).catch((error) => {
-      //   console.log("error-register", error);
-      //   // SI YA EXISTE USUARIO CON ESE EMAIL LO QUE HACE ES LOGUEAR A ESE USER
-      //   if (error.username && error.username.length > 0){
-      //     this.userService.login(this.loginSocialGplus.email, this.loginSocialGplus.password).then(res => {
-      //       console.log("LOGIN-START", res);
-      //       this.navCtrl.navigateRoot('/tabs/home');
-      //     })
-      //     .catch(errors => {
-      //       console.log(errors);
-      //       this.toast.show("Hubo un error al intentar login con Google", errors);
-      //     });
-      //   }
-      // });
-    // }).catch(error => {
-    //   this.toast.show("Hubo un error al intentar ingresar con Google", error);
-    // })
+      console.log("Data for register", this.loginSocialGplus);
+      // INTENTA REGISTRAR AL USER G+
+      this.userService.register(this.loginSocialGplus).then(() => {
+        let navigationExtras: NavigationExtras = {
+          state: {data: this.loginSocialGplus}
+        };
+        this.navCtrl.navigateForward(['/verify-number'], navigationExtras);
+      }).catch((error) => {
+        console.log("error-register", error);
+        // SI YA EXISTE USUARIO CON ESE EMAIL LO QUE HACE ES LOGUEAR A ESE USER
+        if (error.username && error.username.length > 0){
+            this.toast.show("Hubo un error al intentar login con Google");
+        }
+      });
+    }).catch(error => {
+      console.log(error);
+      this.toast.show("Hubo un error al intentar ingresar con Google");
+    })
   }
 
   loginAsGuestUser() {
