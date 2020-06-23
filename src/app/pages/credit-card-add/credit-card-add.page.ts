@@ -1,15 +1,131 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, Validators } from "@angular/forms";
+import { PopoverController } from '@ionic/angular';
+import { ExpirationCardCodeComponent } from 'src/app/components/expiration-card-code/expiration-card-code.component';
+import { SecurityCardCodeComponent } from 'src/app/components/security-card-code/security-card-code.component';
+import { SecurityCardCodeAmericanComponent } from 'src/app/components/security-card-code-american/security-card-code-american.component';
+
+// import { PopoverComponent } from '../../component/';
 
 @Component({
-  selector: 'app-credit-card-add',
-  templateUrl: './credit-card-add.page.html',
-  styleUrls: ['./credit-card-add.page.scss'],
+    selector: 'app-credit-card-add',
+    templateUrl: './credit-card-add.page.html',
+    styleUrls: ['./credit-card-add.page.scss'],
 })
 export class CreditCardAddPage implements OnInit {
+    currentPopover: any;
+    public isFocus = {
+        nameFocus: false,
+        dniFocus: false,
+        cardFocus: false,
+        expirationDateFocus: false,
+        securityCodeFocus: false,
+    }
 
-  constructor() { }
+    ngOnInit() {
+    }
 
-  ngOnInit() {
-  }
+    constructor(
+        private formBuilder: FormBuilder,
+        public popoverController: PopoverController
+    ) { }
+    
+    // Popovers
+    async expirationPopover(ev: any) {
+        const popover = await this.popoverController.create({
+            component: ExpirationCardCodeComponent,
+            cssClass: 'addCardPopOver',
+            event: ev,
+            translucent: true
+        });
+        this.currentPopover = popover;
+        return await popover.present();
+    }
+     
+    // async securityPopover(ev: any) {
+    //     const popover = await this.popoverController.create({
+    //         component: SecurityCardCodeComponent,
+    //         cssClass: 'addCardPopOver',
+    //         event: ev,
+    //         translucent: true
+    //     });
+    //     this.currentPopover = popover;
+    //     return await popover.present();
+    // }
 
+    // american express popover
+    async securityPopover(ev: any) {
+        const popover = await this.popoverController.create({
+            component: SecurityCardCodeAmericanComponent,
+            cssClass: 'addCardPopOver',
+            event: ev,
+            translucent: true
+        });
+        this.currentPopover = popover;
+        return await popover.present();
+    }
+
+
+    inputFocus(itemName: string) {
+        this.isFocus[itemName] = true;
+    }
+    inputBlur(itemName: string) {
+        this.isFocus[itemName] = false;
+    }
+
+    get name() {
+        return this.registrationForm.get("name");
+    }
+    get dni() {
+        return this.registrationForm.get('dni');
+    }
+    get cardNumber() {
+        return this.registrationForm.get('cardNumber');
+    }
+    get expirationDate() {
+        return this.registrationForm.get('expirationDate');
+    }
+    get securityCode() {
+        return this.registrationForm.get('securityCode');
+    }
+
+    public errorMessages = {
+        name: [
+            { type: 'required', message: 'Este campo es obligatorio' },
+        ],
+        dni: [
+            { type: 'required', message: 'Este campo es obligatorio' },
+        ],
+        cardNumber: [
+            { type: 'pattern', message: 'Formato inválido'},
+            { type: 'required', message: 'Numero de tarjeta inválido' },
+        ],
+        expirationDate: [
+            { type: 'required', message: 'Este campo es obligatorio' },
+            { type: 'maxlength', message: 'Formato inválido'},
+            { type: 'minlength', message: 'Formato inválido'},
+            { type: 'pattern', message: 'Formato inválido'},
+
+        ],
+        securityCode: [
+            { type: 'required', message: 'Este campo es obligatorio' },
+            { type: 'maxlength', message: 'Ingrese un numero de 3 ó 4 dígitos'},
+            { type: 'minlength', message: 'Ingrese un numero de 3 ó 4 dígitos'},
+            { type: 'pattern', message: 'Ingrese solo numeros'}
+        ]
+    };
+
+    /** En el formulario de email testear que pasa con la ñ y la Ñ */
+
+    registrationForm = this.formBuilder.group({
+        name: ['', [Validators.required]],
+        dni: ['', [Validators.required]],
+        cardNumber: ['', [Validators.required]],
+        expirationDate: ['', [Validators.required, Validators.maxLength(5), Validators.minLength(5)]],
+        securityCode: ['', [ Validators.maxLength(4), Validators.required, Validators.minLength(3), Validators.pattern('[0-9]+')]],
+    });
+
+    submit() {
+        console.log(this.registrationForm.value);
+    }
 }

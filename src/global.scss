@@ -99,3 +99,19 @@
     outline: none;
     contain: strict;
 }
+
+.cardcodeclass {
+    --backdrop-opacity: 0.5;
+}
+
+.cardcodeclass .popover-content {
+    width: 80% !important;
+}
+.addCardPopOver{
+    --width:80vw;
+    --height:95vw ;
+    // --backdrop-opacity:0.5;
+}
+.inputfocus {
+    border-bottom: 2px solid red !important;
+}

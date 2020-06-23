@@ -1,0 +1,102 @@
+ion-header {
+    ion-toolbar {
+        ion-title {
+            font-family: DMSerifDisplayRegular;
+            font-size: 1.4em;
+        }
+        ion-buttons {
+            ion-button {
+                font-family: FieldworkGeoThin;
+                font-size: 0.9em;
+            }
+        }
+    }
+}
+form {
+    margin-right: 0;
+    padding-right: 0;
+
+    ion-item {
+        --background: var(--ion-color-input-background);
+        font-family: FieldworkGeoThin;
+        --highlight-color-valid: #ff7300;
+        width: 75vw;
+        ion-input {
+            font-family: FieldworkGeoThin;
+        }
+        ion-label{
+            font-family: FieldworkGeoThin;
+        }
+    }
+    .danger-color {
+        color: var(--ion-color-danger);
+    }
+}
+
+.focus-item {
+    --highlight-color-invalid: #ff7300 !important;
+}
+
+.item-question {
+    display: flex;
+    flex-direction: row;
+}
+.icon-question {
+    margin-top: 2.5vh;
+    margin-left: 4vw;
+    font-size: 2em;
+    align-self: center;
+}
+.label-font-size {
+    font-size: 12px;
+    font-family: FieldworkGeoThin;
+    padding-left: 4vw;
+}
+.item-no-margin-top {
+    margin-top: 0 !important;
+}
+.question-mark {
+    --background: none;
+    ion-item {
+        width: 100%;
+    }
+}
+.logo-card {
+    display: flex;
+    flex-direction: row;
+    align-self: center;
+    img {
+        max-height: 3em;
+    }
+}
+.logo-height {
+    max-height: 2em !important;
+}
+
+#item-card-icon {
+    --inner-padding-end: 0;
+    ion-row {
+        padding-top: 0;
+        padding-bottom: 0;
+        width: 100%;
+        ion-col {
+            padding-top: 0;
+            padding-bottom: 0;
+            ion-input {
+                width: 45vw;
+            }
+        }
+    }
+}
+.myClass{
+    background-color: red;
+    color: rebeccapurple;
+}
+
+.alerts{
+    height: 6vh;
+}
+
+.description-color{
+    color: var(--ion-color-medium);
+}

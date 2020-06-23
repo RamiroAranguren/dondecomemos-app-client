@@ -1,12 +1,134 @@
 <ion-header>
     <ion-toolbar>
         <ion-buttons slot="start">
-            <ion-back-button></ion-back-button>
+            <ion-back-button icon="close"></ion-back-button>
         </ion-buttons>
-        <ion-title>credit-card-add</ion-title>
+        <ion-title>Nueva Tarjeta</ion-title>
+        <ion-buttons slot="end">
+            <ion-button [color]="!registrationForm.valid ? 'medium' : 'primary'" [disabled]="!registrationForm.valid"
+                type="submit" form="card-form" (click)="submit()" fill="clear" shape="round">
+                GUARDAR
+            </ion-button>
+        </ion-buttons>
     </ion-toolbar>
 </ion-header>
 
 <ion-content>
+    <div class="ion-padding-start ion-padding-top">
+        <form class="ion-padding-start ion-padding-top" id="card-form" [formGroup]="registrationForm" (ngSubmit)="submit()">
+            <ion-list>
 
+                <!-- NOMBRE -->
+                <ion-item [ngClass]="{'focus-item': isFocus.nameFocus}">
+                    <ion-label position="floating">Nombre y apellido del titular</ion-label>
+                    <ion-input (ionBlur)="inputBlur('nameFocus')" (ionFocus)="inputFocus('nameFocus')"
+                        class="ion-text-uppercase" autocapitalize inputmode="text" formControlName="name"></ion-input>
+                </ion-item>
+                <div class="alerts">
+                    <div>
+                        <ng-container>
+                            <small class="label-font-size description-color">Tal cual está impreso en la tarjeta</small>
+                        </ng-container>
+                    </div>
+                    <div *ngFor="let error of errorMessages.name">
+                        <ng-container *ngIf="name.hasError(error.type) && (name.dirty || name.touched)">
+                            <small class="label-font-size danger-color">{{error.message}}</small>
+                        </ng-container>
+                    </div>
+                </div>
+
+                <!-- DNI -->
+                <ion-item [ngClass]="{'focus-item': isFocus.dniFocus}">
+                    <ion-label position="floating">DNI del titular</ion-label>
+                    <ion-input (ionBlur)="inputBlur('dniFocus')" (ionFocus)="inputFocus('dniFocus')" inputmode="numeric"
+                        type="number" formControlName="dni"></ion-input>
+                </ion-item>
+                <div class="alerts">
+                    <div *ngFor="let error of errorMessages.dni">
+                    <ng-container *ngIf="dni.hasError(error.type) && (dni.dirty || dni.touched)">
+                        <small class="label-font-size danger-color">{{error.message}}</small>
+                    </ng-container>
+                </div>
+                </div>
+
+
+                <!-- NUMERO TARJETA -->
+                <ion-item id="item-card-icon" [ngClass]="{'focus-item': isFocus.cardNumberFocus}">
+                    <ion-row>
+                        <ion-col size="9">
+                            <ion-label position="floating">Número de tarjeta</ion-label>
+                            <ion-input (ionBlur)="inputBlur('cardNumberFocus')"
+                                (ionFocus)="inputFocus('cardNumberFocus')" inputmode="numeric" type="number"
+                                formControlName="cardNumber"></ion-input>
+                        </ion-col>
+                        <!-- <ion-col size="3" class="logo-card">
+                            <img  src="../../../assets/logos/visa.png" alt="visa" >
+                        </ion-col> -->
+                        <!-- <ion-col size="3" class="logo-card">
+                            <img class="logo-height"  src="../../../assets/logos/Diners-Club.png" alt="diners-club" >
+                        </ion-col> -->
+                        <!-- <ion-col size="3" class="logo-card">
+                                <img  src="../../../assets/logos/american-express.png"
+                                    alt="a-express">
+                        </ion-col> -->
+                        <ion-col size="3" class="logo-card">
+                            <img class="logo-height" src="../../../assets/logos/mastercard.png" alt="mastercard">
+                        </ion-col>
+                    </ion-row>
+                </ion-item>
+                <div class="alerts">
+                    <div *ngFor="let error of errorMessages.cardNumber">
+                        <ng-container *ngIf="cardNumber.hasError(error.type) && (cardNumber.dirty || cardNumber.touched)">
+                            <small class="label-font-size danger-color">{{error.message}}</small>
+                        </ng-container>
+                    </div>
+                </div>                
+
+                <!-- FECHA EXPIRACION -->
+                <div class="item-question">
+                    <ion-item [ngClass]="{'focus-item':  isFocus.expirationDateFocus}">
+                        <ion-label position="floating">Fecha de expiración</ion-label>
+                        <ion-input (ionBlur)="inputBlur('expirationDateFocus')"
+                            (ionFocus)="inputFocus('expirationDateFocus')"
+                            formControlName="expirationDate"></ion-input>
+                    </ion-item>
+                    <div class="icon-question">
+                        <ion-icon (click)="expirationPopover()" name="help-circle"></ion-icon>
+                    </div>
+                </div>
+                <div class="alerts">
+                    <ng-container>
+                        <small class="label-font-size description-color">MM/AA</small>
+                    </ng-container>
+                    <div *ngFor="let error of errorMessages.expirationDate">
+                        <ng-container
+                            *ngIf="expirationDate.hasError(error.type) && (expirationDate.dirty || expirationDate.touched)">
+                            <small class="label-font-size danger-color">{{error.message}}</small>
+                        </ng-container>
+                    </div>
+                </div>                
+
+                <!-- CODIGO SEGURIDAD -->
+                <div class="item-question">
+                    <ion-item [ngClass]="{'focus-item': isFocus.securityCodeFocus}">
+                        <ion-label position="floating">Codigo de Seguridad</ion-label>
+                        <ion-input (ionBlur)="inputBlur('securityCodeFocus')"
+                            (ionFocus)="inputFocus('securityCodeFocus')" inputmode="numeric"
+                            formControlName="securityCode"></ion-input>
+                    </ion-item>
+                    <div class="icon-question">
+                        <ion-icon name="help-circle" (click)="securityPopover()"></ion-icon>
+                    </div>
+                </div>
+                <div class="alerts">
+                    <div *ngFor="let error of errorMessages.securityCode">
+                        <ng-container
+                            *ngIf="securityCode.hasError(error.type) && (securityCode.dirty || securityCode.touched)">
+                            <small class="label-font-size danger-color">{{error.message}}</small>
+                        </ng-container>
+                    </div>
+                </div>
+            </ion-list>
+        </form>
+    </div>
 </ion-content>

@@ -2,7 +2,7 @@ ion-card{
     margin-top: 20px;
     margin-bottom: 20px;
     border-radius: 15px;
-    height: 40vh;
+    height: 43vh;
     box-shadow: none;
     margin-bottom: 0;
     #dto1{
@@ -53,7 +53,7 @@ ion-card{
         padding-left: 1vw;
         ion-card-title{
             font-family: DMSerifDisplayRegular;
-            font-size: 5vw;
+            font-size: 1.3em;
         }
         ion-card-subtitle{
             font-family: FieldworkGeoRegular;
@@ -80,6 +80,21 @@ ion-col{
         height: 32vh;
     }
 }
+@media (min-height: 700px) {
+    ion-card{
+        height: 37vh;
+    }
+}
+
+@media (max-height: 600px) {
+    ion-card-title{
+        font-size: 1.1em !important;
+    }
+    ion-card-subtitle{      
+        font-size: 0.9em !important;
+    }
+}
+
 
 .qualify {
     color: #ff7300;

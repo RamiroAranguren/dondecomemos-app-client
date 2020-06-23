@@ -1,0 +1,17 @@
+<svg id="Perfil_Ilustraciones_Perfil" data-name="Perfil Ilustraciones_Perfil" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="160" height="160" viewBox="0 0 160 160">
+  <defs>
+    <linearGradient id="linear-gradient" x1="0.108" y1="0.288" x2="0.892" y2="1.072" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#dfdfde" stop-opacity="0.631"/>
+      <stop offset="1" stop-color="#979797" stop-opacity="0.631"/>
+    </linearGradient>
+    <linearGradient id="linear-gradient-2" x1="0.044" y1="0.044" x2="0.577" y2="0.576" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#fff"/>
+      <stop offset="1" stop-color="#d6d6d6"/>
+    </linearGradient>
+  </defs>
+  <path id="Trazado_241" data-name="Trazado 241" d="M80,0A80,80,0,1,1,0,80,80,80,0,0,1,80,0Z" fill="#f9f9f9"/>
+  <path id="Trazado_237" data-name="Trazado 237" d="M440.07,320.45h80v80h-80Z" transform="translate(-392.048 -291.506)" fill="none"/>
+  <path id="Trazado_238" data-name="Trazado 238" d="M483.336,423.329A13.334,13.334,0,1,0,470,409.994a13.334,13.334,0,0,0,13.334,13.334Zm0,6.666c-8.9,0-26.666,4.48-26.666,13.334v3.334A3.338,3.338,0,0,0,460,449.994H506.67A3.338,3.338,0,0,0,510,446.663v-3.334C510,434.462,492.235,429.994,483.336,429.994Z" transform="translate(-403.336 -343.329)" fill="url(#linear-gradient)"/>
+  <path id="Trazado_239" data-name="Trazado 239" d="M631.623,311.889l-2.88-6.378a1.821,1.821,0,0,0-3.315,0l-2.88,6.378-6.416,2.88a1.821,1.821,0,0,0,0,3.315l6.381,2.88,2.88,6.416a1.824,1.824,0,0,0,3.318,0l2.88-6.381,6.4-2.88a1.824,1.824,0,0,0,0-3.318Z" transform="translate(-511.044 -280.622)" fill="url(#linear-gradient-2)"/>
+  <path id="Trazado_240" data-name="Trazado 240" d="M400.6,459.965l-1.92-4.253a1.216,1.216,0,0,0-2.211,0l-1.92,4.253-4.278,1.92a1.216,1.216,0,0,0,0,2.211l4.253,1.92,1.92,4.275a1.216,1.216,0,0,0,2.211,0l1.92-4.253,4.275-1.92a1.216,1.216,0,0,0,0-2.211Z" transform="translate(-357.702 -383.001)" fill="#f49a4e"/>
+</svg>
