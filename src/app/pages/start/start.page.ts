@@ -121,11 +121,8 @@ export class StartPage implements OnInit {
   }
 
   loginAsGuestUser() {
-    this.loader.display('Iniciando sesión como invitado...').then(() => {
-      this.userService.loginAsGuest();
-      this.loader.hide();
-      this.navCtrl.navigateRoot('/tabs/home');
-    });
+    this.userService.loginAsGuest();
+    this.navCtrl.navigateRoot('/tabs/home');
   }
 
 }

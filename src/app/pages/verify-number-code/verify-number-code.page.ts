@@ -48,10 +48,8 @@ export class VerifyNumberCodePage implements OnInit {
   }
 
   doVerify() {
-    this.loader.display('Verificando código...');
     this.userService.checkCodeSms(this.numberRegister.code).then(() => {
       setTimeout(() => {
-        this.loader.hide();
         if (this.user.net !== null) {
           // CUANDO EL REGISTRO VIENE DE UNA RED SOCIAL, LLAMA A LA FUNCION
           // LOGIN Y LOGUEA DIRECTAMENTE AL USUARIO
@@ -63,7 +61,7 @@ export class VerifyNumberCodePage implements OnInit {
       }, 3000);
     }).catch((error) => {
       this.errors.code = ["Error: no se pudo validar el código, intente de nuevo."];
-      this.loader.hide();
+      
     })
   }
 

@@ -73,8 +73,7 @@ export class LoginPage implements OnInit {
 
     this.error.mensaje = "";
 
-    this.loader.display('Iniciando sesión');
-
+    
     this.userService.login(this.form.value.email, this.form.value.password)
       .then(() => {
         if (this.restaurant) {
@@ -82,13 +81,12 @@ export class LoginPage implements OnInit {
         } else {
           this.navCtrl.navigateRoot('/tabs/home')
         }
-        this.loader.hide();
       })
       .catch(errors => {
         this.error.status = errors.status;
         this.error.ok = false;
         this.error.mensaje = "Error: Email y/o contraseña inválidos."
-        this.loader.hide();
+
       })
   }
 

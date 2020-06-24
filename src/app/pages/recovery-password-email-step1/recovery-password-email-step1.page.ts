@@ -50,12 +50,9 @@ export class RecoveryPasswordEmailStep1Page implements OnInit {
       let navigationExtras: NavigationExtras = {
         state: {data: this.userRegister}
       };
-      this.loader.display('Verificando email');
       this.userService.recoverPassword(this.userRegister.email).then(res => {
-        this.loader.hide();
         this.navCtrl.navigateForward(['/recovery-password-code-step2'], navigationExtras);
       }).catch(err => {
-        this.loader.hide();
         this.errors.email = ["Error: Email inválido."];
       })
 
