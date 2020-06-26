@@ -13,7 +13,7 @@ export class StepFunctionsPage implements OnInit {
   nexButton = true;
   activeDefault = false;
 
-  imgActive = 'assets/img/step-functions/step-1-active.png';
+  imgActive = 'assets/img/step-functions/step1.svg';
 
   slides = [
     {
@@ -66,7 +66,7 @@ export class StepFunctionsPage implements OnInit {
   handleSlide() {
     this.slide.getActiveIndex().then(index => {
 
-      this.imgActive = `assets/img/step-functions/step-${index+2}-active.png`;
+      this.imgActive = `assets/img/step-functions/step${index+2}.svg`;
 
       if (index === 0 || index === 2) {
         this.activeDefault = true;

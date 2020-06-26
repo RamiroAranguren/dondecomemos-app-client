@@ -1,0 +1,23 @@
+<svg id="Componente_27_1" data-name="Componente 27 – 1" xmlns="http://www.w3.org/2000/svg" width="100" height="16" viewBox="0 0 100 16">
+  <g id="Indicador_landing_page1" data-name="Indicador landing page1" transform="translate(28)">
+    <circle id="Elipse_22" data-name="Elipse 22" cx="8" cy="8" r="8" fill="#1d252d"/>
+  </g>
+  <g id="Indicador_landing_page_2" data-name="Indicador landing page 2">
+    <g id="Elipse_21" data-name="Elipse 21" fill="none" stroke="#1d252d" stroke-width="1">
+      <circle cx="8" cy="8" r="8" stroke="none"/>
+      <circle cx="8" cy="8" r="7.5" fill="none"/>
+    </g>
+  </g>
+  <g id="Indicador_landing_page_2-2" data-name="Indicador landing page 2" transform="translate(84)">
+    <g id="Elipse_21-2" data-name="Elipse 21" fill="none" stroke="#1d252d" stroke-width="1">
+      <circle cx="8" cy="8" r="8" stroke="none"/>
+      <circle cx="8" cy="8" r="7.5" fill="none"/>
+    </g>
+  </g>
+  <g id="Indicador_landing_page_2-3" data-name="Indicador landing page 2" transform="translate(56)">
+    <g id="Elipse_21-3" data-name="Elipse 21" fill="none" stroke="#1d252d" stroke-width="1">
+      <circle cx="8" cy="8" r="8" stroke="none"/>
+      <circle cx="8" cy="8" r="7.5" fill="none"/>
+    </g>
+  </g>
+</svg>
