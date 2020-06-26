@@ -52,6 +52,14 @@ ion-fab-button {
         color: var(--primary-grey);
     }
 }
+#back-button{
+    width: 60px;
+    height: 60px;
+    ion-icon {
+        font-size: 30px;
+        color: var(--primary-grey);
+    }
+}
 
 .bgcolor {
     --background: var(--bg-primary) !important;
