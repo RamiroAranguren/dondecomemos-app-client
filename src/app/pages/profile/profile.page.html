@@ -186,9 +186,8 @@
         </ion-row>
     </ion-grid>
 </form>
+<ion-item *ngIf="profile" class="change-passw">
+    <span (click)="changePassword()">Cambiar contraseña</span>
+</ion-item>
+    
 </ion-content>
-<ion-footer *ngIf="profile">
-  <ion-toolbar>
-    <span class="change-passw" (click)="changePassword()">Cambiar contraseña</span>
-  </ion-toolbar>
-</ion-footer>
