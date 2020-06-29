@@ -1,0 +1,28 @@
+
+
+.btnHeader{
+    font-family: FieldworkGeoRegular;
+    font-size: 16px;
+    color: orange;
+}
+
+.colorBlack{
+    color:black;
+}
+
+.cnx_btn {
+    --color: black;
+    // margin: 0px 15px 20px;
+    margin: 0px 15px;
+    text-transform: none;
+    font-family: FieldworkHumHair;
+    --background: var(--bg-primary-tint);
+    font-size: 1rem;
+    --padding-bottom: 23px;
+    --padding-top: 23px;
+    letter-spacing: 0.05rem;
+}
+
+.ico-add {
+    font-size: 25px;
+}

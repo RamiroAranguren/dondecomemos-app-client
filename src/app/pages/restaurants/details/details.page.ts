@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { restaurant } from '../../../interfaces/restaurant';
-import { Router } from '@angular/router';
+import { Router, NavigationExtras } from '@angular/router';
 import { StorageService } from '../../../services/storage/storage.service';
 import { FavoritesService } from '../../../services/favorites/favorites.service';
 import { LoaderService } from '../../../services/loader/loader.service';
@@ -10,6 +10,7 @@ import { UserInterface } from 'src/app/interfaces/user';
 import { ModalGaleryPage } from '../../modal-galery/modal-galery.page';
 import { PicturesService } from '../../../services/pictures/pictures.service';
 import { CategoriesService } from '../../../services/products/categories.service';
+import { MenusService } from '../../../services/menus/menus.service';
 
 @Component({
   selector: 'app-details',
@@ -21,9 +22,10 @@ export class DetailsPage implements OnInit {
   @ViewChild('content', {static: false}) content: IonContent;
 
   restaurant:restaurant;
-  pictures:any [] = [];
-  product_categories:any [] = [];
-  product_titles:any [] = [];
+  pictures:any[] = [];
+  product_categories:any[] = [];
+  product_titles:any[] = [];
+  menues:any[] = [];
 
   isFav = false;
   isGuest = true;
@@ -62,7 +64,8 @@ export class DetailsPage implements OnInit {
     private favService: FavoritesService,
     private userService: UsersService,
     private picsService: PicturesService,
-    private productCategoriesService: CategoriesService
+    private productCategoriesService: CategoriesService,
+    private menuService: MenusService
   ) {}
 
   ngOnInit() {
@@ -92,6 +95,12 @@ export class DetailsPage implements OnInit {
       this.product_categories = categories;
       console.log('product_categories', this.product_categories)
       this.product_titles = this.product_categories.map(category => category.name);
+    });
+
+    //SERVICE GET MENÚS
+    this.menuService.get(this.restaurant.id).then((menues:any) => {
+      this.menues = menues;
+      console.log('menues', this.menues);
     });
   }
 
@@ -170,11 +179,23 @@ export class DetailsPage implements OnInit {
   }
 
   info(restaurant:restaurant) {
-    this.navCtrl.navigateForward(['/restaurant/info'], {state: {data: restaurant}});
+    let navigationExtras: NavigationExtras = { state: { data: restaurant } };
+    this.navCtrl.navigateForward(['/restaurant/info'], navigationExtras);
   }
 
   review(restaurant:restaurant) {
-    this.navCtrl.navigateForward(['/restaurant/qualify-review'], {state: {data: restaurant}});
+    let navigationExtras: NavigationExtras = { state: { data: restaurant } };
+    this.navCtrl.navigateForward(['/restaurant/qualify-review'], navigationExtras);
+  }
+
+  addItemOrder(category_name:string, product) {
+    let navigationExtras: NavigationExtras = {
+      state: {
+        category_name,
+        product,
+      }
+    };
+    this.navCtrl.navigateForward(['/restaurant/add-item-order'], navigationExtras);
   }
 
 }

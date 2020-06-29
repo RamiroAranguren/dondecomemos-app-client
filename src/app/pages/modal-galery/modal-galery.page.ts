@@ -9,39 +9,39 @@ import { restaurant } from 'src/app/interfaces/restaurant';
 })
 export class ModalGaleryPage implements OnInit {
 
-  @ViewChild('slides', {static: true}) slides: IonSlides;
+  @ViewChild('slides') slide: IonSlides;
 
   @Input() pictures;
   @Input() index;
 
-  options = {
-    navigation: {
-      nextEl: '.swiper-button-next',
-      prevEl: '.swiper-button-prev',
-    },
-  }
+  options:any;
 
   constructor() { }
 
   ngOnInit() {
-    
+
   }
 
   ionViewDidEnter() {
-    console.log("index", this.index);
-    // this.slides.slideTo(this.index, 2000);
-    this.slides.slideTo(this.index, 2000);
+    this.options = {
+      initialSlide: this.index,
+      speed: 400,
+      navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev'
+      }
+    }
+
+    this.slide.slideTo(this.index, 400);
 
   }
 
   nextSlide() {
-    console.log('CLick next')
-    this.slides.slideNext();
+    this.slide.slideNext();
   }
 
   prevSlide () {
-    console.log('CLick prev')
-    this.slides.slidePrev();
+    this.slide.slidePrev();
   }
 
 }

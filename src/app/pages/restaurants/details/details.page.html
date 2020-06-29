@@ -79,19 +79,17 @@
     <ion-col size="12">
       <h1 class="title_category">Menús del día</h1>
     </ion-col>
+    <span class="title_category" *ngIf="menues.length <= 0"> El restaurant no tiene menú del día.</span>
     <ion-slides pager="false" [options]="slideOptionsMenu" class="slide-menu">
-      <ion-slide *ngFor="let item of [1,1,1,1,1]">
+      <ion-slide *ngFor="let menu of menues">
         <div class="contenedor">
           <div class="title-menu">
-            <span>Nombre menú</span><br>
-            <span>$350 Descripción</span>
+            <span>{{ menu.category.name }}</span><br>
+            <span>${{ menu.real_price }} {{ menu.description }}</span>
           </div>
-          <div class="description-menu">
-            <h3>Entrada</h3>
-            <p>Milanesita de mozzarella con salsa
-            de tomate y albahaca.</p>
-            <h3>Principal</h3>
-            <p>Arroz con pollo.</p>
+          <div class="description-menu" *ngFor="let submenu of menu.sub_menus">
+            <h3>{{ submenu.name }}</h3>
+            <p>{{ submenu.value }}</p>
           </div>
         </div>
       </ion-slide>
@@ -121,10 +119,13 @@
   <ion-row *ngFor="let category of product_categories" id="{{ category.name }}">
     <ion-col size="12">
       <h2 class="title_category">{{ category.name }}</h2>
-      <div class="content_categories" *ngFor="let product of category.products">
+      <div class="content_categories" *ngFor="let product of category.products"  (click)="addItemOrder(category.name, product)">
         <span class="title_product">{{ product.name }}</span><br>
         <span *ngIf="product.description">{{ product.description }} <br></span>
-        <span style="font-size: 18px;">${{ product.real_price }}</span>
+        <span *ngIf="product.variants.length <= 0" style="font-size: 18px;">${{ product.real_price }}</span>
+        <span *ngFor="let variant of product.variants">
+          ${{ variant.price }} - {{ variant.name }} <br>
+        </span>
       </div>
     </ion-col>
   </ion-row>

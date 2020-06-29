@@ -87,6 +87,10 @@ const routes: Routes = [
   {
     path: 'restaurant/qualify-review',
     loadChildren: () => import('./pages/qualify-review/qualify-review.module').then( m => m.QualifyReviewPageModule)
+  },
+  {
+    path: 'restaurant/add-item-order',
+    loadChildren: () => import('./pages/add-item-order/add-item-order.module').then( m => m.AddItemOrderPageModule)
   }
 
 ];
