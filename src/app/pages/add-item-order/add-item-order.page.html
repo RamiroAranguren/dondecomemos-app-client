@@ -29,14 +29,17 @@
     <ion-col size="12">
       <ion-list>
         <ion-item>
-          <ion-label class="colorBlack" position="stacked" style="font-family: FieldworkGeoRegular;">Comentario (opcional)</ion-label>
+          <ion-label class="colorBlack" position="stacked" style="font-family: FieldworkGeoRegular;">
+            Comentario (opcional)
+          </ion-label>
         </ion-item>
         <ion-item color="input-background">
             <ion-input
-                class="colorBlack"
-                name="comments"
-                type="text"
-                required></ion-input>
+              [(ngModel)]="comments"
+              class="colorBlack"
+              name="comments"
+              type="text"
+              required></ion-input>
         </ion-item>
       </ion-list>
     </ion-col>
@@ -49,14 +52,14 @@
         </ion-col>
       </ion-row>
 
-      <ion-row *ngFor="let data of item.value">
+      <ion-row *ngFor="let data of item.value" style="border-bottom: 1px solid lightgray;">
         <ion-col size="2">
           <ion-checkbox id="variant-{{data.id}}" name="{{data.name}}" color="primary"></ion-checkbox>
         </ion-col>
         <ion-col size="3">
-          <ion-icon name="remove-circle-outline" id="remove-ico-{{data.id}}" (click)="removeCantVariant(item, data.id)"  class="ico-add"></ion-icon>
+          <ion-icon name="remove-circle-outline" id="remove-ico-{{data.id}}" (click)="removeCantVariant(data.id, data.name)"  class="ico-add"></ion-icon>
           <span style="font-size: 20px; padding-top: -10px;" id="count-variant-{{data.id}}">0</span>
-          <ion-icon name="add-circle-outline" id="add-ico-{{data.id}}" (click)="addCantVariant(item, data.id)" class="ico-add"></ion-icon>
+          <ion-icon name="add-circle-outline" id="add-ico-{{data.id}}" (click)="addCantVariant(data.id, data.name)" class="ico-add"></ion-icon>
         </ion-col>
         <ion-col size="7">
           <ion-row>
@@ -82,14 +85,14 @@
         </ion-col>
       </ion-row>
 
-      <ion-row *ngFor="let data of item.value">
+      <ion-row *ngFor="let data of item.value" style="border-bottom: 1px solid lightgray;">
         <ion-col size="2">
           <ion-checkbox id="variant-{{data.id}}" name="{{data.name}}" color="primary"></ion-checkbox>
         </ion-col>
         <ion-col size="3">
-          <ion-icon name="remove-circle-outline" id="remove-ico-{{data.id}}"  (click)="removeCantAdd(item, data.id)"  class="ico-add"></ion-icon>
+          <ion-icon name="remove-circle-outline" id="remove-ico-{{data.id}}"  (click)="removeCantAdd(item, data.id, data.name)"  class="ico-add"></ion-icon>
           <span style="font-size: 20px; padding-top: -10px;" id="count-additional-{{data.id}}">0</span>
-          <ion-icon name="add-circle-outline" id="remove-ico-{{data.id}}"  (click)="addCantAdd(item, data.id)" class="ico-add"></ion-icon>
+          <ion-icon name="add-circle-outline" id="remove-ico-{{data.id}}"  (click)="addCantAdd(item, data.id, data.name)" class="ico-add"></ion-icon>
         </ion-col>
         <ion-col size="7">
           <ion-row>
@@ -117,7 +120,7 @@
 </ion-content>
 <ion-footer>
   <ion-toolbar>
-    <ion-button class="cnx_btn" shape="round" expand="block">
+    <ion-button class="cnx_btn" shape="round" expand="block" (click)="addOrder()">
       AGREGAR
     </ion-button>
   </ion-toolbar>
