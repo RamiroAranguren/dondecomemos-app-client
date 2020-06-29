@@ -1,13 +1,10 @@
-ion-card{
-    margin-top: 20px;
-    margin-bottom: 20px;
-    margin-left: 20px;
-    margin-right: 20px;
+ion-card {
+    margin: 5vw;
     border-radius: 15px;
     // height: 40vh;
     box-shadow: none;
     // margin-bottom: 0;
-    #dto1{
+    #dto1 {
         position: absolute;
         font-size: 5vw;
         background-color: orange;
@@ -19,7 +16,7 @@ ion-card{
         border-radius: 0px 6px 6px 0px;
         font-family: FieldworkHumHair;
     }
-    #dto2{
+    #dto2 {
         position: absolute;
         font-size: 5vw;
         background-color: orange;
@@ -31,7 +28,7 @@ ion-card{
         border-radius: 0px 6px 6px 0px;
         font-family: FieldworkHumHair;
     }
-    #dto3{
+    #dto3 {
         position: absolute;
         font-size: 5vw;
         background-color: orange;
@@ -43,48 +40,50 @@ ion-card{
         border-radius: 0px 6px 6px 0px;
         font-family: FieldworkHumHair;
     }
-    img{
-        border-radius: 15px;
+    img {
+        border-radius: 32px;
         width: 100%;
         height: 48vw;
         object-fit: cover;
-        // padding: 0 10px 0 10px;
     }
-    ion-card-header{
+    ion-card-header {
         padding-top: 7px;
         padding-right: 0;
-        padding-left: 1vw;
-        ion-card-title{
+        padding-left: 0;
+        ion-grid {
+            padding-left: 0;
+        }
+        ion-card-title {
             font-family: DMSerifDisplayRegular;
             font-size: 5vw;
         }
-        ion-card-subtitle{
+        ion-card-subtitle {
             font-family: FieldworkGeoRegular;
             margin-top: 4px;
             font-size: 4vw;
             text-transform: capitalize;
         }
-        p{
+        p {
             font-family: FieldworkGeoRegular;
             font-size: 4vw;
             margin-top: 4px;
             margin-bottom: 0;
         }
     }
-
 }
 
-ion-col{
+ion-col {
     padding: 0;
 }
 
 @media (min-height: 750px) {
-    ion-card{
+    ion-card {
         height: 32vh;
     }
 }
 
-.col-level, .col-score {
+.col-level,
+.col-score {
     padding: 5px;
     font-family: FieldworkGeoRegular;
 }
@@ -101,7 +100,7 @@ ion-col{
 }
 
 .level {
-    color:red !important;
+    color: red !important;
 }
 
 .title_resto {
@@ -109,38 +108,123 @@ ion-col{
     font-family: DMSerifDisplayRegular;
 }
 
+// Calificaciones y reseñas
 .section-qualify {
     height: 12vw;
-    background-color: rgb(252, 231, 217);
-}
-
-.section-qualify > ion-col {
-    padding: 15px;
-    font-size: 21px;
-    color: rgb(88, 88, 88);
-}
-
-.qualify {
-    margin-top: -6px;
-}
-
-.section-slides {
-    margin-top: 5px;
-    margin-bottom: 5px;
-}
-
-ion-slides {
-    margin: 5px 10px 5px 10px;
-    // height: 20vw;
-}
-
-ion-slide {
-    img {
-        width: 90%;
-        border-radius: 12%;
+    background-color: #fff9e6;
+    ion-col {
+        font-size: 16px;
+        font-family: FieldworkGeoLight;
+        vertical-align: middle;
+        color: #274461;
+        padding-bottom: 0.75em;
+        padding-top: 0.75em;
+        padding-left: 5vw;
+    }
+    .icon-col {
+        font-size: 1.5em;
+        height: 100%;
+        padding: 0.4em 5vw 0.4em 0.4em;
+        text-align: right;
+        ion-icon {
+            color: var(--ion-color-medium);
+        }
     }
 }
 
+//slides de imagenes
+.section-slides {
+    margin-top: 5px;
+    margin-bottom: 5px;
+    margin-left: 5vw;
+    ion-slides {
+        ion-slide {
+            margin-right: 3vw !important;
+            width: 33vw !important;
+            height: 16vw;
+            img {
+                object-fit: cover;
+                border-radius: 16px;
+                width: 100%;
+                height: 100%;
+            }
+        }
+    }
+}
+
+// Menu
+.section-menu {
+    padding-left: 5vw;
+    padding-right: 10vw;
+    .list-title {
+        text-transform: capitalize;
+        padding: 0;
+        height: 100%;
+        margin: 0;
+    }
+    ion-col {
+        h2 {
+            font-family: DMSerifDisplayRegular;
+            font-size: 24px;
+        }
+    }
+    ion-slides {
+        padding-left: 5vw;
+        font-family: FieldworkGeoLight;
+        ion-slide {
+            p {
+                color: var(--ion-color-medium);
+            }
+            .contenedor {
+                border: 1px solid lightgray;
+                border-radius: 10px;
+                .title-menu {
+                    border-bottom: 1px solid lightgray;
+                    padding: 5vw;
+                    text-align: left;
+                    h4 {
+                        font-size: 16px;
+                        margin: 0;
+                    }
+                    p {
+                        margin: 4px 0 0 0;
+                        font-size: 14px;
+                        span {
+                            font-size: 16px;
+                            color: black;
+                        }
+                    }
+                }
+                .description-menu {
+                    text-align: left;
+                    padding: 5vw;
+
+                    h4 {
+                        font-size: 16px;
+                        margin: 0;
+                    }
+                    p {
+                        margin: 4px 0 0 0;
+                        font-size: 14px;
+                        span {
+                            font-size: 16px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+//Category list
+.category-list {
+    ion-col {
+        h5 {
+            font-size: 20px;
+            font-family: FieldworkGeoLight;
+        }
+    }
+}
 .fixed-btn {
     position: fixed;
     left: 10%;
@@ -175,41 +259,17 @@ ion-slide {
     font-family: FieldworkHumHair;
 }
 
-.contenedor {
-    border: 0.1rem solid lightgray;
-    border-radius: 10px;
-    width: 92%;
-}
-
-.title-menu {
-    border-bottom: 0.1rem solid lightgray;
-}
-
-.title-menu, .description-menu {
-    text-align: left;
-    margin: 12px;
-    font-family: DMSerifDisplayRegular;
-}
-
-.swiper-wrapper {
-    ion-slide {
-        width: 125px;
-        border-radius: 10px;
-        // margin-top: 10px;
-        // margin-left: 3px;
-    }
-}
-
-::-webkit-scrollbar, *::-webkit-scrollbar {
+::-webkit-scrollbar,
+*::-webkit-scrollbar {
     display: none !important;
     overflow: hidden !important;
- }
+}
 
- .title_category {
-     margin-left: 20px;
- }
+.title_category {
+    margin-left: 20px;
+}
 
- .content_categories {
+.content_categories {
     margin-left: 30px;
     border-bottom: 1px solid lightgray;
     padding: 8px;
@@ -256,7 +316,7 @@ ion-segment-button {
     border-color: #e62100;
     color: #e62100;
     border-width: thin;
-  }
+}
 
 .segment-activated {
     background-color: #e62100;
@@ -266,6 +326,6 @@ ion-segment-button {
 
 ion-toolbar {
     ion-buttons {
-        padding:0 10px 0 10px;
+        padding: 0 10px 0 10px;
     }
 }

@@ -57,7 +57,7 @@
 
   <ion-row class="section-qualify">
     <ion-col size="10"class="qualify">Ver calificaciones y reseñas</ion-col>
-    <ion-col class="2" (click)="review(restaurant)"><ion-icon name="chevron-forward-outline"></ion-icon></ion-col>
+    <ion-col class="2 icon-col" (click)="review(restaurant)"><ion-icon name="chevron-forward-outline"></ion-icon></ion-col>
   </ion-row><br>
   <ion-row class="section-slides">
     <ion-col size="12">
@@ -77,20 +77,20 @@
 
   <ion-row class="section-menu">
     <ion-col size="12">
-      <h1 class="title_category">Menús del día</h1>
+      <h2>Menús del día</h2>
     </ion-col>
-    <ion-slides pager="false" [options]="slideOptionsMenu" class="slide-menu">
+    <ion-slides pager="false" [options]="slideOptionsMenu">
       <ion-slide *ngFor="let item of [1,1,1,1,1]">
         <div class="contenedor">
           <div class="title-menu">
-            <span>Nombre menú</span><br>
-            <span>$350 Descripción</span>
+            <h4>Nombre menú</h4>
+            <p> <span>$350</span> Descripción</p>
           </div>
           <div class="description-menu">
-            <h3>Entrada</h3>
+            <h4>Entrada</h4>
             <p>Milanesita de mozzarella con salsa
             de tomate y albahaca.</p>
-            <h3>Principal</h3>
+            <h4>Principal</h4>
             <p>Arroz con pollo.</p>
           </div>
         </div>
@@ -100,7 +100,7 @@
   <br>
   <ion-row class="section-menu">
     <ion-col size="12">
-      <h1 class="title_category">Carta</h1>
+      <h2>Carta</h2>
     </ion-col>
     <ion-segment scrollable class="segment-options"
       mode="md"
@@ -111,16 +111,16 @@
         *ngFor="let category of product_titles"
         [value]="category"
         (click)="scrollTo(category)">
-          <ion-label text-capitalize>
+          <ion-label  class="list-title" text-capitalize>
             {{category}}
           </ion-label>
       </ion-segment-button>
 
     </ion-segment>
   </ion-row>
-  <ion-row *ngFor="let category of product_categories" id="{{ category.name }}">
+  <ion-row class="category-list" *ngFor="let category of product_categories" id="{{ category.name }}">
     <ion-col size="12">
-      <h2 class="title_category">{{ category.name }}</h2>
+      <h5 class="title_category">{{ category.name }}</h5>
       <div class="content_categories" *ngFor="let product of category.products">
         <span class="title_product">{{ product.name }}</span><br>
         <span *ngIf="product.description">{{ product.description }} <br></span>

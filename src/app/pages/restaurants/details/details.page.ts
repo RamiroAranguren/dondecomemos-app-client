@@ -30,8 +30,6 @@ export class DetailsPage implements OnInit {
 
   slideOptions = {
     slidesPerView: 2,
-    slidesOffsetBefore: -55,
-    spaceBetween: 8,
     coverflowEffect: {
       rotate: 50,
       stretch: 30,
@@ -43,10 +41,7 @@ export class DetailsPage implements OnInit {
 
   slideOptionsMenu = {
     slidesPerView: 1,
-    slidesOffsetBefore: -10,
-    width: 365,
-    // slidesOffsetAfter: -20,
-    spaceBetween: 1
+    spaceBetween: 10
   }
 
   favorites: any[] = [];
