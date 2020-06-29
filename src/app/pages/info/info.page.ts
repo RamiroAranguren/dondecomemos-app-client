@@ -15,8 +15,18 @@ export class InfoPage implements OnInit {
   restaurant:restaurant;
 
   services:any;
-  payment_methods = [];
-  hours_open = [];
+  payment_methods:any;
+
+  hours_open = {
+    Lun: [],
+    Mar: [],
+    Mie: [],
+    Jue: [],
+    Vie: [],
+    Sab: [],
+    Dom: [],
+    Feriados: [],
+  };
 
   constructor(
     private route: Router,
@@ -39,7 +49,8 @@ export class InfoPage implements OnInit {
 
     this.paymentsService.get(this.restaurant.id).then((res:any) => {
       console.log("RES-PAYMENTS", res);
-      this.payment_methods = res;
+      let result = res.map(method => method.name);
+      this.payment_methods = result.join(", ");
     });
 
     this.hoursOpenService.get(this.restaurant.id).then((res:any) => {
@@ -55,12 +66,41 @@ export class InfoPage implements OnInit {
         Feriados: [],
       };
       res.filter(day => {
-        if (day.day === 'lunes'){
-          days.Lun.push({open: day.opening_hour, close: day.closing_hour})
+        switch (day.day) {
+          case "lunes":
+            days.Lun.push({open: day.opening_hour?.substring(0,5), close: day.closing_hour?.substring(0,5)})
+            break;
+          case "martes":
+            days.Mar.push({open: day.opening_hour?.substring(0,5), close: day.closing_hour?.substring(0,5)})
+            break;
+          case "miércoles":
+            days.Mie.push({open: day.opening_hour?.substring(0,5), close: day.closing_hour?.substring(0,5)})
+            break;
+          case "jueves":
+            days.Jue.push({open: day.opening_hour?.substring(0,5), close: day.closing_hour?.substring(0,5)})
+            break;
+          case "viernes":
+            days.Vie.push({open: day.opening_hour?.substring(0,5), close: day.closing_hour?.substring(0,5)})
+            break;
+          case "sábado":
+            days.Sab.push({open: day.opening_hour?.substring(0,5), close: day.closing_hour?.substring(0,5)})
+            break;
+          case "domingo":
+            days.Dom.push({open: day.opening_hour?.substring(0,5), close: day.closing_hour?.substring(0,5)})
+            break;
+          case "Feriado":
+            days.Feriados.push({open: day.opening_hour?.substring(0,5), close: day.closing_hour?.substring(0,5)})
+            break;
+          default:
+            break;
         }
-      })
-      this.hours_open = res;
+      });
+
+      this.hours_open = days;
+
+      console.log("HS", this.hours_open);
     });
+
   }
 
 }

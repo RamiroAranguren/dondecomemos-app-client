@@ -4,16 +4,30 @@ import { OpenClosePipe } from './open-close.pipe';
 import { ChipsPipe } from './chips.pipe';
 import { ScorePipe } from './score.pipe';
 import { LevelPipe } from './level.pipe';
+import { ScoreUserPipe } from './score-user.pipe';
+import { FormatDatePipe } from './format-date.pipe';
+import { InitialUserPipe } from './initial-user.pipe';
 
 
 
 @NgModule({
-  declarations: [OpenClosePipe, ChipsPipe, ScorePipe, LevelPipe],
+  declarations: [
+    OpenClosePipe,
+    ChipsPipe,
+    ScorePipe,
+    LevelPipe,
+    ScoreUserPipe,
+    FormatDatePipe,
+    InitialUserPipe
+  ],
   exports: [
     OpenClosePipe,
     ChipsPipe,
     ScorePipe,
-    LevelPipe
+    LevelPipe,
+    ScoreUserPipe,
+    FormatDatePipe,
+    InitialUserPipe
   ],
   imports: [
     CommonModule

@@ -121,10 +121,13 @@
   <ion-row class="category-list" *ngFor="let category of product_categories" id="{{ category.name }}">
     <ion-col size="12">
       <h5 class="title_category">{{ category.name }}</h5>
-      <div class="content_categories" *ngFor="let product of category.products">
+      <div class="content_categories" *ngFor="let product of category.products"  (click)="addItemOrder(category.name, product)">
         <span class="title_product">{{ product.name }}</span><br>
         <span *ngIf="product.description">{{ product.description }} <br></span>
-        <span style="font-size: 18px;">${{ product.real_price }}</span>
+        <span *ngIf="product.variants.length <= 0" style="font-size: 18px;">${{ product.real_price }}</span>
+        <span *ngFor="let variant of product.variants">
+          ${{ variant.price }} - {{ variant.name }} <br>
+        </span>
       </div>
     </ion-col>
   </ion-row>

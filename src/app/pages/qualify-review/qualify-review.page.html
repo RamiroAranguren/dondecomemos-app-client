@@ -32,34 +32,29 @@
         <h1 class="titles">Reseñas</h1>
       </ion-col>
     </ion-row>
-    <ion-row *ngFor="let item of [1,1,1,1,1]" class="row_review">
+    <ion-row *ngFor="let review of restaurant.reviews" class="row_review">
       <ion-col size="12">
         <ion-row>
           <ion-col size="2">
             <div class="initials">
-              CM
+              {{ review.user | initialUser }}
             </div>
           </ion-col>
           <ion-col size="10">
             <ion-row>
-              <ion-col size="9">Camila M.</ion-col>
-              <ion-col size="3" class="ion-text-right">
-                <ion-icon name="star" class="star_review"></ion-icon> 4.7 <br>
+              <ion-col size="9">{{ review.user.first_name }} {{ review.user.last_name }}</ion-col>
+              <ion-col size="3" class="ion-text-right" *ngIf="restaurant.qualifications.length > 0">
+                <ion-icon name="star" class="star_review" *ngIf="(restaurant | scoreUser: review.user) !== ''"></ion-icon> {{ restaurant | scoreUser: review.user }} <br>
               </ion-col>
             </ion-row>
             <ion-row>
-              <ion-col size="12">12 de diciembre de 2020</ion-col>
+              <ion-col size="12">{{ review.date_created | date:'d MMMM y' | formatDate }}</ion-col>
             </ion-row>
           </ion-col>
         </ion-row>
         <ion-row>
           <ion-col size="12" class="ion-text-justify">
-            I took my boyfriend here for his birthday and
-            everything was just perfect and so romantic.
-            When i made the reservations, I asked for
-            booth and they accommodated that.
-            The wait wasn ́t to long. He really enjoyed
-            having dinner here.
+            {{ review.message }}
           </ion-col>
         </ion-row>
       </ion-col>

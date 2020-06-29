@@ -24,5 +24,6 @@ export interface restaurant {
     qualifications: any[],
     level:number,
     type:string,
+    reviews: any[]
 }
 

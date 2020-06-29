@@ -1,6 +1,6 @@
 import { item } from "./item";
 
-export interface product extends item{
+export interface product extends item {
     category: category;
 }
 

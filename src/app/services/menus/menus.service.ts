@@ -18,7 +18,7 @@ export class MenusService extends BaseService {
   }
 
   protected getURL(id) {
-    return `menus/?restaurant=${id}`;
+    return `menus/${id}`;
   }
 
   protected process_get(response): void {
