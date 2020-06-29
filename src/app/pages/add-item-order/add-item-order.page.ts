@@ -12,9 +12,11 @@ export class AddItemOrderPage implements OnInit {
   category_name:string;
   product:any;
   variants:any[] = [];
+  additionals:any[] = [];
 
   cantProduct = 1;
-  cantProductSize = 0;
+  cantProductVariant = 0;
+  cantProductAdd = 0;
 
   constructor(
     private route: Router,
@@ -29,21 +31,45 @@ export class AddItemOrderPage implements OnInit {
   }
 
   ionViewDidEnter() {
-    let variante = {};
+
+    // VARIANTES
+    let variante = {
+      name: "",
+      value: []
+    };
     let option = [];
     this.product.variants.forEach(vary => {
-      console.log("option", option);
-      if (vary.variants_product_list.name in variante) {
-        option.push({"name": vary.name, "price": vary.price});
-        variante[vary.variants_product_list.name] = option;
+      if (vary.variants_product_list.name !== variante.name) {
+        option.push({"id": vary.id, "name": vary.name, "price": vary.price});
+        variante.name = vary.variants_product_list.name;
+        variante.value = option;
       } else {
-        option = [];
-        option.push({"name": vary.name, "price": vary.price});
-        variante[vary.variants_product_list.name] = option;
+        variante.value.push({"id": vary.id, "name": vary.name, "price": vary.price});
       }
-      
+
     });
-    console.log("variante_new", variante);
+    this.variants.push(variante);
+
+    // ADDITIONALS
+    let additional = {
+      item: {name: "", type: "", amount: 0},
+      value: []
+    };
+    let option_add = [];
+    this.product.additional_products.forEach(addit => {
+      if (addit.additional_product.name !== additional.item.name) {
+        option_add.push({"id": addit.id, "name": addit.name, "price": addit.price});
+        additional.item.name = addit.additional_product.name;
+        additional.item.type = addit.additional_product.type;
+        additional.item.amount = addit.additional_product.amount;
+        additional.value = option_add;
+      } else {
+        additional.value.push({"id": addit.id, "name": addit.name, "price": addit.price});
+      }
+
+    });
+    this.additionals.push(additional);
+    console.log("ADDS", this.additionals);
   }
 
   cancelItem() {
@@ -51,22 +77,43 @@ export class AddItemOrderPage implements OnInit {
     this.navCtrl.back();
   }
 
-  addCantProduct() {
+  addCantProduct(event) {
     this.cantProduct += 1;
   }
 
-  removeCantProduct() {
+  removeCantProduct(event) {
     if(this.cantProduct >= 2)
       this.cantProduct -= 1;
   }
 
-  addCount() {
-    this.cantProductSize += 1;
+  addCantVariant(item, idSelect) {
+    console.log("add", this.cantProduct, item, idSelect);
+    this.cantProductVariant += 1;
+    let idElement = `count-variant-${idSelect}`;
+    console.log(idElement);
+    let element = document.getElementById(idElement);
+    element.innerHTML=this.cantProductVariant.toString();
   }
 
-  removeCount() {
-    if(this.cantProductSize >= 2)
-      this.cantProductSize -= 1;
+  removeCantVariant(item, idSelect) {
+    console.log("remove", this.cantProduct, item, idSelect);
+    if(this.cantProductVariant >= 1)
+      this.cantProductVariant -= 1;
+    let idElement = `count-variant-${idSelect}`;
+    console.log(idElement);
+    let element = document.getElementById(idElement);
+    element.innerHTML=this.cantProductVariant.toString();
+  }
+
+  addCantAdd(item, idSelect) {
+    console.log("add", this.cantProduct, item, idSelect);
+    this.cantProductAdd += 1;
+  }
+
+  removeCantAdd(item, idSelect) {
+    console.log("remove", this.cantProduct, item, idSelect);
+    if(this.cantProductAdd >= 1)
+      this.cantProductAdd -= 1;
   }
 
 }
