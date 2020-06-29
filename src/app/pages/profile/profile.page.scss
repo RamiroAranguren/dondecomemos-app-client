@@ -85,6 +85,7 @@ ion-row {
 }
 
 .formProfile {
+    height: 75vh;
     ion-item {
         margin: 30px 30px 0 30px;
     }
@@ -114,8 +115,13 @@ ion-item {
 }
 
 .change-passw {
-    margin-left: 32px;
+    --border-color: white;
+    span{
+        margin-left: 32px;
     font-family: FieldworkGeoRegular;
+    font-size: 16px;
+    }
+    
 }
 
 .error-message {

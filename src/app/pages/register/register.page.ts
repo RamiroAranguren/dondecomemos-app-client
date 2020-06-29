@@ -81,7 +81,7 @@ export class RegisterPage implements OnInit {
   async showAlert() {
     const alert = await this.alertCtrl.create({
       header: 'Cuenta ya existente',
-      message: 'El email ya se encuentra asociado a una',
+      message: 'El email ya se encuentra asociado a una cuenta de Donde Comemos',
       buttons: [
         {
           text: 'Cancelar',

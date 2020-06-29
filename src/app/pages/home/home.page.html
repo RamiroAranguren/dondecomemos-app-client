@@ -12,8 +12,9 @@
           (ionCancel)="onCancel()"
           (ionClear)="onCancel()"
           [(ngModel)]="valueSearch"
-          placeholder='Buscar restaurantes, ciudad...'
-          showCancelButton="focus">
+          placeholder='Buscar restaurantes o ciudades'
+          showCancelButton="focus" 
+          class="placeholder-input">
         </ion-searchbar>
         <span>
             <ion-icon
@@ -29,7 +30,7 @@
 </ion-header>
 
 <ion-content [ngClass]="{ bgcolor: activeDefault }"  *ngIf="searchChange">
-
+    
   <ion-list>
     <ion-item *ngFor="let item of resultSearch" (click)="selectResult( item )">
         <ion-avatar slot="start">
@@ -50,8 +51,9 @@
 </ion-content>
 
 <ion-content [ngClass]="{ bgcolor: activeDefault }"  *ngIf="!searchChange">
+   
   <ion-grid fixed>
-    <ion-row>
+    <ion-row >
       <ion-col size="12">
         <ion-chip class="f-family" *ngFor="let chip of chips">
           <ion-label>{{ chip.name }}</ion-label>
@@ -59,7 +61,11 @@
         </ion-chip>
       </ion-col>
     </ion-row>
-
+    <ion-card  class="title-restaurants">
+        <ion-text color="dark">
+            <h5>Explorar restaurantes populares</h5>
+        </ion-text>
+    </ion-card>
     <app-restaurant
       [restaurants]="restaurants"></app-restaurant>
 

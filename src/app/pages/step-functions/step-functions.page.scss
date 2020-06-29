@@ -34,7 +34,7 @@ ion-footer ion-toolbar {
 }
 
 .img-steps {
-    width: 40%;
+    width: 50%;
     padding: 15px 15px 0px;
 }
 
@@ -47,6 +47,14 @@ ion-fab-button {
     width: 60px;
     height: 60px;
     margin: 0 auto;
+    ion-icon {
+        font-size: 30px;
+        color: var(--primary-grey);
+    }
+}
+#back-button{
+    width: 60px;
+    height: 60px;
     ion-icon {
         font-size: 30px;
         color: var(--primary-grey);

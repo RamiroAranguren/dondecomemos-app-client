@@ -16,6 +16,7 @@ ion-header {
                 --box-shadow: 0px 0px 0px 1px black;
                 font-family: FieldworkGeoLight;
             }
+
             span {
                 display: flex;
                 flex-direction: column;
@@ -23,12 +24,12 @@ ion-header {
                 vertical-align: middle;
                 height: 2.5em;
                 align-self: center;
-                ion-icon{
+                ion-icon {
                     height: 52%;
                 }
-            // .md span{
-            //     align-self: center;
-            // }
+                // .md span{
+                //     align-self: center;
+                // }
                 p {
                     font-family: FieldworkGeoRegular;
                     text-align: center;
@@ -74,4 +75,15 @@ ion-avatar {
 .bgcolorSearch {
     --icon-color: #ffbb61 !important;
     --box-shadow: 0px 0px 0px 1px #1d432d !important;
+}
+.title-restaurants {
+    margin-bottom: 0;
+    margin-top: 0;
+    box-shadow: none;
+    h5 {
+
+        margin: 0;
+        font-family: DMSerifDisplayRegular;
+        font-size: 24px;
+    }
 }
