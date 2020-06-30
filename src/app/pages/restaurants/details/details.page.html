@@ -70,9 +70,9 @@
   </ion-row><br>
 
   <ion-row *ngIf="restaurant.promotions">
-    <ion-col size="11" class="col-promo1">
+    <div class="col-promo1">
         <div class="promo1-text"><span>{{ restaurant.promotions.promotion }}</span></div>
-    </ion-col>
+    </div>
   </ion-row>
 
   <ion-row class="section-menu">
@@ -132,8 +132,8 @@
     </ion-col>
   </ion-row>
   <br><br><br>
-  <ion-button class="fixed-btn" shape="round">
+  <ion-button class="fixed-btn"  shape="round">
     Reservar mesa
   </ion-button>
-
+ 
 </ion-content>

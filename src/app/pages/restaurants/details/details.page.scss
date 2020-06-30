@@ -1,5 +1,6 @@
 ion-card {
-    margin: 5vw;
+    margin: 0;
+    padding: 5vw;
     border-radius: 15px;
     // height: 40vh;
     box-shadow: none;
@@ -7,38 +8,47 @@ ion-card {
     #dto1 {
         position: absolute;
         font-size: 5vw;
-        background-color: orange;
+        background-color: #FFC95A;
         height: 6vw;
-        top: 4%;
+        top: 8%;
         left: 0;
-        padding-left: 1vw;
-        color: black;
+        color: #1D252D;
         border-radius: 0px 6px 6px 0px;
-        font-family: FieldworkHumHair;
+        font-family: FieldworkGeoLight;
+        span{
+            padding-left: 5vw;
+            padding-right: 5vw;
+        }
     }
     #dto2 {
         position: absolute;
         font-size: 5vw;
-        background-color: orange;
+        background-color: #FFC95A;
         height: 6vw;
-        top: 14%;
+        top: 16%;
         left: 0;
-        padding-left: 1vw;
-        color: black;
+        color: #1D252D;
         border-radius: 0px 6px 6px 0px;
-        font-family: FieldworkHumHair;
+        font-family: FieldworkGeoLight;
+        span{
+            padding-left: 5vw;
+            padding-right: 5vw;
+        }
     }
     #dto3 {
         position: absolute;
         font-size: 5vw;
-        background-color: orange;
+        background-color: #FFC95A;
         height: 6vw;
         top: 24%;
         left: 0;
-        padding-left: 1vw;
-        color: black;
+        color: #1D252D;
         border-radius: 0px 6px 6px 0px;
-        font-family: FieldworkHumHair;
+        font-family: FieldworkGeoLight;
+        span{
+            padding-left: 5vw;
+            padding-right: 5vw;
+        }
     }
     img {
         border-radius: 32px;
@@ -74,12 +84,6 @@ ion-card {
 
 ion-col {
     padding: 0;
-}
-
-@media (min-height: 750px) {
-    ion-card {
-        height: 32vh;
-    }
 }
 
 .col-level,
@@ -233,30 +237,32 @@ ion-col {
     width: 80%;
     height: 12vw;
     z-index: 100;
-    --color: black;
+    --color: #1D252D;
     text-transform: none;
-    font-family: FieldworkHumHair;
-    font-size: 1rem;
+    font-family: FieldworkGeoLight;
+    font-size: 5vw;
     --padding-bottom: 23px;
     --padding-top: 23px;
     letter-spacing: 0.05rem;
+    --background:#F89B4C;
+    margin: 0;
 }
 
 .col-promo1 {
-    background-color: orange;
+    background-color: #FFC95A;
     border-radius: 0px 8px 8px 0px;
     height: 17vw;
-}
-
-.promo1-text {
-    text-align: justify;
-    font-size: 5vw;
-    top: 2%;
-    bottom: 2%;
-    left: 0;
-    padding: 3vw;
-    color: black;
-    font-family: FieldworkHumHair;
+    width: 90vw;
+    .promo1-text {
+        text-align: justify;
+        font-size: 5vw;
+        top: 2%;
+        bottom: 2%;
+        left: 0;
+        padding: 3vw;
+        color: #1D252D;
+        font-family: FieldworkGeoLight;
+    }
 }
 
 ::-webkit-scrollbar,
