@@ -12,18 +12,18 @@
   <ion-grid fixed>
     <ion-row *ngIf="restaurant.qualifications.length > 0">
       <ion-col size="12">
-        <h1 class="titles">Calificaciones</h1>
+        <h2 class="titles">Calificaciones</h2>
       </ion-col>
-      <ion-col size="4" class="ion-align-items-end">
+      <ion-col size="3" class="ion-align-items-end">
         <div class="score_avg">
           <span>{{ restaurant | score }}</span>
           <ion-icon name="star"></ion-icon>
         </div>
       </ion-col>
-      <ion-col size="8">
+      <ion-col class="category-col" size="9">
         <ion-row *ngFor="let qualify of restaurant.qualifications">
           <ion-col size="6"> {{ qualify.score_category.name }}</ion-col>
-          <ion-col size="6"><ion-icon name="star"></ion-icon> {{ qualify.score }} </ion-col>
+          <ion-col size="6"><div><ion-icon name="star"></ion-icon> <span>{{ qualify.score }}</span>  </div></ion-col>
         </ion-row>
       </ion-col>
     </ion-row>
