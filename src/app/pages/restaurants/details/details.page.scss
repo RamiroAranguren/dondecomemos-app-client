@@ -226,6 +226,16 @@ ion-col {
     }
 }
 
+// Row flotante
+
+.sticky-row{
+    position: sticky;
+    top: 0;
+    padding-bottom: 2vw;
+    background-color: white;
+    z-index: 100;
+}
+
 //Category list
 .category-list {
     padding-left: 5vw;
