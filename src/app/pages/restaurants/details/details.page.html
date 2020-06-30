@@ -4,7 +4,7 @@
       <ion-back-button icon="arrow-back"></ion-back-button>
     </ion-buttons>
     <ion-buttons slot="end" *ngIf="!isGuest">
-      <ion-icon *ngIf="isFav" name="heart" size="large" style="color:orange" (click)="removeFav(restaurant.id)"></ion-icon>
+      <ion-icon *ngIf="isFav" name="heart" size="large" style="color:#FFC95A;" (click)="removeFav(restaurant.id)"></ion-icon>
       <ion-icon *ngIf="!isFav" name="heart-outline" size="large" (click)="addFavorite(restaurant)"></ion-icon>
     </ion-buttons>&nbsp;
     <ion-buttons slot="end">
@@ -47,8 +47,8 @@
           </ion-card-title>
 
           <ion-card-subtitle>{{ restaurant | chips }}</ion-card-subtitle>
-          <p style="color: black;">{{ restaurant | openClose }} - cierra a las {{ restaurant | openClose: true }} hs</p>
-          <p *ngIf="restaurant.self_service || restaurant.delivery">Cuenta con <span *ngIf="restaurant.self_service"> retiro por el local</span>
+          <p >{{ restaurant | openClose }} - cierra a las {{ restaurant | openClose: true }} hs</p>
+          <p class="self-service" *ngIf="restaurant.self_service || restaurant.delivery">Cuenta con <span *ngIf="restaurant.self_service"> retiro por el local</span>
             <span *ngIf="restaurant.delivery"> y delivery</span></p>
         </ion-card-header>
       </ion-card>
@@ -104,8 +104,7 @@
     </ion-col>
     <ion-segment scrollable class="segment-options"
       mode="md"
-      color="primary">
-
+      [value]="product_titles[0]">
       <ion-segment-button
         mode="md"
         *ngFor="let category of product_titles"
@@ -115,7 +114,7 @@
             {{category}}
           </ion-label>
       </ion-segment-button>
-
+      
     </ion-segment>
   </ion-row>
   <ion-row class="category-list" *ngFor="let category of product_categories" id="{{ category.name }}">
@@ -123,8 +122,8 @@
       <h5 class="title_category">{{ category.name }}</h5>
       <div class="content_categories" *ngFor="let product of category.products"  (click)="addItemOrder(category.name, product)">
         <span class="title_product">{{ product.name }}</span><br>
-        <span *ngIf="product.description">{{ product.description }} <br></span>
-        <span *ngIf="product.variants.length <= 0" style="font-size: 18px;">${{ product.real_price }}</span>
+        <div class="product_description"><span  *ngIf="product.description">{{ product.description }} <br></span></div>
+        <span *ngIf="product.variants.length <= 0">${{ product.real_price }}</span>
         <span *ngFor="let variant of product.variants">
           ${{ variant.price }} - {{ variant.name }} <br>
         </span>

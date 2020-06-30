@@ -1,3 +1,6 @@
+*{
+   color:#1D252D;
+}
 ion-card {
     margin: 0;
     padding: 5vw;
@@ -8,14 +11,14 @@ ion-card {
     #dto1 {
         position: absolute;
         font-size: 5vw;
-        background-color: #FFC95A;
+        background-color: #ffc95a;
         height: 6vw;
         top: 8%;
         left: 0;
-        color: #1D252D;
+        color: #1d252d;
         border-radius: 0px 6px 6px 0px;
         font-family: FieldworkGeoLight;
-        span{
+        span {
             padding-left: 5vw;
             padding-right: 5vw;
         }
@@ -23,14 +26,14 @@ ion-card {
     #dto2 {
         position: absolute;
         font-size: 5vw;
-        background-color: #FFC95A;
+        background-color: #ffc95a;
         height: 6vw;
         top: 16%;
         left: 0;
-        color: #1D252D;
+        color: #1d252d;
         border-radius: 0px 6px 6px 0px;
         font-family: FieldworkGeoLight;
-        span{
+        span {
             padding-left: 5vw;
             padding-right: 5vw;
         }
@@ -38,14 +41,14 @@ ion-card {
     #dto3 {
         position: absolute;
         font-size: 5vw;
-        background-color: #FFC95A;
+        background-color: #ffc95a;
         height: 6vw;
         top: 24%;
         left: 0;
-        color: #1D252D;
+        color: #1d252d;
         border-radius: 0px 6px 6px 0px;
         font-family: FieldworkGeoLight;
-        span{
+        span {
             padding-left: 5vw;
             padding-right: 5vw;
         }
@@ -68,7 +71,7 @@ ion-card {
             font-size: 5vw;
         }
         ion-card-subtitle {
-            font-family: FieldworkGeoRegular;
+            font-family: FieldworkGeoLight;
             margin-top: 4px;
             font-size: 4vw;
             text-transform: capitalize;
@@ -78,6 +81,9 @@ ion-card {
             font-size: 4vw;
             margin-top: 4px;
             margin-bottom: 0;
+        }
+        .self-service{
+            font-family: FieldworkGeoLight;
         }
     }
 }
@@ -170,6 +176,7 @@ ion-col {
         h2 {
             font-family: DMSerifDisplayRegular;
             font-size: 24px;
+            color: #1D252D;
         }
     }
     ion-slides {
@@ -195,7 +202,6 @@ ion-col {
                         font-size: 14px;
                         span {
                             font-size: 16px;
-                            color: black;
                         }
                     }
                 }
@@ -222,10 +228,37 @@ ion-col {
 
 //Category list
 .category-list {
+    padding-left: 5vw;
+    color: #1D252D;
     ion-col {
         h5 {
             font-size: 20px;
             font-family: FieldworkGeoLight;
+        }
+        .content_categories {
+            margin-left: 5vw;
+            padding-right: 10vw;
+            border-bottom: 1px solid lightgray;
+            margin-bottom: 5px;
+            font-family: FieldworkGeoLight;
+            padding-top: 5vw;
+            padding-bottom: 4vw;
+            span{
+                font-family: FieldworkGeoLight;
+                font-size: 16px;
+            }
+            .product_description{
+                margin-top: 5px;
+                margin-bottom: 5px;
+                span{
+                    font-family: FieldworkGeoLight;
+                font-size: 14px;
+                }
+            }
+            .title_product {
+                font-size: 16px;
+                font-family: FieldworkGeoLight;
+            }
         }
     }
 }
@@ -237,19 +270,19 @@ ion-col {
     width: 80%;
     height: 12vw;
     z-index: 100;
-    --color: #1D252D;
+    --color: #1d252d;
     text-transform: none;
     font-family: FieldworkGeoLight;
     font-size: 5vw;
     --padding-bottom: 23px;
     --padding-top: 23px;
     letter-spacing: 0.05rem;
-    --background:#F89B4C;
+    --background: #f89b4c;
     margin: 0;
 }
 
 .col-promo1 {
-    background-color: #FFC95A;
+    background-color: #ffc95a;
     border-radius: 0px 8px 8px 0px;
     height: 17vw;
     width: 90vw;
@@ -260,7 +293,7 @@ ion-col {
         bottom: 2%;
         left: 0;
         padding: 3vw;
-        color: #1D252D;
+        color: #1d252d;
         font-family: FieldworkGeoLight;
     }
 }
@@ -269,23 +302,6 @@ ion-col {
 *::-webkit-scrollbar {
     display: none !important;
     overflow: hidden !important;
-}
-
-.title_category {
-    margin-left: 20px;
-}
-
-.content_categories {
-    margin-left: 30px;
-    border-bottom: 1px solid lightgray;
-    padding: 8px;
-    margin-bottom: 5px;
-}
-
-.title_product {
-    font-size: 20px;
-    font-weight: bold;
-    font-family: FieldworkHumHair;
 }
 
 ion-segment-button::part(indicator) {
@@ -305,11 +321,12 @@ ion-segment-button {
 }
 
 .segment-button-checked {
-    --border-color: orange;
     --border: 1px solid red;
     --border-radius: 25px;
     --border-style: solid;
     --height: 10vw;
+    --border-color: #FFC95A !important;
+
 }
 
 :host(.segment-button-has-label-only) ::slotted(ion-label) {
