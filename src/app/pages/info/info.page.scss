@@ -1,5 +1,28 @@
-
-p {
-    // font-family: FieldworkGeoRegular;
-    letter-spacing: 0.05rem;
+ion-header {
+    ion-title {
+        font-family: DMSerifDisplayRegular;
+        font-size: 24px;
+    }
+}
+ion-content {
+    .content-wrapper {
+        color: #1d252d;
+        padding-left: 5vw;
+        padding-right: 5vw;
+        padding-top: 5vw;
+        h2 {
+            font-size: 20px;
+            font-family: DMSerifDisplayRegular;
+            margin-bottom: 5vw;
+            margin-top: 5vw;
+        }
+        p {
+            font-family: FieldworkGeoLight;
+            font-size: 16px;
+            letter-spacing: 0.05rem;
+        }
+        .first-title{
+            margin-top: 0;
+        }
+    }
 }

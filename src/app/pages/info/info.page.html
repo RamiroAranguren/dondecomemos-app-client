@@ -1,50 +1,52 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-back-button></ion-back-button>
-    </ion-buttons>
-    <ion-title>Información</ion-title>
-  </ion-toolbar>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-back-button></ion-back-button>
+        </ion-buttons>
+        <ion-title>Información</ion-title>
+    </ion-toolbar>
 </ion-header>
 
-<ion-content class="ion-padding">
-  <h2>Ubicación</h2>
-  <p>{{ restaurant.address }}</p>
-  <h2>Horarios</h2>
-  <p *ngIf="hours_open.Lun.length > 0">
-    <b>Lun.</b> <span *ngFor="let hs of hours_open.Lun">{{ hs.open }} - {{ hs.close }} hs. </span>
-  </p>
-  <p *ngIf="hours_open.Mar.length > 0">
-    <b>Mar.</b> <span *ngFor="let hs of hours_open.Mar">{{ hs.open }} - {{ hs.close }} hs. </span>
-  </p>
-  <p *ngIf="hours_open.Mie.length > 0">
-    <b>Mie.</b> <span *ngFor="let hs of hours_open.Mie">{{ hs.open }} - {{ hs.close }} hs. </span>
-  </p>
-  <p *ngIf="hours_open.Jue.length > 0">
-    <b>Jue.</b> <span *ngFor="let hs of hours_open.Jue">{{ hs.open }} - {{ hs.close }} hs. </span>
-  </p>
-  <p *ngIf="hours_open.Vie.length > 0">
-    <b>Vie.</b> <span *ngFor="let hs of hours_open.Vie">{{ hs.open }} - {{ hs.close }} hs. </span>
-  </p>
-  <p *ngIf="hours_open.Sab.length > 0">
-    <b>Sáb.</b> <span *ngFor="let hs of hours_open.Sab">{{ hs.open }} - {{ hs.close }} hs. </span>
-  </p>
-  <p *ngIf="hours_open.Dom.length > 0">
-    <b>Dom.</b> <span *ngFor="let hs of hours_open.Dom">{{ hs.open }} - {{ hs.close }} hs. </span>
-  </p>
-  <p *ngIf="hours_open.Feriados.length > 0">
-    <b>Feriados</b> <span *ngFor="let hs of hours_open.Feriados">{{ hs.open }} - {{ hs.close }} hs. </span>
-  </p>
-  <h2>Métodos de pago</h2>
-  <p *ngIf="payment_methods"> {{ payment_methods }}.</p>
-  <!-- <div *ngIf="payment_methods.length > 0">
+<ion-content>
+    <div class="content-wrapper">
+        <h2 class="first-title">Ubicación</h2>
+        <p>{{ restaurant.address }}</p>
+        <h2>Horarios</h2>
+        <p *ngIf="hours_open.Lun.length > 0">
+            <b>Lun.</b> <span *ngFor="let hs of hours_open.Lun">{{ hs.open }} - {{ hs.close }} hs. </span>
+        </p>
+        <p *ngIf="hours_open.Mar.length > 0">
+            <b>Mar.</b> <span *ngFor="let hs of hours_open.Mar">{{ hs.open }} - {{ hs.close }} hs. </span>
+        </p>
+        <p *ngIf="hours_open.Mie.length > 0">
+            <b>Mie.</b> <span *ngFor="let hs of hours_open.Mie">{{ hs.open }} - {{ hs.close }} hs. </span>
+        </p>
+        <p *ngIf="hours_open.Jue.length > 0">
+            <b>Jue.</b> <span *ngFor="let hs of hours_open.Jue">{{ hs.open }} - {{ hs.close }} hs. </span>
+        </p>
+        <p *ngIf="hours_open.Vie.length > 0">
+            <b>Vie.</b> <span *ngFor="let hs of hours_open.Vie">{{ hs.open }} - {{ hs.close }} hs. </span>
+        </p>
+        <p *ngIf="hours_open.Sab.length > 0">
+            <b>Sáb.</b> <span *ngFor="let hs of hours_open.Sab">{{ hs.open }} - {{ hs.close }} hs. </span>
+        </p>
+        <p *ngIf="hours_open.Dom.length > 0">
+            <b>Dom.</b> <span *ngFor="let hs of hours_open.Dom">{{ hs.open }} - {{ hs.close }} hs. </span>
+        </p>
+        <p *ngIf="hours_open.Feriados.length > 0">
+            <b>Feriados</b> <span *ngFor="let hs of hours_open.Feriados">{{ hs.open }} - {{ hs.close }} hs. </span>
+        </p>
+        <h2>Métodos de pago</h2>
+        <p *ngIf="payment_methods"> {{ payment_methods }}.</p>
+        <!-- <div *ngIf="payment_methods.length > 0">
     <p *ngFor="let method of payment_methods">{{ method.name }}</p>
     <p>Efectivo.</p>
   </div> -->
-  <p *ngIf="!payment_methods" style="color: orange;">Sólo efectivo.</p>
-  <!-- <p *ngIf="payment_methods.length <= 0" style="color: orange;">Sólo efectivo.</p> -->
-  <h2>Servicios</h2>
-  <p *ngIf="services"> {{ services }}.</p>
-  <h2>Descripción</h2>
-  <p>{{ restaurant.description }}</p>
+        <p *ngIf="!payment_methods" style="color: orange;">Sólo efectivo.</p>
+        <!-- <p *ngIf="payment_methods.length <= 0" style="color: orange;">Sólo efectivo.</p> -->
+        <h2>Servicios</h2>
+        <p *ngIf="services"> {{ services }}.</p>
+        <h2>Descripción</h2>
+        <p>{{ restaurant.description }}</p>
+    </div>
 </ion-content>
