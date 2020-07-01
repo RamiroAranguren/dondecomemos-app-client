@@ -26,6 +26,9 @@ export class DetailsPage implements OnInit {
   product_categories:any[] = [];
   product_titles:any[] = [];
   menues:any[] = [];
+  orders:any[] = [];
+
+  price_total = 0;
 
   isFav = false;
   isGuest = true;
@@ -97,12 +100,36 @@ export class DetailsPage implements OnInit {
       this.menues = menues;
       console.log('menues', this.menues);
     });
+
+    setTimeout(() => {
+      this.storage.getObject("list_order").then(res => {
+        if(res){
+          this.orders = res.filter(ord => ord.restaurant === this.restaurant.id);
+          let prices_order = [];
+          this.orders.forEach(order => {
+            if(order.product.additionals.length > 0 || order.product.variants.length > 0) {
+              let prices_add = order.product.additionals.map(add => {
+                return add.price * add.count;
+              });
+              let prices_var = order.product.variants.map(vary => {
+                return vary.price * vary.count;
+              });
+              prices_order = prices_var.concat(prices_add);
+            } else {
+              prices_order = [order.product.price];
+            }
+          });
+
+          if(prices_order.length > 0){
+            this.price_total = prices_order.reduce((prev, curr) => prev + curr);
+          }
+        }
+      });
+    }, 800);
   }
 
   scrollTo(elementId: string) {
-    // console.log(elementId);
     let y = document.getElementById(elementId);
-    // console.log("Y", y, y.offsetTop);
     this.content.scrollToPoint(0, y.offsetTop, 5000);
   }
 
@@ -188,6 +215,7 @@ export class DetailsPage implements OnInit {
       state: {
         category_name,
         product,
+        restaurant: {id: this.restaurant.id},
       }
     };
     this.navCtrl.navigateForward(['/restaurant/add-item-order'], navigationExtras);
