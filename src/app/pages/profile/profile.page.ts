@@ -295,4 +295,8 @@ export class ProfilePage implements OnInit {
     this.legal = false;
   }
 
+  viewCards() {
+    this.navCtrl.navigateForward('/credit-card-list');
+  }
+
 }

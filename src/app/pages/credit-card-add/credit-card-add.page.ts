@@ -19,7 +19,7 @@ export class CreditCardAddPage implements OnInit {
         dniFocus: false,
         cardFocus: false,
         expirationDateFocus: false,
-        securityCodeFocus: false,
+        // securityCodeFocus: false,
     }
 
     ngOnInit() {
@@ -29,7 +29,7 @@ export class CreditCardAddPage implements OnInit {
         private formBuilder: FormBuilder,
         public popoverController: PopoverController
     ) { }
-    
+
     // Popovers
     async expirationPopover(ev: any) {
         const popover = await this.popoverController.create({
@@ -41,7 +41,7 @@ export class CreditCardAddPage implements OnInit {
         this.currentPopover = popover;
         return await popover.present();
     }
-     
+    
     // async securityPopover(ev: any) {
     //     const popover = await this.popoverController.create({
     //         component: SecurityCardCodeComponent,
@@ -122,7 +122,7 @@ export class CreditCardAddPage implements OnInit {
         dni: ['', [Validators.required]],
         cardNumber: ['', [Validators.required]],
         expirationDate: ['', [Validators.required, Validators.maxLength(5), Validators.minLength(5)]],
-        securityCode: ['', [ Validators.maxLength(4), Validators.required, Validators.minLength(3), Validators.pattern('[0-9]+')]],
+        // securityCode: ['', [ Validators.maxLength(4), Validators.required, Validators.minLength(3), Validators.pattern('[0-9]+')]],
     });
 
     submit() {
