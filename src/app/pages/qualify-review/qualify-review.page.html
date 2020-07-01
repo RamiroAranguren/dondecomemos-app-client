@@ -8,57 +8,74 @@
 </ion-header>
 
 <ion-content>
-
   <ion-grid fixed>
-    <ion-row *ngIf="restaurant.qualifications.length > 0">
+    <ion-row>
       <ion-col size="12">
         <h2 class="titles">Calificaciones</h2>
       </ion-col>
-      <ion-col size="3" class="ion-align-items-end">
-        <div class="score_avg">
-          <span>{{ restaurant | score }}</span>
-          <ion-icon name="star"></ion-icon>
-        </div>
-      </ion-col>
-      <ion-col class="category-col" size="9">
-        <ion-row *ngFor="let qualify of restaurant.qualifications">
-          <ion-col size="6"> {{ qualify.score_category.name }}</ion-col>
-          <ion-col size="6"><div><ion-icon name="star"></ion-icon> <span>{{ qualify.score }}</span>  </div></ion-col>
-        </ion-row>
-      </ion-col>
+      <!-- sin calificaciones -->
+      <div *ngIf="restaurant.qualifications.length == 0" >
+          <ion-row>
+            <h3>sin calificaciones</h3>
+          </ion-row>
+       
+      </div>
+      <!-- con calificaciones -->
+      <div *ngIf="restaurant.qualifications.length > 0">
+        <ion-col size="3" class="ion-align-items-end">
+            <div class="score_avg">
+              <span>{{ restaurant | score }}</span>
+              <ion-icon name="star"></ion-icon>
+            </div>
+          </ion-col>
+          <ion-col class="category-col" size="9">
+            <ion-row *ngFor="let qualify of restaurant.qualifications">
+              <ion-col size="6"> {{ qualify.score_category.name }}</ion-col>
+              <ion-col size="6"><div><ion-icon name="star"></ion-icon> <span>{{ qualify.score }}</span>  </div></ion-col>
+            </ion-row>
+          </ion-col>
+      </div>
+      
     </ion-row>
     <ion-row class="title-review">
       <ion-col  size="12">
         <h2 class="titles">Reseñas</h2>
       </ion-col>
     </ion-row>
-    <ion-row *ngFor="let review of restaurant.reviews" class="row_review">
-      <ion-col class="col-wraper" size="12">
-        <ion-row>
-          <ion-col size="2">
-            <div class="initials">
-              {{ review.user | initialUser }}
-            </div>
-          </ion-col>
-          <ion-col class="review-info-wrapper" size="10">
-            <ion-row>
-              <ion-col size="9" class="review-name">{{ review.user.first_name }} {{ review.user.last_name }}</ion-col>
-              <ion-col size="3" class="ion-text-right star-review-col" *ngIf="restaurant.qualifications.length > 0">
-                <ion-icon name="star" class="star_review" *ngIf="(restaurant | scoreUser: review.user) !== ''"></ion-icon> <span>  {{ restaurant | scoreUser: review.user }}</span> <br>
-              </ion-col>
-            </ion-row>
-            <ion-row>
-              <ion-col size="12" class="review-date">{{ review.date_created | date:'d MMMM y' | formatDate }}</ion-col>
-            </ion-row>
-          </ion-col>
-        </ion-row>
-        <ion-row>
-          <ion-col size="12" class="ion-text-justify review-message">
-            {{ review.message }}
-          </ion-col>
-        </ion-row>
-      </ion-col>
+    <!-- sin reseñas -->
+    <ion-row *ngIf="!hasReviews">
+        sin reseñas
     </ion-row>
+    <!-- con reseñas -->
+    <div *ngIf="hasReviews">
+        <ion-row *ngFor="let review of restaurant.reviews" class="row_review">
+            <ion-col class="col-wraper" size="12">
+              <ion-row>
+                <ion-col size="2">
+                  <div class="initials">
+                    {{ review.user | initialUser }}
+                  </div>
+                </ion-col>
+                <ion-col class="review-info-wrapper" size="10">
+                  <ion-row>
+                    <ion-col size="9" class="review-name">{{ review.user.first_name }} {{ review.user.last_name }}</ion-col>
+                    <ion-col size="3" class="ion-text-right star-review-col" *ngIf="restaurant.qualifications.length > 0">
+                      <ion-icon name="star" class="star_review" *ngIf="(restaurant | scoreUser: review.user) !== ''"></ion-icon> <span>  {{ restaurant | scoreUser: review.user }}</span> <br>
+                    </ion-col>
+                  </ion-row>
+                  <ion-row>
+                    <ion-col size="12" class="review-date">{{ review.date_created | date:'d MMMM y' | formatDate }}</ion-col>
+                  </ion-row>
+                </ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col size="12" class="ion-text-justify review-message">
+                  {{ review.message }}
+                </ion-col>
+              </ion-row>
+            </ion-col>
+          </ion-row>
+    </div>   
   </ion-grid>
 
 </ion-content>

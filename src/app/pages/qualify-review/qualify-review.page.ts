@@ -10,7 +10,8 @@ import { Router } from '@angular/router';
 export class QualifyReviewPage implements OnInit {
 
   restaurant:restaurant;
-
+    qualify = false;
+    hasReviews = false;
   constructor(
     private route: Router
   ) { }
