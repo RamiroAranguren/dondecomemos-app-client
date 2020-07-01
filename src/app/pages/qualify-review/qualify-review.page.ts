@@ -10,7 +10,6 @@ import { Router } from '@angular/router';
 export class QualifyReviewPage implements OnInit {
 
   restaurant:restaurant;
-
   constructor(
     private route: Router
   ) { }
