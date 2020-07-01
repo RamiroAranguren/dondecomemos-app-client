@@ -79,7 +79,8 @@
     <ion-col size="12">
       <h2>Menús del día</h2>
     </ion-col>
-    <ion-slides pager="false" [options]="slideOptionsMenu">
+    <p *ngIf="menues.length <= 0">El restaurant no tiene menú del día.</p>
+    <ion-slides pager="false" [options]="slideOptionsMenu" *ngIf="menues.length > 0">
       <ion-slide *ngFor="let item of menues">
         <div class="contenedor">
           <div class="title-menu">
@@ -131,10 +132,18 @@
   </ion-row>
   <br><br><br>
 
-  <ion-button class="fixed-btn" shape="round" *ngIf="price_total === 0">
+  <ion-button
+    *ngIf="price_total === 0"
+    (click)="bookTable()"
+    class="fixed-btn"
+    shape="round">
     Reservar mesa
   </ion-button>
-  <ion-button class="fixed-btn" shape="round" *ngIf="price_total !== 0">
+  <ion-button
+    *ngIf="price_total !== 0"
+    (click)="viewOrders()"
+    class="fixed-btn"
+    shape="round">
     Ver pedido &nbsp;&nbsp; Total: ${{price_total}}
   </ion-button>
 

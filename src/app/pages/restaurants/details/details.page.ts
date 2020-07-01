@@ -221,4 +221,12 @@ export class DetailsPage implements OnInit {
     this.navCtrl.navigateForward(['/restaurant/add-item-order'], navigationExtras);
   }
 
+  bookTable() {
+    this.navCtrl.navigateForward('/restaurant/book-table');
+  }
+
+  viewOrders() {
+    this.navCtrl.navigateForward('/restaurant/view-list-orders');
+  }
+
 }

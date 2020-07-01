@@ -91,6 +91,14 @@ const routes: Routes = [
   {
     path: 'restaurant/add-item-order',
     loadChildren: () => import('./pages/add-item-order/add-item-order.module').then( m => m.AddItemOrderPageModule)
+  },
+  {
+    path: 'restaurant/book-table',
+    loadChildren: () => import('./pages/book-table/book-table.module').then( m => m.BookTablePageModule)
+  },
+  {
+    path: 'restaurant/view-list-orders',
+    loadChildren: () => import('./pages/view-list-orders/view-list-orders.module').then( m => m.ViewListOrdersPageModule)
   }
 
 ];
