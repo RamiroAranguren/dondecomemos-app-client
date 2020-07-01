@@ -27,33 +27,33 @@
         </ion-row>
       </ion-col>
     </ion-row>
-    <ion-row>
-      <ion-col size="12">
-        <h1 class="titles">Reseñas</h1>
+    <ion-row class="title-review">
+      <ion-col  size="12">
+        <h2 class="titles">Reseñas</h2>
       </ion-col>
     </ion-row>
     <ion-row *ngFor="let review of restaurant.reviews" class="row_review">
-      <ion-col size="12">
+      <ion-col class="col-wraper" size="12">
         <ion-row>
           <ion-col size="2">
             <div class="initials">
               {{ review.user | initialUser }}
             </div>
           </ion-col>
-          <ion-col size="10">
+          <ion-col class="review-info-wrapper" size="10">
             <ion-row>
-              <ion-col size="9">{{ review.user.first_name }} {{ review.user.last_name }}</ion-col>
-              <ion-col size="3" class="ion-text-right" *ngIf="restaurant.qualifications.length > 0">
-                <ion-icon name="star" class="star_review" *ngIf="(restaurant | scoreUser: review.user) !== ''"></ion-icon> {{ restaurant | scoreUser: review.user }} <br>
+              <ion-col size="9" class="review-name">{{ review.user.first_name }} {{ review.user.last_name }}</ion-col>
+              <ion-col size="3" class="ion-text-right star-review-col" *ngIf="restaurant.qualifications.length > 0">
+                <ion-icon name="star" class="star_review" *ngIf="(restaurant | scoreUser: review.user) !== ''"></ion-icon> <span>  {{ restaurant | scoreUser: review.user }}</span> <br>
               </ion-col>
             </ion-row>
             <ion-row>
-              <ion-col size="12">{{ review.date_created | date:'d MMMM y' | formatDate }}</ion-col>
+              <ion-col size="12" class="review-date">{{ review.date_created | date:'d MMMM y' | formatDate }}</ion-col>
             </ion-row>
           </ion-col>
         </ion-row>
         <ion-row>
-          <ion-col size="12" class="ion-text-justify">
+          <ion-col size="12" class="ion-text-justify review-message">
             {{ review.message }}
           </ion-col>
         </ion-row>

@@ -1,16 +1,23 @@
 * {
     color: #1d252d;
 }
+ion-title{
+    font-family: DMSerifDisplayRegular;
+    font-size: 24px;
+}
 
 ion-content {
     ion-grid {
-        padding: 5vw;
+        padding-top: 5vw;
+        padding-left: 0;
+        padding-right: 0;
         ion-icon{
             height: 0.9em;
             padding-left: 1vw;
             padding-right: 1vw;
         }
         ion-row {
+            padding-left: 5vw;
             ion-col{
                 h2{
                     margin-top: 0;
@@ -47,22 +54,66 @@ ion-content {
         }
     }
 }
-
-
-.initials {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    background-color: rgb(250, 176, 78);
-    text-align: center;
-    line-height: 50px;
+.title-review{
+    padding-top: 5vw;
+    ion-col{
+        h2{
+            margin-top: 5vw;
+            margin-bottom: 5vw;
+            font-size: 20px;
+            font-family: DMSerifDisplayRegular;
+        }
+    }
 }
-
-.star_review {
-    color: rgb(22, 216, 158);
-}
-
 .row_review {
     background-color: rgb(244, 245, 248);
     margin-bottom: 20px;
+    .col-wraper{
+        padding-right: 10vw;
+    }
+    ion-row{
+        padding-left: 0 !important;
+        .initials {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: #FFDA75;
+            text-align: center;
+            line-height: 40px;
+            font-size: 16px;
+            font-family: FieldworkGeoLight;
+        }
+        .review-name{
+            font-size: 16px;
+            font-family: FieldworkGeoLight;
+            padding-top: 0;
+        }
+        .review-date{
+            font-size: 16px;
+            font-family: FieldworkGeoLight;
+            padding-top: 0;
+        }
+        .review-info-wrapper{
+            padding-right: 0;
+        }
+        .star_review {
+            color: #4CF89C;
+            padding: 0;
+
+        }
+        .star-review-col{
+            padding: 0;
+        }
+        .review-message{
+            font-size: 14px;
+            font-family: FieldworkGeoLight;
+            padding-right: 10vw;
+        }
+        
+    }
 }
+
+
+
+
+
