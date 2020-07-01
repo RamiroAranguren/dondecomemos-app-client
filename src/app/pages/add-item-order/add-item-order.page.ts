@@ -134,7 +134,7 @@ export class AddItemOrderPage implements OnInit {
     if(this.counters_var !== undefined) {
 
       let vares = Object.values(this.counters_var).reduce(
-        (previous, current) => previous + current );
+        (previous:number, current:number) => previous + current );
 
       if(vares < this.cantProduct) {
         this.counters_var[name] += 1;
@@ -145,7 +145,7 @@ export class AddItemOrderPage implements OnInit {
       }
 
       let vares_validation = Object.values(this.counters_var).reduce(
-        (previous, current) => previous + current );
+        (previous:number, current:number) => previous + current );
 
       if(vares_validation == this.cantProduct && this.counters_add === undefined){
         this.activeAgregate = false;
@@ -160,7 +160,7 @@ export class AddItemOrderPage implements OnInit {
 
     if(this.counters_var !== undefined) {
       let vares = Object.values(this.counters_var).reduce(
-        (previous, current) => previous + current );
+        (previous:number, current:number) => previous + current );
 
       if(vares >= 1){
         this.counters_var[name] -= 1;
@@ -171,7 +171,7 @@ export class AddItemOrderPage implements OnInit {
       }
 
       let vares_validation = Object.values(this.counters_var).reduce(
-        (previous, current) => previous + current );
+        (previous:number, current:number) => previous + current );
 
       if(vares_validation === this.cantProduct && this.counters_add === undefined){
         this.activeAgregate = false;
@@ -184,7 +184,7 @@ export class AddItemOrderPage implements OnInit {
   addCantAdd(item, idSelect, name) {
     if(this.counters_add !== undefined) {
       let addes = Object.values(this.counters_add).reduce(
-        (previous, current) => previous + current );
+        (previous:number, current:number) => previous + current );
 
       if(addes < (this.cantProduct * item.amount)){
         this.counters_add[name] += 1;
@@ -195,10 +195,10 @@ export class AddItemOrderPage implements OnInit {
       }
 
       let vares = Object.values(this.counters_var).reduce(
-        (previous, current) => previous + current );
+        (previous:number, current:number) => previous + current );
 
       let addes_validation = Object.values(this.counters_add).reduce(
-        (previous, current) => previous + current );
+        (previous:number, current:number) => previous + current );
 
       if(vares !== undefined) {
         if(addes_validation === item.amount && vares === this.cantProduct){
@@ -220,7 +220,7 @@ export class AddItemOrderPage implements OnInit {
 
     if(this.counters_add !== undefined) {
       let addes = Object.values(this.counters_add).reduce(
-        (previous, current) => previous + current );
+        (previous:number, current:number) => previous + current );
 
       if(addes >= 1){
         if(this.counters_add[name] >= 1){
@@ -233,10 +233,10 @@ export class AddItemOrderPage implements OnInit {
       }
 
       let vares = Object.values(this.counters_var).reduce(
-        (previous, current) => previous + current );
+        (previous:number, current:number) => previous + current );
 
       let addes_validation = Object.values(this.counters_add).reduce(
-        (previous, current) => previous + current );
+        (previous:number, current:number) => previous + current );
 
       if(addes_validation === item.amount && vares === this.cantProduct){
         this.activeAgregate = false;
