@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="160" height="160" viewBox="0 0 160 160">
+  <defs>
+    <linearGradient id="linear-gradient" x1="0.5" y1="1" x2="0.5" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#fff"/>
+      <stop offset="1" stop-color="#d2d2d2"/>
+    </linearGradient>
+    <linearGradient id="linear-gradient-2" x1="-0.012" y1="0.039" x2="1.309" y2="1.426" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#d7d7d7"/>
+      <stop offset="1" stop-color="#fff"/>
+    </linearGradient>
+  </defs>
+  <g id="Página_restaurante_Ilustraciones_Mesa_de_trabajo_1_copia" data-name="Página restaurante Ilustraciones_Mesa de trabajo 1 copia" transform="translate(-300.8 -252.44)">
+    <circle id="Elipse_17" data-name="Elipse 17" cx="80" cy="80" r="80" transform="translate(300.8 252.44)" fill="#f9f9f9"/>
+    <rect id="Rectángulo_109" data-name="Rectángulo 109" width="17.002" height="88" transform="translate(372.467 321.96)" fill="url(#linear-gradient)"/>
+    <rect id="Rectángulo_110" data-name="Rectángulo 110" width="2" height="88" transform="translate(388.467 321.96)" fill="#d6d6d6"/>
+    <path id="Trazado_65" data-name="Trazado 65" d="M449.7,343.19h64a16,16,0,0,1,16,16v28h-80Z" transform="translate(-101.252 -61.71)" fill="url(#linear-gradient-2)"/>
+    <path id="Trazado_66" data-name="Trazado 66" d="M415.7,343.19h0a16,16,0,0,1,16,16v28h-32v-28A16,16,0,0,1,415.7,343.19Z" transform="translate(-67.252 -61.71)" fill="#f1f1f1"/>
+    <rect id="Rectángulo_111" data-name="Rectángulo 111" width="41.002" height="4" transform="translate(378.566 302.44)" fill="#aeaeae"/>
+    <circle id="Elipse_18" data-name="Elipse 18" cx="4" cy="4" r="4" transform="translate(374.566 300.44)" fill="#fff"/>
+    <path id="Trazado_67" data-name="Trazado 67" d="M646.95,421.19h8v8a4,4,0,0,1-4,4h0a4,4,0,0,1-4-4Z" transform="translate(-235.382 -114.75)" fill="#f49a4e"/>
+    <path id="Trazado_68" data-name="Trazado 68" d="M388.932,497.566a18.272,18.272,0,0,1-7.731,7.04c-12.746,6.275-23.68,7.414-27.971,3.178a6.25,6.25,0,0,1-.893-1.1,6.151,6.151,0,0,1,.406-7.021l14.128-19h32Z" transform="translate(-34.423 -155.19)" fill="#c6c6c6"/>
+  </g>
+</svg>

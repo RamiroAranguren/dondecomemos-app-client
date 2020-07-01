@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="160" height="160" viewBox="0 0 160 160">
+  <defs>
+    <linearGradient id="linear-gradient" x1="-0.025" y1="0.549" x2="1.243" y2="0.548" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#d6d6d6"/>
+      <stop offset="1" stop-color="#fff"/>
+    </linearGradient>
+    <linearGradient id="linear-gradient-2" x1="0.087" y1="0.41" x2="1.375" y2="0.384" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#c6c5c5"/>
+      <stop offset="1" stop-color="#efefef"/>
+    </linearGradient>
+  </defs>
+  <g id="Grupo_83" data-name="Grupo 83" transform="translate(-86 -88)">
+    <circle id="Elipse_14" data-name="Elipse 14" cx="80" cy="80" r="80" transform="translate(86 88)" fill="#f9f9f9"/>
+    <rect id="Rectángulo_97" data-name="Rectángulo 97" width="7.866" height="20" rx="3.933" transform="matrix(0.342, 0.94, -0.94, 0.342, 128.421, 178.24)" fill="#ececec"/>
+    <path id="Trazado_56" data-name="Trazado 56" d="M481.715,234.342l1.648,2.842a.675.675,0,0,0,1.235-.157l.883-3.162,3.213-.694a.675.675,0,0,0,.23-1.222l-2.736-1.818.32-3.261a.678.678,0,0,0-1.094-.6l-2.56,2.026-3-1.328a.675.675,0,0,0-.906.854l1.142,3.082L477.9,233.35a.675.675,0,0,0,.534,1.126Z" transform="translate(-333.149 -122.726)" fill="#c2c1c1"/>
+    <path id="Trazado_57" data-name="Trazado 57" d="M405.036,309.27l2.266,1.216a.531.531,0,0,0,.758-.614l-.71-2.467,1.853-1.782a.528.528,0,0,0-.342-.912l-2.56-.083-1.123-2.31a.528.528,0,0,0-.96.051l-.877,2.406-2.56.349a.531.531,0,0,0-.253.944l2.029,1.581-.454,2.528a.531.531,0,0,0,.819.531Z" transform="translate(-280.515 -174.342)" fill="#c2c1c1"/>
+    <path id="Trazado_58" data-name="Trazado 58" d="M520.385,295.33l1.146,1.978a.47.47,0,0,0,.861-.109L523,295l2.24-.483a.47.47,0,0,0,.16-.851l-1.9-1.264.227-2.269a.47.47,0,0,0-.758-.416l-1.789,1.408L519.1,290.2a.47.47,0,0,0-.64.592l.8,2.144-1.51,1.7a.47.47,0,0,0,.371.784Z" transform="translate(-360.279 -165.899)" fill="#c2c1c1"/>
+    <path id="Trazado_59" data-name="Trazado 59" d="M628.415,253.589l2.221,1.28a.528.528,0,0,0,.781-.586l-.64-2.49,1.92-1.718a.531.531,0,0,0-.32-.925l-2.56-.17-1.043-2.346a.528.528,0,0,0-.96.019l-.96,2.374-2.56.262a.531.531,0,0,0-.285.934l1.974,1.648-.538,2.512a.528.528,0,0,0,.8.557Z" transform="translate(-432.492 -136.469)" fill="#c2c1c1"/>
+    <path id="Trazado_60" data-name="Trazado 60" d="M695.635,323.5l1.891-.64a.41.41,0,0,0,.054-.755l-1.782-.9-.032-2a.41.41,0,0,0-.7-.282l-1.408,1.414-1.92-.582a.413.413,0,0,0-.49.579l.906,1.776L691,323.734a.413.413,0,0,0,.4.64l1.974-.32,1.2,1.6a.413.413,0,0,0,.736-.186Z" transform="translate(-478.125 -185.737)" fill="#c2c1c1"/>
+    <rect id="Rectángulo_98" data-name="Rectángulo 98" width="10.579" height="81.776" rx="5.29" transform="matrix(0.342, 0.94, -0.94, 0.342, 208.905, 150.393)" fill="#d7d7d7"/>
+    <rect id="Rectángulo_99" data-name="Rectángulo 99" width="10.579" height="78.09" rx="5.29" transform="matrix(0.342, 0.94, -0.94, 0.342, 205.442, 151.657)" fill="#c6c5c5"/>
+    <ellipse id="Elipse_15" data-name="Elipse 15" cx="2.288" cy="3.6" rx="2.288" ry="3.6" transform="matrix(0.94, -0.342, 0.342, 0.94, 109.612, 185.436)" fill="#f49a4e"/>
+    <rect id="Rectángulo_100" data-name="Rectángulo 100" width="4" height="8" transform="translate(165.539 185.357)" fill="#858585"/>
+    <rect id="Rectángulo_101" data-name="Rectángulo 101" width="4" height="8" transform="translate(163.602 183.573) rotate(30)" fill="#858585"/>
+    <rect id="Rectángulo_102" data-name="Rectángulo 102" width="4.014" height="8.028" transform="translate(169.27 186.929) rotate(-29.887)" fill="#858585"/>
+    <path id="Trazado_61" data-name="Trazado 61" d="M539.023,459.5l4.534,6.96a1.072,1.072,0,0,1-.9,1.658H533.6a1.072,1.072,0,0,1-.9-1.658l4.525-6.96a1.072,1.072,0,0,1,1.8,0Z" transform="translate(-370.412 -281.089)" fill="#a5a4a4"/>
+    <rect id="Rectángulo_103" data-name="Rectángulo 103" width="8" height="21.926" rx="4" transform="matrix(0.342, 0.94, -0.94, 0.342, 174.934, 170.624)" fill="#9c9b9b"/>
+    <rect id="Rectángulo_104" data-name="Rectángulo 104" width="13.149" height="74.499" rx="6.574" transform="matrix(0.342, 0.94, -0.94, 0.342, 200.469, 151.061)" fill="url(#linear-gradient)"/>
+    <circle id="Elipse_16" data-name="Elipse 16" cx="6.704" cy="6.704" r="6.704" transform="translate(128.854 174.63)" fill="#a5a4a4"/>
+    <rect id="Rectángulo_105" data-name="Rectángulo 105" width="11.971" height="20" rx="5.986" transform="matrix(0.342, 0.94, -0.94, 0.342, 135.13, 175.469)" fill="url(#linear-gradient-2)"/>
+    <rect id="Rectángulo_106" data-name="Rectángulo 106" width="2.733" height="52.285" transform="translate(166.173 193.357)" fill="#c6c5c5"/>
+    <rect id="Rectángulo_107" data-name="Rectángulo 107" width="2.733" height="52.285" transform="translate(173.039 192.961) rotate(-30)" fill="#c6c5c5"/>
+    <rect id="Rectángulo_108" data-name="Rectángulo 108" width="2.733" height="52.285" transform="translate(160.171 190.783) rotate(30)" fill="#c6c5c5"/>
+    <path id="Trazado_62" data-name="Trazado 62" d="M543.23,657.312h4v5.344a.64.64,0,0,1-.64.64h-2.72a.64.64,0,0,1-.64-.64V657.28Z" transform="translate(-377.691 -415.91)" fill="#d7d7d7"/>
+    <path id="Trazado_63" data-name="Trazado 63" d="M0,.032H4V5.376a.64.64,0,0,1-.64.64H.64A.64.64,0,0,1,0,5.376V0Z" transform="translate(196.942 235.34) rotate(-30)" fill="#d7d7d7"/>
+    <path id="Trazado_64" data-name="Trazado 64" d="M0,.032H4.014V5.395a.642.642,0,0,1-.642.642H.642A.642.642,0,0,1,0,5.395V.032Z" transform="translate(134.609 235.326) rotate(29.887)" fill="#d7d7d7"/>
+  </g>
+</svg>

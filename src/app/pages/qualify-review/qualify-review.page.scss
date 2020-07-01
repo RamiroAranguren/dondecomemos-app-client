@@ -1,7 +1,7 @@
 * {
     color: #1d252d;
 }
-ion-title{
+ion-title {
     font-family: DMSerifDisplayRegular;
     font-size: 24px;
 }
@@ -11,15 +11,39 @@ ion-content {
         padding-top: 5vw;
         padding-left: 0;
         padding-right: 0;
-        ion-icon{
+        ion-icon {
             height: 0.9em;
             padding-left: 1vw;
             padding-right: 1vw;
         }
         ion-row {
             padding-left: 5vw;
-            ion-col{
-                h2{
+            .no-qualify {
+                text-align: center;
+                h2 {
+                    text-align: center;
+                    margin: 0;
+                    font-size: 1.2em;
+                    font-family: FieldworkGeoLight;
+                    margin-bottom: 5vw;
+                }
+            }
+            .no-review {
+                text-align: center;
+                h2 {
+                    width: 100%;
+                    text-align: center;
+                    margin: 0;
+                    font-size: 1.2em;
+                    font-family: FieldworkGeoLight;
+                    margin-bottom: 5vw;
+                }
+                div {
+                    width: 100%;
+                }
+            }
+            ion-col {
+                h2 {
                     margin-top: 0;
                     margin-bottom: 5vw;
                     font-size: 20px;
@@ -34,7 +58,7 @@ ion-content {
                 text-align: center;
                 line-height: 90px;
                 font-size: 16px;
-                span {                    
+                span {
                     text-align: center;
                     font-family: FieldworkGeoLight;
                 }
@@ -54,10 +78,10 @@ ion-content {
         }
     }
 }
-.title-review{
+.title-review {
     padding-top: 5vw;
-    ion-col{
-        h2{
+    ion-col {
+        h2 {
             margin-top: 5vw;
             margin-bottom: 5vw;
             font-size: 20px;
@@ -68,52 +92,50 @@ ion-content {
 .row_review {
     background-color: rgb(244, 245, 248);
     margin-bottom: 20px;
-    .col-wraper{
+    .col-wraper {
         padding-right: 10vw;
     }
-    ion-row{
+    ion-row {
         padding-left: 0 !important;
         .initials {
             width: 40px;
             height: 40px;
             border-radius: 50%;
-            background-color: #FFDA75;
+            background-color: #ffda75;
             text-align: center;
             line-height: 40px;
             font-size: 16px;
             font-family: FieldworkGeoLight;
         }
-        .review-name{
+        .review-name {
             font-size: 16px;
             font-family: FieldworkGeoLight;
             padding-top: 0;
         }
-        .review-date{
+        .review-date {
             font-size: 16px;
             font-family: FieldworkGeoLight;
             padding-top: 0;
         }
-        .review-info-wrapper{
+        .review-info-wrapper {
             padding-right: 0;
         }
         .star_review {
-            color: #4CF89C;
-            padding: 0;
-
-        }
-        .star-review-col{
+            color: #4cf89c;
             padding: 0;
         }
-        .review-message{
+        .star-review-col {
+            padding: 0;
+        }
+        .review-message {
             font-size: 14px;
             font-family: FieldworkGeoLight;
             padding-right: 10vw;
         }
-        
     }
 }
 
-
-
-
-
+.row-no-padding-left {
+    padding-left: 0 !important;
+    width: 100%;
+}
