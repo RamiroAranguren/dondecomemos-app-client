@@ -79,7 +79,6 @@ export class ProfilePage implements OnInit {
       this.user = user;
       this.initals = `${this.user.first_name.slice(0, 1)}${this.user.last_name.slice(0, 1)}`;
     }).catch(err => {
-      console.log(err);
       this.user = {
         id: "",
         username: "",
@@ -240,8 +239,6 @@ export class ProfilePage implements OnInit {
     } else {
       result = false;
     }
-
-    console.log("RES", result);
     return result;
   }
 

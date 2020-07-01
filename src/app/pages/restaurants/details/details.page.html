@@ -80,18 +80,17 @@
       <h2>Menús del día</h2>
     </ion-col>
     <ion-slides pager="false" [options]="slideOptionsMenu">
-      <ion-slide *ngFor="let item of [1,1,1,1,1]">
+      <ion-slide *ngFor="let item of menues">
         <div class="contenedor">
           <div class="title-menu">
-            <h4>Nombre menú</h4>
-            <p> <span>$350</span> Descripción</p>
+            <h4>{{ item.name }}</h4>
+            <p> <span>${{ item.real_price }}</span> {{ item.description }}</p>
           </div>
           <div class="description-menu">
-            <h4>Entrada</h4>
-            <p>Milanesita de mozzarella con salsa
-            de tomate y albahaca.</p>
-            <h4>Principal</h4>
-            <p>Arroz con pollo.</p>
+            <span *ngFor="let submenu of item.sub_menus">
+              <h4>{{ submenu.name }}</h4>
+              <p>{{ submenu.value }}</p><br>
+            </span>
           </div>
         </div>
       </ion-slide>
@@ -132,8 +131,11 @@
     </ion-col>
   </ion-row>
   <br><br><br>
-  <ion-button class="fixed-btn" shape="round">
+  <ion-button class="fixed-btn" shape="round" *ngIf="price_total === 0">
     Reservar mesa
+  </ion-button>
+  <ion-button class="fixed-btn" shape="round" *ngIf="price_total !== 0">
+    Ver pedido &nbsp;&nbsp; Total: ${{price_total}}
   </ion-button>
 
 </ion-content>
