@@ -95,29 +95,7 @@ export class AddItemOrderPage implements OnInit {
   }
 
   cancelItem() {
-    this.showAlert();
-  }
-
-  async showAlert() {
-    const alert = await this.alertCtrl.create({
-      header: 'Si sale perderá el pedido',
-      buttons: [
-        {
-          text: 'Cancelar',
-          handler: () => {
-            return;
-          }
-        },
-        {
-          text: 'Salir',
-          handler: () => {
-            this.navCtrl.back();
-          }
-        }
-      ]
-    });
-
-    await alert.present();
+    this.navCtrl.back();
   }
 
   addCantProduct() {

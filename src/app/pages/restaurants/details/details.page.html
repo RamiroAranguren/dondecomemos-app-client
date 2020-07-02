@@ -1,7 +1,10 @@
 <ion-header class="ion-no-border">
   <ion-toolbar>
-    <ion-buttons slot="start">
+    <ion-buttons slot="start" *ngIf="price_total === 0">
       <ion-back-button icon="arrow-back"></ion-back-button>
+    </ion-buttons>
+    <ion-buttons slot="start" *ngIf="price_total !== 0">
+      <ion-icon size="large" name="arrow-back" (click)="showAlertBack()"></ion-icon>
     </ion-buttons>
     <ion-buttons slot="end" *ngIf="!isGuest">
       <ion-icon *ngIf="isFav" name="heart" size="large" style="color:#FFC95A;" (click)="removeFav(restaurant.id)"></ion-icon>

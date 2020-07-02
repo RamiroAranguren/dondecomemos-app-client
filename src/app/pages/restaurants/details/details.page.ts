@@ -133,6 +133,28 @@ export class DetailsPage implements OnInit {
     this.content.scrollToPoint(0, y.offsetTop, 5000);
   }
 
+  async showAlertBack() {
+    const alert = await this.alertCtrl.create({
+      header: 'Si sale perderá el pedido',
+      buttons: [
+        {
+          text: 'Cancelar',
+          handler: () => {
+            return;
+          }
+        },
+        {
+          text: 'Salir',
+          handler: () => {
+            this.navCtrl.back();
+          }
+        }
+      ]
+    });
+
+    await alert.present();
+  }
+
   addFavorite(resto: restaurant) {
     this.loader.display("Agregando a favoritos...");
     this.favService.post(resto).then((res:any) => {
