@@ -5,6 +5,7 @@ ion-content {
     ion-grid {
         padding-left: 5vw;
         padding-top: 6.5vw;
+        padding-right: 0;
         h2 {
             margin: 0;
             font-family: DMSerifDisplayRegular;
@@ -45,6 +46,7 @@ ion-content {
             ion-segment {
                 --background: white;
                 margin: 10vw 0 15vw 0;
+                --ripple-color: transparent;
                 ion-segment-button {
                     width: 48px !important;
                     height: 56px;
@@ -56,12 +58,12 @@ ion-content {
                     --border-width: 1px;
                     --border-color: #1d252d;
                     --border-radius: 9.6px;
-                    --indicator-box-shadow:none;                 
-                    
+                    --indicator-box-shadow: none;
+
                     div {
                         font-size: 16px;
                         font-family: FieldworkGeoLight;
-                           text-align: center;
+                        text-align: center;
                         position: absolute;
                         right: 37px;
                         text-transform: capitalize;
@@ -76,5 +78,114 @@ ion-content {
                 }
             }
         }
+        .choose-hour {
+            ion-segment {
+                --background: white;
+                margin: 10vw 0 15vw 0;
+                --ripple-color: transparent;
+                ion-segment-button {
+                    width: 56px !important;
+                    --height: 36px;
+                    min-height: 36px;                    
+                    margin-right: 24px;
+                    --background: white;
+                    --background-checked: #ffc95a;
+                    --indicator-color: transparent !important;
+                    --border-width: 1px;
+                    --border-color: #1d252d;
+                    --border-radius: 9.6px;
+                    --border-style: solid;
+                    --indicator-box-shadow: none;
+
+                    div {
+                        font-size: 16px;
+                        font-family: FieldworkGeoLight;
+                        text-align: center;
+                        position: absolute;
+                        right: 26px;
+                        text-transform: capitalize;
+                        p {
+                            margin: 0;
+                        }
+                        .day {
+                            padding-bottom: 8px;
+                            padding-top: 5px;
+                        }
+                    }
+                }
+            }
+        }
+        .pre-order-question {
+            .wrapper {
+                margin: 10vw 0 15vw 0;
+                display: flex;
+                flex-direction: row;
+                justify-content: space-evenly;
+                div {
+                    width: 48px;
+                    height: 48px;
+                    border: 1px solid #1d252d;
+                    border-radius: 50%;
+                    font-size: 16px;
+                    font-family: FieldworkGeoLight;
+                    p {
+                        margin: 0;
+                        padding: 14px 0 14px 0;
+                        text-align: center;
+                    }
+                }
+            }
+        }
+        .reason {
+            section {
+                margin: 10vw 0 15vw 0;
+                ion-button {
+                    margin-right: 8px;
+                    height: 36px;
+                    text-transform: capitalize;
+                    --background: white;
+                    --ripple-color: transparent;
+                    font-size: 16px;
+                    font-family: FieldworkGeoLight;
+                    --box-shadow: none;
+                    --border-width: 1px;
+                    --border-color: #1d252d;
+                    --border-radius: 7.2px;
+                    --border-style: solid;
+                }
+            }
+        }
+        .commentary{
+            section {
+                margin: 10vw 0 15vw 0;
+                ion-item{
+                    margin-right: 15vw;
+                }
+            }
+        }
     }
+}
+.check-color {
+    background-color: #ffc95a;
+}
+.check-color-button {
+    --background: #ffc95a !important;
+}
+.fixed-btn {
+    position: fixed;
+    left: 10%;
+    bottom: 10px;
+    right: 0;
+    width: 80%;
+    height: 12vw;
+    z-index: 100;
+    --color: #1d252d;
+    text-transform: none;
+    font-family: FieldworkGeoLight;
+    font-size: 5vw;
+    --padding-bottom: 23px;
+    --padding-top: 23px;
+    letter-spacing: 0.05rem;
+    --background: #f89b4c;
+    margin: 0;
 }
