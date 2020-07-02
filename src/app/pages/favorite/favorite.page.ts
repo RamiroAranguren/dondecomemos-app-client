@@ -7,6 +7,7 @@ import { LoaderService } from '../../services/loader/loader.service';
 import { StorageService } from '../../services/storage/storage.service';
 import { ToastService } from '../../services/toast/toast.service';
 import { UserInterface } from 'src/app/interfaces/user';
+import { NavigationExtras } from '@angular/router';
 
 
 @Component({
@@ -103,6 +104,11 @@ export class FavoritePage implements OnInit {
 
   register() {
     this.navCtrl.navigateRoot('/register');
+  }
+
+  details(resto:restaurant) {
+    let params: NavigationExtras = {state: {data: resto}};
+    this.navCtrl.navigateForward(['/restaurant/details'], params);
   }
 
   loginGoogle() {

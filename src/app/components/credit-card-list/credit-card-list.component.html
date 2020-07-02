@@ -2,41 +2,29 @@
 
 
     <ion-list>
-        <ion-item lines="none" (click)="presentCardCode()">
+        <ion-item
+            *ngFor="let card of cards"
+            lines="none">
+
             <ion-thumbnail slot="start">
                 <img src="../../../assets/img/creditCard/Recurso3.svg">
             </ion-thumbnail>
-            <ion-label>
-                <span>····</span> 5464 </ion-label>
+
+            <ion-label (click)="presentCardCode()">
+                <span>····</span> {{ card.number | slice:-4 }}
+            </ion-label>
+
+            <ion-icon
+                (click)="editCard(card)"
+                slot="end"
+                name="pencil-outline"></ion-icon>
+
         </ion-item>
 
-        <ion-item lines="none" (click)="presentCardCode()">
-            <ion-thumbnail slot="start">
-                <img src="../../../assets/img/creditCard/Recurso4.svg">
-            </ion-thumbnail>
-            <ion-label>
-                <span>····</span> 5658 </ion-label>
-        </ion-item>
-
-        <ion-item lines="none" (click)="presentCardCode()">
-            <ion-thumbnail slot="start">
-                <img src="../../../assets/img/creditCard/Grupo54.svg">
-            </ion-thumbnail>
-            <ion-label>
-                <span>····</span> 8975 </ion-label>
-        </ion-item>
-
-        <ion-item lines="none" (click)="presentCardCode()">
-            <ion-thumbnail slot="start">
-                <img src="../../../assets/img/creditCard/Recurso7.svg">
-            </ion-thumbnail>
-            <ion-label>
-                <span>····</span> 8245 </ion-label>
-        </ion-item>
     </ion-list>
 
     <div class="btn">
-        <ion-button (click)="navigate()" class="cnx_btn" shape="round">
+        <ion-button (click)="addCard()" class="cnx_btn" shape="round">
             Agregar Tarjeta
         </ion-button>
     </div>

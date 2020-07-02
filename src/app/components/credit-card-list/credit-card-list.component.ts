@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { creditCard } from 'src/app/interfaces/credit-card';
-import { Router } from '@angular/router';
-import { PopoverController } from '@ionic/angular';
+import { Router, NavigationExtras } from '@angular/router';
+import { PopoverController, NavController } from '@ionic/angular';
 import { CardCodeComponent } from '../card-code/card-code.component';
 
 
@@ -12,43 +12,27 @@ import { CardCodeComponent } from '../card-code/card-code.component';
 })
 export class CreditCardListComponent implements OnInit {
 
-  public cards: Array<any> = [
-    {
-      company: "VISA",
-      number: 1564,
-      name: "emilio",
-      img: "../",
+  @Input() user;
+  @Input() cards;
 
-    },
-    {
-      company: "mastercad",
-      number: 1564,
-      name: "jose",
-      img: "",
-    },
-    {
-      company: "maestro",
-      number: 1564,
-      name: "biasizo",
-      img: "",
-    },
-    {
-      company: "naranja",
-      number: 1564,
-      name: "mena",
-      img: "",
-    },
-
-  ];
-
-  constructor(private router: Router,
-    private popoverController: PopoverController) { }
+  constructor(
+    private router: Router,
+    private navCtrl: NavController,
+    private popoverController: PopoverController
+  ) { }
 
   ngOnInit() { }
 
-  navigate(){
-    //navegar 
-    this.router.navigate(['/credit-card-add']); 
+  addCard(){
+    let navigationExtras: NavigationExtras = { state: { user: this.user, card: null } };
+    this.navCtrl.navigateForward(['/credit-card-add'], navigationExtras);
+    // dissmis el popup
+    this.DismissClick();
+  }
+
+  editCard(card) {
+    let navigationExtras: NavigationExtras = { state: { user: this.user, card: card } };
+    this.navCtrl.navigateForward(['/credit-card-add'], navigationExtras);
     // dissmis el popup
     this.DismissClick();
   }
@@ -64,7 +48,11 @@ export class CreditCardListComponent implements OnInit {
       component: CardCodeComponent,
       cssClass: 'cardcodeclass',
       event: ev,
-      translucent: true
+      translucent: true,
+      componentProps: {
+        id: null,
+        user: this.user
+      }
     });
     return await cardCodePop.present();
   }

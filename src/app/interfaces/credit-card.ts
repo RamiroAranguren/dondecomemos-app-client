@@ -2,8 +2,10 @@ import { Url } from 'url';
 
 export interface creditCard {
     id?: number;
-    company: String;
-    number:number;
-    name:string;
-    img:String,
+    restaurant: number;
+    client:any;
+    titular: String;
+    document: String;
+    number:String;
+    expire:string;
 }

@@ -3,11 +3,24 @@
         <ion-buttons slot="start">
             <ion-back-button icon="close"></ion-back-button>
         </ion-buttons>
-        <ion-title>Nueva Tarjeta</ion-title>
+        <ion-title *ngIf="!card">Nueva Tarjeta</ion-title>
+        <ion-title *ngIf="card">Editar Tarjeta</ion-title>
         <ion-buttons slot="end">
-            <ion-button [color]="!registrationForm.valid ? 'medium' : 'primary'" [disabled]="!registrationForm.valid"
-                type="submit" form="card-form" (click)="submit()" fill="clear" shape="round">
+            <ion-button
+                *ngIf="!card"
+                [color]="!registrationForm.valid ? 'medium' : 'primary'"
+                [disabled]="!registrationForm.valid"
+                type="submit" form="card-form"
+                (click)="createCard()" fill="clear" shape="round">
                 GUARDAR
+            </ion-button>
+            <ion-button
+                *ngIf="card"
+                [color]="!registrationForm.valid ? 'medium' : 'primary'"
+                [disabled]="!registrationForm.valid"
+                type="submit" form="card-form"
+                (click)="updateCard()" fill="clear" shape="round">
+                MODIFICAR
             </ion-button>
         </ion-buttons>
     </ion-toolbar>
@@ -15,14 +28,19 @@
 
 <ion-content>
     <div class="ion-padding-start ion-padding-top">
-        <form class="ion-padding-start ion-padding-top" id="card-form" [formGroup]="registrationForm" (ngSubmit)="submit()">
+        <form class="ion-padding-start ion-padding-top" id="card-form" 
+            [formGroup]="registrationForm" (ngSubmit)="createCard()">
             <ion-list>
 
                 <!-- NOMBRE -->
-                <ion-item [ngClass]="{'focus-item': isFocus.nameFocus}">
+                <ion-item [ngClass]="{'focus-item': isFocus.titularFocus}">
                     <ion-label position="floating">Nombre y apellido del titular</ion-label>
-                    <ion-input (ionBlur)="inputBlur('nameFocus')" (ionFocus)="inputFocus('nameFocus')"
-                        class="ion-text-uppercase" autocapitalize inputmode="text" formControlName="name"></ion-input>
+                    <ion-input
+                        [(ngModel)]="form.titular"
+                        (ionBlur)="inputBlur('titularFocus')"
+                        (ionFocus)="inputFocus('titularFocus')"
+                        class="ion-text-uppercase" autocapitalize inputmode="text"
+                        formControlName="titular"></ion-input>
                 </ion-item>
                 <div class="alerts">
                     <div>
@@ -30,22 +48,25 @@
                             <small class="label-font-size description-color">Tal cual está impreso en la tarjeta</small>
                         </ng-container>
                     </div>
-                    <div *ngFor="let error of errorMessages.name">
-                        <ng-container *ngIf="name.hasError(error.type) && (name.dirty || name.touched)">
+                    <div *ngFor="let error of errorMessages.titular">
+                        <ng-container *ngIf="titular.hasError(error.type) && (titular.dirty || titular.touched)">
                             <small class="label-font-size danger-color">{{error.message}}</small>
                         </ng-container>
                     </div>
                 </div>
 
                 <!-- DNI -->
-                <ion-item [ngClass]="{'focus-item': isFocus.dniFocus}">
+                <ion-item [ngClass]="{'focus-item': isFocus.documentFocus}">
                     <ion-label position="floating">DNI del titular</ion-label>
-                    <ion-input (ionBlur)="inputBlur('dniFocus')" (ionFocus)="inputFocus('dniFocus')" inputmode="numeric"
-                        type="number" formControlName="dni"></ion-input>
+                    <ion-input
+                        [(ngModel)]="form.document"
+                        (ionBlur)="inputBlur('documentFocus')"
+                        (ionFocus)="inputFocus('documentFocus')" inputmode="numeric"
+                        type="number" formControlName="document"></ion-input>
                 </ion-item>
                 <div class="alerts">
-                    <div *ngFor="let error of errorMessages.dni">
-                    <ng-container *ngIf="dni.hasError(error.type) && (dni.dirty || dni.touched)">
+                    <div *ngFor="let error of errorMessages.document">
+                    <ng-container *ngIf="document.hasError(error.type) && (document.dirty || document.touched)">
                         <small class="label-font-size danger-color">{{error.message}}</small>
                     </ng-container>
                 </div>
@@ -53,13 +74,16 @@
 
 
                 <!-- NUMERO TARJETA -->
-                <ion-item id="item-card-icon" [ngClass]="{'focus-item': isFocus.cardNumberFocus}">
+                <ion-item id="item-card-icon" [ngClass]="{'focus-item': isFocus.numberFocus}">
                     <ion-row>
                         <ion-col size="9">
                             <ion-label position="floating">Número de tarjeta</ion-label>
-                            <ion-input (ionBlur)="inputBlur('cardNumberFocus')"
-                                (ionFocus)="inputFocus('cardNumberFocus')" inputmode="numeric" type="number"
-                                formControlName="cardNumber"></ion-input>
+                            <ion-input
+                                [(ngModel)]="form.number"
+                                (ionBlur)="inputBlur('numberFocus')"
+                                (ionFocus)="inputFocus('numberFocus')"
+                                inputmode="numeric" type="number"
+                                formControlName="number"></ion-input>
                         </ion-col>
                         <!-- <ion-col size="3" class="logo-card">
                             <img  src="../../../assets/logos/visa.png" alt="visa" >
@@ -77,8 +101,8 @@
                     </ion-row>
                 </ion-item>
                 <div class="alerts">
-                    <div *ngFor="let error of errorMessages.cardNumber">
-                        <ng-container *ngIf="cardNumber.hasError(error.type) && (cardNumber.dirty || cardNumber.touched)">
+                    <div *ngFor="let error of errorMessages.number">
+                        <ng-container *ngIf="number.hasError(error.type) && (number.dirty || number.touched)">
                             <small class="label-font-size danger-color">{{error.message}}</small>
                         </ng-container>
                     </div>
@@ -86,11 +110,13 @@
 
                 <!-- FECHA EXPIRACION -->
                 <div class="item-question">
-                    <ion-item [ngClass]="{'focus-item':  isFocus.expirationDateFocus}">
+                    <ion-item [ngClass]="{'focus-item':  isFocus.expireFocus}">
                         <ion-label position="floating">Fecha de expiración</ion-label>
-                        <ion-input (ionBlur)="inputBlur('expirationDateFocus')"
-                            (ionFocus)="inputFocus('expirationDateFocus')"
-                            formControlName="expirationDate"></ion-input>
+                        <ion-input
+                            [(ngModel)]="form.expire"
+                            (ionBlur)="inputBlur('expireFocus')"
+                            (ionFocus)="inputFocus('expireFocus')"
+                            formControlName="expire"></ion-input>
                     </ion-item>
                     <div class="icon-question">
                         <ion-icon (click)="expirationPopover()" name="help-circle"></ion-icon>
@@ -100,9 +126,9 @@
                     <ng-container>
                         <small class="label-font-size description-color">MM/AA</small>
                     </ng-container>
-                    <div *ngFor="let error of errorMessages.expirationDate">
+                    <div *ngFor="let error of errorMessages.expire">
                         <ng-container
-                            *ngIf="expirationDate.hasError(error.type) && (expirationDate.dirty || expirationDate.touched)">
+                            *ngIf="expire.hasError(error.type) && (expire.dirty || expire.touched)">
                             <small class="label-font-size danger-color">{{error.message}}</small>
                         </ng-container>
                     </div>
