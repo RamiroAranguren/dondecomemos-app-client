@@ -20,9 +20,9 @@ ion-header {
             span {
                 display: flex;
                 flex-direction: column;
-                margin-left: 7vw;
+                // margin-left: 7vw;
                 vertical-align: middle;
-                height: 2.5em;
+                // height: 2.5em;
                 align-self: center;
                 ion-icon {
                     height: 52%;
@@ -30,12 +30,12 @@ ion-header {
                 // .md span{
                 //     align-self: center;
                 // }
-                p {
-                    font-family: FieldworkGeoRegular;
-                    text-align: center;
-                    font-size: 0.7em;
-                    margin: 0;
-                }
+                
+            }
+            ion-label {
+                margin-top: 0;
+                font-family: FieldworkGeoLight;
+                // font-size: 12px;
             }
         }
     }
