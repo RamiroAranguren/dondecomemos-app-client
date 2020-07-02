@@ -25,7 +25,11 @@
             <p>Filtro</p>
         </span> -->
         <ion-tab-button>
-            <span class="material-icons">
+            <span 
+            class="material-icons"
+            color="{{ filterColor }}"
+            (click)="openFilters()"
+            >
                 filter_list
              </span>
            <ion-label>Filtro</ion-label>
