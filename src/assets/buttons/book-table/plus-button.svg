@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="39.99" height="39.99" viewBox="0 0 39.99 39.99">
+  <defs>
+    <filter id="Elipse_9" x="0" y="0" width="39.99" height="39.99" filterUnits="userSpaceOnUse">
+      <feOffset input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="0.665" result="blur"/>
+      <feFlood flood-opacity="0.078"/>
+      <feComposite operator="in" in2="blur"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+  </defs>
+  <g id="Componente_1_1" data-name="Componente 1 – 1" transform="translate(1.995 1.995)">
+    <g id="Grupo_71" data-name="Grupo 71" transform="translate(-228 -128)">
+      <g transform="matrix(1, 0, 0, 1, 226.01, 126.01)" filter="url(#Elipse_9)">
+        <g id="Elipse_9-2" data-name="Elipse 9" transform="translate(1.99 1.99)" fill="#fff" stroke="rgba(0,0,0,0.08)" stroke-width="1">
+          <circle cx="18" cy="18" r="18" stroke="none"/>
+          <circle cx="18" cy="18" r="17.5" fill="none"/>
+        </g>
+      </g>
+      <path id="Trazado_47" data-name="Trazado 47" d="M15,7a1.6,1.6,0,0,0-1.6,1.6v4.8H8.6a1.6,1.6,0,1,0,0,3.2h4.8v4.8a1.6,1.6,0,1,0,3.2,0V16.6h4.8a1.6,1.6,0,1,0,0-3.2H16.6V8.6A1.6,1.6,0,0,0,15,7Z" transform="translate(231 131)" fill="#f89b4c"/>
+    </g>
+  </g>
+</svg>

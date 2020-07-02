@@ -16,14 +16,24 @@
           showCancelButton="focus" 
           class="placeholder-input">
         </ion-searchbar>
-        <span>
+        <!-- <span>
             <ion-icon
             color="{{ filterColor }}"
             (click)="openFilters()"
             name="filter"
             slot="end" size="large"></ion-icon>
             <p>Filtro</p>
-        </span>
+        </span> -->
+        <ion-tab-button>
+            <span 
+            class="material-icons"
+            color="{{ filterColor }}"
+            (click)="openFilters()"
+            >
+                filter_list
+             </span>
+           <ion-label>Filtro</ion-label>
+         </ion-tab-button>
     </div>
   </ion-toolbar>
 

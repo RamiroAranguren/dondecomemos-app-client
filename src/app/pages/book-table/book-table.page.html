@@ -1,12 +1,93 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-back-button></ion-back-button>
-    </ion-buttons>
-    <ion-title>Reserva Mesa</ion-title>
-  </ion-toolbar>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-back-button></ion-back-button>
+        </ion-buttons>
+        <ion-title>Reserva Mesa</ion-title>
+    </ion-toolbar>
 </ion-header>
 
 <ion-content>
+    <ion-grid fixed>
+        <h2>¿Cuántas personas?</h2>
+        <ion-row class="people-counter">
+            <ion-col size="6">
+                <p>02</p>
+            </ion-col>
+            <ion-col size="6">
+                <div>
+                    <ion-button class="button-padding" (click)="onClick()" fill="clear">
+                        <img src="../../../assets/buttons/book-table/minus-button.svg" alt="" srcset="">
+                    </ion-button>
+                    <ion-button (click)="onClick()" fill="clear">
+                        <img src="../../../assets/buttons/book-table/plus-button.svg" alt="" srcset="">
+                    </ion-button>
+                </div>
 
+            </ion-col>
+        </ion-row>
+        <h2>Elija la fecha</h2>
+        <i-row class="choose-date">
+            <ion-segment scrollable="true" value="lun" mode="md">
+                <ion-segment-button mode="md" [value]="item" *ngFor="let item of days; index as i">
+                    <div>
+                        <p class="day">{{item}}</p>
+                        <p>{{i + 1}}</p>
+                    </div>
+                </ion-segment-button>
+            </ion-segment>
+        </i-row>
+        <h2>Seleccione hora</h2>
+        <i-row class="choose-hour">
+            <ion-segment scrollable="true" value="14:00" mode="md">
+                <ion-segment-button mode="md" [value]="item" *ngFor="let item of hours; index as i">
+                    <div>
+                        <p class="day">{{item}}</p>
+                    </div>
+                </ion-segment-button>
+            </ion-segment>
+        </i-row>
+        <h2>Desea pre-ordenar la comida</h2>
+        <i-row class="pre-order-question">
+            <div class="wrapper">
+                <div [ngClass]="{'check-color' : !preOrder}" (click)="preOrderAnswer(false)">
+                    <p>No</p>
+                </div>
+                <div [ngClass]="{'check-color' : preOrder}" (click)="preOrderAnswer(true)">
+                    <p> Si </p>
+                </div>
+            </div>
+        </i-row>
+        <h2>Motivo (opcional)</h2>
+        <i-row class="reason">
+            <section>
+                <ion-button [ngClass]="{'check-color-button' : cumpleanos}" (click)="check('cumpleanos')" size="small" >Cumpleaños</ion-button>
+                <ion-button [ngClass]="{'check-color-button' : cita}" (click)="check('cita')" size="small" >Cita</ion-button>
+                <ion-button [ngClass]="{'check-color-button' : aniversario}" (click)="check('aniversario')" size="small" >Aniversario</ion-button>
+                <ion-button [ngClass]="{'check-color-button' : laboral}" (click)="check('laboral')" size="small" >Laboral</ion-button>
+                <ion-button [ngClass]="{'check-color-button' : otro}" (click)="check('otro')" size="small" >Otro</ion-button>
+            </section>
+        </i-row>
+        <h2>Comentario (opcional)</h2>
+        <i-row class="commentary">
+            <section>
+                <ion-item>
+                    <ion-label position="floating">Comentario</ion-label>
+                    <ion-input></ion-input>
+                  </ion-item>
+            </section>
+        </i-row>
+    </ion-grid>
+    <ion-button
+    *ngIf="preOrder"
+    class="fixed-btn"
+    shape="round">
+    CONTINUAR
+  </ion-button>
+  <ion-button
+    *ngIf="!preOrder"
+    class="fixed-btn"
+    shape="round">
+    RESERVAR MESA
+  </ion-button>
 </ion-content>

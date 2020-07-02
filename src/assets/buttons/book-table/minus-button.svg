@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="39.99" height="39.99" viewBox="0 0 39.99 39.99">
+  <defs>
+    <filter id="Elipse_8" x="0" y="0" width="39.99" height="39.99" filterUnits="userSpaceOnUse">
+      <feOffset input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="0.665" result="blur"/>
+      <feFlood flood-opacity="0.078"/>
+      <feComposite operator="in" in2="blur"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+  </defs>
+  <g id="Componente_2_1" data-name="Componente 2 – 1" transform="translate(1.995 1.995)">
+    <g transform="matrix(1, 0, 0, 1, -1.99, -1.99)" filter="url(#Elipse_8)">
+      <g id="Elipse_8-2" data-name="Elipse 8" transform="translate(1.99 1.99)" fill="#fff" stroke="rgba(0,0,0,0.08)" stroke-width="1">
+        <circle cx="18" cy="18" r="18" stroke="none"/>
+        <circle cx="18" cy="18" r="17.5" fill="none"/>
+      </g>
+    </g>
+    <path id="Trazado_48" data-name="Trazado 48" d="M7,12.6a1.6,1.6,0,0,0,1.6,1.6H21.4a1.6,1.6,0,0,0,0-3.2H8.6A1.6,1.6,0,0,0,7,12.6Z" transform="translate(3 5)" fill="#f89b4c"/>
+  </g>
+</svg>

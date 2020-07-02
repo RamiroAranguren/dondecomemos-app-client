@@ -68,12 +68,14 @@
                                     type="{{type}}"
                                     name="password"
                                 ></ion-input>
-                                <ion-icon 
+                                <ion-icon
+                                    class="eye-icon" 
                                     color="dark"
                                     *ngIf="type==='text'"
                                     slot="end"
                                     (click)="showPassword()" name="eye"></ion-icon>
                                 <ion-icon
+                                    class="eye-icon"
                                     color="dark"
                                     *ngIf="type==='password'"
                                     slot="end"
