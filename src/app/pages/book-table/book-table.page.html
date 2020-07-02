@@ -10,28 +10,43 @@
 <ion-content>   
     <ion-grid fixed>
         <h2>¿Cuántas personas?</h2>
-        <ion-row>
+        <ion-row class="people-counter">
             <ion-col size="6">
-                02
+                <p>02</p>                
             </ion-col>
             <ion-col size="6">
-                <span class="material-icons">
-                    remove
-                    </span>
-                <span class="material-icons">
-                    add
-                    </span>
+                    <div>
+                        <ion-button class="button-padding" (click)="onClick()" fill="clear">
+                            <img src="../../../assets/buttons/book-table/minus-button.svg" alt="" srcset="">
+                        </ion-button>
+                        <ion-button (click)="onClick()" fill="clear">
+                            <img src="../../../assets/buttons/book-table/plus-button.svg" alt="" srcset="">
+                        </ion-button>
+                    </div>                  
+                    
             </ion-col>
         </ion-row>
         <h2>Elija la fecha</h2>
-        <i-row>
-            <i-col>
-                <section>
-                    <ion-button size="large" color="light">Light</ion-button>
-                    <ion-button size="large" color="medium">Medium</ion-button>
-                    <ion-button size="large" color="dark">Dark</ion-button>
-                  </section>            
-            </i-col>
+        <i-row class="choose-date">
+            <!-- <ion-slides pager="false" [options]="slideOptionsDate">
+                <ion-slide *ngFor="let item of days; index as i">
+                    <ion-button>
+                        <div>
+                            <p class="day">{{item}}</p> <p>{{i + 1}}</p>
+                        </div>
+                    </ion-button>
+                    
+                </ion-slide>
+              </ion-slides> -->
+              <ion-segment scrollable="true" value="lun" mode="md">                
+                    <ion-segment-button mode="md" [value]="item" *ngFor="let item of days; index as i" >
+                        <div>
+                            <p class="day">{{item}}</p> <p>{{i + 1}}</p>
+                        </div>
+                    </ion-segment-button>
+                  
+                
+              </ion-segment>
         </i-row>
         <h2>Desea pre-ordenar la comida</h2>
         <i-row>
