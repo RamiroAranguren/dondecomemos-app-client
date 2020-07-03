@@ -1,7 +1,33 @@
 * {
     color: #1d252d;
 }
-.main{
+ion-header {
+    ion-buttons {
+        ion-back-button {
+            --icon-font-size: 24px;
+        }
+        ion-button {
+            font-size: 17px;
+            width: 48px;
+            height: 48px;
+        }
+    }
+    ion-title {
+        font-size: 24px;
+        font-family: DMSerifDisplayRegular;
+    }
+}
+
+.main {
+    p {
+        font-family: FieldworkGeoLight;
+    }
+    h4 {
+        font-family: FieldworkGeoLight;
+    }
+    h3 {
+        font-family: FieldworkGeoLight;
+    }
     ion-grid {
         padding-left: 5vw;
         padding-top: 6.5vw;
@@ -54,23 +80,22 @@
                     display: flex;
                     flex-direction: row;
                     width: 58.75vw;
-                    justify-content: space-between;               
-                    
-                    p{
+                    justify-content: space-between;
+
+                    p {
                         font-size: 16px;
                         text-align: left;
                         margin: 0;
                     }
-                    .price-percent{
+                    .price-percent {
                         width: 50px;
                     }
                 }
-                .total-price{
+                .total-price {
                     font-size: 20px;
                     text-align: right;
                     padding-right: 7vw;
                     margin-bottom: 10vw;
-    
                 }
             }
         }
@@ -95,7 +120,10 @@
         }
     }
 }
-.restaurant{
+.restaurant {
+    p {
+        font-family: FieldworkGeoLight;
+    }
     ion-grid {
         padding-left: 5vw;
         padding-top: 6.5vw;
@@ -180,7 +208,7 @@
                 ion-segment-button {
                     width: 56px !important;
                     --height: 36px;
-                    min-height: 36px;                    
+                    min-height: 36px;
                     margin-right: 24px;
                     --background: white;
                     --background-checked: #ffc95a;
@@ -229,7 +257,7 @@
                     }
                 }
             }
-            .card{
+            .card {
                 text-align: right;
                 padding-right: 15vw;
                 font-size: 16px;
@@ -244,23 +272,22 @@
                     display: flex;
                     flex-direction: row;
                     width: 58.75vw;
-                    justify-content: space-between;               
-                    
-                    p{
+                    justify-content: space-between;
+
+                    p {
                         font-size: 16px;
                         text-align: left;
                         margin: 0;
                     }
-                    .price-percent{
+                    .price-percent {
                         width: 50px;
                     }
                 }
-                .total-price{
+                .total-price {
                     font-size: 20px;
                     text-align: right;
                     padding-right: 7vw;
                     margin-bottom: 10vw;
-    
                 }
             }
         }
@@ -283,25 +310,36 @@
                 }
             }
         }
-        .commentary{
+        .commentary {
             section {
-                margin: 10vw 0 15vw 0;
-                ion-item{
+                margin: 10vw 0 15vw 0;            
+                ion-item {
+                    font-family: FieldworkGeoLight;
                     margin-right: 15vw;
+                    ion-label{
+                        font-family: FieldworkGeoLight;
+                    }
+                    ion-input{
+                        font-family: FieldworkGeoLight;
+                        --placeholder-font-style:FieldworkGeoLight;
+                        input{
+                        font-family: FieldworkGeoLight;
+                        }
+                    }
                 }
             }
         }
     }
 }
-.delivery{
-    .noCard{
+.delivery {
+    .noCard {
         display: flex;
         flex-direction: row;
-        p{
+        p {
             width: 55vw;
             font-size: 16px;
         }
-        ion-item{
+        ion-item {
             height: 100%;
             width: 22vw;
         }
@@ -311,12 +349,12 @@
 .check-color-button {
     --background: #ffc95a !important;
     --border-style: none !important;
-    --box-shadow: 0px 3px 5px -1px rgba(0,0,0,0.4) !important;
+    --box-shadow: 0px 3px 5px -1px rgba(0, 0, 0, 0.4) !important;
 }
 .check-color {
     background-color: #ffc95a;
     border: none !important;
-    box-shadow: 0px 3px 5px -1px rgba(0,0,0,0.4) !important;
+    box-shadow: 0px 3px 5px -1px rgba(0, 0, 0, 0.4) !important;
 }
 .fixed-btn {
     position: fixed;

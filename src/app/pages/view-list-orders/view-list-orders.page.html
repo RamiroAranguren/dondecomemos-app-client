@@ -1,10 +1,13 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-back-button></ion-back-button>
-    </ion-buttons>
-    <ion-title>Lista de Ordenes</ion-title>
-  </ion-toolbar>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-back-button *ngIf="expression"></ion-back-button>
+            <ion-button *ngIf="!expression" (click)="backToViewOrder()">
+                <ion-icon  name="arrow-back-outline"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+        <ion-title>Confirmación</ion-title>
+    </ion-toolbar>
 </ion-header>
 
 <ion-content class="main" *ngIf="expression">
@@ -127,7 +130,7 @@
                     <p>Ahora</p>
                 </div>
             </div>
-            <div class="card" *ngIf="payPlace" >
+            <div class="card" *ngIf="payPlace">
                 <p><img src="../../../assets/logos/view-list-order/visa.svg" alt="" srcset="">.... 4517</p>
             </div>
         </i-row>
@@ -147,13 +150,15 @@
         <h2>Motivo (opcional)</h2>
         <i-row class="reason">
             <section>
-                <ion-button [ngClass]="{'check-color-button' : cumpleanos}" (click)="checkReason('cumpleanos')" size="small">
+                <ion-button [ngClass]="{'check-color-button' : cumpleanos}" (click)="checkReason('cumpleanos')"
+                    size="small">
                     Cumpleaños</ion-button>
                 <ion-button [ngClass]="{'check-color-button' : cita}" (click)="checkReason('cita')" size="small">Cita
                 </ion-button>
                 <ion-button [ngClass]="{'check-color-button' : aniversario}" (click)="checkReason('aniversario')"
                     size="small">Aniversario</ion-button>
-                <ion-button [ngClass]="{'check-color-button' : laboral}" (click)="checkReason('laboral')" size="small">Laboral
+                <ion-button [ngClass]="{'check-color-button' : laboral}" (click)="checkReason('laboral')" size="small">
+                    Laboral
                 </ion-button>
                 <ion-button [ngClass]="{'check-color-button' : otro}" (click)="checkReason('otro')" size="small">Otro
                 </ion-button>

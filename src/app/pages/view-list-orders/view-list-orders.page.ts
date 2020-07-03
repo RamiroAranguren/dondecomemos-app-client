@@ -47,4 +47,7 @@ export class ViewListOrdersPage implements OnInit {
         item == "laboral" ? this.laboral = true : this.laboral = false;
         item == "otro" ? this.otro = true : this.otro = false;
     }
+    backToViewOrder(){
+        this.expression = true;
+    }
 }
