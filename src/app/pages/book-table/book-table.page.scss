@@ -95,7 +95,6 @@ ion-content {
                     --border-color: #1d252d;
                     --border-radius: 9.6px;
                     --border-style: solid;
-                    --indicator-box-shadow: none;
 
                     div {
                         font-size: 16px;
@@ -165,11 +164,15 @@ ion-content {
         }
     }
 }
-.check-color {
-    background-color: #ffc95a;
-}
 .check-color-button {
     --background: #ffc95a !important;
+    --border-style: none !important;
+    --box-shadow: 0px 3px 5px -1px rgba(0,0,0,0.4) !important;
+}
+.check-color {
+    background-color: #ffc95a;
+    border: none !important;
+    box-shadow: 0px 3px 5px -1px rgba(0,0,0,0.4) !important;
 }
 .fixed-btn {
     position: fixed;
@@ -188,4 +191,7 @@ ion-content {
     letter-spacing: 0.05rem;
     --background: #f89b4c;
     margin: 0;
+}
+.check-segment{
+    --border-style: none;
 }
