@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { NavController, AlertController } from '@ionic/angular';
 import { StorageService } from '../../services/storage/storage.service';
 import { ToastService } from 'src/app/services/toast/toast.service';
+import { UserInterface } from 'src/app/interfaces/user';
 
 @Component({
   selector: 'app-add-item-order',
@@ -15,6 +16,8 @@ export class AddItemOrderPage implements OnInit {
   product:any;
   restaurant:any;
   comments = "";
+
+  user:UserInterface;
 
   variants:any[] = [];
   additionals:any[] = [];
@@ -35,7 +38,6 @@ export class AddItemOrderPage implements OnInit {
   activeAgregate = true;
 
   constructor(
-    private alertCtrl: AlertController,
     private route: Router,
     private navCtrl: NavController,
     private toast: ToastService,
@@ -47,10 +49,14 @@ export class AddItemOrderPage implements OnInit {
     this.product = this.route.getCurrentNavigation().extras.state.product;
     this.restaurant = this.route.getCurrentNavigation().extras.state.restaurant;
 
-    console.log("PRD", this.product);
     this.storage.getObject("list_order").then(res => {
       if(res)
         this.order = res;
+    });
+
+    this.storage.getObject("user").then((res:UserInterface) => {
+      if(res)
+        this.user = res;
     });
   }
 
@@ -92,6 +98,11 @@ export class AddItemOrderPage implements OnInit {
       });
     });
     this.counters_add = this.count_additionals;
+
+    if(this.product.variants.length === 0 && this.product.additionals_products.length === 0) {
+      this.activeAgregate = false;
+    }
+
   }
 
   cancelItem() {
@@ -100,11 +111,13 @@ export class AddItemOrderPage implements OnInit {
 
   addCantProduct() {
     this.cantProduct += 1;
+    this.activeAgregate = true;
   }
 
   removeCantProduct() {
     if(this.cantProduct >= 2)
       this.cantProduct -= 1;
+    this.activeAgregate = true;
   }
 
   addCantVariant(idSelect, name) {
@@ -143,9 +156,13 @@ export class AddItemOrderPage implements OnInit {
       if(vares >= 1){
         this.counters_var[name] -= 1;
         this.cantProductVariant = this.counters_var[name];
+        if(this.cantProductVariant < 0){
+          this.cantProductVariant = 0;
+          this.counters_var[name] = 0;
+        }
         let idElement = `count-variant-${idSelect}`;
         let element = document.getElementById(idElement);
-        element.innerHTML=this.cantProductVariant.toString();
+        element.innerHTML = this.cantProductVariant.toString();
       }
 
       let vares_validation = Object.values(this.counters_var).reduce(
@@ -164,6 +181,10 @@ export class AddItemOrderPage implements OnInit {
       let addes = Object.values(this.counters_add).reduce(
         (previous:number, current:number) => previous + current );
 
+      console.log("SUMATORIA", addes);
+      console.log("CANT_PROD", this.cantProduct);
+      console.log("CANT_ITEM", item.amount);
+      console.log("RES", addes < (this.cantProduct * item.amount));
       if(addes < (this.cantProduct * item.amount)){
         this.counters_add[name] += 1;
         this.cantProductAdd = this.counters_add[name];
@@ -179,7 +200,7 @@ export class AddItemOrderPage implements OnInit {
         (previous:number, current:number) => previous + current );
 
       if(vares !== undefined) {
-        if(addes_validation === item.amount && vares === this.cantProduct){
+        if(addes_validation === (this.cantProduct * item.amount) && vares === this.cantProduct){
           this.activeAgregate = false;
         } else {
           this.activeAgregate = true;
@@ -204,6 +225,10 @@ export class AddItemOrderPage implements OnInit {
         if(this.counters_add[name] >= 1){
           this.counters_add[name] -= 1;
           this.cantProductAdd = this.counters_add[name];
+          if(this.cantProductAdd < 0){
+            this.cantProductAdd = 0;
+            this.counters_add[name] = 0;
+          }
           let idElement = `count-additional-${idSelect}`;
           let element = document.getElementById(idElement);
           element.innerHTML=this.cantProductAdd.toString();
@@ -216,7 +241,7 @@ export class AddItemOrderPage implements OnInit {
       let addes_validation = Object.values(this.counters_add).reduce(
         (previous:number, current:number) => previous + current );
 
-      if(addes_validation === item.amount && vares === this.cantProduct){
+      if(addes_validation === (this.cantProduct * item.amount) && vares === this.cantProduct){
         this.activeAgregate = false;
       } else {
         this.activeAgregate = true;
@@ -229,10 +254,12 @@ export class AddItemOrderPage implements OnInit {
     this.activeAgregate = true;
 
     let pedido = {
+      user: this.user,
       restaurant: this.restaurant.id,
       product: {
         id: this.product.id,
         name: this.product.name,
+        price: this.product.real_price,
         count: this.cantProduct,
         comments: this.comments,
         variants: [],
