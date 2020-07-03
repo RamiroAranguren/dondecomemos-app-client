@@ -104,17 +104,19 @@ export class DetailsPage implements OnInit {
     setTimeout(() => {
       this.storage.getObject("list_order").then(res => {
         if(res){
-          this.orders = res.filter(ord => ord.restaurant === this.restaurant.id);
+          this.orders = res.filter(ord => (ord.restaurant === this.restaurant.id && ord.user.id === this.user.id));
           let prices_order = [];
           this.orders.forEach(order => {
-            if(order.product.additionals.length > 0 || order.product.variants.length > 0) {
-              let prices_add = order.product.additionals.map(add => {
-                return add.price * add.count;
-              });
-              let prices_var = order.product.variants.map(vary => {
-                return vary.price * vary.count;
-              });
-              prices_order = prices_var.concat(prices_add);
+            if(order.product.additionals !== undefined && order.product.variants !== undefined){
+              if(order.product.additionals.length > 0 || order.product.variants.length > 0) {
+                let prices_add = order.product.additionals.map(add => {
+                  return add.price * add.count;
+                });
+                let prices_var = order.product.variants.map(vary => {
+                  return vary.price * vary.count;
+                });
+                prices_order = prices_var.concat(prices_add);
+              }
             } else {
               prices_order = [order.product.price];
             }
@@ -130,7 +132,7 @@ export class DetailsPage implements OnInit {
 
   scrollTo(elementId: string) {
     let y = document.getElementById(elementId);
-    this.content.scrollToPoint(0, y.offsetTop, 5000);
+    this.content.scrollToPoint(0, y.offsetTop-80, 1000);
   }
 
   async showAlertBack() {
@@ -146,7 +148,13 @@ export class DetailsPage implements OnInit {
         {
           text: 'Salir',
           handler: () => {
-            this.navCtrl.back();
+            this.storage.getObject("list_order").then(res => {
+              this.orders = res.filter(ord => (ord.restaurant === this.restaurant.id && ord.user.id !== this.user.id));
+              this.storage.addObject("list_order", this.orders);
+            });
+            setTimeout(() => {
+              this.navCtrl.back();
+            }, 800);
           }
         }
       ]
