@@ -33,6 +33,7 @@ export class AddItemOrderPage implements OnInit {
   cantProduct = 1;
   cantProductVariant = 0;
   cantProductAdd = 0;
+  cantAdditionals = 0;
   counters:any;
 
   activeAgregate = true;
@@ -62,6 +63,8 @@ export class AddItemOrderPage implements OnInit {
 
   ionViewDidEnter() {
 
+    console.log("PRDDD", this.product);
+
     // VARIANTES
     let variante = {
       name: "",
@@ -88,6 +91,7 @@ export class AddItemOrderPage implements OnInit {
     };
     let option_add = [];
     this.product.additionals_products.forEach(addit => {
+      this.cantAdditionals += addit.amount;
       addit.additionals_items.forEach(item => {
         if (item.name !== additional.item.name) {
           option_add.push({"id": item.id, "name": item.name, "price": item.price});
@@ -181,10 +185,6 @@ export class AddItemOrderPage implements OnInit {
       let addes = Object.values(this.counters_add).reduce(
         (previous:number, current:number) => previous + current );
 
-      console.log("SUMATORIA", addes);
-      console.log("CANT_PROD", this.cantProduct);
-      console.log("CANT_ITEM", item.amount);
-      console.log("RES", addes < (this.cantProduct * item.amount));
       if(addes < (this.cantProduct * item.amount)){
         this.counters_add[name] += 1;
         this.cantProductAdd = this.counters_add[name];
