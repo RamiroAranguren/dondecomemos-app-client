@@ -15,7 +15,7 @@
       <p>{{ product.description }}</p>
     </ion-col>
   </ion-row>
-  <ion-row>
+  <ion-row *ngIf="variants.length <= 0">
     <ion-col size="4">
       <span>Cantidad</span>
     </ion-col>

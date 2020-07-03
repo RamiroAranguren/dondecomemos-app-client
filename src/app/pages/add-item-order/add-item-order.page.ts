@@ -131,6 +131,8 @@ export class AddItemOrderPage implements OnInit {
       let vares = Object.values(this.counters_var).reduce(
         (previous:number, current:number) => previous + current );
 
+      // if()
+
       if(vares < this.cantProduct) {
         this.counters_var[name] += 1;
         this.cantProductVariant = this.counters_var[name];
