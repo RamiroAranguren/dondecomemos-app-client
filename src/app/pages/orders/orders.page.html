@@ -1,9 +1,90 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>orders</ion-title>
-  </ion-toolbar>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-back-button></ion-back-button>
+        </ion-buttons>
+        <h2>Órdenes</h2>
+    </ion-toolbar>
 </ion-header>
 
 <ion-content>
+    <ion-segment color="primary" value="pendientes" mode="md">
+        <ion-segment-button (click)="back()" value="pendientes">
+            <ion-label>Pendientes</ion-label>
+        </ion-segment-button>
+        <ion-segment-button (click)="next()" value="finalizados">
+            <ion-label>Finalizados</ion-label>
+        </ion-segment-button>
+    </ion-segment>
 
+    <ion-slides [options]="slideOpts">
+        <ion-slide>
+            <ion-row *ngIf="reservation" class="most-favoritos">
+                <ion-item *ngFor="let item of [1,1,1,1,1]">
+                    <ion-thumbnail slot="end">
+                        <img src="../../../assets/img/resta_default.png" alt="rest-default" />
+                    </ion-thumbnail>
+                    <div class="text-wrapper">
+                        <div class="titulos">
+                            <h2>Reserva de mesa en La consentida</h2>
+                        </div>
+                        <div class="description">
+                            <p>Para 5 el lunes 23</p>
+                            <p>18:445 hs</p>
+                        </div>
+
+                    </div>
+                    <div class="buttons">
+                        <ion-button fill="clear" shape="round">
+                            VER PEDIDO
+                        </ion-button>
+                        <ion-button fill="clear" shape="round">
+                            CANCELAR
+                        </ion-button>
+                    </div>
+                </ion-item>
+            </ion-row>
+            <ion-row class="no-reservation" *ngIf="!reservation">
+                <img src="../../../assets/img/ordersPage/noReservation.svg" alt="">
+                <h3>Aquí se mostrarán tus reservas y pedidos pendientes</h3>
+                <ion-button class="fixed-btn" shape="round">
+                   HACER UNA RESERVA
+                </ion-button>
+            </ion-row>
+        </ion-slide>
+        <ion-slide>
+            <ion-row *ngIf="reservation" class="most-favoritos">
+                <ion-item *ngFor="let item of [1,1,1,1,1]">
+                    <ion-thumbnail slot="end">
+                        <img src="../../../assets/img/resta_default.png" alt="rest-default" />
+                    </ion-thumbnail>
+                    <div class="text-wrapper">
+                        <div class="titulos">
+                            <h2>Reserva de mesa en La consentida</h2>
+                        </div>
+                        <div class="description">
+                            <p>Para 5 el lunes 23</p>
+                            <p>18:445 hs</p>
+                        </div>
+
+                    </div>
+                    <div class="buttons">
+                        <ion-button fill="clear" shape="round">
+                            VER PEDIDO
+                        </ion-button>
+                        <ion-button fill="clear" shape="round">
+                            CALIFICAR
+                        </ion-button>
+                    </div>
+                </ion-item>
+            </ion-row>
+            <ion-row class="no-reservation" *ngIf="!reservation">
+                <img src="../../../assets/img/ordersPage/noReservation.svg" alt="">
+                <h3>Aquí se mostrarán tus reservas y pedidos pendientes</h3>
+                <ion-button class="fixed-btn" shape="round">
+                   HACER UNA RESERVA
+                </ion-button>
+            </ion-row>
+        </ion-slide>
+    </ion-slides>
 </ion-content>

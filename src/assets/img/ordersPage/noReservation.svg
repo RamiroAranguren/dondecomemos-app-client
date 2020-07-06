@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="160" height="160" viewBox="0 0 160 160">
+  <defs>
+    <linearGradient id="linear-gradient" x1="-0.25" y1="-0.077" x2="0.896" y2="0.804" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#fff"/>
+      <stop offset="1" stop-color="#bbbbba"/>
+    </linearGradient>
+    <linearGradient id="linear-gradient-2" x1="0.165" y1="-0.458" x2="0.835" y2="1.458" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#dbdbdb"/>
+      <stop offset="1" stop-color="#7e7e7e"/>
+    </linearGradient>
+    <linearGradient id="linear-gradient-3" x1="0.159" y1="-0.351" x2="0.841" y2="1.352" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#f5f4f5"/>
+      <stop offset="1" stop-color="#b7b7b7"/>
+    </linearGradient>
+  </defs>
+  <g id="Órdenes_Ilustración_Perfil_empty_state" data-name="Órdenes Ilustración_Perfil empty state" transform="translate(-290.28 -227.98)">
+    <circle id="Elipse_46" data-name="Elipse 46" cx="80" cy="80" r="80" transform="translate(290.28 227.98)" fill="#f9f9f9"/>
+    <rect id="Rectángulo_98" data-name="Rectángulo 98" width="80" height="104" rx="2" transform="translate(330.28 264.978)" fill="url(#linear-gradient)"/>
+    <line id="Línea_44" data-name="Línea 44" y1="0.362" x2="57.6" transform="translate(341.48 305.759)" fill="none" stroke="#717070" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/>
+    <line id="Línea_45" data-name="Línea 45" y1="0.358" x2="57.6" transform="translate(341.48 319.382)" fill="none" stroke="#717070" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/>
+    <line id="Línea_46" data-name="Línea 46" y1="0.358" x2="57.6" transform="translate(341.48 333.004)" fill="none" stroke="#717070" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/>
+    <line id="Línea_47" data-name="Línea 47" y1="0.362" x2="57.6" transform="translate(341.48 346.623)" fill="none" stroke="#717070" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/>
+    <rect id="Rectángulo_99" data-name="Rectángulo 99" width="80" height="28" rx="2" transform="translate(330.28 263.81)" fill="url(#linear-gradient-2)"/>
+    <circle id="Elipse_47" data-name="Elipse 47" cx="8" cy="8" r="8" transform="translate(361.998 245.404)" fill="#e8e7e7"/>
+    <rect id="Rectángulo_100" data-name="Rectángulo 100" width="40" height="16" rx="4" transform="translate(350.28 256.978)" fill="url(#linear-gradient-3)"/>
+    <circle id="Elipse_48" data-name="Elipse 48" cx="4" cy="4" r="4" transform="translate(365.998 249.404)" fill="#f49a4e"/>
+  </g>
+</svg>
