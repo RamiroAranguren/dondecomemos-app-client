@@ -15,6 +15,7 @@ export class OrdersPage implements OnInit {
         speed: 400
     };
     reservation:boolean = true;
+    invitado:boolean = false;
     ngOnInit() {
 
     }

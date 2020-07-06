@@ -7,7 +7,7 @@
     </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content *ngIf="!invitado">
     <ion-segment color="primary" value="pendientes" mode="md">
         <ion-segment-button (click)="back()" value="pendientes">
             <ion-label>Pendientes</ion-label>
@@ -47,9 +47,6 @@
             <ion-row class="no-reservation" *ngIf="!reservation">
                 <img src="../../../assets/img/ordersPage/noReservation.svg" alt="">
                 <h3>Aquí se mostrarán tus reservas y pedidos pendientes</h3>
-                <ion-button class="fixed-btn" shape="round">
-                   HACER UNA RESERVA
-                </ion-button>
             </ion-row>
         </ion-slide>
         <ion-slide>
@@ -80,10 +77,46 @@
             </ion-row>
             <ion-row class="no-reservation" *ngIf="!reservation">
                 <img src="../../../assets/img/ordersPage/noReservation.svg" alt="">
-                <h3>Aquí se mostrarán tus reservas y pedidos pendientes</h3>
-                <ion-button class="fixed-btn" shape="round">
-                   HACER UNA RESERVA
+                <h3>Aquí se mostrarán tus reservas y pedidos finalizados. ¡Hacé tu
+                    primera reserva!</h3>
+            </ion-row>
+        </ion-slide>
+    </ion-slides>
+    <ion-button class="fixed-btn" shape="round" *ngIf="!reservation">
+        HACER UNA RESERVA
+    </ion-button>
+</ion-content>
+<ion-content *ngIf="invitado">
+    <ion-segment color="primary" value="pendientes" mode="md">
+        <ion-segment-button (click)="back()" value="pendientes">
+            <ion-label>Pendientes</ion-label>
+        </ion-segment-button>
+        <ion-segment-button (click)="next()" value="finalizados">
+            <ion-label>Finalizados</ion-label>
+        </ion-segment-button>
+    </ion-segment>
+
+    <ion-slides [options]="slideOpts">
+        <ion-slide>
+            <ion-row class="no-register">
+                <img src="../../../assets/img/ordersPage/noReservation.svg" alt="">
+                <h3>Por favor inicie sesión o regístrese
+                    para ver sus reservas y pedidos</h3>
+                <ion-button expand="block" shape="round">
+                    Iniciar sesión
                 </ion-button>
+                <ion-button expand="block" shape="round">
+                    Registrarse
+                </ion-button>
+                <p>O ingresar con</p>
+                <div class="login-GF">
+                    <ion-button expand="block" shape="round">
+                        Google
+                    </ion-button>
+                    <ion-button expand="block" shape="round">
+                        Facebook
+                    </ion-button>
+                </div>
             </ion-row>
         </ion-slide>
     </ion-slides>
