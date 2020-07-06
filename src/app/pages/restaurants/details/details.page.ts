@@ -85,20 +85,17 @@ export class DetailsPage implements OnInit {
   ionViewDidEnter(){
     this.picsService.get(this.restaurant.id).then((pics:any) => {
       this.pictures = pics;
-      console.log('pictures', this.pictures)
     });
 
     //SERVICE GET PRODUCTS-CATEGORIES
     this.productCategoriesService.get(this.restaurant.id).then((categories:any) => {
       this.product_categories = categories;
-      console.log('product_categories', this.product_categories)
       this.product_titles = this.product_categories.map(category => category.name);
     });
 
     //SERVICE GET MENÚS
     this.menuService.get(this.restaurant.id).then((menues:any) => {
       this.menues = menues;
-      console.log('menues', this.menues);
     });
 
     setTimeout(() => {
@@ -107,19 +104,26 @@ export class DetailsPage implements OnInit {
           this.orders = res.filter(ord => (ord.restaurant === this.restaurant.id && ord.user.id === this.user.id));
           let prices_order = [];
           this.orders.forEach(order => {
-            if(order.product.additionals !== undefined && order.product.variants !== undefined){
-              if(order.product.additionals.length > 0 || order.product.variants.length > 0) {
-                let prices_add = order.product.additionals.map(add => {
-                  return add.price * add.count;
-                });
+
+            if(order.product.variants !== undefined){
+              if(order.product.variants.length > 0) {
                 let prices_var = order.product.variants.map(vary => {
                   return vary.price * vary.count;
                 });
-                prices_order = prices_var.concat(prices_add);
+                prices_order = prices_order.concat(prices_var);
               }
-            } else {
-              prices_order = [order.product.price];
             }
+
+            if(order.product.additionals !== undefined) {
+              if(order.product.additionals.length > 0) {
+                let prices_add = order.product.additionals.map(add => {
+                  return add.price * add.count;
+                });
+                prices_order = prices_order.concat(prices_add);
+              }
+            }
+
+            prices_order = prices_order.concat(order.product.price);
           });
 
           if(prices_order.length > 0){
@@ -197,7 +201,6 @@ export class DetailsPage implements OnInit {
           handler: () => {
             this.storage.getObject("favorites").then(res => {
               let id_fav = this.favorites.filter(data => data.restaurant.id === id);
-              console.log(id_fav);
               this.favService.delete(id_fav[0].id).then((res:any) => {
                 let id_fav_resto = this.favorites.filter(fav => {
                   if(fav.restaurant.id !== id)

@@ -4,6 +4,7 @@ import { NavController, AlertController } from '@ionic/angular';
 import { StorageService } from '../../services/storage/storage.service';
 import { ToastService } from 'src/app/services/toast/toast.service';
 import { UserInterface } from 'src/app/interfaces/user';
+import { Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-add-item-order',
@@ -30,7 +31,7 @@ export class AddItemOrderPage implements OnInit {
   counters_add:any;
   counters_var:any;
 
-  cantProduct = 1;
+  cantProduct:number = 1;
   cantProductVariant = 0;
   cantProductAdd = 0;
   cantAdditionals = 0;
@@ -63,8 +64,6 @@ export class AddItemOrderPage implements OnInit {
 
   ionViewDidEnter() {
 
-    console.log("PRDDD", this.product);
-
     // VARIANTES
     let variante = {
       name: "",
@@ -82,7 +81,9 @@ export class AddItemOrderPage implements OnInit {
       this.count_variants[vary.name] = 0;
     });
     this.counters_var = this.count_variants;
-    this.variants.push(variante);
+    if(variante.name !== ""){
+      this.variants.push(variante);
+    }
 
     // ADDITIONALS
     let additional = {
@@ -91,6 +92,9 @@ export class AddItemOrderPage implements OnInit {
     };
     let option_add = [];
     this.product.additionals_products.forEach(addit => {
+      if(addit.type !== 'Obligatoria'){
+        this.activeAgregate = false;
+      }
       this.cantAdditionals += addit.amount;
       addit.additionals_items.forEach(item => {
         if (item.name !== additional.item.name) {
@@ -115,48 +119,72 @@ export class AddItemOrderPage implements OnInit {
 
   addCantProduct() {
     this.cantProduct += 1;
-    this.activeAgregate = true;
+    if(this.product.variants.length === 0 && this.product.additionals_products.length === 0) {
+      this.activeAgregate = false;
+    } else {
+      if(this.product.additionals_products.length > 0){
+        if(this.product.additionals_products[0].type !== 'Obligatoria'){
+          this.activeAgregate = false;
+        } else {
+          this.activeAgregate = true;
+        }
+      } else {
+        this.activeAgregate = true;
+      }
+
+    }
   }
 
   removeCantProduct() {
-    if(this.cantProduct >= 2)
+    if(this.cantProduct >= 2){
       this.cantProduct -= 1;
-    this.activeAgregate = true;
+    }
+    if(this.product.variants.length === 0 && this.product.additionals_products.length === 0) {
+      this.activeAgregate = false;
+    } else {
+      if(this.product.additionals_products.length > 0){
+        if(this.product.additionals_products[0].type !== 'Obligatoria'){
+          this.activeAgregate = false;
+        } else {
+          this.activeAgregate = true;
+        }
+      } else {
+        this.activeAgregate = true;
+      }
+
+    }
   }
 
   addCantVariant(idSelect, name) {
 
     if(this.counters_var !== undefined) {
 
-      let vares = Object.values(this.counters_var).reduce(
-        (previous:number, current:number) => previous + current );
+      this.counters_var[name] += 1;
+      this.cantProductVariant = this.counters_var[name];
+      let idElement = `count-variant-${idSelect}`;
+      let element = document.getElementById(idElement);
+      element.innerHTML=this.cantProductVariant.toString();
 
-      // if()
-
-      if(vares < this.cantProduct) {
-        this.counters_var[name] += 1;
-        this.cantProductVariant = this.counters_var[name];
-        let idElement = `count-variant-${idSelect}`;
-        let element = document.getElementById(idElement);
-        element.innerHTML=this.cantProductVariant.toString();
-      }
-
-      let vares_validation = Object.values(this.counters_var).reduce(
-        (previous:number, current:number) => previous + current );
-
-      if(vares_validation == this.cantProduct && this.counters_add === undefined){
+      if(this.counters_add === undefined){
         this.activeAgregate = false;
       } else {
         this.activeAgregate = true;
       }
     }
 
+    if(this.variants.length > 0 && this.counters_var !== undefined) {
+      let vares = Object.values<number>(this.counters_var).reduce(
+        (previous:number, current:number) => {
+          return previous + current
+        }, 0);
+      this.cantProduct = vares;
+    }
   }
 
   removeCantVariant(idSelect, name) {
 
     if(this.counters_var !== undefined) {
-      let vares = Object.values(this.counters_var).reduce(
+      let vares = Object.values<number>(this.counters_var).reduce(
         (previous:number, current:number) => previous + current );
 
       if(vares >= 1){
@@ -171,18 +199,32 @@ export class AddItemOrderPage implements OnInit {
         element.innerHTML = this.cantProductVariant.toString();
       }
 
-      let vares_validation = Object.values(this.counters_var).reduce(
-        (previous:number, current:number) => previous + current );
-
-      if(vares_validation === this.cantProduct && this.counters_add === undefined){
+      if(this.counters_add === undefined){
         this.activeAgregate = false;
       } else {
         this.activeAgregate = true;
       }
+
+    }
+
+    if(this.variants.length > 0 && this.counters_var !== undefined) {
+      let vares = Object.values<number>(this.counters_var).reduce(
+        (previous:number, current:number) => {
+          return previous + current
+        }, 0);
+      this.cantProduct = vares;
     }
   }
 
   addCantAdd(item, idSelect, name) {
+    if(this.variants.length > 0 && this.counters_var !== undefined) {
+      let vares = Object.values<number>(this.counters_var).reduce(
+        (previous:number, current:number) => {
+          return previous + current
+        }, 0);
+      this.cantProduct = vares;
+    }
+
     if(this.counters_add !== undefined) {
       let addes = Object.values(this.counters_add).reduce(
         (previous:number, current:number) => previous + current );
@@ -195,29 +237,48 @@ export class AddItemOrderPage implements OnInit {
         element.innerHTML=this.cantProductAdd.toString();
       }
 
-      let vares = Object.values(this.counters_var).reduce(
-        (previous:number, current:number) => previous + current );
+      let vares:any;
+      if(this.variants.length > 0 && this.counters_var !== undefined) {
+        vares = Object.values<number>(this.counters_var).reduce(
+          (previous:number, current:number) => {
+            return previous + current
+          }, 0);
+      } else {
+        vares = undefined;
+      }
 
       let addes_validation = Object.values(this.counters_add).reduce(
         (previous:number, current:number) => previous + current );
 
-      if(vares !== undefined) {
-        if(addes_validation === (this.cantProduct * item.amount) && vares === this.cantProduct){
-          this.activeAgregate = false;
+      if(item.type === 'Obligatoria'){
+        if(vares !== undefined) {
+          if(addes_validation === (this.cantProduct * item.amount) && vares === this.cantProduct){
+            this.activeAgregate = false;
+          } else {
+            this.activeAgregate = true;
+          }
         } else {
-          this.activeAgregate = true;
+          if(addes_validation === (this.cantProduct * item.amount)){
+            this.activeAgregate = false;
+          } else {
+            this.activeAgregate = true;
+          }
         }
       } else {
-        if(addes_validation === item.amount){
-          this.activeAgregate = false;
-        } else {
-          this.activeAgregate = true;
-        }
+        this.activeAgregate = false;
       }
     }
   }
 
   removeCantAdd(item, idSelect, name) {
+
+    if(this.variants.length > 0 && this.counters_var !== undefined) {
+      let vares = Object.values<number>(this.counters_var).reduce(
+        (previous:number, current:number) => {
+          return previous + current
+        }, 0);
+      this.cantProduct = vares;
+    }
 
     if(this.counters_add !== undefined) {
       let addes = Object.values(this.counters_add).reduce(
@@ -237,16 +298,35 @@ export class AddItemOrderPage implements OnInit {
         }
       }
 
-      let vares = Object.values(this.counters_var).reduce(
-        (previous:number, current:number) => previous + current );
+      let vares:any;
+      if(this.variants.length > 0 && this.counters_var !== undefined) {
+        vares = Object.values<number>(this.counters_var).reduce(
+          (previous:number, current:number) => {
+            return previous + current
+          }, 0);
+      } else {
+        vares = undefined;
+      }
 
       let addes_validation = Object.values(this.counters_add).reduce(
         (previous:number, current:number) => previous + current );
 
-      if(addes_validation === (this.cantProduct * item.amount) && vares === this.cantProduct){
-        this.activeAgregate = false;
+      if(item.type === 'Obligatoria'){
+        if(vares !== undefined) {
+          if(addes_validation === (this.cantProduct * item.amount) && vares === this.cantProduct){
+            this.activeAgregate = false;
+          } else {
+            this.activeAgregate = true;
+          }
+        } else {
+          if(addes_validation === (this.cantProduct * item.amount)){
+            this.activeAgregate = false;
+          } else {
+            this.activeAgregate = true;
+          }
+        }
       } else {
-        this.activeAgregate = true;
+        this.activeAgregate = false;
       }
     }
   }
