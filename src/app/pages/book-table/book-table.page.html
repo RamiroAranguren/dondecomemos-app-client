@@ -27,7 +27,7 @@
             </ion-col>
         </ion-row>
         <h2>Elija la fecha</h2>
-        <i-row class="choose-date">
+        <ion-row class="choose-date">
             <ion-segment scrollable="true" value="lun" mode="md">
                 <ion-segment-button mode="md" [value]="item" *ngFor="let item of days; index as i">
                     <div>
@@ -36,9 +36,9 @@
                     </div>
                 </ion-segment-button>
             </ion-segment>
-        </i-row>
+        </ion-row>
         <h2>Seleccione hora</h2>
-        <i-row class="choose-hour">
+        <ion-row class="choose-hour">
             <ion-segment scrollable="true" value="14:00" mode="md">
                 <ion-segment-button  mode="md" [value]="item" *ngFor="let item of hours; index as i">
                     <div>
@@ -46,9 +46,9 @@
                     </div>
                 </ion-segment-button>
             </ion-segment>
-        </i-row>
+        </ion-row>
         <h2>Desea pre-ordenar la comida</h2>
-        <i-row class="pre-order-question">
+        <ion-row class="pre-order-question">
             <div class="wrapper">
                 <div [ngClass]="{'check-color' : !preOrder}" (click)="preOrderAnswer(false)">
                     <p>No</p>
@@ -57,9 +57,9 @@
                     <p> Si </p>
                 </div>
             </div>
-        </i-row>
+        </ion-row>
         <h2>Motivo (opcional)</h2>
-        <i-row class="reason">
+        <ion-row class="reason">
             <section>
                 <ion-button [ngClass]="{'check-color-button' : cumpleanos}" (click)="check('cumpleanos')" size="small" >Cumpleaños</ion-button>
                 <ion-button [ngClass]="{'check-color-button' : cita}" (click)="check('cita')" size="small" >Cita</ion-button>
@@ -67,16 +67,16 @@
                 <ion-button [ngClass]="{'check-color-button' : laboral}" (click)="check('laboral')" size="small" >Laboral</ion-button>
                 <ion-button [ngClass]="{'check-color-button' : otro}" (click)="check('otro')" size="small" >Otro</ion-button>
             </section>
-        </i-row>
+        </ion-row>
         <h2>Comentario (opcional)</h2>
-        <i-row class="commentary">
+        <ion-row class="commentary">
             <section>
                 <ion-item>
                     <ion-label position="floating">Comentario</ion-label>
                     <ion-input></ion-input>
                   </ion-item>
             </section>
-        </i-row>
+        </ion-row>
     </ion-grid>
     <ion-button
     *ngIf="preOrder"

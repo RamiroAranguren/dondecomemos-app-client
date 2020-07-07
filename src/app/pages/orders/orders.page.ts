@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { IonSlides, IonSegment, IonSegmentButton } from '@ionic/angular';
+import { IonSlides, IonSegment, IonSegmentButton, NavController } from '@ionic/angular';
 
 @Component({
     selector: 'app-orders',
@@ -9,7 +9,9 @@ import { IonSlides, IonSegment, IonSegmentButton } from '@ionic/angular';
 export class OrdersPage implements OnInit {
     @ViewChild(IonSlides) slides: IonSlides;
 
-    constructor() { }
+    constructor(
+        private navCtrl: NavController
+    ) { }
     slideOpts = {
         initialSlide: 0,
         speed: 400
@@ -30,7 +32,11 @@ export class OrdersPage implements OnInit {
     back() {
         this.slides.lockSwipes(false);
         this.slides.slidePrev();
-        this.slides.lockSwipes(true);    
+        this.slides.lockSwipes(true);
+    }
+
+    goToRate() {
+        this.navCtrl.navigateForward('/order/rate');
     }
 
 }

@@ -99,6 +99,14 @@ const routes: Routes = [
   {
     path: 'restaurant/view-list-orders',
     loadChildren: () => import('./pages/view-list-orders/view-list-orders.module').then( m => m.ViewListOrdersPageModule)
+  },
+  {
+    path: 'order/rate',
+    loadChildren: () => import('./pages/rate/rate/rate.module').then( m => m.RatePageModule)
+  },
+  {
+    path: 'order/review',
+    loadChildren: () => import('./pages/review/review/review.module').then( m => m.ReviewPageModule)
   }
 
 ];

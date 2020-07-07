@@ -157,7 +157,7 @@ export class DetailsPage implements OnInit {
               this.storage.addObject("list_order", this.orders);
             });
             setTimeout(() => {
-              this.navCtrl.back();
+              this.navCtrl.navigateRoot('/tabs/home');
             }, 800);
           }
         }
