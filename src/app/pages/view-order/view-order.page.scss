@@ -1,0 +1,96 @@
+* {
+    color: #1d252d;
+}
+ion-toolbar {
+    padding: 5px;
+    h2 {
+        font-family: DMSerifDisplayRegular;
+        font-size: 1.6rem;
+        font-weight: normal;
+        margin: 10px 0px 10px 10vw;
+    }
+}
+.main {
+    p {
+        font-family: FieldworkGeoLight;
+    }
+    h4 {
+        font-family: FieldworkGeoLight;
+    }
+    h3 {
+        font-family: FieldworkGeoLight;
+    }
+    ion-grid {
+        padding-left: 5vw;
+        padding-top: 6.5vw;
+        padding-right: 0;
+        h2 {
+            margin: 0;
+            font-family: DMSerifDisplayRegular;
+            font-size: 20px;
+        }
+        .order {
+            .wrapper-order {
+                margin-top: 5vw;
+                width: 90vw;
+                border: 1px solid #1d252d;
+                border-radius: 14.4px;
+                padding-left: 2vw;
+                padding-right: 2vw;
+                h3 {
+                    font-size: 16px;
+                    margin-top: 2vw;
+                    margin-bottom: 2vw;
+                }
+                p {
+                    font-size: 14px;
+                    margin: 0;
+                }
+                .first-p {
+                    margin: 0;
+                }
+                .second-p {
+                    margin-bottom: 2vw;
+                }
+                div {
+                    display: flex;
+                    flex-direction: row;
+                    justify-content: space-between;
+                    h4 {
+                        font-size: 16px;
+                        margin: 0;
+                    }
+                }
+            }
+        }
+        .price-info {
+            .price-wrapper {
+                display: flex;
+                flex-direction: column;
+                margin-top: 14vw;
+                div {
+                    display: flex;
+                    flex-direction: row;
+                    width: 58.75vw;
+                    justify-content: space-between;
+
+                    p {
+                        font-size: 16px;
+                        text-align: left;
+                        margin: 0;
+                    }
+                    .price-percent {
+                        width: 50px;
+                    }
+                }
+                .total-price {
+                    font-size: 20px;
+                    text-align: right;
+                    padding-right: 7vw;
+                    margin-bottom: 10vw;
+                }
+            }
+        }
+     
+    }
+}

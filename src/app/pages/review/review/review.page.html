@@ -1,12 +1,28 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-back-button></ion-back-button>
-    </ion-buttons>
-    <ion-title>Reseña</ion-title>
-  </ion-toolbar>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-back-button></ion-back-button>
+        </ion-buttons>
+        <h2>Reseña</h2>
+    </ion-toolbar>
 </ion-header>
 
 <ion-content>
-
+    <ion-grid class="main" fixed>
+        <ion-row class="main-title">
+            <p>Por favor, califique su experiencia en</p>
+            <h2>La Consentida</h2>
+            <p>La comunidad de Donde comemos se lo agradecerá.</p>
+        </ion-row>
+        <i-row class="review">
+            <ion-item>
+                <ion-label position="floating">Reseña</ion-label>
+                <ion-input></ion-input>
+            </ion-item>
+        </i-row>
+    </ion-grid>
+    <ion-button class="fixed-btn" [ngClass]="{'disabled-button': disabledButton}" [disabled]="disabledButton"
+        shape="round">
+        CONTINUAR
+    </ion-button>
 </ion-content>

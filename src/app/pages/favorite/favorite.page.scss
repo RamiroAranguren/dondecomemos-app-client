@@ -13,7 +13,7 @@ ion-toolbar {
     // margin: 0px 15px 20px;
     margin: 0px 15px;
     text-transform: none;
-    font-family: FieldworkHumHair;
+    font-family: FieldworkGeoLight;
     --background: var(--bg-primary-tint);
     font-size: 1rem;
     --padding-bottom: 23px;
@@ -95,6 +95,9 @@ ion-toolbar {
                 #heart-icon {
                     width: 15%;
                     font-size: 1.5em;
+                }
+                #star-icon{
+                    vertical-align: bottom !important;
                 }
             }
         }

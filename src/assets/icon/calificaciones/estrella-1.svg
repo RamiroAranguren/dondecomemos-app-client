@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 26 26">
+  <g id="Grupo_28" data-name="Grupo 28" transform="translate(-12 -12)">
+    <g id="color">
+      <path id="Trazado_51" data-name="Trazado 51" d="M25,13.061a12,12,0,1,0,12,12A12.013,12.013,0,0,0,25,13.061Z" fill="#fcea2b"/>
+    </g>
+    <g id="line">
+      <circle id="Elipse_36" data-name="Elipse 36" cx="12" cy="12" r="12" transform="translate(13 13)" fill="none" stroke="#000" stroke-miterlimit="10" stroke-width="2"/>
+      <path id="Trazado_52" data-name="Trazado 52" d="M20.043,30.217a6.33,6.33,0,0,1,5.218-2.083,6.1,6.1,0,0,1,4.7,2.083" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+      <path id="Trazado_53" data-name="Trazado 53" d="M17.957,18.258a3.747,3.747,0,0,0,2.561.854,3.7,3.7,0,0,0,2.134-.854" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+      <path id="Trazado_54" data-name="Trazado 54" d="M27.348,18.258a3.747,3.747,0,0,0,2.561.854,3.693,3.693,0,0,0,2.134-.854" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+      <path id="Trazado_55" data-name="Trazado 55" d="M21.87,22.391A1.566,1.566,0,1,1,20.3,20.826a1.566,1.566,0,0,1,1.566,1.565"/>
+      <path id="Trazado_56" data-name="Trazado 56" d="M31.261,22.391A1.566,1.566,0,1,1,29.7,20.826a1.566,1.566,0,0,1,1.565,1.565"/>
+    </g>
+  </g>
+</svg>

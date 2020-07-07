@@ -1,0 +1,65 @@
+* {
+    margin: 0;
+    padding: 0;
+    color: #1d252d;
+}
+ion-toolbar {
+    padding: 5px;
+    h2 {
+        font-family: DMSerifDisplayRegular;
+        font-size: 1.6rem;
+        font-weight: normal;
+        margin: 10px 0px 10px 10vw;
+    }
+}
+ion-grid{
+    padding: 5vw;
+    .main-title{
+        text-align: center;
+        p{
+            font-size: 16px;
+            width: 100%;
+            font-family: FieldworkGeoLight;
+        }
+        h2{
+            font-size: 28px;
+            width: 100%;
+            padding-top: 8vw;
+            padding-bottom: 8vw;
+            font-family: DMSerifDisplayRegular;
+        }
+        padding-bottom: 15vw;
+    }
+    .review{
+        ion-item{
+            margin-right: 10vw;
+            margin-left: 5vw;
+            font-family: FieldworkGeoLight;
+            --background: var(--secondary-grey);
+            ion-label{
+                font-family: FieldworkGeoLight;
+            }
+            ion-input{
+                --placeholder-font-style: FieldworkGeoLight;
+            }
+        }       
+    }
+
+}
+.fixed-btn {
+    height: 48px;
+    left: 15vw;
+    position: absolute;
+    bottom: 40px;
+    right: 0;
+    width: 70%;
+    z-index: 100;
+    --color: #1d252d;
+    text-transform: uppercase;
+    font-family: FieldworkGeoLight;
+    font-size: 16px;
+    letter-spacing: 0.05rem;
+    --background: #f89b4c;
+    margin: 0;
+    --border-radius: 16px;
+}
