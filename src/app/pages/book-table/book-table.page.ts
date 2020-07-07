@@ -122,7 +122,7 @@ export class BookTablePage implements OnInit {
         horarios.forEach(data => {
 
             let start = moment(data[0], "HH:mm");
-            let finish = moment(data[1], "HH:mm");
+            let finish = moment(data[1], "HH:mm").subtract(toMinute, 'minutes');
 
             if(isToday){
 
@@ -157,11 +157,13 @@ export class BookTablePage implements OnInit {
     }
 
     addPeople() {
-
+        this.countPeople += 1;
     }
 
     removePeople() {
-
+        if(this.countPeople >= 2){
+            this.countPeople -= 1;
+        }
     }
 
 }
