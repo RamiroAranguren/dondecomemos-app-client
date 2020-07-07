@@ -8,9 +8,40 @@
 </ion-header>
 
 <ion-content>
-
-  <ion-button (click)="goToReview()" expand="block" fill="clear" shape="round">
-    Calificar
-  </ion-button>
-
+    <ion-grid class="main" fixed>
+        <ion-row class="main-title">
+            <p>Por favor, califique su experiencia en</p>
+            <h2>La Consentida</h2>
+        </ion-row>
+        <i-row class="qualification">
+            <div class="icon-title">
+                <h3>Comida</h3>
+                <img src="../../../../assets/icon/calificaciones/estrella-5.svg" alt="" srcset="">
+            </div>
+            <div class="stars-wrapper">
+                <img *ngFor="let item of [1,1,1,1,1]" src="../../../../assets/icon/calificaciones/star-vacia.svg" alt="">
+            </div>
+        </i-row>
+        <i-row class="qualification">
+            <div class="icon-title">
+                <h3>Ambiente</h3>
+                <img src="../../../../assets/icon/calificaciones/estrella-3.svg" alt="" srcset="">
+            </div>
+            <div class="stars-wrapper">
+                <img *ngFor="let item of [1,1,1,1,1]" src="../../../../assets/icon/calificaciones/star-completo.svg" alt="">
+            </div>
+        </i-row>
+        <i-row class="qualification">
+            <div class="icon-title">
+                <h3>Servicio</h3>
+                <img src="../../../../assets/icon/calificaciones/estrella-4.svg" alt="" srcset="">
+            </div>
+            <div class="stars-wrapper">
+                <img *ngFor="let item of [1,1,1,1,1]" src="../../../../assets/icon/calificaciones/star-completo.svg" alt="">
+            </div>
+        </i-row>
+    </ion-grid>
+    <ion-button (click)="goToReview()" class="fixed-btn" [ngClass]="{'disabled-button': disabledButton}" [disabled]="disabledButton" shape="round">
+        CALIFICAR
+    </ion-button>
 </ion-content>
