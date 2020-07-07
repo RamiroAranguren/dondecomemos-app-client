@@ -65,28 +65,19 @@
             </ion-col>
             <ion-col id="country-chips" size="12">
                 <ion-row  class="ion-padding-start ion-padding-end">
-                    <ion-col size="4" *ngFor="let chip of chips">
+                    <div  *ngFor="let chip of chips">
                         <ion-chip id="cook-{{ chip.tag.id }}"  (click)="addChip('cook', chip.tag)">
                             <ion-label>{{ chip.tag.name }}</ion-label>
                         </ion-chip>
-                    </ion-col>
+                    </div>
                 </ion-row>
             </ion-col>
         </ion-row>
-        <br><br>
-        <ion-row class="ion-padding-start ion-padding-end">
-            <ion-col size="12">
-                <ion-button (click)="applicateFilters()" color="btn-dc" expand="block" shape="round">
-                    Aplicar filtros
-                </ion-button>
-            </ion-col>
-        </ion-row>
-        <ion-row class="ion-padding-start ion-padding-end" style="text-align: center;">
-            <ion-col size="12">
-                <a (click)="resetFilters()" class="resetButton" expand="block" shape="round">
-                    Resetear
-                </a>
-            </ion-col>
-        </ion-row>
     </ion-grid>
+    <ion-button (click)="applicateFilters()" class="filter-button"  expand="block" shape="round">
+        Aplicar filtros
+    </ion-button>
+    <ion-button (click)="resetFilters()" class="filter-button" color="light" expand="block" shape="round">
+        Resetear
+    </ion-button>
 </ion-content>
