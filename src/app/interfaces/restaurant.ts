@@ -1,12 +1,13 @@
 import { product } from "./product";
 
 export interface restaurant {
+    id: number;
     name: String;
     img: String;
     address: String;
     description: String;
     products: product[];
-    id: number;
+    max_diners: number;
     profile_picture: String;
     influence_range: number;
     delivery: boolean;
@@ -15,7 +16,7 @@ export interface restaurant {
         opening_hour: String,
         closing_hour: String
     }
-    hours_week: any[],
+    hours_week: any,
     renewal_time: String,
     public_key:string,
     promotions: any,

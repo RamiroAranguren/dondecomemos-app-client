@@ -255,11 +255,15 @@ export class DetailsPage implements OnInit {
   }
 
   bookTable() {
-    this.navCtrl.navigateForward('/restaurant/book-table');
+    let navigationExtras: NavigationExtras = {
+      state: {restaurant: this.restaurant}};
+    this.navCtrl.navigateForward(['/restaurant/book-table'], navigationExtras);
   }
 
   viewOrders() {
-    this.navCtrl.navigateForward('/restaurant/view-list-orders');
+    let navigationExtras: NavigationExtras = {
+      state: {restaurant: this.restaurant}};
+    this.navCtrl.navigateForward(['/restaurant/view-list-orders'], navigationExtras);
   }
 
 }

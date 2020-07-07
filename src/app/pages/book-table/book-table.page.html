@@ -9,17 +9,17 @@
 
 <ion-content>
     <ion-grid fixed>
-        <h2>¿Cuántas personas?</h2>
+        <h2>¿Cuántas personas? <small style="color:lightgrey; font-family: Arial, Helvetica, sans-serif;">(Capacidad máx. {{ restaurant.max_diners }})</small></h2>
         <ion-row class="people-counter">
             <ion-col size="6">
-                <p>02</p>
+                <p>{{ countPeople }}</p>
             </ion-col>
             <ion-col size="6">
                 <div>
-                    <ion-button class="button-padding" (click)="onClick()" fill="clear">
+                    <ion-button class="button-padding" (click)="addPeople()" fill="clear">
                         <img src="../../../assets/buttons/book-table/minus-button.svg" alt="" srcset="">
                     </ion-button>
-                    <ion-button (click)="onClick()" fill="clear">
+                    <ion-button (click)="removePeople()" fill="clear">
                         <img src="../../../assets/buttons/book-table/plus-button.svg" alt="" srcset="">
                     </ion-button>
                 </div>
@@ -29,20 +29,25 @@
         <h2>Elija la fecha</h2>
         <ion-row class="choose-date">
             <ion-segment scrollable="true" value="lun" mode="md">
-                <ion-segment-button mode="md" [value]="item" *ngFor="let item of days; index as i">
+                <ion-segment-button
+                    *ngFor="let item of days"
+                    (click)="checkHours(item)"
+                    mode="md"
+                    [value]="item.day">
                     <div>
-                        <p class="day">{{item}}</p>
-                        <p>{{i + 1}}</p>
+                        <p class="day">{{ item.day }}</p>
+                        <p>{{ item.date }}</p>
                     </div>
                 </ion-segment-button>
             </ion-segment>
         </ion-row>
         <h2>Seleccione hora</h2>
-        <ion-row class="choose-hour">
+        <p *ngIf="hours.length <= 0" style="color: rgb(168, 167, 167);"> {{ message_hours }} </p>
+        <ion-row class="choose-hour" *ngIf="hours.length > 0">
             <ion-segment scrollable="true" value="14:00" mode="md">
-                <ion-segment-button  mode="md" [value]="item" *ngFor="let item of hours; index as i">
+                <ion-segment-button  mode="md" [value]="hour" *ngFor="let hour of hours">
                     <div>
-                        <p class="day">{{item}}</p>
+                        <p class="day">{{ hour }}</p>
                     </div>
                 </ion-segment-button>
             </ion-segment>
