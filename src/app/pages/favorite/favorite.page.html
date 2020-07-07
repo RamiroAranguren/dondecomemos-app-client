@@ -23,10 +23,14 @@
             </div>
             <div class="iconos">
                 <div id="icon-rate">
-                    <ion-icon name="star" *ngIf="fav.restaurant.qualifications.length > 0"></ion-icon> 
+                    <!-- <ion-icon name="star" *ngIf="fav.restaurant.qualifications.length > 0"></ion-icon> -->
+                    <img id="star-icon" src="../../../assets/icon/favorite/star-favorite.svg" *ngIf="fav.restaurant.qualifications.length > 0" alt=""> 
                     <span style="font-family: FieldworkGeoLight;">{{ fav.restaurant | score }} {{ fav.restaurant.score }}</span>
                 </div>
-                <ion-icon id="heart-icon" name="heart" (click)="removeFav(fav.id)"></ion-icon>
+                <!-- <ion-icon id="heart-icon" name="heart" (click)="removeFav(fav.id)"></ion-icon> -->
+                <div>
+                    <img src="../../../assets/icon/favorite/hearth-favorite.svg" alt="" srcset="">
+                </div>                
             </div>
         </ion-label>
     </ion-item>
@@ -55,7 +59,7 @@
         <ion-row>
             <ion-col size=" 12 " class="ion-padding-top ion-padding-bottom">
                 <ion-button (click)="login() " class="cnx_btn " expand="block " fill="clear " shape="round ">
-                    Iniciar Sesión
+                    Iniciar sesión
                 </ion-button>
             </ion-col>
         </ion-row>
