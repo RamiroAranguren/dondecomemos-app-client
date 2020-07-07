@@ -3,6 +3,15 @@
     padding: 0;
     color: #1d252d;
 }
+ion-toolbar {
+    padding: 5px;
+    h2 {
+        font-family: DMSerifDisplayRegular;
+        font-size: 1.6rem;
+        font-weight: normal;
+        margin: 10px 0px 10px 10vw;
+    }
+}
 ion-grid{
     padding: 5vw;
     .main-title{
