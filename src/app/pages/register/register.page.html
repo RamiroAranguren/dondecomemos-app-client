@@ -1,7 +1,19 @@
-<app-header title=""></app-header>
-
-<ion-content>
+<!-- <app-header title=""></app-header> -->
+<!-- <ion-toolbar class="transparent_header ion-no-border" mode="md">
+    <ion-buttons slot="start">
+        <ion-back-button icon="arrow-back" defaultHref="/">
+            <i class="button button-icon my-back-button"></i>
+        </ion-back-button>
+    </ion-buttons>
+    <ion-title>{{ title }}</ion-title>
+</ion-toolbar> -->
+<ion-content fullscreen>
     <div class="header-content">
+        <ion-buttons slot="start">
+            <ion-back-button icon="arrow-back" defaultHref="/">
+                <i class="button button-icon my-back-button"></i>
+            </ion-back-button>
+        </ion-buttons>
     </div>
     <div class="body-content">
         <form novalidate (submit)="doRegister()" [formGroup]="form">
@@ -24,7 +36,7 @@
                             <ion-item color="input-background">
                                 <ion-label position="floating" class="colorBlack">Nombre</ion-label>
                                 <ion-input
-                                    class="colorBlack"
+                                    class="colorBlack input-capitalize"
                                     [(ngModel)]="userRegister.first_name"
                                     formControlName="first_name"
                                     name="first_name"
@@ -35,7 +47,7 @@
                             <ion-item color="input-background">
                                 <ion-label position="floating" style="color:black">Apellido</ion-label>
                                 <ion-input
-                                    class="colorBlack"
+                                    class="colorBlack input-capitalize"
                                     [(ngModel)]="userRegister.last_name"
                                     formControlName="last_name"
                                     name="last_name"

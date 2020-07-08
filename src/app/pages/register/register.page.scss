@@ -3,6 +3,9 @@
 .header-content {
     height: 10%;
 }
+ion-back-button{
+    --color:#655C3D;
+}
 
 
 .bg-btn {
@@ -14,6 +17,7 @@
     height: 100%;
     margin-top: 0;
 }
+
 
 
 
@@ -58,6 +62,9 @@
 
 .colorBlack{
     color:black;
+}
+.input-capitalize{
+    text-transform: capitalize;
 }
 
 ion-item {
