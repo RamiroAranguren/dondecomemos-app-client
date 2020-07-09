@@ -1,7 +1,7 @@
-<ion-content fullscreen>
+<ion-content fullscreen fixed scrollY="false">
     <div class="header-content">
-        <ion-buttons slot="start">
-            <ion-back-button icon="arrow-back" defaultHref="/">
+        <ion-buttons mode="md" slot="start">
+            <ion-back-button mode="md" icon="arrow-back" defaultHref="/">
                 <i class="button button-icon my-back-button"></i>
             </ion-back-button>
         </ion-buttons>
@@ -93,7 +93,7 @@
 
                         </ion-list>
                         <ion-toolbar>
-                            <span>
+                            <span class="privacy-content">
                                 Creándose una cuenta usted acepta las <a (click)="showTermsModal()">condiciones de uso</a> y <a (click)="showPrivacyModal()">políticas de privacidad</a> del sitio.
                             </span>
                         </ion-toolbar>
