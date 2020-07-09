@@ -1,62 +1,61 @@
-<app-header title=""></app-header>
+<!-- <app-header title=""></app-header> -->
 
-<ion-content>
-  <div class="header-content">
-    <div class="logo">
-      <img src="assets/img/sms_verify.png">
-   </div>
-  </div>
-  <div class="body-content">
-      <form novalidate (submit)="doVerify()" [formGroup]="form">
-          <ion-fab horizontal="end" horizontal="end" slot="fixed" edge="true">
-              <ion-button [disabled]="form.invalid" size="large" type="submit">
-                  <ion-icon name="arrow-forward-outline"></ion-icon>
-              </ion-button>
-          </ion-fab>
-          <ion-grid fixed>
-            <ion-row>
-                <ion-col>
-                    <label for="" style="font-size: 15px; font-weight: lighter;">Último paso</label>
-                </ion-col>
-            </ion-row>
-              <ion-row>
-                  <ion-col>
-                      <h1>Verificación</h1>
-                  </ion-col>
-              </ion-row>
-              <ion-row>
-                  <ion-col>
-                      <label for="" style="font-size: 20px; font-weight: lighter;">
-                        Ingrese el código que enviamos al número +54{{ user.phone }}
-                      </label>
-                      <ion-list>
-                          <ion-item>
-                              <ion-label position="floating">Código</ion-label>
-                              <ion-input
-                                  [(ngModel)]="numberRegister.code"
-                                  formControlName="code"
-                                  name="code"
-                                  type="text"
-                                  required></ion-input>
-                          </ion-item>
+<ion-content fullscreen fixed scrollY="false">
+    <div class="header-content">
+        <ion-buttons mode="md" slot="start">
+            <ion-back-button mode="md" icon="arrow-back-outline" defaultHref="/">
+            </ion-back-button>
+        </ion-buttons>
+        <div class="logo">
+            <img src="assets/img/sms_verify.png">
+        </div>
+    </div>
+    <div class="body-content">
+        <form novalidate (submit)="doVerify()" [formGroup]="form">
+            <ion-fab horizontal="end" horizontal="end" slot="fixed" edge="true">
+                <ion-button [disabled]="form.invalid" size="large" type="submit">
+                    <ion-icon name="arrow-forward-outline"></ion-icon>
+                </ion-button>
+            </ion-fab>
+            <ion-grid fixed>
+                <ion-row>
+                    <ion-col>
+                        <label for="" style="font-size: 15px; font-weight: lighter;">Último paso</label>
+                    </ion-col>
+                </ion-row>
+                <ion-row>
+                    <ion-col>
+                        <h2>Verificación</h2>
+                    </ion-col>
+                </ion-row>
+                <ion-row>
+                    <ion-col>
+                        <div class="first-label">
+                            <label >
+                                Ingrese el código que enviamos al número +54{{ user.phone }}
+                            </label>
+                        </div>                        
+                        <ion-list>
+                            <ion-item>
+                                <ion-label position="floating">Código</ion-label>
+                                <ion-input [(ngModel)]="numberRegister.code" formControlName="code" name="code"
+                                    type="text" required></ion-input>
+                            </ion-item>
 
-                          <span *ngIf="errors.code" class="error-message">
-                              {{ errors.code }}
-                          </span>
-                      </ion-list>
-                  </ion-col>
-              </ion-row>
-          </ion-grid>
-      </form>
-  </div>
+                            <span *ngIf="errors.code" class="error-message">
+                                {{ errors.code }}
+                            </span>
+                        </ion-list>
+                    </ion-col>
+                </ion-row>
+            </ion-grid>
+        </form>
+        <div class="ion-text-justify" class="footer-message">
+            <ion-toolbar>
+                <span class="forgot" (click)="reSendSMS()" fill="clear">
+                    Reenviar código
+                </span>
+            </ion-toolbar>
+        </div>
+    </div>
 </ion-content>
-<ion-footer class="ion-text-justify" class="footer-message">
-    <ion-toolbar>
-        <span
-            class="forgot"
-            (click)="reSendSMS()"
-            fill="clear">
-            Reenviar código
-        </span>
-    </ion-toolbar>
-</ion-footer>
