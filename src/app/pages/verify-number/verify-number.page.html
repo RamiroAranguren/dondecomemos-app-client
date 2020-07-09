@@ -1,29 +1,33 @@
-<app-header title=""></app-header>
-
-<ion-content>
+<ion-content fullscreen fixed scrollY="false">
   <div class="header-content">
+    <ion-buttons mode="md" slot="start">
+        <ion-back-button mode="md" icon="arrow-back-outline" defaultHref="/">
+        </ion-back-button>
+    </ion-buttons>
   </div>
   <div class="body-content">
       <form novalidate (submit)="doVerify()" [formGroup]="form">
           <ion-fab horizontal="end" horizontal="end" slot="fixed" edge="true">
-              <ion-button [disabled]="form.invalid" size="large" type="submit">
+              <ion-button [disabled]="form.invalid" size="large" type="submit" class="register-btn">
                   <ion-icon name="arrow-forward-outline"></ion-icon>
               </ion-button>
           </ion-fab>
           <ion-grid fixed>
             <ion-row>
-                <ion-col>
-                    <label for="" style="font-size: 15px; font-weight: lighter; font-family: FieldworkGeoLight;">Ya casi terminamos</label>
+                <ion-col class="first-label">
+                    <label>Ya casi terminamos</label>
                 </ion-col>
             </ion-row>
               <ion-row>
                   <ion-col>
-                      <h1 style="font-family: DMSerifDisplayRegular;">Bienvenido</h1>
+                      <h2>Bienvenido</h2>
                   </ion-col>
               </ion-row>
               <ion-row>
                   <ion-col>
-                      <label for="" style="font-size: 22px; font-weight: lighter; font-family: FieldworkGeoLight;">Por favor, ingrese su número de celular</label>
+                      <div  class="second-label">
+                        <label>Por favor, ingrese su número de celular</label>
+                      </div>
                       <ion-list>
                           <ion-item>
                               <ion-label class="colorBlack" position="floating">Celular</ion-label>

@@ -1,7 +1,10 @@
-<app-header title=""></app-header>
-
-<ion-content>
+<ion-content fullscreen fixed scrollY="false">
     <div class="header-content">
+        <ion-buttons mode="md" slot="start">
+            <ion-back-button mode="md" icon="arrow-back" defaultHref="/">
+                <i class="button button-icon my-back-button"></i>
+            </ion-back-button>
+        </ion-buttons>
     </div>
     <div class="body-content">
         <form novalidate (submit)="doRegister()" [formGroup]="form">
@@ -24,7 +27,7 @@
                             <ion-item color="input-background">
                                 <ion-label position="floating" class="colorBlack">Nombre</ion-label>
                                 <ion-input
-                                    class="colorBlack"
+                                    class="colorBlack input-capitalize"
                                     [(ngModel)]="userRegister.first_name"
                                     formControlName="first_name"
                                     name="first_name"
@@ -35,7 +38,7 @@
                             <ion-item color="input-background">
                                 <ion-label position="floating" style="color:black">Apellido</ion-label>
                                 <ion-input
-                                    class="colorBlack"
+                                    class="colorBlack input-capitalize"
                                     [(ngModel)]="userRegister.last_name"
                                     formControlName="last_name"
                                     name="last_name"
@@ -90,7 +93,7 @@
 
                         </ion-list>
                         <ion-toolbar>
-                            <span>
+                            <span class="privacy-content">
                                 Creándose una cuenta usted acepta las <a (click)="showTermsModal()">condiciones de uso</a> y <a (click)="showPrivacyModal()">políticas de privacidad</a> del sitio.
                             </span>
                         </ion-toolbar>
