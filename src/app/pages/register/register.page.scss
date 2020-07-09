@@ -2,6 +2,10 @@
 
 .header-content {
     height: 10%;
+    ion-buttons {
+        padding-left: 3vw;
+        padding-top: 3vw;
+    }
 }
 ion-back-button {
     --color: #655c3d;
