@@ -132,15 +132,14 @@ export class HomePage implements OnInit {
     });
   }
 
-  doRefresh() {
-    this.loaderService.display('Cargando listado...').then(() => {
-      this.restaurantService.get().then((res:any) => {
-        this.restaurants = res;
-        this.restaurantsCopy = res;
-        console.log(this.restaurants);
-        this.loaderService.hide();
-      });
+  doRefresh(evento) {
+    this.restaurantService.get().then((res:any) => {
+      this.restaurants = res;
+      this.restaurantsCopy = res;
+      console.log(this.restaurants);
+      evento.target.complete();
     });
+    this.getSotrageDataInit();
   }
 
   async presentAlert() {

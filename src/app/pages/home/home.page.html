@@ -47,21 +47,27 @@
 </ion-content>
 
 <ion-content [ngClass]="{ bgcolor: activeDefault }"  *ngIf="!searchChange">
+    <ion-refresher
+      slot="fixed" (ionRefresh)="doRefresh($event)">
+      <ion-refresher-content
+        refreshingText="Refreshing..."
+        refreshingSpinner="bubbles"></ion-refresher-content>
+    </ion-refresher>
 
-  <ion-grid fixed>
-    <ion-row >
-      <ion-col size="12">
-        <ion-chip class="f-family" *ngFor="let chip of chips">
-          <ion-label>{{ chip.name }}</ion-label>
-          <ion-icon name="close" (click)="removeChip(chip)"></ion-icon>
-        </ion-chip>
-      </ion-col>
-    </ion-row>
-    <ion-card class="title-restaurants">
-        <ion-text color="dark">
-            <h5>Explorar restaurantes populares</h5>
-        </ion-text>
-    </ion-card>
+    <ion-grid fixed>
+      <ion-row >
+        <ion-col size="12">
+          <ion-chip class="f-family" *ngFor="let chip of chips">
+            <ion-label>{{ chip.name }}</ion-label>
+            <ion-icon name="close" (click)="removeChip(chip)"></ion-icon>
+          </ion-chip>
+        </ion-col>
+      </ion-row>
+      <ion-card class="title-restaurants">
+          <ion-text color="dark">
+              <h5>Explorar restaurantes populares</h5>
+          </ion-text>
+      </ion-card>
 
     <ion-row class="list-restaurants">
       <ion-col size="6" *ngFor="let restaurant of restaurants" (click)="details( restaurant )">
