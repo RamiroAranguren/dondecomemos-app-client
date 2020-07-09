@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, Validators, FormBuilder, ReactiveFormsModule } from '@angular/forms';
-import { NavController, AlertController } from '@ionic/angular';
+import { AlertController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { UsersService } from '../../services/users/user.service';
 import { LoaderService } from '../../services/loader/loader.service';
@@ -28,7 +28,6 @@ export class ChangeOldPasswordPage implements OnInit {
   user:any;
 
   constructor(
-    private navCtrl: NavController,
     private alertCtrl: AlertController,
     private route: Router,
     public formBuild: FormBuilder,

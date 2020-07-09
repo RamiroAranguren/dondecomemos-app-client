@@ -70,9 +70,6 @@ export class CreditcardsService {
       'Authorization': `token ${data.user.token}`
     });
 
-    console.log("HEADER", headers);
-    console.log("BODY-POST", body);
-
     return new Promise((resolve, reject) => {
       this.http.post(`${apiUrl}creditcards/`, body, {headers}).subscribe((response: any) => {
         resolve(response);
@@ -94,8 +91,7 @@ export class CreditcardsService {
       'Content-Type': 'application/json',
       'Authorization': `token ${data.user.token}`
     });
-    console.log("HEADER", headers);
-    console.log("BODY-PUT", body);
+
     return new Promise((resolve, reject) => {
       this.http.put(`${apiUrl}creditcards/${data.id}/`, body, { headers }).subscribe((response: any) => {
           resolve(response);

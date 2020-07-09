@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ModalController, AlertController } from '@ionic/angular';
+import { ModalController, AlertController, NavController } from '@ionic/angular';
 
 import { FilterModalPage } from '../filter-modal/filter-modal.page';
 
@@ -13,6 +13,7 @@ import { LocationInterface } from '../../interfaces/location';
 import { FavoritesService } from '../../services/favorites/favorites.service';
 import { UsersService } from '../../services/users/user.service';
 import { UserInterface } from 'src/app/interfaces/user';
+import { NavigationExtras } from '@angular/router';
 
 
 @Component({
@@ -60,6 +61,7 @@ export class HomePage implements OnInit {
 
   constructor(
     public modalCtrl: ModalController,
+    private navCtrl: NavController,
     public restaurantService: RestaurantService,
     private favService: FavoritesService,
     public alertCtrl: AlertController,
@@ -300,5 +302,10 @@ export class HomePage implements OnInit {
     if(this.chips.length <= 0) {
       this.filterColor = '';
     }
+  }
+
+  details(resto:restaurant) {
+    let params: NavigationExtras = {state: {data: resto}};
+    this.navCtrl.navigateForward(['/restaurant/details'], params);
   }
 }

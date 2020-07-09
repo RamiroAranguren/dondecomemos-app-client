@@ -1,8 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { restaurant } from 'src/app/interfaces/restaurant';
-import { Router } from '@angular/router';
+import { Router, NavigationExtras } from '@angular/router';
 
 import * as moment from 'moment';
+import { NavController, PopoverController, AlertController } from '@ionic/angular';
+import { ReservationService } from 'src/app/services/reservation/reservation.service';
+import { UserInterface } from 'src/app/interfaces/user';
+import { ReserveInfoComponent } from 'src/app/components/reserve/reserve-info/reserve-info.component';
+import { ToastService } from '../../services/toast/toast.service';
 
 
 @Component({
@@ -11,9 +16,15 @@ import * as moment from 'moment';
     styleUrls: ['./book-table.page.scss'],
 })
 export class BookTablePage implements OnInit {
-    restaurant:restaurant;
 
-    countPeople = 1;
+    restaurant:restaurant;
+    user:UserInterface;
+
+    countPeople = 0;
+    occupied = 0;
+    availability = 0;
+
+    deactiveNextStep = true;
 
     slideOptionsDate = {
         slidesPerView: 4,
@@ -40,14 +51,29 @@ export class BookTablePage implements OnInit {
     laboral = false;
     otro = false;
 
-    message_hours = "Seleccione una fecha ver los horarios."
+    message_hours = "Seleccione una fecha ver los horarios.";
+
+    capacity:number;
+
+    option_select = {
+        date: "",
+        hs:"",
+        comments:"",
+        motive: ""
+    }
 
     constructor(
-        private route: Router
+        private route: Router,
+        private navCtrl: NavController,
+        private popOver: PopoverController,
+        private alertCtrl: AlertController,
+        private toast: ToastService,
+        private reserveService: ReservationService,
     ) { }
 
     ngOnInit() {
         this.restaurant = this.route.getCurrentNavigation().extras.state.restaurant;
+        this.user = this.route.getCurrentNavigation().extras.state.user;
         console.log(this.restaurant);
     }
 
@@ -60,15 +86,13 @@ export class BookTablePage implements OnInit {
 
         days_allowed = days_allowed.reduce((newTempArr, el) => (newTempArr.includes(el) ? newTempArr : [...newTempArr, el]), []);
 
-        console.log("days_allowed", days_allowed);
-
         while(date_start < date_end){
             if(days_allowed.includes(date_start.day().toString())){
                 if(list_days.length < 10){
                     list_days.push({
                         day_n: date_start.day().toString(),
                         day: this.days_week[date_start.day()],
-                        date: date_start.format('DD')
+                        date: date_start.format('YYYY-MM-DD').toString()
                     });
                 }
             }
@@ -76,94 +100,218 @@ export class BookTablePage implements OnInit {
         }
 
         this.days = list_days;
-        console.log("days", this.days);
     }
 
     preOrderAnswer(answ: boolean) {
-        answ ? this.preOrder = true : this.preOrder = false;
+        this.preOrder = answ ? false : true;
     }
 
     check(item :string){
-        item == "cumpleanos" ? this.cumpleanos = true : this.cumpleanos = false;
-        item == "cita" ? this.cita = true : this.cita = false;
-        item == "aniversario" ? this.aniversario = true : this.aniversario = false;
-        item == "laboral" ? this.laboral = true : this.laboral = false;
-        item == "otro" ? this.otro = true : this.otro = false;
+        item == "Cumpleaños" ? this.cumpleanos = true : this.cumpleanos = false;
+        item == "Cita" ? this.cita = true : this.cita = false;
+        item == "Aniversario" ? this.aniversario = true : this.aniversario = false;
+        item == "Laboral" ? this.laboral = true : this.laboral = false;
+        item == "Otro" ? this.otro = true : this.otro = false;
+
+        this.option_select.motive = item;
     }
 
     checkHours(item){
+
         console.log("DAY", item);
+        if(this.countPeople !== 0) {
+            this.option_select.date = item.date;
 
-        let isToday = false;
-        this.hours = [];
-        this.message_hours = "Cargando horarios...";
+            let isToday = false;
+            this.hours = [];
+            this.message_hours = "Cargando horarios...";
 
-        let horarios = this.restaurant.hours_week.filter(data => data.day === item.day_n);
-        horarios = horarios.map(data => [data.opening_hour, data.closing_hour]);
+            let horarios = this.restaurant.hours_week.filter(data => data.day === item.day_n);
+            horarios = horarios.map(data => [data.opening_hour, data.closing_hour]);
 
-        let date_now = moment();
-        if(item.date === date_now.format("DD")){
-            isToday = true;
-        }
+            let date_now = moment();
+            if(item.date.slice(0,2) === date_now.format("DD")){
+                isToday = true;
+            }
 
-        let time_str:any;
-        let fecha:any;
-        let renew:any;
-        let toMinute = 0;
+            let time_str:any;
+            let fecha:any;
+            let renew:any;
+            let toMinute = 0;
 
-        if(this.restaurant.renewal_time){
-            time_str = this.restaurant.renewal_time.split(":");
-            fecha = new Date(2020, 1, 1, Number(time_str[0]), Number(time_str[1]), 0);
-            renew = moment(fecha).format("HH:mm");
-            toMinute = moment.duration(renew).asMinutes();
-        }
+            if(this.restaurant.renewal_time){
+                time_str = this.restaurant.renewal_time.split(":");
+                fecha = new Date(2020, 1, 1, Number(time_str[0]), Number(time_str[1]), 0);
+                renew = moment(fecha).format("HH:mm");
+                toMinute = moment.duration(renew).asMinutes();
+            }
 
-        let list_hs = [];
-        horarios.forEach(data => {
+            let list_hs = [];
 
-            let start = moment(data[0], "HH:mm");
-            let finish = moment(data[1], "HH:mm").subtract(toMinute, 'minutes');
+            horarios.forEach(data => {
 
-            if(isToday){
+                let start = moment(data[0], "HH:mm");
+                let finish = moment(data[1], "HH:mm").subtract(toMinute, 'minutes');
 
-                if(date_now.isBetween(start, finish)) {
+                if(isToday){
 
-                    while(date_now < finish){
-                        list_hs.push(date_now.format("HH:mm"));
-                        start = date_now.add(15, 'minutes');
+                    if(date_now.isBetween(start, finish)) {
+
+                        while(date_now < finish){
+                            list_hs.push(start.format("HH:mm"));
+                            start = start.add(15, 'minutes');
+                            date_now.add(15, 'minutes');
+                        }
+
+                    } else if(date_now.isBefore(start)) {
+
+                        while(start < finish){
+                            list_hs.push(start.format("HH:mm"));
+                            start = start.add(15, 'minutes');
+                        }
+
                     }
-
-                } else if(date_now.isBefore(start)) {
+                } else {
                     while(start < finish){
                         list_hs.push(start.format("HH:mm"));
                         start = start.add(15, 'minutes');
                     }
+                }
+            });
 
+            let date_now_init = moment();
+            let evaluate = Number(date_now_init.format("mm"));
+            while((evaluate%15) !== 0){
+                date_now_init.add(1, 'minutes');
+                evaluate = Number(date_now_init.format("mm"));
+            }
+            let index_hs = list_hs.indexOf(date_now_init.format("HH:mm"));
+            list_hs = list_hs.slice(index_hs);
+            this.hours = list_hs.slice(1);
+            console.log("TIME", list_hs);
+        } else {
+            this.message_hours = "Seleccione la cantidad de personas y luego verá los horarios."
+        }
+
+    }
+
+    selectHour(ev, hs:any){
+
+        this.option_select.hs = hs;
+
+        let element = document.getElementById(`option-${hs}`);
+
+        let data = {
+            user: this.user,
+            resto: this.restaurant,
+            date: this.option_select.date,
+            hour: this.option_select.hs
+        };
+
+        let currently_occupied = 0;
+        this.reserveService.get(data).then((res:any[]) => {
+            console.log("RES", res);
+            if(res.length > 0) {
+                let diners = res.map(reserve => reserve.diners);
+                currently_occupied = diners.reduce((prev:number, curr:number) => prev + curr);
+                this.occupied = currently_occupied;
+                this.availability = this.restaurant.max_diners - currently_occupied;
+            }
+
+            if(this.restaurant.max_diners > currently_occupied) {
+                let reserve_people = currently_occupied + this.countPeople;
+
+                if(reserve_people > this.restaurant.max_diners){
+                    this.option_select.hs = "";
+                    this.showPopOver(ev);
+                    this.deactiveNextStep = true;
+                    element.classList.remove('segment-button-checked');
+                } else {
+                    this.deactiveNextStep = false;
                 }
+
             } else {
-                while(start < finish){
-                    list_hs.push(start.format("HH:mm"));
-                    start = start.add(15, 'minutes');
-                }
+                this.option_select.hs = "";
+                this.showPopOver(ev);
+                this.deactiveNextStep = true;
+                element.classList.remove('segment-button-checked');
             }
         });
+    }
 
-        setTimeout(() => {
-            list_hs = list_hs.slice(1);
-            this.hours = list_hs;
-            console.log("TIME", list_hs);
-        }, 800);
+    hasClass(element, className) {
+        return element.classList.contains(className);
+    }
 
+    async showPopOver( evento ){
+        const pop = await this.popOver.create({
+            component: ReserveInfoComponent,
+            event: evento,
+            mode: 'ios',
+            componentProps:{
+                availability: this.availability
+            }
+        });
+        await pop.present();
     }
 
     addPeople() {
-        this.countPeople += 1;
+        this.hours = [];
+        this.message_hours = "Seleccione una fecha ver los horarios.";
+        if(this.countPeople < this.restaurant.max_diners){
+            this.countPeople += 1;
+        }
     }
 
     removePeople() {
+        this.hours = [];
+        this.message_hours = "Seleccione una fecha ver los horarios.";
         if(this.countPeople >= 2){
             this.countPeople -= 1;
         }
     }
+
+    goToPreOrder(){
+        let navigationExtras: NavigationExtras = { state: { restaurant: this.restaurant } };
+        this.navCtrl.navigateForward(['/order/pre-order'], navigationExtras);
+    }
+
+    goToReserve(){
+        let data = {
+            user: this.user,
+            restaurant_id: this.restaurant.id,
+            diners: this.countPeople,
+            reservation_date: this.option_select.date,
+            reservation_hour: this.option_select.hs,
+            comments: this.option_select.comments,
+            motive: this.option_select.motive,
+            products: [],
+            menus: []
+        }
+        this.reserveService.post(data).then(res => {
+            this.showAlert();
+        }).catch(err => {
+            this.toast.show("Ha ocurrido un error al intentar guardar su reserva, por favor, vuelva a intentarlo.")
+        })
+    }
+
+    async showAlert() {
+
+        let alert = await this.alertCtrl.create({
+          header: 'Se creó con éxito su reserva!',
+          subHeader: 'Recuerde no llegar tarde',
+          message:"Los restaurantes califican a los usuarios para ofrecer un mejor servicio",
+          backdropDismiss: false,
+          buttons: [
+            {
+              text: 'OK',
+              handler: () => {
+                this.navCtrl.navigateRoot('/tabs/home');
+              }
+            }
+          ]
+        });
+        await alert.present();
+      }
 
 }

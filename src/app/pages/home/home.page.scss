@@ -30,7 +30,6 @@ ion-header {
                 // .md span{
                 //     align-self: center;
                 // }
-                
             }
             ion-label {
                 margin-top: 0;
@@ -81,9 +80,131 @@ ion-avatar {
     margin-top: 0;
     box-shadow: none;
     h5 {
-
         margin: 0;
         font-family: DMSerifDisplayRegular;
         font-size: 24px;
     }
 }
+
+
+//////////
+.list-restaurants{
+
+    ion-card{
+        margin-top: 20px;
+        margin-bottom: 20px;
+        border-radius: 15px;
+        height: 43vh;
+        box-shadow: none;
+        margin-bottom: 0;
+        #dto1{
+            position: absolute;
+            font-size: 4vw;
+            background-color: orange;
+            height: 5vw;
+            top: 4%;
+            right: 0;
+            padding-left: 1vw;
+            color: black;
+            border-radius: 6px 0px 0px 6px;
+            font-family: FieldworkHumHair;
+        }
+        #dto2{
+            position: absolute;
+            font-size: 4vw;
+            background-color: orange;
+            height: 5vw;
+            top: 12%;
+            right: 0;
+            padding-left: 1vw;
+            color: black;
+            border-radius: 6px 0px 0px 6px;
+            font-family: FieldworkHumHair;
+        }
+        #dto3{
+            position: absolute;
+            font-size: 4vw;
+            background-color: orange;
+            height: 5vw;
+            top: 20%;
+            right: 0;
+            padding-left: 1vw;
+            color: black;
+            border-radius: 6px 0px 0px 6px;
+            font-family: FieldworkHumHair;
+        }
+        img{
+            border-radius: 15px;
+            width: 100%;
+            height: 42vw;
+            object-fit: cover;
+        }
+        ion-card-header{
+            padding-top: 7px;
+            padding-right: 0;
+            padding-left: 1vw;
+            ion-card-title{
+                font-family: DMSerifDisplayRegular;
+                font-size: 1.3em;
+            }
+            ion-card-subtitle{
+                font-family: FieldworkGeoRegular;
+                margin-top: 4px;
+                font-size: 4vw;
+                text-transform: capitalize;
+            }
+            p{
+                font-family: FieldworkGeoRegular;
+                font-size: 4vw;
+                margin-top: 4px;
+                margin-bottom: 0;
+            }
+        }
+
+    }
+
+    ion-col{
+        padding: 0;
+    }
+
+    @media (min-height: 750px) {
+        .list-restaurants{
+            ion-card {
+                height: 32vh;
+            }
+        }
+    }
+
+    @media (min-height: 700px) {
+        .list-restaurants{
+            ion-card {
+                height: 37vh;
+            }
+        }
+    }
+
+    @media (max-height: 600px) {
+        ion-card-title{
+            font-size: 1.1em !important;
+        }
+        ion-card-subtitle{
+            font-size: 0.9em !important;
+        }
+    }
+
+
+    .qualify {
+        color: #ff7300;
+        font-family: FieldworkGeoRegular;
+    }
+
+
+    .level {
+        color:red;
+    }
+
+    .desc_resto {
+        font-size: 18px;
+    }
+}
+/////////

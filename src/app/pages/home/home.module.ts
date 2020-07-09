@@ -10,6 +10,7 @@ import { HomePage } from './home.page';
 import { ComponentsModule } from '../../components/components.module';
 import { FilterModalPage } from '../filter-modal/filter-modal.page';
 import { FilterModalPageModule } from '../filter-modal/filter-modal.module';
+import { PipesModule } from '../../pipes/pipes.module';
 
 @NgModule({
   entryComponents: [
@@ -21,7 +22,8 @@ import { FilterModalPageModule } from '../filter-modal/filter-modal.module';
     IonicModule,
     HomePageRoutingModule,
     ComponentsModule,
-    FilterModalPageModule
+    FilterModalPageModule,
+    PipesModule
   ],
   declarations: [HomePage]
 })
