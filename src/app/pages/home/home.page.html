@@ -15,7 +15,8 @@
             <span
               class="material-icons"
               color="{{ filterColor }}"
-              (click)="openFilters()">
+              (click)="openFilters()"
+            >
                 filter_list
              </span>
            <ion-label>Filtro</ion-label>
@@ -47,67 +48,30 @@
 </ion-content>
 
 <ion-content [ngClass]="{ bgcolor: activeDefault }"  *ngIf="!searchChange">
-    <ion-refresher
-      slot="fixed" (ionRefresh)="doRefresh($event)">
-      <ion-refresher-content
-        refreshingText="Refreshing..."
-        refreshingSpinner="bubbles"></ion-refresher-content>
-    </ion-refresher>
 
-    <ion-grid fixed>
-      <ion-row >
-        <ion-col size="12">
-          <ion-chip class="f-family" *ngFor="let chip of chips">
-            <ion-label>{{ chip.name }}</ion-label>
-            <ion-icon name="close" (click)="removeChip(chip)"></ion-icon>
-          </ion-chip>
-        </ion-col>
-      </ion-row>
-      <ion-card class="title-restaurants">
-          <ion-text color="dark">
-              <h5>Explorar restaurantes populares</h5>
-          </ion-text>
-      </ion-card>
+  <ion-refresher
+    slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content
+      refreshingText="Refreshing..."
+      refreshingSpinner="bubbles"></ion-refresher-content>
+  </ion-refresher>
 
-    <ion-row class="list-restaurants">
-      <ion-col size="6" *ngFor="let restaurant of restaurants" (click)="details( restaurant )">
-
-        <ion-card>
-          <ion-text *ngFor="let discount of restaurant.placediscounts; let i = index" id="dto{{ i+1 }}">
-            <span *ngIf="discount.place === 'DEL'">Delivery -{{ discount.amount }}%</span>
-            <span *ngIf="discount.place === 'LOC'">Take-away -{{ discount.amount }}%</span>
-            <span *ngIf="discount.place === 'RES'">Reserva -{{ discount.amount }}%</span>
-          </ion-text>
-          <img *ngIf="restaurant.profile_picture" [src]="restaurant.profile_picture" [alt]="restaurant.name"/>
-          <img *ngIf="!restaurant.profile_picture" src="assets/img/icon.png" alt="img_resto" />
-
-          <ion-card-header>
-            <ion-card-title >{{ restaurant.name }}</ion-card-title>
-            <ion-card-subtitle style="font-family: FieldworkGeoLight; font-size: 14px; color:#1D252D;">{{ restaurant | chips }}</ion-card-subtitle>
-            <ion-row>
-              <ion-col size="3" class="desc_resto" *ngIf="restaurant.qualifications.length > 0">
-                <span [innerHTML]="restaurant | level:'0'" style="color: rgb(5, 5, 5);font-family: DMSerifDisplayRegular; font-size: 16px;"></span>
-                <span [innerHTML]="restaurant | level:''" style="color: rgb(156, 156, 156);font-family: DMSerifDisplayRegular;font-size: 16px;"></span>
-              </ion-col>
-              <ion-col size="3" class="desc_resto" *ngIf="restaurant.qualifications.length <= 0">
-                <span [innerHTML]="restaurant | level:'0'" style="color: rgb(5, 5, 5);font-family: DMSerifDisplayRegular;font-size: 16px;"></span>
-                <span [innerHTML]="restaurant | level:''" style="color: rgb(156, 156, 156);font-family: DMSerifDisplayRegular;font-size: 16px;"></span>
-              </ion-col>
-              <ion-col size="4" class="desc_resto"  style="margin-top:5px;font-family: FieldworkGeoLight; font-size: 14px; color:rgba(29,37,45);" *ngIf="restaurant.qualifications.length > 0">
-                {{ restaurant | openClose }}
-              </ion-col>
-              <ion-col size="7" class="desc_resto" style="margin-top:5px;font-family: FieldworkGeoLight; font-size: 14px; color:rgba(29,37,45);" *ngIf="restaurant.qualifications.length <= 0">
-                {{ restaurant | openClose }}
-              </ion-col>
-              <ion-col size="3" class="ion-text-right" class="desc_resto" *ngIf="restaurant.qualifications.length > 0">
-                <span class="qualify">{{ restaurant | score }}</span>
-                <ion-icon color="btn-dc" style="margin-top: 2px;" name="star"></ion-icon>
-              </ion-col>
-            </ion-row>
-          </ion-card-header>
-        </ion-card>
+  <ion-grid fixed>
+    <ion-row >
+      <ion-col size="12">
+        <ion-chip class="f-family" *ngFor="let chip of chips">
+          <ion-label>{{ chip.name }}</ion-label>
+          <ion-icon name="close" (click)="removeChip(chip)"></ion-icon>
+        </ion-chip>
       </ion-col>
     </ion-row>
+    <ion-card  class="title-restaurants">
+        <ion-text color="dark">
+            <h5>Explorar restaurantes populares</h5>
+        </ion-text>
+    </ion-card>
+    <app-restaurant
+      [restaurants]="restaurants"></app-restaurant>
 
   </ion-grid>
 </ion-content>
