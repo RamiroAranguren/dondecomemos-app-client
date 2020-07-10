@@ -60,9 +60,9 @@
 
 </ion-content>
 
-<ion-content [ngClass]="{ bgcolor: activeDefault }"  *ngIf="!searchChange">
+<ion-content fullscreen [ngClass]="{ bgcolor: activeDefault }"  *ngIf="!searchChange">
    
-  <ion-grid fixed>
+  <ion-grid >
     <ion-row >
       <ion-col size="12">
         <ion-chip class="f-family" *ngFor="let chip of chips">
