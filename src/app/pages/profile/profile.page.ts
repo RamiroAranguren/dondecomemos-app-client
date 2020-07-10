@@ -104,8 +104,8 @@ export class ProfilePage implements OnInit {
             this.guestStatus = false;
             this.menuHide = true;
         }
-        
     }
+  
 
     ionViewWillLeave() {
         this.guestStatus = true;
@@ -114,7 +114,7 @@ export class ProfilePage implements OnInit {
         this.legal = false;
         this.backButtonSuscription.unsubscribe();
     }
- 
+
     async logOut() {
         const alert = await this.alertCtrl.create({
             header: 'Cerrar Sesión',
@@ -131,7 +131,8 @@ export class ProfilePage implements OnInit {
                     text: 'Cerrar sesión',
                     handler: () => {
                         this.userService.logout();
-                        this.navCtrl.navigateRoot('/step-functions');
+                        this.userService.loginAsGuest();
+                        this.navCtrl.navigateRoot('/tabs/home');
                     }
                 }
             ]
@@ -159,7 +160,7 @@ export class ProfilePage implements OnInit {
         });
 
         await modal.present();
-        await modal.onDidDismiss().then(() =>{
+        await modal.onDidDismiss().then(() => {
             this.backButtonSuscription = this.platform.backButton.subscribe(() => {
                 this.closeLegal();
             });
@@ -173,9 +174,9 @@ export class ProfilePage implements OnInit {
             backdropDismiss: false,
             keyboardClose: false,
         });
-        
+
         await modal.present();
-        await modal.onDidDismiss().then(() =>{
+        await modal.onDidDismiss().then(() => {
             this.backButtonSuscription = this.platform.backButton.subscribe(() => {
                 this.closeLegal();
             });
@@ -255,6 +256,7 @@ export class ProfilePage implements OnInit {
     }
 
     changePassword() {
+        this.backButtonSuscription.unsubscribe();
         let navigationExtras: NavigationExtras = { state: { data: this.user } };
         this.navCtrl.navigateForward(['/change-old-password'], navigationExtras);
     }
@@ -318,8 +320,6 @@ export class ProfilePage implements OnInit {
     field(fieldName) {
         return this.form.controls[fieldName]
     }
-
-    
 
     viewCards() {
         this.navCtrl.navigateForward('/credit-card-list');
