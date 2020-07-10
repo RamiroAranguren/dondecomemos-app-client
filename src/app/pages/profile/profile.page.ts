@@ -10,76 +10,33 @@ import { TermsModalPage } from '../terms-modal/terms-modal.page';
 import { LoaderService } from '../../services/loader/loader.service';
 import { ToastService } from '../../services/toast/toast.service';
 import { NavigationExtras } from '@angular/router';
+import { Platform } from '@ionic/angular';
 
 @Component({
-  selector: 'app-profile',
-  templateUrl: './profile.page.html',
-  styleUrls: ['./profile.page.scss'],
+    selector: 'app-profile',
+    templateUrl: './profile.page.html',
+    styleUrls: ['./profile.page.scss'],
 })
 export class ProfilePage implements OnInit {
 
-  guestStatus = true;
-  menuHide = false;
-  profile = false;
-  legal = false;
+    guestStatus = true;
+    menuHide = false;
+    profile = false;
+    legal = false;
+    backButtonSuscription: any;
 
-  initals = "";
+    initals = "";
 
-  form: FormGroup;
+    form: FormGroup;
 
-  errors = {
-    email: [],
-    phone: [],
-    firstName: [],
-    lastName: []
-  }
+    errors = {
+        email: [],
+        phone: [],
+        firstName: [],
+        lastName: []
+    }
 
-  user: any = {
-    id: "",
-    username: "",
-    password: "",
-    email: "",
-    first_name: "",
-    last_name: "",
-    token: "",
-    guest: false,
-    phone: null
-  };
-
-  options = {
-    option1: false,
-    option2: true
-  }
-
-  constructor(
-    public alertCtrl: AlertController,
-    public modalCtrl: ModalController,
-    private navCtrl: NavController,
-    private userService: UsersService,
-    private storage: StorageService,
-    private loader: LoaderService,
-    public formBuild: FormBuilder,
-    private toast: ToastService
-  ) {
-    this.form = this.formBuild.group({
-      "first_name": ["", [Validators.required], []],
-      "last_name": ["", [Validators.required], []],
-      "email": ["", [
-        Validators.required,
-        Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$')
-      ], []],
-      "phone": ["", [
-        Validators.required
-      ], []],
-    });
-  }
-
-  ngOnInit() {
-    this.storage.getObject("user").then((user: UserInterface) => {
-      this.user = user;
-      this.initals = `${this.user.first_name.slice(0, 1)}${this.user.last_name.slice(0, 1)}`;
-    }).catch(err => {
-      this.user = {
+    user: any = {
         id: "",
         username: "",
         password: "",
@@ -87,216 +44,285 @@ export class ProfilePage implements OnInit {
         first_name: "",
         last_name: "",
         token: "",
-        guest: true,
+        guest: false,
         phone: null
-      };
-    });
-  }
+    };
 
-  ionViewDidEnter() {
-    let isGuest = this.userService.isGuestUser();
-    if (isGuest) {
-      this.guestStatus = true;
-    } else {
-      this.guestStatus = false;
-      this.menuHide = true;
+    options = {
+        option1: false,
+        option2: true
     }
-  }
 
-  async logOut() {
-    const alert = await this.alertCtrl.create({
-      header: 'Cerrar Sesión',
-      message: '¿Seguro quiere cerrar sesión?',
-      buttons: [
-        {
-          text: 'Cancelar',
-          role: 'cancel',
-          cssClass: 'secondary',
-          handler: () => {
-            console.log('Confirm Cancel');
-          }
-        }, {
-          text: 'Cerrar sesión',
-          handler: () => {
-            this.userService.logout();
-            this.navCtrl.navigateRoot('/step-functions');
-          }
-        }
-      ]
-    });
-
-    await alert.present();
-  }
-
-  legalView() {
-    this.menuHide = false;
-    this.guestStatus = false;
-    this.profile = false;
-    this.legal = true;
-  }
-
-  async policyModal() {
-    let modal = await this.modalCtrl.create({
-      component: TermsModalPage,
-      backdropDismiss: false,
-      keyboardClose: false,
-    });
-
-    await modal.present();
-  }
-
-  async legalModal() {
-    let modal = await this.modalCtrl.create({
-      component: LegalModalPage,
-      backdropDismiss: false,
-      keyboardClose: false,
-    });
-
-    await modal.present();
-  }
-
-  dataView() {
-    this.menuHide = false;
-    this.guestStatus = false;
-    this.profile = true;
-    this.legal = false;
-  }
-
-  login() {
-    this.navCtrl.navigateRoot('/login');
-  }
-
-  register() {
-    this.navCtrl.navigateRoot('/register');
-  }
-
-  loginGoogle() {
-    console.log('fcbk');
-  }
-
-  loginFcbk() {
-    console.log('g+');
-  }
-
-  // FUNCTIONS PROFILE DATA
-  saveProfile() {
-
-    this.errors.email = [];
-    if (this.field('email').invalid) {
-      this.addError("email", "Error: Email inválido.");
-    } else {
-      this.menuHide = false;
-      this.guestStatus = false;
-      this.legal = false;
-
-      this.loader.display("Guardando cambios...")
-      this.userService.saveChanges(this.user.first_name, this.user.last_name, this.user.email, this.user.phone)
-        .then(() => {
-          this.loader.hide();
-          this.toast.show("Datos modificados con éxito", 2500);
-          this.storage.addObject("user", this.userService.user);
-        })
-        .catch(errors => {
-          console.log(errors);
-          this.toast.show("Ocurrió un error al intentar modificar", 2500);
-          this.loader.hide()
+    constructor(
+        public alertCtrl: AlertController,
+        public modalCtrl: ModalController,
+        private navCtrl: NavController,
+        private userService: UsersService,
+        private storage: StorageService,
+        private loader: LoaderService,
+        public formBuild: FormBuilder,
+        private toast: ToastService,
+        private platform: Platform,
+    ) {
+        this.form = this.formBuild.group({
+            "first_name": ["", [Validators.required], []],
+            "last_name": ["", [Validators.required], []],
+            "email": ["", [
+                Validators.required,
+                Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$')
+            ], []],
+            "phone": ["", [
+                Validators.required
+            ], []],
         });
     }
-  }
 
-  closeProfile() {
-    let changes = this.changeForm();
-
-    if (!changes) {
-      this.menuHide = true;
-      this.guestStatus = false;
-      this.profile = false;
-      this.legal = false;
+    ngOnInit() {
+        this.storage.getObject("user").then((user: UserInterface) => {
+            this.user = user;
+            this.initals = `${this.user.first_name.slice(0, 1)}${this.user.last_name.slice(0, 1)}`;
+        }).catch(err => {
+            this.user = {
+                id: "",
+                username: "",
+                password: "",
+                email: "",
+                first_name: "",
+                last_name: "",
+                token: "",
+                guest: true,
+                phone: null
+            };
+        });
     }
 
-  }
-
-  closeLegal() {
-    this.menuHide = true;
-    this.guestStatus = false;
-    this.profile = false;
-    this.legal = false;
-  }
-
-  changePassword() {
-    let navigationExtras: NavigationExtras = { state: { data: this.user } };
-    this.navCtrl.navigateForward(['/change-old-password'], navigationExtras);
-  }
-
-  changeForm() {
-    let result = false;
-    if (this.user.first_name !== this.userService.user.first_name ||
-      this.user.last_name !== this.userService.user.last_name ||
-      this.user.email !== this.userService.user.email ||
-      this.user.phone !== this.userService.user.phone) {
-      this.showAlert();
-      result = true;
-    } else {
-      result = false;
+    ionViewDidEnter() {
+        let isGuest = this.userService.isGuestUser();
+        if (isGuest) {
+            this.guestStatus = true;
+        } else {
+            this.guestStatus = false;
+            this.menuHide = true;
+        }
+        
     }
-    return result;
-  }
 
-  async showAlert() {
-    const alert = await this.alertCtrl.create({
-      header: '¿Descartar cambios?',
-      buttons: [
-        {
-          text: 'Descartar',
-          handler: data => {
+    ionViewWillLeave() {
+        this.guestStatus = true;
+        this.menuHide = false;
+        this.profile = false;
+        this.legal = false;
+        this.backButtonSuscription.unsubscribe();
+    }
+ 
+    async logOut() {
+        const alert = await this.alertCtrl.create({
+            header: 'Cerrar Sesión',
+            message: '¿Seguro quiere cerrar sesión?',
+            buttons: [
+                {
+                    text: 'Cancelar',
+                    role: 'cancel',
+                    cssClass: 'secondary',
+                    handler: () => {
+                        console.log('Confirm Cancel');
+                    }
+                }, {
+                    text: 'Cerrar sesión',
+                    handler: () => {
+                        this.userService.logout();
+                        this.navCtrl.navigateRoot('/step-functions');
+                    }
+                }
+            ]
+        });
+
+        await alert.present();
+    }
+
+    legalView() {
+        this.backButtonSuscription = this.platform.backButton.subscribe(() => {
+            this.closeLegal();
+        });
+        this.menuHide = false;
+        this.guestStatus = false;
+        this.profile = false;
+        this.legal = true;
+    }
+
+    async policyModal() {
+        this.backButtonSuscription.unsubscribe();
+        let modal = await this.modalCtrl.create({
+            component: TermsModalPage,
+            backdropDismiss: false,
+            keyboardClose: false,
+        });
+
+        await modal.present();
+        await modal.onDidDismiss().then(() =>{
+            this.backButtonSuscription = this.platform.backButton.subscribe(() => {
+                this.closeLegal();
+            });
+        });
+    }
+
+    async legalModal() {
+        this.backButtonSuscription.unsubscribe();
+        let modal = await this.modalCtrl.create({
+            component: LegalModalPage,
+            backdropDismiss: false,
+            keyboardClose: false,
+        });
+        
+        await modal.present();
+        await modal.onDidDismiss().then(() =>{
+            this.backButtonSuscription = this.platform.backButton.subscribe(() => {
+                this.closeLegal();
+            });
+        });
+    }
+
+    dataView() {
+        this.backButtonSuscription = this.platform.backButton.subscribe(() => {
+            this.closeProfile();
+        });
+        this.menuHide = false;
+        this.guestStatus = false;
+        this.profile = true;
+        this.legal = false;
+    }
+
+    login() {
+        this.navCtrl.navigateRoot('/login');
+    }
+
+    register() {
+        this.navCtrl.navigateRoot('/register');
+    }
+
+    loginGoogle() {
+        console.log('fcbk');
+    }
+
+    loginFcbk() {
+        console.log('g+');
+    }
+
+    // FUNCTIONS PROFILE DATA
+    saveProfile() {
+
+        this.errors.email = [];
+        if (this.field('email').invalid) {
+            this.addError("email", "Error: Email inválido.");
+        } else {
+            this.menuHide = false;
+            this.guestStatus = false;
+            this.legal = false;
+
+            this.loader.display("Guardando cambios...")
+            this.userService.saveChanges(this.user.first_name, this.user.last_name, this.user.email, this.user.phone)
+                .then(() => {
+                    this.loader.hide();
+                    this.toast.show("Datos modificados con éxito", 2500);
+                    this.storage.addObject("user", this.userService.user);
+                })
+                .catch(errors => {
+                    console.log(errors);
+                    this.toast.show("Ocurrió un error al intentar modificar", 2500);
+                    this.loader.hide()
+                });
+        }
+    }
+
+    closeProfile() {
+        let changes = this.changeForm();
+        this.backButtonSuscription.unsubscribe();
+        if (!changes) {
             this.menuHide = true;
             this.guestStatus = false;
             this.profile = false;
             this.legal = false;
-            return;
-          }
-        },
-        {
-          text: 'Cancelar',
-          handler: data => {
-            return;
-          }
         }
-      ]
-    });
 
-    await alert.present();
-  }
-
-
-  ///
-
-  checkEmail() {
-    this.errors.email = [];
-    if (this.field('email').invalid) {
-      this.addError("email", "Error: Email inválido.");
-    } else {
-      this.errors.email = [];
     }
-  }
 
-  addError(key, msg) {
-    this.errors[key].push(msg)
-  }
+    closeLegal() {
+        this.backButtonSuscription.unsubscribe();
+        this.menuHide = true;
+        this.guestStatus = false;
+        this.profile = false;
+        this.legal = false;
+    }
 
-  field(fieldName) {
-    return this.form.controls[fieldName]
-  }
+    changePassword() {
+        let navigationExtras: NavigationExtras = { state: { data: this.user } };
+        this.navCtrl.navigateForward(['/change-old-password'], navigationExtras);
+    }
 
-  ionViewWillLeave() {
-    this.guestStatus = true;
-    this.menuHide = false;
-    this.profile = false;
-    this.legal = false;
-  }
+    changeForm() {
+        let result = false;
+        if (this.user.first_name !== this.userService.user.first_name ||
+            this.user.last_name !== this.userService.user.last_name ||
+            this.user.email !== this.userService.user.email ||
+            this.user.phone !== this.userService.user.phone) {
+            this.showAlert();
+            result = true;
+        } else {
+            result = false;
+        }
+        return result;
+    }
 
-  viewCards() {
-    this.navCtrl.navigateForward('/credit-card-list');
-  }
+    async showAlert() {
+        const alert = await this.alertCtrl.create({
+            header: '¿Descartar cambios?',
+            buttons: [
+                {
+                    text: 'Descartar',
+                    handler: data => {
+                        this.menuHide = true;
+                        this.guestStatus = false;
+                        this.profile = false;
+                        this.legal = false;
+                        return;
+                    }
+                },
+                {
+                    text: 'Cancelar',
+                    handler: data => {
+                        return;
+                    }
+                }
+            ]
+        });
+
+        await alert.present();
+    }
+
+
+    ///
+
+    checkEmail() {
+        this.errors.email = [];
+        if (this.field('email').invalid) {
+            this.addError("email", "Error: Email inválido.");
+        } else {
+            this.errors.email = [];
+        }
+    }
+
+    addError(key, msg) {
+        this.errors[key].push(msg)
+    }
+
+    field(fieldName) {
+        return this.form.controls[fieldName]
+    }
+
+    
+
+    viewCards() {
+        this.navCtrl.navigateForward('/credit-card-list');
+    }
 
 }

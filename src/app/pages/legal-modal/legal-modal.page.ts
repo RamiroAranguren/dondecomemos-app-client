@@ -1,25 +1,39 @@
 import { Component, OnInit } from '@angular/core';
 import { NavController, ModalController } from '@ionic/angular';
+import { Platform } from '@ionic/angular';
+
 
 @Component({
-  selector: 'app-legal-modal',
-  templateUrl: './legal-modal.page.html',
-  styleUrls: ['./legal-modal.page.scss'],
+    selector: 'app-legal-modal',
+    templateUrl: './legal-modal.page.html',
+    styleUrls: ['./legal-modal.page.scss'],
 })
 export class LegalModalPage implements OnInit {
 
-  constructor(
-    public navCtrl: NavController,
-    public modalCtrl: ModalController
-  ) {
+    backButtonSuscription: any;
+    constructor(
+        public navCtrl: NavController,
+        public modalCtrl: ModalController,
+        private platform: Platform,
+    ) {
 
-  }
+    }
 
-  ngOnInit() {
-  }
+    ngOnInit() {
+    }
 
-  dismiss() {
-    this.modalCtrl.dismiss();
-  }
+    ionViewDidEnter() {
+        this.backButtonSuscription = this.platform.backButton.subscribe(() => {
+            this.modalCtrl.dismiss();
+        });
+    }
+
+    ionViewWillLeave() {
+        this.backButtonSuscription.unsubscribe();
+    }
+
+    dismiss() {
+        this.modalCtrl.dismiss();
+    }
 
 }
