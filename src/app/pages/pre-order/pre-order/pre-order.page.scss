@@ -1,0 +1,179 @@
+// Menu
+.section-menu {
+    border-bottom: 1px solid rgb(155, 155, 155);
+    padding-left: 5vw;
+    padding-right: 10vw;
+    .list-title {
+        text-transform: capitalize;
+        padding: 0;
+        height: 100%;
+        margin: 0;
+    }
+    ion-col {
+        h2 {
+            font-family: DMSerifDisplayRegular;
+            font-size: 24px;
+            color: #1D252D;
+        }
+    }
+    ion-slides {
+        padding-left: 5vw;
+        font-family: FieldworkGeoLight;
+        ion-slide {
+            p {
+                color: var(--ion-color-medium);
+            }
+            .contenedor {
+                border: 1px solid lightgray;
+                border-radius: 10px;
+                .title-menu {
+                    border-bottom: 1px solid lightgray;
+                    padding: 5vw;
+                    text-align: left;
+                    h4 {
+                        font-size: 16px;
+                        margin: 0;
+                    }
+                    p {
+                        margin: 4px 0 0 0;
+                        font-size: 14px;
+                        span {
+                            font-size: 16px;
+                        }
+                    }
+                }
+                .description-menu {
+                    text-align: left;
+                    padding: 5vw;
+
+                    h4 {
+                        font-size: 16px;
+                        margin: 0;
+                    }
+                    p {
+                        margin: 4px 0 0 0;
+                        font-size: 14px;
+                        span {
+                            font-size: 16px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+::-webkit-scrollbar,
+*::-webkit-scrollbar {
+    display: none !important;
+    overflow: hidden !important;
+}
+
+ion-segment-button::part(indicator) {
+    width: 0;
+}
+
+ion-segment-button {
+    height: 30px;
+    min-height: 30px;
+    ion-label {
+        margin: 2px;
+    }
+}
+
+.segment-options {
+    margin-left: 20px;
+}
+
+.segment-button-checked {
+    --border: 1px solid red;
+    --border-radius: 25px;
+    --border-style: solid;
+    --height: 10vw;
+    --border-color: #FFC95A !important;
+
+}
+
+:host(.segment-button-has-label-only) ::slotted(ion-label) {
+    margin-top: 3px;
+    margin-bottom: 3px;
+}
+
+.segment-button {
+    border-style: none;
+    border-color: #e62100;
+    color: #e62100;
+    border-width: thin;
+}
+
+.segment-activated {
+    background-color: #e62100;
+    color: #ffffff;
+    --border-style: solid;
+}
+// Row flotante
+
+.sticky-row{
+    position: sticky;
+    top: 0;
+    padding-bottom: 2vw;
+    background-color: white;
+    z-index: 100;
+}
+
+//Category list
+.category-list {
+    padding-left: 5vw;
+    color: #1D252D;
+    ion-col {
+        h5 {
+            font-size: 20px;
+            font-family: FieldworkGeoLight;
+        }
+        .content_categories {
+            margin-left: 5vw;
+            padding-right: 10vw;
+            border-bottom: 1px solid lightgray;
+            margin-bottom: 5px;
+            font-family: FieldworkGeoLight;
+            padding-top: 5vw;
+            padding-bottom: 4vw;
+            span{
+                font-family: FieldworkGeoLight;
+                font-size: 16px;
+            }
+            .product_description{
+                margin-top: 5px;
+                margin-bottom: 5px;
+                span{
+                    font-family: FieldworkGeoLight;
+                font-size: 14px;
+                }
+            }
+            .title_product {
+                font-size: 16px;
+                font-family: FieldworkGeoLight;
+            }
+        }
+    }
+}
+
+.fixed-btn {
+    position: fixed;
+    left: 10%;
+    bottom: 10px;
+    right: 0;
+    width: 80%;
+    height: 12vw;
+    z-index: 100;
+    --color: #1d252d;
+    text-transform: none;
+    font-family: FieldworkGeoLight;
+    font-size: 5vw;
+    --padding-bottom: 23px;
+    --padding-top: 23px;
+    letter-spacing: 0.05rem;
+    --background: #f89b4c;
+    margin: 0;
+}

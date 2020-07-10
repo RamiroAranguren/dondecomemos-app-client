@@ -109,8 +109,12 @@ const routes: Routes = [
     loadChildren: () => import('./pages/review/review/review.module').then( m => m.ReviewPageModule)
   },
   {
-    path: 'view-order',
+    path: 'order/view-order',
     loadChildren: () => import('./pages/view-order/view-order.module').then( m => m.ViewOrderPageModule)
+  },
+  {
+    path: 'order/pre-order',
+    loadChildren: () => import('./pages/pre-order/pre-order/pre-order.module').then( m => m.PreOrderPageModule)
   }
 
 

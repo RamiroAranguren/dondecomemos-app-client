@@ -256,13 +256,13 @@ export class DetailsPage implements OnInit {
 
   bookTable() {
     let navigationExtras: NavigationExtras = {
-      state: {restaurant: this.restaurant}};
+      state: {user: this.user, restaurant: this.restaurant}};
     this.navCtrl.navigateForward(['/restaurant/book-table'], navigationExtras);
   }
 
   viewOrders() {
     let navigationExtras: NavigationExtras = {
-      state: {restaurant: this.restaurant}};
+      state: {user: this.user, restaurant: this.restaurant}};
     this.navCtrl.navigateForward(['/restaurant/view-list-orders'], navigationExtras);
   }
 
