@@ -1,8 +1,10 @@
-<app-header title=""></app-header>
-
 <ion-content fullscreen>
     <div class="header-content">
-
+        <ion-buttons mode="md" slot="start">
+            <ion-back-button mode="md" icon="arrow-back" defaultHref="/">
+                <i class="button button-icon my-back-button"></i>
+            </ion-back-button>
+        </ion-buttons>
     </div>
     <div class="body-content">
         <form novalidate (submit)="doLogin($event)" [formGroup]="form">

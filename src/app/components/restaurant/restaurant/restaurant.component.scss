@@ -3,6 +3,7 @@ ion-card{
     margin-bottom: 20px;
     border-radius: 15px;
     height: 43vh;
+    min-height: 75vw;
     box-shadow: none;
     margin-bottom: 0;
     #dto1{
@@ -53,17 +54,17 @@ ion-card{
         padding-left: 1vw;
         ion-card-title{
             font-family: DMSerifDisplayRegular;
-            font-size: 1.3em;
+            font-size: 20px;
         }
         ion-card-subtitle{
             font-family: FieldworkGeoRegular;
             margin-top: 4px;
-            font-size: 4vw;
+            font-size: 14px;
             text-transform: capitalize;
         }
         p{
             font-family: FieldworkGeoRegular;
-            font-size: 4vw;
+            font-size: 14px;
             margin-top: 4px;
             margin-bottom: 0;
         }
@@ -86,14 +87,14 @@ ion-col{
     }
 }
 
-@media (max-height: 600px) {
-    ion-card-title{
-        font-size: 1.1em !important;
-    }
-    ion-card-subtitle{      
-        font-size: 0.9em !important;
-    }
-}
+// @media (max-height: 600px) {
+//     ion-card-title{
+//         font-size: 1.1em !important;
+//     }
+//     ion-card-subtitle{      
+//         font-size: 0.9em !important;
+//     }
+// }
 
 
 .qualify {

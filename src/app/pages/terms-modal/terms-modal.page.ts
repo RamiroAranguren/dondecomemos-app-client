@@ -1,25 +1,35 @@
 import { Component, OnInit } from '@angular/core';
-import { NavController, ModalController } from '@ionic/angular';
+import { NavController, ModalController, Platform } from '@ionic/angular';
 
 @Component({
-  selector: 'app-terms-modal',
-  templateUrl: './terms-modal.page.html',
-  styleUrls: ['./terms-modal.page.scss'],
+    selector: 'app-terms-modal',
+    templateUrl: './terms-modal.page.html',
+    styleUrls: ['./terms-modal.page.scss'],
 })
 export class TermsModalPage implements OnInit {
 
-  constructor(
-    public navCtrl: NavController,
-    public modalCtrl: ModalController
-  ) {
+    backButtonSuscription:any;
+    constructor(
+        public navCtrl: NavController,
+        private platform: Platform,
+        public modalCtrl: ModalController,
+    ) {
 
-  }
+    }
 
-  ngOnInit() {
-  }
+    ngOnInit() {
+    }
+    ionViewDidEnter() {
+        this.backButtonSuscription = this.platform.backButton.subscribe(() => {
+            this.modalCtrl.dismiss();
+        });
+    }
 
-  dismiss() {
-    this.modalCtrl.dismiss();
-  }
+    ionViewWillLeave() {
+        this.backButtonSuscription.unsubscribe();
+    }
+    dismiss() {
+        this.modalCtrl.dismiss();
+    }
 
 }
