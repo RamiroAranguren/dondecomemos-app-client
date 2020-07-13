@@ -21,6 +21,7 @@
     "@angular/platform-browser-dynamic": "~9.1.6",
     "@angular/router": "~9.1.6",
     "@ionic-native-mocks/google-plus": "^2.0.12",
+    "@ionic-native/app-minimize": "^5.27.0",
     "@ionic-native/core": "^5.0.7",
     "@ionic-native/facebook": "^5.26.0",
     "@ionic-native/fcm": "^5.26.0",
@@ -33,6 +34,7 @@
     "cordova-ios": "5.1.1",
     "cordova-plugin-androidx": "^2.0.0",
     "cordova-plugin-androidx-adapter": "^1.1.1",
+    "cordova-plugin-appminimize": "^1.0.1",
     "cordova-plugin-facebook4": "^6.4.0",
     "cordova-plugin-fcm-with-dependecy-updated": "^6.4.1",
     "cordova-plugin-googleplus": "git+https://github.com/EddyVerbruggen/cordova-plugin-googleplus.git",
@@ -109,7 +111,8 @@
         "FACEBOOK_ANDROID_SDK_VERSION": "5.13.0"
       },
       "cordova-plugin-androidx": {},
-      "cordova-plugin-androidx-adapter": {}
+      "cordova-plugin-androidx-adapter": {},
+      "cordova-plugin-appminimize": {}
     },
     "platforms": [
       "android",

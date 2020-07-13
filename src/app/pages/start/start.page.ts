@@ -4,6 +4,7 @@ import { UsersService } from '../../services/users/user.service';
 import { NavController, Platform } from '@ionic/angular';
 import { NavigationExtras } from '@angular/router';
 import { ToastService } from '../../services/toast/toast.service';
+import { AppMinimize } from '@ionic-native/app-minimize/ngx';
 
 
 @Component({
@@ -34,7 +35,8 @@ export class StartPage implements OnInit {
     private platform: Platform,
     private loader: LoaderService,
     private userService: UsersService,
-    private toast: ToastService
+    private toast: ToastService,
+    private appMinimize: AppMinimize
   ) { }
 
   ngOnInit() {
@@ -43,7 +45,7 @@ export class StartPage implements OnInit {
   ionViewDidEnter() {
    this.backbuttonSubscription = this.platform.backButton.subscribe(()=>{
       console.log ('exit');
-      navigator['app'].exitApp();
+      this.appMinimize.minimize();
     });
   }
 

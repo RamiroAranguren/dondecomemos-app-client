@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { AppMinimize } from '@ionic-native/app-minimize/ngx';
 
 import { IonicModule } from '@ionic/angular';
 
@@ -13,8 +14,12 @@ import { StartPage } from './start.page';
     CommonModule,
     FormsModule,
     IonicModule,
-    StartPageRoutingModule
+    StartPageRoutingModule,
+  
   ],
-  declarations: [StartPage]
+  declarations: [StartPage],
+  providers:[
+    AppMinimize
+  ]
 })
 export class StartPageModule {}
