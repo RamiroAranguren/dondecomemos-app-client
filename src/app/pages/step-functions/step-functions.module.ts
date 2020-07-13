@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { AppMinimize } from '@ionic-native/app-minimize/ngx';
 
 import { IonicModule } from '@ionic/angular';
 
@@ -15,6 +16,9 @@ import { StepFunctionsPage } from './step-functions.page';
     IonicModule,
     StepFunctionsPageRoutingModule
   ],
-  declarations: [StepFunctionsPage]
+  declarations: [StepFunctionsPage],
+  providers:[
+    AppMinimize
+  ]
 })
 export class StepFunctionsPageModule {}

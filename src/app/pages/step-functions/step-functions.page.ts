@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { IonSlides, NavController } from '@ionic/angular';
+import { IonSlides, NavController, Platform } from '@ionic/angular';
+import { AppMinimize } from '@ionic-native/app-minimize/ngx';
 
 
 @Component({
@@ -8,11 +9,12 @@ import { IonSlides, NavController } from '@ionic/angular';
     styleUrls: ['./step-functions.page.scss'],
 })
 export class StepFunctionsPage implements OnInit {
-
+    backbuttonSubscription: any;
     @ViewChild(IonSlides) slide: IonSlides;
     nexButton = true;
     backButton = false;
     activeDefault = false;
+    stepNumber: number = 1;
 
     imgActive = 'assets/img/step-functions/step1.svg';
 
@@ -50,49 +52,75 @@ export class StepFunctionsPage implements OnInit {
 
 
     constructor(
-        private navCtrl: NavController
+        private navCtrl: NavController,
+        private appMinimize: AppMinimize,
+        private platform: Platform,
     ) { }
 
     ngOnInit() {
+    }
+
+    ionViewDidEnter() {
+        this.suscribeToMinimizeApp();
+    }
+
+    ionViewWillLeave() {
+        this.unsuscribeButton();
     }
 
     changeSlide() {
         this.handleSlide();
     }
 
-    next() {
-        this.handleSlide();
+    suscribeToMinimizeApp() {
+        this.backbuttonSubscription = this.platform.backButton.subscribe(() => {
+            console.log('minimize');
+            this.appMinimize.minimize();
+        });
     }
+
+    backButtonSlide() {
+        this.backbuttonSubscription = this.platform.backButton.subscribe(() => {
+            console.log('backslide');
+            this.back();
+        });
+    }
+
+    unsuscribeButton() {
+        this.backbuttonSubscription.unsubscribe();
+    }
+
+    next() {
+        this.unsuscribeButton();
+        this.backButtonSlide();
+        this.handleSlide();
+        this.stepNumber++;
+    }
+
     back() {
-        this.handleSlide(true);
+        if (this.stepNumber == 1) {
+            this.unsuscribeButton();
+            this.suscribeToMinimizeApp();
+        } else {
+            this.handleSlide(true);
+            this.stepNumber--;
+            if (this.stepNumber == 1) {
+                this.unsuscribeButton();
+                this.suscribeToMinimizeApp();
+            }
+        }
     }
 
     handleSlide(back: boolean = false) {
-        this.slide.getActiveIndex().then(index => {
-            back ? this.imgActive = `assets/img/step-functions/step${index}.svg`
-                : this.imgActive = `assets/img/step-functions/step${index + 2}.svg`;
-
-            if (index === 0 || index === 2) {
-                this.activeDefault = true;
-            } else {
-                this.activeDefault = false;
-            }
-            if (index === 2) {
-                this.nexButton = false;
-            }
-            if(back && index == 1){
-                this.backButton = false;
-            }
-            if(!back){
-                this.backButton = true;
-            }
-            if(back){
-                this.slide.slidePrev();
-                this.nexButton = true
-            } else {
-                this.slide.slideNext()
-            }
-        });
+        
+        if (back) {
+            this.imgActive = `assets/img/step-functions/step${this.stepNumber - 1}.svg`;
+            this.slide.slidePrev();
+        } else {
+            this.imgActive = `assets/img/step-functions/step${this.stepNumber + 1}.svg`;
+            this.slide.slideNext();
+        }
+      
     }
 
     goStart() {
