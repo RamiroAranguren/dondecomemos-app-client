@@ -44,7 +44,7 @@ export class StartPage implements OnInit {
 
   ionViewDidEnter() {
    this.backbuttonSubscription = this.platform.backButton.subscribe(()=>{
-      console.log ('exit');
+      console.log ('minimize');
       this.appMinimize.minimize();
     });
   }
