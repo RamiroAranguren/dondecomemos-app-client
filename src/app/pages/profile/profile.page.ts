@@ -194,11 +194,11 @@ export class ProfilePage implements OnInit {
     }
 
     login() {
-        this.navCtrl.navigateRoot('/login');
+        this.navCtrl.navigateForward(['/login']);
     }
 
     register() {
-        this.navCtrl.navigateRoot('/register');
+        this.navCtrl.navigateForward(['/register']);
     }
 
     loginGoogle() {

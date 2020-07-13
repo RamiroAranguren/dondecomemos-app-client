@@ -28,7 +28,8 @@ export class AppComponent {
 
   initializeApp() {
     this.platform.ready().then(() => {
-      this.statusBar.styleDefault();
+      this.statusBar.backgroundColorByName('black');
+      this.statusBar.styleBlackTranslucent();
       this.splashScreen.hide();
     });
 

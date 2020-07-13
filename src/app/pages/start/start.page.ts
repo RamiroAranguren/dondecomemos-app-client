@@ -4,6 +4,7 @@ import { UsersService } from '../../services/users/user.service';
 import { NavController, Platform } from '@ionic/angular';
 import { NavigationExtras } from '@angular/router';
 import { ToastService } from '../../services/toast/toast.service';
+import { AppMinimize } from '@ionic-native/app-minimize/ngx';
 
 
 @Component({
@@ -12,7 +13,7 @@ import { ToastService } from '../../services/toast/toast.service';
   styleUrls: ['./start.page.scss'],
 })
 export class StartPage implements OnInit {
-
+  backbuttonSubscription: any;
   loginSocialGplus = {
     email: "",
     password: "",
@@ -34,21 +35,22 @@ export class StartPage implements OnInit {
     private platform: Platform,
     private loader: LoaderService,
     private userService: UsersService,
-    private toast: ToastService
+    private toast: ToastService,
+    private appMinimize: AppMinimize
   ) { }
 
   ngOnInit() {
   }
 
   ionViewDidEnter() {
-    this.platform.backButton.subscribe(()=>{
-      console.log ('exit');
-      navigator['app'].exitApp();
+   this.backbuttonSubscription = this.platform.backButton.subscribe(()=>{
+      console.log ('minimize');
+      this.appMinimize.minimize();
     });
   }
 
   ionViewWillLeave(){
-    this.platform.backButton.unsubscribe();
+    this.backbuttonSubscription.unsubscribe();
   }
 
   activeButton(){

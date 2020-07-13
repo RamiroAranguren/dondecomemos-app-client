@@ -99,11 +99,11 @@ export class FavoritePage implements OnInit {
   }
 
   login() {
-    this.navCtrl.navigateRoot('/login');
+    this.navCtrl.navigateForward(['/login']);
   }
 
   register() {
-    this.navCtrl.navigateRoot('/register');
+    this.navCtrl.navigateForward(['/register']);
   }
 
   details(resto:restaurant) {
