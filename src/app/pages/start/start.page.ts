@@ -12,7 +12,7 @@ import { ToastService } from '../../services/toast/toast.service';
   styleUrls: ['./start.page.scss'],
 })
 export class StartPage implements OnInit {
-
+  backbuttonSubscription: any;
   loginSocialGplus = {
     email: "",
     password: "",
@@ -41,14 +41,14 @@ export class StartPage implements OnInit {
   }
 
   ionViewDidEnter() {
-    this.platform.backButton.subscribe(()=>{
+   this.backbuttonSubscription = this.platform.backButton.subscribe(()=>{
       console.log ('exit');
       navigator['app'].exitApp();
     });
   }
 
   ionViewWillLeave(){
-    this.platform.backButton.unsubscribe();
+    this.backbuttonSubscription.unsubscribe();
   }
 
   activeButton(){
