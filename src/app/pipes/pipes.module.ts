@@ -7,6 +7,7 @@ import { LevelPipe } from './level.pipe';
 import { ScoreUserPipe } from './score-user.pipe';
 import { FormatDatePipe } from './format-date.pipe';
 import { InitialUserPipe } from './initial-user.pipe';
+import { PriceItemPipe } from './price-item.pipe';
 
 
 
@@ -18,7 +19,8 @@ import { InitialUserPipe } from './initial-user.pipe';
     LevelPipe,
     ScoreUserPipe,
     FormatDatePipe,
-    InitialUserPipe
+    InitialUserPipe,
+    PriceItemPipe
   ],
   exports: [
     OpenClosePipe,
@@ -27,7 +29,8 @@ import { InitialUserPipe } from './initial-user.pipe';
     LevelPipe,
     ScoreUserPipe,
     FormatDatePipe,
-    InitialUserPipe
+    InitialUserPipe,
+    PriceItemPipe
   ],
   imports: [
     CommonModule

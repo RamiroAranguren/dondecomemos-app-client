@@ -12,57 +12,25 @@
 
 <ion-content class="main" *ngIf="expression">
     <ion-grid fixed>
-        <i-row class="order">
+        <ion-row class="order" *ngFor="let order of orders">
             <div class="wrapper-order">
-                <h3>Rabas con salsa alioli</h3>
-                <p class="first-p">2 Naguiri
+                <h3>{{ order.product.name }}</h3>
+                <p class="first-p" *ngFor="let variant of order.product.variants">
+                    {{ variant.count }} {{ variant.name }}
                 </p>
-                <p class="second-p">4 Geishas</p>
+                <span *ngIf="order.product.additionals">Adicionales:</span>
+                <p class="second-p" *ngFor="let additional of order.product.additionals">
+                    {{ additional.count }} {{ additional.name }}
+                </p>
                 <div>
-                    <h4>$410</h4>
-                    <h4>x1</h4>
+                    <h4>${{ order | priceItem }}</h4>
+                    <h4>x{{ order.product.count }}</h4>
                 </div>
             </div>
-        </i-row>
-        <i-row class="order">
-            <div class="wrapper-order">
-                <h3>Hamburguesa de lomo</h3>
-                <p class="first-p">Con panceta, cebolla y huevo a
-                    la plancha.</p>
-                <p class="second-p">Adicional: 1 huevo doble</p>
-                <div>
-                    <h4>$480</h4>
-                    <h4>x1</h4>
-                </div>
-            </div>
-        </i-row>
-        <i-row class="order">
-            <div class="wrapper-order">
-                <h3>Rabas con salsa alioli</h3>
-                <p class="first-p">Mix de pescados y mariscos al limón sobre
-                    colchón de verdes</p>
-                <p class="second-p">Porción: 1 mediana, 1 chica</p>
-                <div>
-                    <h4>$390</h4>
-                    <h4>x2</h4>
-                </div>
-            </div>
-        </i-row>
-        <i-row class="price-info">
-            <div class="price-wrapper">
-                <div>
-                    <p>Subtotal</p>
-                    <p class="price-percent">$1170</p>
-                </div>
-                <div>
-                    <p>Descuento</p>
-                    <p class="price-percent">10%</p>
-                </div>
-                <p class="total-price">Total $1053</p>
-            </div>
-        </i-row>
-        <h2>El pedido es para...</h2>
-        <i-row class="reason">
+        </ion-row>
+        
+        <!-- <h2>El pedido es para...</h2>
+        <ion-row class="reason">
             <section>
                 <ion-button [ngClass]="{'check-color-button' : comer}" (click)="check('comer')" size="small">
                     Comer en el restaurante</ion-button>
@@ -73,11 +41,52 @@
                     por el local
                 </ion-button>
             </section>
-        </i-row>
+        </ion-row> -->
+        <br>
+        <h2>Pago</h2>
+        <ion-row class="pre-order-question">
+            <div class="wrapper">
+                <div [ngClass]="{'check-color' : payPlace}" (click)="payNow(true)">
+                    <p>En el restaurante</p>
+                </div>
+                <div [ngClass]="{'check-color' : !payPlace}" (click)="presentPopover(false)">
+                    <p>Ahora</p>
+                </div>
+            </div>
+            <div class="card" *ngIf="!payPlace">
+                <p><img src="../../../assets/logos/view-list-order/visa.svg" alt="" srcset="">.... 4517</p>
+            </div>
+        </ion-row>
+        <ion-row class="price-info">
+            <div class="price-wrapper">
+                <div>
+                    <p>Subtotal</p>
+                    <p class="price-percent">${{ price_total }}</p>
+                </div>
+                <div>
+                    <p>Descuento</p>
+                    <p class="price-percent">10%</p>
+                </div>
+                <p class="total-price">Total ${{ price_total }}</p>
+            </div>
+        </ion-row>
+        <!-- <h2>Comentario (opcional)</h2>
+        <ion-row class="commentary">
+            <section>
+                <ion-item>
+                    <ion-label position="floating">Comentario</ion-label>
+                    <ion-input></ion-input>
+                </ion-item>
+            </section>
+        </ion-row> -->
+    
     </ion-grid>
-    <ion-button class="fixed-btn" shape="round" (click)="changeExpression()">
-        CONTINUAR
+    <ion-button class="fixed-btn" shape="round">
+        CONFIRMAR
     </ion-button>
+    <!-- <ion-button class="fixed-btn" shape="round" (click)="changeExpression()">
+        CONTINUAR
+    </ion-button> -->
 </ion-content>
 <!-- ----------------------- comer en el restaurant ------------------- -->
 <ion-content class="restaurant" *ngIf="!expression && comer">
@@ -100,7 +109,7 @@
             </ion-col>
         </ion-row>
         <h2>Elija la fecha</h2>
-        <i-row class="choose-date">
+        <ion-row class="choose-date">
             <ion-segment scrollable="true" value="lun" mode="md">
                 <ion-segment-button mode="md" [value]="item" *ngFor="let item of days; index as i">
                     <div>
@@ -109,9 +118,9 @@
                     </div>
                 </ion-segment-button>
             </ion-segment>
-        </i-row>
+        </ion-row>
         <h2>Seleccione hora</h2>
-        <i-row class="choose-hour">
+        <ion-row class="choose-hour">
             <ion-segment scrollable="true" value="14:00" mode="md">
                 <ion-segment-button mode="md" [value]="item" *ngFor="let item of hours; index as i">
                     <div>
@@ -119,9 +128,9 @@
                     </div>
                 </ion-segment-button>
             </ion-segment>
-        </i-row>
+        </ion-row>
         <h2>Pago</h2>
-        <i-row class="pre-order-question">
+        <ion-row class="pre-order-question">
             <div class="wrapper">
                 <div [ngClass]="{'check-color' : !payPlace}" (click)="payNow(false)">
                     <p>En el restaurante</p>
@@ -133,8 +142,8 @@
             <div class="card" *ngIf="payPlace">
                 <p><img src="../../../assets/logos/view-list-order/visa.svg" alt="" srcset="">.... 4517</p>
             </div>
-        </i-row>
-        <i-row class="price-info">
+        </ion-row>
+        <ion-row class="price-info">
             <div class="price-wrapper">
                 <div>
                     <p>Subtotal</p>
@@ -146,33 +155,33 @@
                 </div>
                 <p class="total-price">Total $1053</p>
             </div>
-        </i-row>
+        </ion-row>
         <h2>Motivo (opcional)</h2>
-        <i-row class="reason">
+        <ion-row class="reason">
             <section>
-                <ion-button [ngClass]="{'check-color-button' : cumpleanos}" (click)="checkReason('cumpleanos')"
+                <ion-button [ngClass]="{'check-color-button' : cumpleanos}" (click)="checkReason('Cumpleaños')"
                     size="small">
                     Cumpleaños</ion-button>
-                <ion-button [ngClass]="{'check-color-button' : cita}" (click)="checkReason('cita')" size="small">Cita
+                <ion-button [ngClass]="{'check-color-button' : cita}" (click)="checkReason('Cita')" size="small">Cita
                 </ion-button>
-                <ion-button [ngClass]="{'check-color-button' : aniversario}" (click)="checkReason('aniversario')"
+                <ion-button [ngClass]="{'check-color-button' : aniversario}" (click)="checkReason('Aniversario')"
                     size="small">Aniversario</ion-button>
-                <ion-button [ngClass]="{'check-color-button' : laboral}" (click)="checkReason('laboral')" size="small">
+                <ion-button [ngClass]="{'check-color-button' : laboral}" (click)="checkReason('Laboral')" size="small">
                     Laboral
                 </ion-button>
-                <ion-button [ngClass]="{'check-color-button' : otro}" (click)="checkReason('otro')" size="small">Otro
+                <ion-button [ngClass]="{'check-color-button' : otro}" (click)="checkReason('Otro')" size="small">Otro
                 </ion-button>
             </section>
-        </i-row>
+        </ion-row>
         <h2>Comentario (opcional)</h2>
-        <i-row class="commentary">
+        <ion-row class="commentary">
             <section>
                 <ion-item>
                     <ion-label position="floating">Comentario</ion-label>
                     <ion-input></ion-input>
                 </ion-item>
             </section>
-        </i-row>
+        </ion-row>
     </ion-grid>
     <ion-button class="fixed-btn" shape="round">
         Finalizar
@@ -182,7 +191,7 @@
 <ion-content class="restaurant" *ngIf="!expression && retirar">
     <ion-grid fixed>
         <h2>Pedido para hoy a las...</h2>
-        <i-row class="choose-hour">
+        <ion-row class="choose-hour">
             <ion-segment scrollable="true" value="14:00" mode="md">
                 <ion-segment-button mode="md" [value]="item" *ngFor="let item of hours; index as i">
                     <div>
@@ -190,9 +199,9 @@
                     </div>
                 </ion-segment-button>
             </ion-segment>
-        </i-row>
+        </ion-row>
         <h2>Pago</h2>
-        <i-row class="pre-order-question">
+        <ion-row class="pre-order-question">
             <div class="wrapper">
                 <div [ngClass]="{'check-color' : !payPlace}" (click)="payNow(false)">
                     <p>En el restaurante</p>
@@ -204,8 +213,8 @@
             <div class="card" *ngIf="payPlace">
                 <p><img src="../../../assets/logos/view-list-order/visa.svg" alt="" srcset="">.... 4517</p>
             </div>
-        </i-row>
-        <i-row class="price-info">
+        </ion-row>
+        <ion-row class="price-info">
             <div class="price-wrapper">
                 <div>
                     <p>Subtotal</p>
@@ -217,16 +226,16 @@
                 </div>
                 <p class="total-price">Total $1053</p>
             </div>
-        </i-row>
+        </ion-row>
         <h2>Comentario (opcional)</h2>
-        <i-row class="commentary">
+        <ion-row class="commentary">
             <section>
                 <ion-item>
                     <ion-label position="floating">Comentario</ion-label>
                     <ion-input></ion-input>
                 </ion-item>
             </section>
-        </i-row>
+        </ion-row>
     </ion-grid>
     <ion-button class="fixed-btn" shape="round">
         Finalizar
@@ -236,7 +245,7 @@
 <ion-content class="restaurant delivery" *ngIf="!expression && delivery">
     <ion-grid fixed>
         <h2>Pedido para hoy a las...</h2>
-        <i-row class="choose-hour">
+        <ion-row class="choose-hour">
             <ion-segment scrollable="true" value="14:00" mode="md">
                 <ion-segment-button mode="md" [value]="item" *ngFor="let item of hours; index as i">
                     <div>
@@ -244,18 +253,18 @@
                     </div>
                 </ion-segment-button>
             </ion-segment>
-        </i-row>
+        </ion-row>
         <h2>Dirección</h2>
-        <i-row class="commentary">
+        <ion-row class="commentary">
             <section>
                 <ion-item>
                     <ion-label position="floating">Dirección</ion-label>
                     <ion-input></ion-input>
                 </ion-item>
             </section>
-        </i-row>
+        </ion-row>
         <h2>Pago</h2>
-        <i-row class="pre-order-question">
+        <ion-row class="pre-order-question">
             <div class="wrapper">
                 <div [ngClass]="{'check-color' : !payPlace}" (click)="payNow(false)">
                     <p>En efectivo al repartidor</p>
@@ -273,8 +282,8 @@
                     <ion-input></ion-input>
                 </ion-item>
             </div>
-        </i-row>
-        <i-row class="price-info">
+        </ion-row>
+        <ion-row class="price-info">
             <div class="price-wrapper">
                 <div>
                     <p>Subtotal</p>
@@ -286,16 +295,16 @@
                 </div>
                 <p class="total-price">Total $1053</p>
             </div>
-        </i-row>
+        </ion-row>
         <h2>Comentario (opcional)</h2>
-        <i-row class="commentary">
+        <ion-row class="commentary">
             <section>
                 <ion-item>
                     <ion-label position="floating">Comentario</ion-label>
                     <ion-input></ion-input>
                 </ion-item>
             </section>
-        </i-row>
+        </ion-row>
     </ion-grid>
     <ion-button class="fixed-btn" shape="round">
         Finalizar
