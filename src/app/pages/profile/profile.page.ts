@@ -104,8 +104,9 @@ export class ProfilePage implements OnInit {
             this.guestStatus = false;
             this.menuHide = true;
         }
+        this.backToHomeSuscription();
     }
-  
+
 
     ionViewWillLeave() {
         this.guestStatus = true;
@@ -113,6 +114,12 @@ export class ProfilePage implements OnInit {
         this.profile = false;
         this.legal = false;
         this.backButtonSuscription.unsubscribe();
+    }
+
+    backToHomeSuscription() {
+        this.backButtonSuscription = this.platform.backButton.subscribe(() => {
+            this.navCtrl.navigateBack(['tabs/home'])
+        })
     }
 
     async logOut() {
@@ -142,6 +149,7 @@ export class ProfilePage implements OnInit {
     }
 
     legalView() {
+        this.backButtonSuscription.unsubscribe();
         this.backButtonSuscription = this.platform.backButton.subscribe(() => {
             this.closeLegal();
         });
@@ -184,13 +192,8 @@ export class ProfilePage implements OnInit {
     }
 
     dataView() {
-        this.backButtonSuscription = this.platform.backButton.subscribe(() => {
-            this.closeProfile();
-        });
-        this.menuHide = false;
-        this.guestStatus = false;
-        this.profile = true;
-        this.legal = false;
+        this.backButtonSuscription.unsubscribe();
+        this.navCtrl.navigateForward(['/profile-data']);
     }
 
     login() {
@@ -209,108 +212,13 @@ export class ProfilePage implements OnInit {
         console.log('g+');
     }
 
-    // FUNCTIONS PROFILE DATA
-    saveProfile() {
-
-        this.errors.email = [];
-        if (this.field('email').invalid) {
-            this.addError("email", "Error: Email inválido.");
-        } else {
-            this.menuHide = false;
-            this.guestStatus = false;
-            this.legal = false;
-
-            this.loader.display("Guardando cambios...")
-            this.userService.saveChanges(this.user.first_name, this.user.last_name, this.user.email, this.user.phone)
-                .then(() => {
-                    this.loader.hide();
-                    this.toast.show("Datos modificados con éxito", 2500);
-                    this.storage.addObject("user", this.userService.user);
-                })
-                .catch(errors => {
-                    console.log(errors);
-                    this.toast.show("Ocurrió un error al intentar modificar", 2500);
-                    this.loader.hide()
-                });
-        }
-    }
-
-    closeProfile() {
-        let changes = this.changeForm();
-        this.backButtonSuscription.unsubscribe();
-        if (!changes) {
-            this.menuHide = true;
-            this.guestStatus = false;
-            this.profile = false;
-            this.legal = false;
-        }
-
-    }
-
     closeLegal() {
         this.backButtonSuscription.unsubscribe();
         this.menuHide = true;
         this.guestStatus = false;
         this.profile = false;
         this.legal = false;
-    }
-
-    changePassword() {
-        this.backButtonSuscription.unsubscribe();
-        let navigationExtras: NavigationExtras = { state: { data: this.user } };
-        this.navCtrl.navigateForward(['/change-old-password'], navigationExtras);
-    }
-
-    changeForm() {
-        let result = false;
-        if (this.user.first_name !== this.userService.user.first_name ||
-            this.user.last_name !== this.userService.user.last_name ||
-            this.user.email !== this.userService.user.email ||
-            this.user.phone !== this.userService.user.phone) {
-            this.showAlert();
-            result = true;
-        } else {
-            result = false;
-        }
-        return result;
-    }
-
-    async showAlert() {
-        const alert = await this.alertCtrl.create({
-            header: '¿Descartar cambios?',
-            buttons: [
-                {
-                    text: 'Descartar',
-                    handler: data => {
-                        this.menuHide = true;
-                        this.guestStatus = false;
-                        this.profile = false;
-                        this.legal = false;
-                        return;
-                    }
-                },
-                {
-                    text: 'Cancelar',
-                    handler: data => {
-                        return;
-                    }
-                }
-            ]
-        });
-
-        await alert.present();
-    }
-
-
-    ///
-
-    checkEmail() {
-        this.errors.email = [];
-        if (this.field('email').invalid) {
-            this.addError("email", "Error: Email inválido.");
-        } else {
-            this.errors.email = [];
-        }
+        this.backToHomeSuscription();
     }
 
     addError(key, msg) {

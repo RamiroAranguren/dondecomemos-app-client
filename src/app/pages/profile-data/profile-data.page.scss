@@ -1,0 +1,183 @@
+.DMSerifDisplayRegular{
+    font-family: DMSerifDisplayRegular;
+}
+
+.FieldworkGeoLight{
+    font-family: FieldworkGeoLight;
+}
+
+.guardarHeader{
+    font-family: FieldworkGeoRegular;
+    font-size: 16px;
+    color:#707070;
+}
+.changed-profile{
+    color:#F89B4C;
+}
+
+.perfilTitulo{
+    font-family: DMSerifDisplayRegular;
+    font-size: 24px;
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+    height: 100%;
+}
+
+.body-content {
+    position: relative;
+    z-index: 1;
+    background-color: #fff9e6 !important;
+    border-radius: 58px 58px 0 0;
+    padding-top: 10vh;
+    height: 66%;
+    width: 100%;
+}
+
+.pic {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    top: -75px;
+    width: 100vw;
+}
+
+.pic-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    background-color: #FFDA75;
+    width: 145px;
+    height: 145px;
+    h1 {
+        text-transform: capitalize;
+        font-size: 36px;
+        font-family: FieldworkGeoLight;
+    }
+}
+
+.nombre {
+    font-size: 2rem;
+    font-family: DMSerifDisplayRegular;
+    font-weight: lighter;
+    margin-bottom: 4vh;
+}
+
+.label {
+    font-size: 1rem;
+    font-family: FieldworkGeoLight;
+    letter-spacing: 0.6px;
+}
+
+ion-row {
+    margin-bottom: 10px;
+}
+
+
+.legendh1 {
+    --color: black;
+    font-family: FieldworkHumHair;
+    font-size: 20px;
+    margin: 10px;
+}
+
+.formProfile {
+    height: 75vh;
+    ion-item {
+        margin: 30px 30px 0 30px;
+    }
+}
+
+ion-item {
+    border-radius: 6px 6px 0px 0px;
+    --border-color: #1D252D;
+    --highlight-color-focused:#F89B4C !important;
+    --highlight-background:#F89B4C !important;
+    ion-label {
+        font-family: FieldworkGeoLight;
+    }
+}
+
+.colorBlack{
+    color:black;
+}
+
+
+
+.legend {
+    color: rgb(129, 129, 129);
+    margin-left: 30px;
+    font-family: FieldworkGeoRegular;
+    font-size: 12px;
+}
+
+.change-passw {
+    --border-color: white;
+    span{
+        margin-left: 32px;
+    font-family: FieldworkGeoRegular;
+    font-size: 16px;
+    }
+    
+}
+
+.error-message {
+    color: red;
+    margin-left: 10px;
+}
+
+.legal-css {
+    font-size: 20px;
+    font-family: DMSerifDisplayRegular;
+}
+
+.pnt-inicio {
+    .logo {
+        width: 90%;
+        max-width: 300px;
+    }
+    .legendh1 {
+        p {
+            color: black;
+            font-family: FieldworkGeoThin;
+            font-size: 20px;
+            text-align: center;
+        }
+    }
+}
+
+.cnx_btn {
+    --color: black;
+    // margin: 0px 15px 20px;
+    margin: 0px 15px;
+    text-transform: none;
+    font-family: FieldworkHumHair;
+    --background: var(--bg-primary-tint);
+    font-size: 1rem;
+    --padding-bottom: 23px;
+    --padding-top: 23px;
+    letter-spacing: 0.05rem;
+}
+
+.img-cont {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+}
+
+ion-toolbar {
+    padding: 5px;
+    h1 {
+        font-family: DMSerifDisplayRegular;
+        font-size: 1.6rem;
+        font-weight: normal;
+        margin: 10px 0px 10px 10vw;
+    }
+}

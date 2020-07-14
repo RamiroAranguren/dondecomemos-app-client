@@ -115,7 +115,11 @@ const routes: Routes = [
   {
     path: 'order/pre-order',
     loadChildren: () => import('./pages/pre-order/pre-order/pre-order.module').then( m => m.PreOrderPageModule)
+  },  {
+    path: 'profile-data',
+    loadChildren: () => import('./pages/profile-data/profile-data.module').then( m => m.ProfileDataPageModule)
   }
+
 
 
 ];
