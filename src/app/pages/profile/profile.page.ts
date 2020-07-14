@@ -151,45 +151,7 @@ export class ProfilePage implements OnInit {
 
     legalView() {
         this.backButtonSuscription.unsubscribe();
-        this.backButtonSuscription = this.platform.backButton.subscribe(() => {
-            this.closeLegal();
-        });
-        this.menuHide = false;
-        this.guestStatus = false;
-        this.profile = false;
-        this.legal = true;
-    }
-
-    async policyModal() {
-        this.backButtonSuscription.unsubscribe();
-        let modal = await this.modalCtrl.create({
-            component: TermsModalPage,
-            backdropDismiss: false,
-            keyboardClose: false,
-        });
-
-        await modal.present();
-        await modal.onDidDismiss().then(() => {
-            this.backButtonSuscription = this.platform.backButton.subscribe(() => {
-                this.closeLegal();
-            });
-        });
-    }
-
-    async legalModal() {
-        this.backButtonSuscription.unsubscribe();
-        let modal = await this.modalCtrl.create({
-            component: LegalModalPage,
-            backdropDismiss: false,
-            keyboardClose: false,
-        });
-
-        await modal.present();
-        await modal.onDidDismiss().then(() => {
-            this.backButtonSuscription = this.platform.backButton.subscribe(() => {
-                this.closeLegal();
-            });
-        });
+        this.navCtrl.navigateForward(['/legal'])
     }
 
     dataView() {
@@ -211,15 +173,6 @@ export class ProfilePage implements OnInit {
 
     loginFcbk() {
         console.log('g+');
-    }
-
-    closeLegal() {
-        this.backButtonSuscription.unsubscribe();
-        this.menuHide = true;
-        this.guestStatus = false;
-        this.profile = false;
-        this.legal = false;
-        this.backToHomeSuscription();
     }
 
     addError(key, msg) {

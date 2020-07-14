@@ -20,7 +20,7 @@ export class TermsModalPage implements OnInit {
     ngOnInit() {
     }
     ionViewDidEnter() {
-        this.backButtonSuscription = this.platform.backButton.subscribe(() => {
+        this.backButtonSuscription = this.platform.backButton.subscribeWithPriority(1000,() => {
             this.modalCtrl.dismiss();
         });
     }

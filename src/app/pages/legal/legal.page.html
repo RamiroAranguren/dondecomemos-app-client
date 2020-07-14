@@ -1,0 +1,25 @@
+<ion-header>
+  <ion-toolbar>
+      <ion-buttons slot="start">
+          <ion-back-button></ion-back-button>
+      </ion-buttons>
+      <h1>Legal</h1>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content  fullscreeen>
+  <ion-grid fixed>
+    <ion-row>
+      <ion-col size="1"></ion-col>
+      <ion-col size="11">
+        <h2 (click)="legalModal()" class="legal-css">Condiciones de uso</h2>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size="1"></ion-col>
+      <ion-col size="11">
+        <h2 (click)="policyModal()" class="legal-css">Políticas de privacidad</h2>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
