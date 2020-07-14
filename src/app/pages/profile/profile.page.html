@@ -25,8 +25,8 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content class="pnt-inicio" *ngIf="guestStatus">
-    <ion-grid fixed>
+<ion-content class="pnt-inicio" *ngIf="guestStatus" fullscreen>
+    <ion-grid >
         <ion-row class="ion-justify-content-center ion-margin-top">
             <ion-col size="8">
                 <div class="img-cont">
@@ -78,7 +78,7 @@
     </ion-grid>
 </ion-content>
 
-<ion-content *ngIf="menuHide && !guestStatus" fullscreeen>
+<ion-content *ngIf="menuHide && !guestStatus" fullscreen>
   <div class="content">
     <div class="body-content">
 

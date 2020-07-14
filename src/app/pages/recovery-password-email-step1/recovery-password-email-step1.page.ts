@@ -11,9 +11,9 @@ import { UsersService } from '../../services/users/user.service';
   styleUrls: ['./recovery-password-email-step1.page.scss'],
 })
 export class RecoveryPasswordEmailStep1Page implements OnInit {
-
+  timeVar;
   type = 'password';
-  user:any;
+  user: any;
   form: FormGroup;
 
   errors = {
@@ -32,10 +32,10 @@ export class RecoveryPasswordEmailStep1Page implements OnInit {
     public navCtrl: NavController,
   ) {
     this.form = this.formBuild.group({
-        "email": ["", [
-            Validators.required,
-            Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$')
-        ], []]
+      "email": ["", [
+        Validators.required,
+        Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$')
+      ], []]
     });
   }
 
@@ -48,7 +48,7 @@ export class RecoveryPasswordEmailStep1Page implements OnInit {
 
     if (this.form.valid) {
       let navigationExtras: NavigationExtras = {
-        state: {data: this.userRegister}
+        state: { data: this.userRegister }
       };
       this.userService.recoverPassword(this.userRegister.email).then(res => {
         this.navCtrl.navigateForward(['/recovery-password-code-step2'], navigationExtras);
@@ -62,9 +62,14 @@ export class RecoveryPasswordEmailStep1Page implements OnInit {
 
   checkEmail() {
     this.errors.email = [];
-    if (this.field('email').invalid)
-      this.addError("email", "Error: Email inválido.");
+    clearTimeout(this.timeVar);
+    this.timeVar = setTimeout(() => {
+      this.errors.email = [];
+      if (this.field('email').invalid)
+        this.addError("email", "Error: Email inválido.");
+    }, 2000);
   }
+
 
   addError(key, msg) {
     this.errors[key].push(msg);
