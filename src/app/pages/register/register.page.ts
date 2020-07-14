@@ -17,7 +17,8 @@ import { TermsModalPage } from '../terms-modal/terms-modal.page';
 export class RegisterPage implements OnInit {
 
   type = 'password';
-
+  timeMailCheck;
+  timePassCheck
   form: FormGroup;
 
   errors = {
@@ -44,15 +45,15 @@ export class RegisterPage implements OnInit {
     private userService: UsersService
   ) {
     this.form = this.formBuild.group({
-        "first_name": ["", [Validators.required], []],
-        "last_name": ["", [Validators.required], []],
-        "email": ["", [
-            Validators.required,
-            Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$')
-        ], []],
-        "password": ["", [
-          Validators.required, Validators.minLength(6)
-        ], []],
+      "first_name": ["", [Validators.required], []],
+      "last_name": ["", [Validators.required], []],
+      "email": ["", [
+        Validators.required,
+        Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$')
+      ], []],
+      "password": ["", [
+        Validators.required, Validators.minLength(6)
+      ], []],
     });
   }
 
@@ -61,20 +62,21 @@ export class RegisterPage implements OnInit {
 
   doRegister() {
 
-      if (this.form.valid) {
-        this.loader.display('Registrando...');
-        this.userService.register(this.userRegister).then(() => {
-          this.loader.hide();
-          let navigationExtras: NavigationExtras = {
-            state: {data: this.userRegister}};
-          this.navCtrl.navigateForward(['/verify-number'], navigationExtras);
-        }).catch((error) => {
-          this.loader.hide();
-          console.log(error);
-          if (error.username && error.username.length > 0){
-            this.showAlert();
-          }
-        });
+    if (this.form.valid) {
+      this.loader.display('Registrando...');
+      this.userService.register(this.userRegister).then(() => {
+        this.loader.hide();
+        let navigationExtras: NavigationExtras = {
+          state: { data: this.userRegister }
+        };
+        this.navCtrl.navigateForward(['/verify-number'], navigationExtras);
+      }).catch((error) => {
+        this.loader.hide();
+        console.log(error);
+        if (error.username && error.username.length > 0) {
+          this.showAlert();
+        }
+      });
     }
   }
 
@@ -102,16 +104,24 @@ export class RegisterPage implements OnInit {
     await alert.present();
   }
 
-  checkPassword() {
+  checkPassword() {  
     this.errors.password = [];
-    if (this.field('password').invalid)
-      this.addError("password", "Error: La contraseña tiene menos de 6 carateres.");
+    clearTimeout(this.timePassCheck);
+    this.timePassCheck = setTimeout(() => {
+      this.errors.password = [];
+      if (this.field('password').invalid)
+        this.addError("password", "Error: La contraseña tiene menos de 6 carateres.");
+    }, 2000);
   }
 
   checkEmail() {
     this.errors.email = [];
-    if (this.field('email').invalid)
-      this.addError("email", "Error: Email inválido.");
+    clearTimeout(this.timeMailCheck);
+    this.timeMailCheck = setTimeout(() => {
+      this.errors.email = [];
+      if (this.field('email').invalid)
+        this.addError("email", "Error: Email inválido.");
+    }, 2000);
   }
 
   addError(key, msg) {
@@ -126,7 +136,7 @@ export class RegisterPage implements OnInit {
     this.type = this.type == 'password' ? 'text' : 'password'
   }
 
-  async showPrivacyModal(){
+  async showPrivacyModal() {
     let modal = await this.modalCtrl.create({
       component: TermsModalPage,
       backdropDismiss: false,
@@ -136,7 +146,7 @@ export class RegisterPage implements OnInit {
     await modal.present();
   }
 
-  async showTermsModal(){
+  async showTermsModal() {
     let modal = await this.modalCtrl.create({
       component: LegalModalPage,
       backdropDismiss: false,
