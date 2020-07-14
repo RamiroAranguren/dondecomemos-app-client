@@ -9,7 +9,7 @@ import { StorageService } from '../../services/storage/storage.service';
 import { TermsModalPage } from '../terms-modal/terms-modal.page';
 import { LoaderService } from '../../services/loader/loader.service';
 import { ToastService } from '../../services/toast/toast.service';
-import { NavigationExtras } from '@angular/router';
+import { NavigationExtras, Router } from '@angular/router';
 import { Platform } from '@ionic/angular';
 
 @Component({
@@ -63,6 +63,7 @@ export class ProfilePage implements OnInit {
         public formBuild: FormBuilder,
         private toast: ToastService,
         private platform: Platform,
+        private router: Router
     ) {
         this.form = this.formBuild.group({
             "first_name": ["", [Validators.required], []],
@@ -118,7 +119,7 @@ export class ProfilePage implements OnInit {
 
     backToHomeSuscription() {
         this.backButtonSuscription = this.platform.backButton.subscribe(() => {
-            this.navCtrl.navigateBack(['tabs/home'])
+            this.router.navigate(['tabs/home'])
         })
     }
 

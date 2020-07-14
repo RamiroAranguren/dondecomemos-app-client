@@ -8,10 +8,10 @@ const routes: Routes = [
     redirectTo: 'step-functions',
     pathMatch: 'full'
   },
-  {
-    path: 'home',
-    loadChildren: () => import('./pages/home/home.module').then( m => m.HomePageModule)
-  },
+  // {
+  //   path: 'home',
+  //   loadChildren: () => import('./pages/home/home.module').then( m => m.HomePageModule)
+  // },
   {
     path: 'login',
     loadChildren: () => import('./pages/login/login.module').then( m => m.LoginPageModule)
@@ -36,18 +36,18 @@ const routes: Routes = [
     path: 'tabs',
     loadChildren: () => import('./pages/tabs/tabs.module').then( m => m.TabsPageModule)
   },
-  {
-    path: 'profile',
-    loadChildren: () => import('./pages/profile/profile.module').then( m => m.ProfilePageModule)
-  },
-  {
-    path: 'favorite',
-    loadChildren: () => import('./pages/favorite/favorite.module').then( m => m.FavoritePageModule)
-  },
-  {
-    path: 'orders',
-    loadChildren: () => import('./pages/orders/orders.module').then( m => m.OrdersPageModule)
-  },
+  // {
+  //   path: 'profile',
+  //   loadChildren: () => import('./pages/profile/profile.module').then( m => m.ProfilePageModule)
+  // },
+  // {
+  //   path: 'favorite',
+  //   loadChildren: () => import('./pages/favorite/favorite.module').then( m => m.FavoritePageModule)
+  // },
+  // {
+  //   path: 'orders',
+  //   loadChildren: () => import('./pages/orders/orders.module').then( m => m.OrdersPageModule)
+  // },
   {
     path: 'verify-number-code',
     loadChildren: () => import('./pages/verify-number-code/verify-number-code.module').then( m => m.VerifyNumberCodePageModule)
@@ -115,7 +115,8 @@ const routes: Routes = [
   {
     path: 'order/pre-order',
     loadChildren: () => import('./pages/pre-order/pre-order/pre-order.module').then( m => m.PreOrderPageModule)
-  },  {
+  },
+  {
     path: 'profile-data',
     loadChildren: () => import('./pages/profile-data/profile-data.module').then( m => m.ProfileDataPageModule)
   }
