@@ -5,6 +5,7 @@ import { IonicModule } from '@ionic/angular';
 import { RestaurantComponent } from './restaurant/restaurant/restaurant.component';
 import { PipesModule } from '../pipes/pipes.module';
 import { ReserveInfoComponent } from './reserve/reserve-info/reserve-info.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 
@@ -22,7 +23,9 @@ import { ReserveInfoComponent } from './reserve/reserve-info/reserve-info.compon
   imports: [
     CommonModule,
     IonicModule,
-    PipesModule
+    PipesModule,
+    FormsModule,
+    ReactiveFormsModule
   ]
 })
 export class ComponentsModule { }

@@ -4,7 +4,7 @@ import { UsersService } from '../../services/users/user.service';
 import { NavController, Platform } from '@ionic/angular';
 import { NavigationExtras } from '@angular/router';
 import { ToastService } from '../../services/toast/toast.service';
-import { AppMinimize } from '@ionic-native/app-minimize/ngx';
+import { AppMinimize } from '@ionic-native/app-minimize';
 
 
 @Component({

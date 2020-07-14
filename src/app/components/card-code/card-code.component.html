@@ -1,4 +1,4 @@
-<ion-card >
+<ion-card>
     <div class="card-margin-l">
         <img src="../../../assets/img/creditCard/cardilustra.svg" />
         <ion-card-header>
@@ -7,10 +7,11 @@
         <ion-card-content>
             Ingrese el código de <br> seguridad
         </ion-card-content>
-        <ion-input  inputmode="numeric " maxlength="3 " minlength="3 "  pattern="[0-9]{3} "></ion-input>
+        <ion-input
+            id="code" name="code"
+            inputmode="numeric" maxlength="3" minlength="3" pattern="[0-9]{3}" required></ion-input>
     </div>
     <div class="r-btn ">
-        <ion-button>ok</ion-button>
+        <ion-button (click)="goToCode()">ok</ion-button>
     </div>
-
 </ion-card>

@@ -43,18 +43,23 @@ export class CreditCardListComponent implements OnInit {
 
 
   async presentCardCode(ev: any) {
-    this.DismissClick()
+
     const cardCodePop = await this.popoverController.create({
       component: CardCodeComponent,
       cssClass: 'cardcodeclass',
       event: ev,
       translucent: true,
+      backdropDismiss: false,
       componentProps: {
         id: null,
         user: this.user
       }
     });
-    return await cardCodePop.present();
+    await cardCodePop.present();
+
+    const { data } = await cardCodePop.onDidDismiss();
+
+    console.log("code", data.code);
   }
 
 

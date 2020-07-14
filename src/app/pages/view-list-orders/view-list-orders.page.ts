@@ -138,6 +138,12 @@ export class ViewListOrdersPage implements OnInit {
             cards: this.list_cards
           }
         });
-        return await myCards.present();
+        await myCards.present();
+
+        const { data } = await myCards.onDidDismiss();
+
+        console.log("card-code", data.code);
+
+        await myCards.dismiss();
       }
 }
