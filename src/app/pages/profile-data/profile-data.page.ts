@@ -19,6 +19,7 @@ export class ProfileDataPage implements OnInit {
   profile = false;
   legal = false;
   backButtonSuscription: any;
+  changedInputState:boolean = false
 
   initals = "";
 
@@ -73,29 +74,32 @@ export class ProfileDataPage implements OnInit {
   }
 
   ngOnInit() {
-    this.storage.getObject("user").then((user: UserInterface) => {
-      this.user = user;
-      this.initals = `${this.user.first_name.slice(0, 1)}${this.user.last_name.slice(0, 1)}`;
-    }).catch(err => {
-      this.user = {
-        id: "",
-        username: "",
-        password: "",
-        email: "",
-        first_name: "",
-        last_name: "",
-        token: "",
-        guest: true,
-        phone: null
-      };
-    });
-    this.backButtonSuscription = this.platform.backButton.subscribeWithPriority(100,() => {
-      this.closeProfile();
-    })
+    this.storage.getObject("user")
+      .then((user: UserInterface) => {
+        this.user = user;
+        this.initals = `${this.user.first_name.slice(0, 1)}${this.user.last_name.slice(0, 1)}`;
+        this.changedInputState = false;
+      })
+      .catch(err => {
+        this.user = {
+          id: "",
+          username: "",
+          password: "",
+          email: "",
+          first_name: "",
+          last_name: "",
+          token: "",
+          guest: true,
+          phone: null
+        };
+      });
+    
   }
 
   ionViewDidEnter() {
-
+    this.backButtonSuscription = this.platform.backButton.subscribeWithPriority(100, () => {
+      this.closeProfile();
+    })
   }
 
 
@@ -103,6 +107,18 @@ export class ProfileDataPage implements OnInit {
     this.backButtonSuscription.unsubscribe();
   }
 
+  changedInput() {
+    console.log('changed input');
+    if (this.user.first_name !== this.userService.user.first_name ||
+      this.user.last_name !== this.userService.user.last_name ||
+      this.user.email !== this.userService.user.email ||
+      this.user.phone != this.userService.user.phone){
+        this.changedInputState = true;
+      } else {
+        this.changedInputState = false;
+      }
+
+  }
   // FUNCTIONS PROFILE DATA
   saveProfile() {
 
@@ -131,7 +147,7 @@ export class ProfileDataPage implements OnInit {
 
   closeProfile() {
     let changes = this.changeForm();
-    if(!changes){
+    if (!changes) {
       this.navCtrl.navigateBack(['tabs/profile']);
     }
   }

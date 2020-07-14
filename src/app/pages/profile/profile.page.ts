@@ -104,8 +104,9 @@ export class ProfilePage implements OnInit {
             this.guestStatus = false;
             this.menuHide = true;
         }
+        this.backToHomeSuscription();
     }
-  
+
 
     ionViewWillLeave() {
         this.guestStatus = true;
@@ -113,6 +114,12 @@ export class ProfilePage implements OnInit {
         this.profile = false;
         this.legal = false;
         this.backButtonSuscription.unsubscribe();
+    }
+
+    backToHomeSuscription() {
+        this.backButtonSuscription = this.platform.backButton.subscribe(() => {
+            this.navCtrl.navigateBack(['tabs/home'])
+        })
     }
 
     async logOut() {
@@ -142,6 +149,7 @@ export class ProfilePage implements OnInit {
     }
 
     legalView() {
+        this.backButtonSuscription.unsubscribe();
         this.backButtonSuscription = this.platform.backButton.subscribe(() => {
             this.closeLegal();
         });
@@ -184,6 +192,7 @@ export class ProfilePage implements OnInit {
     }
 
     dataView() {
+        this.backButtonSuscription.unsubscribe();
         this.navCtrl.navigateForward(['/profile-data']);
     }
 
@@ -209,6 +218,7 @@ export class ProfilePage implements OnInit {
         this.guestStatus = false;
         this.profile = false;
         this.legal = false;
+        this.backToHomeSuscription();
     }
 
     addError(key, msg) {

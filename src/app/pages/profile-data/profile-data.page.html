@@ -7,7 +7,7 @@
       </ion-button>
     </ion-buttons>
     <ion-buttons slot="end">
-      <ion-button (click)="saveProfile()" class="guardarHeader">
+      <ion-button (click)="saveProfile()" [ngClass]="{'changed-profile': changedInputState}" class="guardarHeader">
         GUARDAR
       </ion-button>
     </ion-buttons>
@@ -24,21 +24,21 @@
             <ion-item color="input-background">
               <ion-label class="colorBlack" position="floating" style="font-family: FieldworkGeoRegular;">Nombre
               </ion-label>
-              <ion-input class="colorBlack" [(ngModel)]="user.first_name" formControlName="first_name" name="first_name"
-                type="text" required></ion-input>
+              <ion-input class="colorBlack" (ionChange)="changedInput()" [(ngModel)]="user.first_name" formControlName="first_name"
+                name="first_name" type="text" required></ion-input>
             </ion-item>
 
             <ion-item color="input-background">
               <ion-label class="colorBlack" position="floating" style="font-family: FieldworkGeoRegular;">Apellido
               </ion-label>
-              <ion-input class="colorBlack" [(ngModel)]="user.last_name" formControlName="last_name" name="last_name"
+              <ion-input class="colorBlack" (ionChange)="changedInput()" [(ngModel)]="user.last_name" formControlName="last_name" name="last_name"
                 type="text" required></ion-input>
             </ion-item>
 
             <ion-item color="input-background">
               <ion-label class="colorBlack" position="floating" style="font-family: FieldworkGeoRegular;">Email
               </ion-label>
-              <ion-input class="colorBlack" [(ngModel)]="user.email" formControlName="email" name="email" type="email">
+              <ion-input class="colorBlack" (ionChange)="changedInput()" [(ngModel)]="user.email" formControlName="email" name="email" type="email">
               </ion-input>
             </ion-item>
             <span *ngIf="errors.email.length > 0" class="error-message">
@@ -48,7 +48,7 @@
             <ion-item color="input-background">
               <ion-label class="colorBlack" position="floating" style="font-family: FieldworkGeoRegular;">Celular
               </ion-label>
-              <ion-input class="colorBlack" [(ngModel)]="user.phone" formControlName="phone" type="number" name="phone">
+              <ion-input class="colorBlack" (ionChange)="changedInput()" [(ngModel)]="user.phone" formControlName="phone" type="number" name="phone">
               </ion-input>
             </ion-item>
             <span *ngIf="errors.phone" class="error-message">
