@@ -99,15 +99,6 @@ export class ChangeOldPasswordPage implements OnInit {
         this.errors.copy_password = [];
       }
     }, 2000);
-    // if (this.field('copy_password').invalid) {
-    //   this.addError("copy_password", "Error: La contraseña tiene menos de 6 carateres.");
-    // }
-
-    // if (this.userForm.new_password !== this.userForm.copy_password) {
-    //   this.errors.copy_password = ['Error: las contraseñas no coinciden.'];
-    // } else {
-    //   this.errors.copy_password = [];
-    // }
   }
 
   addError(key, msg) {
