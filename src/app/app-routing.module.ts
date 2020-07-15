@@ -5,7 +5,7 @@ const routes: Routes = [
 
   {
     path: '',
-    redirectTo: 'step-functions',
+    redirectTo: 'start',
     pathMatch: 'full'
   },
   // {
@@ -119,7 +119,8 @@ const routes: Routes = [
   {
     path: 'profile-data',
     loadChildren: () => import('./pages/profile-data/profile-data.module').then( m => m.ProfileDataPageModule)
-  },  {
+  },
+  {
     path: 'legal',
     loadChildren: () => import('./pages/legal/legal.module').then( m => m.LegalPageModule)
   }
