@@ -11,7 +11,8 @@ import { LoaderService } from '../../services/loader/loader.service';
   styleUrls: ['./change-old-password.page.scss'],
 })
 export class ChangeOldPasswordPage implements OnInit {
-
+  timePassCheck;
+  timePass2Check;
   userForm = {
     new_password: null,
     copy_password: null
@@ -25,7 +26,7 @@ export class ChangeOldPasswordPage implements OnInit {
   type = 'password';
   type2 = 'password';
   form: FormGroup;
-  user:any;
+  user: any;
 
   constructor(
     private alertCtrl: AlertController,
@@ -35,12 +36,12 @@ export class ChangeOldPasswordPage implements OnInit {
     private loader: LoaderService
   ) {
     this.form = this.formBuild.group({
-        "new_password": ["", [
-          Validators.required, Validators.minLength(6)
-        ], []],
-        "copy_password": ["", [
-          Validators.required, Validators.minLength(6)
-        ], []],
+      "new_password": ["", [
+        Validators.required, Validators.minLength(6)
+      ], []],
+      "copy_password": ["", [
+        Validators.required, Validators.minLength(6)
+      ], []],
     });
   }
 
@@ -76,20 +77,28 @@ export class ChangeOldPasswordPage implements OnInit {
 
   checkPassword1() {
     this.errors.new_password = [];
-    if (this.field('new_password').invalid)
-      this.addError("new_password", "Error: La contraseña tiene menos de 6 carateres.");
+    clearTimeout(this.timePassCheck);
+    this.timePassCheck = setTimeout(() => {
+      this.errors.new_password = [];
+      if (this.field('new_password').invalid)
+        this.addError("new_password", "Error: La contraseña tiene menos de 6 carateres.");
+    }, 2000);
   }
 
   checkPassword2() {
-    if (this.field('copy_password').invalid){
-      this.addError("copy_password", "Error: La contraseña tiene menos de 6 carateres.");
-    }
+    this.errors.copy_password = [];
+    clearTimeout(this.timePass2Check);
+    this.timePass2Check = setTimeout(() => {
+      if (this.field('copy_password').invalid) {
+        this.addError("copy_password", "Error: La contraseña tiene menos de 6 carateres.");
+      }
 
-    if (this.userForm.new_password  !== this.userForm.copy_password ) {
-      this.errors.copy_password = ['Error: las contraseñas no coinciden.'];
-    } else {
-      this.errors.copy_password = [];
-    }
+      if (this.userForm.new_password !== this.userForm.copy_password) {
+        this.errors.copy_password = ['Error: las contraseñas no coinciden.'];
+      } else {
+        this.errors.copy_password = [];
+      }
+    }, 2000);
   }
 
   addError(key, msg) {

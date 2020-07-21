@@ -9,7 +9,7 @@ import { StorageService } from '../../services/storage/storage.service';
 import { TermsModalPage } from '../terms-modal/terms-modal.page';
 import { LoaderService } from '../../services/loader/loader.service';
 import { ToastService } from '../../services/toast/toast.service';
-import { NavigationExtras } from '@angular/router';
+import { NavigationExtras, Router } from '@angular/router';
 import { Platform } from '@ionic/angular';
 
 @Component({
@@ -63,6 +63,7 @@ export class ProfilePage implements OnInit {
         public formBuild: FormBuilder,
         private toast: ToastService,
         private platform: Platform,
+        private router: Router
     ) {
         this.form = this.formBuild.group({
             "first_name": ["", [Validators.required], []],
@@ -118,7 +119,7 @@ export class ProfilePage implements OnInit {
 
     backToHomeSuscription() {
         this.backButtonSuscription = this.platform.backButton.subscribe(() => {
-            this.navCtrl.navigateBack(['tabs/home'])
+            this.router.navigate(['tabs/home'])
         })
     }
 
@@ -150,45 +151,7 @@ export class ProfilePage implements OnInit {
 
     legalView() {
         this.backButtonSuscription.unsubscribe();
-        this.backButtonSuscription = this.platform.backButton.subscribe(() => {
-            this.closeLegal();
-        });
-        this.menuHide = false;
-        this.guestStatus = false;
-        this.profile = false;
-        this.legal = true;
-    }
-
-    async policyModal() {
-        this.backButtonSuscription.unsubscribe();
-        let modal = await this.modalCtrl.create({
-            component: TermsModalPage,
-            backdropDismiss: false,
-            keyboardClose: false,
-        });
-
-        await modal.present();
-        await modal.onDidDismiss().then(() => {
-            this.backButtonSuscription = this.platform.backButton.subscribe(() => {
-                this.closeLegal();
-            });
-        });
-    }
-
-    async legalModal() {
-        this.backButtonSuscription.unsubscribe();
-        let modal = await this.modalCtrl.create({
-            component: LegalModalPage,
-            backdropDismiss: false,
-            keyboardClose: false,
-        });
-
-        await modal.present();
-        await modal.onDidDismiss().then(() => {
-            this.backButtonSuscription = this.platform.backButton.subscribe(() => {
-                this.closeLegal();
-            });
-        });
+        this.navCtrl.navigateForward(['/legal'])
     }
 
     dataView() {
@@ -210,15 +173,6 @@ export class ProfilePage implements OnInit {
 
     loginFcbk() {
         console.log('g+');
-    }
-
-    closeLegal() {
-        this.backButtonSuscription.unsubscribe();
-        this.menuHide = true;
-        this.guestStatus = false;
-        this.profile = false;
-        this.legal = false;
-        this.backToHomeSuscription();
     }
 
     addError(key, msg) {

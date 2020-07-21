@@ -20,25 +20,25 @@ export class StepFunctionsPage implements OnInit {
 
     slides = [
         {
-            img: 'assets/img/step-functions/step-1.png',
+            img: 'assets/img/step-functions/svg/step-1.svg',
             alt: 'step-1',
             title: 'Busque un restaurante',
             description: 'Podrá encontrar sus restaurantes<br>favoritos, con cartas actualizadas<br> y menús del día.',
         },
         {
-            img: 'assets/img/step-functions/step-2.png',
+            img: 'assets/img/step-functions/svg/step-2.svg',
             alt: 'step-2',
             title: 'Pre-ordene la comida',
             description: 'Y especifique a que hora llegará<br> al restaurante. También puede<br> simplemente reservar una mesa.',
         },
         {
-            img: 'assets/img/step-functions/step-3.png',
+            img: 'assets/img/step-functions/svg/step-3.svg',
             alt: 'step-3',
             title: 'Pague desde la app',
             description: 'Podrá retirarse cuando lo<br> desee, sin pedir la cuenta.',
         },
         {
-            img: 'assets/img/step-functions/step-4.png',
+            img: 'assets/img/step-functions/svg/step-4.svg',
             alt: 'step-4',
             title: 'Disfrute de la experiencia',
             description: 'El restaurante lo esperará<br> con la comida lista!<br> Sin filas, sin esperas.',

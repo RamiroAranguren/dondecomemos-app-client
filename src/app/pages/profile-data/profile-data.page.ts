@@ -19,7 +19,7 @@ export class ProfileDataPage implements OnInit {
   profile = false;
   legal = false;
   backButtonSuscription: any;
-  changedInputState:boolean = false
+  changedInputState: boolean = false
 
   initals = "";
 
@@ -93,7 +93,7 @@ export class ProfileDataPage implements OnInit {
           phone: null
         };
       });
-    
+
   }
 
   ionViewDidEnter() {
@@ -102,21 +102,19 @@ export class ProfileDataPage implements OnInit {
     })
   }
 
-
   ionViewWillLeave() {
     this.backButtonSuscription.unsubscribe();
   }
 
   changedInput() {
-    console.log('changed input');
     if (this.user.first_name !== this.userService.user.first_name ||
       this.user.last_name !== this.userService.user.last_name ||
       this.user.email !== this.userService.user.email ||
-      this.user.phone != this.userService.user.phone){
-        this.changedInputState = true;
-      } else {
-        this.changedInputState = false;
-      }
+      this.user.phone != this.userService.user.phone) {
+      this.changedInputState = true;
+    } else {
+      this.changedInputState = false;
+    }
 
   }
   // FUNCTIONS PROFILE DATA
@@ -193,9 +191,6 @@ export class ProfileDataPage implements OnInit {
 
     await alert.present();
   }
-
-
-  ///
 
   checkEmail() {
     this.errors.email = [];
