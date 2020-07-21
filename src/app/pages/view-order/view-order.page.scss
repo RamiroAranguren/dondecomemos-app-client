@@ -68,15 +68,16 @@ ion-toolbar {
                 display: flex;
                 flex-direction: column;
                 margin-top: 14vw;
+                width: 100%;
                 div {
                     display: flex;
                     flex-direction: row;
-                    width: 58.75vw;
+                    //width: 58.75vw;
                     justify-content: space-between;
-
+                    text-align: right;
                     p {
                         font-size: 16px;
-                        text-align: left;
+                        text-align: right;
                         margin: 0;
                     }
                     .price-percent {

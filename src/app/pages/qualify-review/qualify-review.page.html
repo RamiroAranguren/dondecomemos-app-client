@@ -14,12 +14,12 @@
                 <h2 class="titles">Calificaciones</h2>
             </ion-col>
             <!-- sin calificaciones -->
-            <row class="no-qualify row-no-padding-left" *ngIf="restaurant.qualifications.length == 0">
+            <ion-row class="no-qualify row-no-padding-left" *ngIf="restaurant.qualifications.length == 0">
                 <h2>Restaurante sin calificaciones</h2>
                 <div>
                     <img src="../../../assets/img/qualify-review/sin-calificaciones.svg" alt="">
                 </div>
-            </row>
+            </ion-row>
             <!-- con calificaciones -->
             <ion-row class="row-no-padding-left" *ngIf="restaurant.qualifications.length > 0">
                 <ion-col size="3" class="ion-align-items-end">
@@ -29,11 +29,27 @@
                     </div>
                 </ion-col>
                 <ion-col class="category-col" size="9">
-                    <ion-row *ngFor="let qualify of restaurant.qualifications">
-                        <ion-col size="6"> {{ qualify.score_category.name }}</ion-col>
+                    <ion-row *ngIf="score_categories.comida !== 0">
+                        <ion-col size="6"> Comida </ion-col>
                         <ion-col size="6">
                             <div>
-                                <ion-icon name="star"></ion-icon> <span>{{ qualify.score }}</span>
+                                <ion-icon name="star"></ion-icon> <span>{{ score_categories.comida }}</span>
+                            </div>
+                        </ion-col>
+                    </ion-row>
+                    <ion-row *ngIf="score_categories.ambiente !== 0">
+                        <ion-col size="6"> Ambiente</ion-col>
+                        <ion-col size="6">
+                            <div>
+                                <ion-icon name="star"></ion-icon> <span>{{ score_categories.ambiente }}</span>
+                            </div>
+                        </ion-col>
+                    </ion-row>
+                    <ion-row *ngIf="score_categories.servicio !== 0">
+                        <ion-col size="6"> Servicio </ion-col>
+                        <ion-col size="6">
+                            <div>
+                                <ion-icon name="star"></ion-icon> <span>{{ score_categories.servicio }}</span>
                             </div>
                         </ion-col>
                     </ion-row>
@@ -57,11 +73,11 @@
         <!-- con reseñas -->
         <div *ngIf="restaurant.reviews.length > 0">
             <ion-row *ngFor="let review of restaurant.reviews" class="row_review">
-                <ion-col class="col-wraper" size="12">
+                <ion-col class="col-wraper" size="12" *ngIf="review.status === true">
                     <ion-row>
                         <ion-col size="2">
                             <div class="initials">
-                                {{ review.user | initialUser }}
+                                {{ review.user | initialUser | uppercase }}
                             </div>
                         </ion-col>
                         <ion-col class="review-info-wrapper" size="10">

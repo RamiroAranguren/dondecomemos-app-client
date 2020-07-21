@@ -9,9 +9,12 @@
         </ion-card-content>
         <ion-input
             id="code" name="code"
+            (ionChange)="changeCode()"
             inputmode="numeric" maxlength="3" minlength="3" pattern="[0-9]{3}" required></ion-input>
     </div>
     <div class="r-btn ">
-        <ion-button (click)="goToCode()">ok</ion-button>
+        <ion-button
+            [disabled]="inactiveBtn"
+            (click)="goToCode()">ok</ion-button>
     </div>
 </ion-card>

@@ -10,7 +10,7 @@
                 <img src="../../../assets/img/creditCard/Recurso3.svg">
             </ion-thumbnail>
 
-            <ion-label (click)="presentCardCode()">
+            <ion-label (click)="presentCardCode($event, card)">
                 <span>····</span> {{ card.number | slice:-4 }}
             </ion-label>
 

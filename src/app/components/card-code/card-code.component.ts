@@ -11,6 +11,8 @@ export class CardCodeComponent implements OnInit {
   @Input() id;
   @Input() user;
 
+  inactiveBtn = true;
+
   constructor(
     private popOverCtrl: PopoverController
   ) { }
@@ -25,8 +27,16 @@ export class CardCodeComponent implements OnInit {
     } else {
       this.popOverCtrl.dismiss({
         code: code
-      })
-      console.log("code", code);
+      });
+    }
+  }
+
+  changeCode() {
+    let code = (document.getElementById('code') as HTMLInputElement).value;
+    if(code.length > 2){
+      this.inactiveBtn = false;
+    } else {
+      this.inactiveBtn = true;
     }
   }
 

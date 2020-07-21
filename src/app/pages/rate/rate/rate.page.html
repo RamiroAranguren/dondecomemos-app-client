@@ -9,39 +9,55 @@
 
 <ion-content>
     <ion-grid class="main" fixed>
-        <ion-row class="main-title">
+        <div class="main-title">
             <p>Por favor, califique su experiencia en</p>
             <h2>La Consentida</h2>
-        </ion-row>
-        <i-row class="qualification">
+        </div>
+        <div class="qualification">
             <div class="icon-title">
                 <h3>Comida</h3>
-                <img src="../../../../assets/icon/calificaciones/estrella-5.svg" alt="" srcset="">
+                <img *ngIf="rate.comida !== 0" src="../../../../assets/icon/calificaciones/estrella-{{rate.comida}}.svg" alt="" srcset="">
             </div>
             <div class="stars-wrapper">
-                <img *ngFor="let item of [1,1,1,1,1]" src="../../../../assets/icon/calificaciones/star-vacia.svg" alt="">
+                <img
+                    *ngFor="let item of [1,2,3,4,5]"
+                    (click)="rateComida(item)"
+                    src="{{ rate.comida | checkStar:item }}" alt="">
             </div>
-        </i-row>
-        <i-row class="qualification">
+        </div>
+        <div class="qualification">
             <div class="icon-title">
                 <h3>Ambiente</h3>
-                <img src="../../../../assets/icon/calificaciones/estrella-3.svg" alt="" srcset="">
+                <img *ngIf="rate.ambiente !== 0" src="../../../../assets/icon/calificaciones/estrella-{{rate.ambiente}}.svg" alt="" srcset="">
             </div>
             <div class="stars-wrapper">
-                <img *ngFor="let item of [1,1,1,1,1]" src="../../../../assets/icon/calificaciones/star-completo.svg" alt="">
+                <img
+                    *ngFor="let item of [1,2,3,4,5]"
+                    (click)="rateAmbiente(item)"
+                    src="{{ rate.ambiente | checkStar:item }}" alt="">
             </div>
-        </i-row>
-        <i-row class="qualification">
+        </div>
+        <div class="qualification">
             <div class="icon-title">
                 <h3>Servicio</h3>
-                <img src="../../../../assets/icon/calificaciones/estrella-4.svg" alt="" srcset="">
+                <img *ngIf="rate.servicio !== 0" src="../../../../assets/icon/calificaciones/estrella-{{rate.servicio}}.svg" alt="" srcset="">
             </div>
             <div class="stars-wrapper">
-                <img *ngFor="let item of [1,1,1,1,1]" src="../../../../assets/icon/calificaciones/star-completo.svg" alt="">
+                <img
+                    *ngFor="let item of [1,2,3,4,5]"
+                    (click)="rateServicio(item)"
+                    src="{{ rate.servicio | checkStar:item }}" alt="">
             </div>
-        </i-row>
+        </div>
+        <br><br>
     </ion-grid>
-    <ion-button (click)="goToReview()" class="fixed-btn" [ngClass]="{'disabled-button': disabledButton}" [disabled]="disabledButton" shape="round">
-        CALIFICAR
-    </ion-button>
+    <ion-grid>
+        <ion-row>
+            <ion-col size="12">
+                <ion-button (click)="goToReview()" class="fixed-btn" [ngClass]="{'disabled-button': disabledButton}" [disabled]="disabledButton" shape="round">
+                    CALIFICAR
+                </ion-button>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
 </ion-content>

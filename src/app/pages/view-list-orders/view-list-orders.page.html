@@ -28,23 +28,10 @@
                 </div>
             </div>
         </ion-row>
-        
-        <!-- <h2>El pedido es para...</h2>
-        <ion-row class="reason">
-            <section>
-                <ion-button [ngClass]="{'check-color-button' : comer}" (click)="check('comer')" size="small">
-                    Comer en el restaurante</ion-button>
-                <ion-button [ngClass]="{'check-color-button' : delivery}" (click)="check('delivery')" size="small">
-                    Delivery
-                </ion-button>
-                <ion-button [ngClass]="{'check-color-button' : retirar}" (click)="check('retirar')" size="small">Retirar
-                    por el local
-                </ion-button>
-            </section>
-        </ion-row> -->
         <br>
-        <h2>Pago</h2>
-        <ion-row class="pre-order-question">
+
+        <ion-row class="pre-order-question" *ngIf="type === 'RESERVE'">
+            <h2>Pago</h2>
             <div class="wrapper">
                 <div [ngClass]="{'check-color' : payPlace}" (click)="payNow(true)">
                     <p>En el restaurante</p>
@@ -54,7 +41,8 @@
                 </div>
             </div>
             <div class="card" *ngIf="!payPlace">
-                <p><img src="../../../assets/logos/view-list-order/visa.svg" alt="" srcset="">.... 4517</p>
+                <!-- <p><img src="../../../assets/logos/view-list-order/visa.svg" alt="" srcset="">.... 4517</p> -->
+                <p *ngIf="data_payment.card">Tarjeta terminada en: .... {{ data_payment.card.number | slice:-4 }}</p>
             </div>
         </ion-row>
         <ion-row class="price-info">
@@ -70,39 +58,45 @@
                 <p class="total-price">Total ${{ price_total }}</p>
             </div>
         </ion-row>
-        <!-- <h2>Comentario (opcional)</h2>
-        <ion-row class="commentary">
+
+        <ion-row class="reason" *ngIf="type === 'ORDER'">
+            <h2>El pedido es para...</h2>
             <section>
-                <ion-item>
-                    <ion-label position="floating">Comentario</ion-label>
-                    <ion-input></ion-input>
-                </ion-item>
+                <ion-button [ngClass]="{'check-color-button' : comer}" (click)="check('comer')" size="small">
+                    Comer en el restaurante</ion-button>
+                <ion-button [ngClass]="{'check-color-button' : delivery}" (click)="check('delivery')" size="small">
+                    Delivery
+                </ion-button>
+                <ion-button [ngClass]="{'check-color-button' : retirar}" (click)="check('retirar')" size="small">Retirar
+                    por el local
+                </ion-button>
             </section>
-        </ion-row> -->
-    
+        </ion-row>
+
     </ion-grid>
-    <ion-button class="fixed-btn" shape="round">
+    <ion-button *ngIf="type === 'RESERVE'" (click)="goToPaymentReserve()" class="fixed-btn" shape="round">
         CONFIRMAR
     </ion-button>
-    <!-- <ion-button class="fixed-btn" shape="round" (click)="changeExpression()">
+    <ion-button *ngIf="type === 'ORDER'" class="fixed-btn" shape="round" (click)="changeExpression()">
         CONTINUAR
-    </ion-button> -->
+    </ion-button>
 </ion-content>
 <!-- ----------------------- comer en el restaurant ------------------- -->
 <ion-content class="restaurant" *ngIf="!expression && comer">
     <ion-grid fixed>
         <h2>¿Cuántas personas?</h2>
+        <small style="color:rgb(143, 143, 143); font-family: Arial, Helvetica, sans-serif;">Capacidad máx.: {{ restaurant.max_diners }} personas.</small>
         <ion-row class="people-counter">
             <ion-col size="6">
-                <p>02</p>
+                <p>{{ countPeople }}</p>
             </ion-col>
             <ion-col size="6">
                 <div>
-                    <ion-button class="button-padding" (click)="onClick()" fill="clear">
-                        <img src="../../../assets/buttons/book-table/minus-button.svg" alt="minus" srcset="">
+                    <ion-button class="button-padding" (click)="removePeople()" fill="clear">
+                        <img src="../../../assets/buttons/book-table/minus-button.svg" alt="" srcset="">
                     </ion-button>
-                    <ion-button (click)="onClick()" fill="clear">
-                        <img src="../../../assets/buttons/book-table/plus-button.svg" alt="plus" srcset="">
+                    <ion-button (click)="addPeople()" fill="clear">
+                        <img src="../../../assets/buttons/book-table/plus-button.svg" alt="" srcset="">
                     </ion-button>
                 </div>
 
@@ -111,49 +105,59 @@
         <h2>Elija la fecha</h2>
         <ion-row class="choose-date">
             <ion-segment scrollable="true" value="lun" mode="md">
-                <ion-segment-button mode="md" [value]="item" *ngFor="let item of days; index as i">
+                <ion-segment-button
+                    *ngFor="let item of days"
+                    (click)="checkHours(item)"
+                    mode="md"
+                    [value]="item.day">
                     <div>
-                        <p class="day">{{item}}</p>
-                        <p>{{i + 1}}</p>
+                        <p class="day">{{ item.day}}</p>
+                        <p>{{ item.date | slice:-2 }}</p>
                     </div>
                 </ion-segment-button>
             </ion-segment>
         </ion-row>
         <h2>Seleccione hora</h2>
-        <ion-row class="choose-hour">
-            <ion-segment scrollable="true" value="14:00" mode="md">
-                <ion-segment-button mode="md" [value]="item" *ngFor="let item of hours; index as i">
+        <p *ngIf="hours.length <= 0" style="color: rgb(168, 167, 167);"> {{ message_hours }} </p>
+        <ion-row class="choose-hour" *ngIf="hours.length > 0">
+            <ion-segment scrollable="true" value="" mode="md">
+                <ion-segment-button
+                    *ngFor="let hour of hours" (click)="selectHour($event, hour)"
+                    mode="md"
+                    id="option-{{ hour }}"
+                    [value]="hour">
                     <div>
-                        <p class="day">{{item}}</p>
+                        <p class="day">{{ hour }}</p>
                     </div>
                 </ion-segment-button>
             </ion-segment>
         </ion-row>
-        <h2>Pago</h2>
         <ion-row class="pre-order-question">
+            <h2>Pago</h2>
             <div class="wrapper">
-                <div [ngClass]="{'check-color' : !payPlace}" (click)="payNow(false)">
+                <div [ngClass]="{'check-color' : payPlace}" (click)="payNow(true)">
                     <p>En el restaurante</p>
                 </div>
-                <div [ngClass]="{'check-color' : payPlace}" (click)="payNow(true)">
+                <div [ngClass]="{'check-color' : !payPlace}" (click)="presentPopover(false)">
                     <p>Ahora</p>
                 </div>
             </div>
-            <div class="card" *ngIf="payPlace">
-                <p><img src="../../../assets/logos/view-list-order/visa.svg" alt="" srcset="">.... 4517</p>
+            <div class="card" *ngIf="!payPlace">
+                <!-- <p><img src="../../../assets/logos/view-list-order/visa.svg" alt="" srcset="">.... 4517</p> -->
+                <p *ngIf="data_payment.card">Tarjeta terminada en: .... {{ data_payment.card.number | slice:-4 }}</p>
             </div>
         </ion-row>
         <ion-row class="price-info">
             <div class="price-wrapper">
                 <div>
                     <p>Subtotal</p>
-                    <p class="price-percent">$1170</p>
+                    <p class="price-percent">${{ price_total }}</p>
                 </div>
                 <div>
                     <p>Descuento</p>
                     <p class="price-percent">10%</p>
                 </div>
-                <p class="total-price">Total $1053</p>
+                <p class="total-price">Total ${{ price_total }}</p>
             </div>
         </ion-row>
         <h2>Motivo (opcional)</h2>
@@ -178,12 +182,15 @@
             <section>
                 <ion-item>
                     <ion-label position="floating">Comentario</ion-label>
-                    <ion-input></ion-input>
+                    <ion-input [(ngModel)]="option_select.comments"></ion-input>
                 </ion-item>
             </section>
         </ion-row>
     </ion-grid>
-    <ion-button class="fixed-btn" shape="round">
+    <ion-button
+        [disabled]="option_select.hs === ''"
+        (click)="goToPaymentReserve()"
+        class="fixed-btn" shape="round">
         Finalizar
     </ion-button>
 </ion-content>
@@ -191,40 +198,45 @@
 <ion-content class="restaurant" *ngIf="!expression && retirar">
     <ion-grid fixed>
         <h2>Pedido para hoy a las...</h2>
-        <ion-row class="choose-hour">
-            <ion-segment scrollable="true" value="14:00" mode="md">
-                <ion-segment-button mode="md" [value]="item" *ngFor="let item of hours; index as i">
+        <ion-row class="choose-hour" *ngIf="hours.length > 0">
+            <ion-segment scrollable="true" value="" mode="md">
+                <ion-segment-button
+                    *ngFor="let hour of hours" (click)="selectHour($event, hour)"
+                    mode="md"
+                    id="option-{{ hour }}"
+                    [value]="hour">
                     <div>
-                        <p class="day">{{item}}</p>
+                        <p class="day">{{ hour }}</p>
                     </div>
                 </ion-segment-button>
             </ion-segment>
         </ion-row>
-        <h2>Pago</h2>
-        <ion-row class="pre-order-question">
+        <ion-row class="pre-order-question" *ngIf="type === 'ORDER'">
+            <h2>Pago</h2>
             <div class="wrapper">
-                <div [ngClass]="{'check-color' : !payPlace}" (click)="payNow(false)">
+                <div [ngClass]="{'check-color' : payPlace}" (click)="payNow(true)">
                     <p>En el restaurante</p>
                 </div>
-                <div [ngClass]="{'check-color' : payPlace}" (click)="payNow(true)">
+                <div [ngClass]="{'check-color' : !payPlace}" (click)="presentPopover(false)">
                     <p>Ahora</p>
                 </div>
             </div>
-            <div class="card" *ngIf="payPlace">
-                <p><img src="../../../assets/logos/view-list-order/visa.svg" alt="" srcset="">.... 4517</p>
+            <div class="card" *ngIf="!payPlace">
+                <!-- <p><img src="../../../assets/logos/view-list-order/visa.svg" alt="" srcset="">.... 4517</p> -->
+                <p *ngIf="data_payment.card">Tarjeta terminada en: .... {{ data_payment.card.number | slice:-4 }}</p>
             </div>
         </ion-row>
         <ion-row class="price-info">
             <div class="price-wrapper">
                 <div>
                     <p>Subtotal</p>
-                    <p class="price-percent">$1170</p>
+                    <p class="price-percent">${{ price_total }}</p>
                 </div>
                 <div>
                     <p>Descuento</p>
                     <p class="price-percent">10%</p>
                 </div>
-                <p class="total-price">Total $1053</p>
+                <p class="total-price">Total ${{ price_total }}</p>
             </div>
         </ion-row>
         <h2>Comentario (opcional)</h2>
@@ -232,12 +244,15 @@
             <section>
                 <ion-item>
                     <ion-label position="floating">Comentario</ion-label>
-                    <ion-input></ion-input>
+                    <ion-input [(ngModel)]="option_select.comments"></ion-input>
                 </ion-item>
             </section>
         </ion-row>
     </ion-grid>
-    <ion-button class="fixed-btn" shape="round">
+    <ion-button
+        [disabled]="option_select.hs === ''"
+        (click)="goToPaymentOrder()"
+        class="fixed-btn" shape="round">
         Finalizar
     </ion-button>
 </ion-content>
@@ -245,11 +260,15 @@
 <ion-content class="restaurant delivery" *ngIf="!expression && delivery">
     <ion-grid fixed>
         <h2>Pedido para hoy a las...</h2>
-        <ion-row class="choose-hour">
-            <ion-segment scrollable="true" value="14:00" mode="md">
-                <ion-segment-button mode="md" [value]="item" *ngFor="let item of hours; index as i">
+        <ion-row class="choose-hour" *ngIf="hours.length > 0">
+            <ion-segment scrollable="true" value="" mode="md">
+                <ion-segment-button
+                    *ngFor="let hour of hours" (click)="selectHour($event, hour)"
+                    mode="md"
+                    id="option-{{ hour }}"
+                    [value]="hour">
                     <div>
-                        <p class="day">{{item}}</p>
+                        <p class="day">{{ hour }}</p>
                     </div>
                 </ion-segment-button>
             </ion-segment>
@@ -259,27 +278,28 @@
             <section>
                 <ion-item>
                     <ion-label position="floating">Dirección</ion-label>
-                    <ion-input></ion-input>
+                    <ion-input [(ngModel)]="option_select.address"></ion-input>
                 </ion-item>
             </section>
         </ion-row>
-        <h2>Pago</h2>
-        <ion-row class="pre-order-question">
+        <ion-row class="pre-order-question" *ngIf="type === 'RESERVE'">
+            <h2>Pago</h2>
             <div class="wrapper">
-                <div [ngClass]="{'check-color' : !payPlace}" (click)="payNow(false)">
-                    <p>En efectivo al repartidor</p>
-                </div>
                 <div [ngClass]="{'check-color' : payPlace}" (click)="payNow(true)">
+                    <p>En el restaurante</p>
+                </div>
+                <div [ngClass]="{'check-color' : !payPlace}" (click)="presentPopover(false)">
                     <p>Ahora</p>
                 </div>
             </div>
-            <div class="card" *ngIf="payPlace">
-                <p><img src="../../../assets/logos/view-list-order/visa.svg" alt="" srcset="">.... 4517</p>
+            <div class="card" *ngIf="!payPlace">
+                <!-- <p><img src="../../../assets/logos/view-list-order/visa.svg" alt="" srcset="">.... 4517</p> -->
+                <p *ngIf="data_payment.card">Tarjeta terminada en: .... {{ data_payment.card.number | slice:-4 }}</p>
             </div>
             <div class="noCard" *ngIf="!payPlace">
                 <p>¿Con cuanto abona?</p>
                 <ion-item>
-                    <ion-input></ion-input>
+                    <ion-input [(ngModel)]="option_select.expected_payment"></ion-input>
                 </ion-item>
             </div>
         </ion-row>
@@ -287,13 +307,13 @@
             <div class="price-wrapper">
                 <div>
                     <p>Subtotal</p>
-                    <p class="price-percent">$1170</p>
+                    <p class="price-percent">${{ price_total }}</p>
                 </div>
                 <div>
                     <p>Descuento</p>
                     <p class="price-percent">10%</p>
                 </div>
-                <p class="total-price">Total $1053</p>
+                <p class="total-price">Total ${{ price_total }}</p>
             </div>
         </ion-row>
         <h2>Comentario (opcional)</h2>
@@ -301,12 +321,15 @@
             <section>
                 <ion-item>
                     <ion-label position="floating">Comentario</ion-label>
-                    <ion-input></ion-input>
+                    <ion-input [(ngModel)]="option_select.comments"></ion-input>
                 </ion-item>
             </section>
         </ion-row>
     </ion-grid>
-    <ion-button class="fixed-btn" shape="round">
+    <ion-button
+        [disabled]="option_select.hs === ''"
+        (click)="goToPaymentOrder()"
+        class="fixed-btn" shape="round">
         Finalizar
     </ion-button>
 </ion-content>

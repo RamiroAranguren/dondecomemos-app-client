@@ -1,16 +1,17 @@
 import { Injectable } from '@angular/core';
+import { UserInterface } from 'src/app/interfaces/user';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { environment } from '../../../environments/environment.prod';
 import { StorageService } from '../storage/storage.service';
+import { environment } from '../../../environments/environment.prod';
 
 const apiUrl = environment.apiUrl;
 
 @Injectable({
   providedIn: 'root'
 })
-export class ReservationService {
+export class OrderService {
 
-  reservations:any[] = [];
+  orders:any[] = [];
 
   constructor(
     public http: HttpClient,
@@ -19,15 +20,15 @@ export class ReservationService {
   }
 
   protected getURL(data) {
-    return `reservations/?restaurant=${data.resto.id}&date=${data.date}&hour=${data.hour}`;
+    return `orders/?restaurant=${data.resto.id}&from=${data.date.from}&to=${data.date.to}&type=${data.type}`;
   }
 
   protected getURLUser() {
-    return 'reservations/by_user/';
+    return 'orders/by_user/';
   }
 
   protected process_get(response): void {
-    this.reservations = response;
+    this.orders = response;
   }
 
   get(params:any, url=false){
@@ -35,8 +36,11 @@ export class ReservationService {
     let data = {
       user: params.user,
       resto: params.resto,
-      date: params.date,
-      hour: params.hour
+      date: {
+        from: params.date.from,
+        to: params.date.to
+      },
+      type: params.type
     }
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
@@ -50,7 +54,7 @@ export class ReservationService {
       } else {
         url_api = `${apiUrl}${this.getURLUser()}`;
       }
-      console.log("URL-GET-RESERVES", url_api);
+      console.log("URL-GET-ORDERS", url_api);
       this.http.get(url_api, { headers }).subscribe((response:any) => {
         this.process_get(response)
         resolve(response)
@@ -64,11 +68,14 @@ export class ReservationService {
     const body = {
       client: data.user.id,
       restaurant_id: data.restaurant_id,
-      diners: data.diners,
-      reservation_date: data.reservation_date,
-      reservation_hour: data.reservation_hour,
+      address: data.address,
+      order_type: data.order_type,
+      order_date: data.order_date,
+      order_hour: data.order_hour,
       comments: data.comments,
-      motive: data.motive,
+      expected_payment: data.expected_payment,
+      waiting_time: data.waiting_time,
+      mp_id: data.mp_id,
       products: data.products,
       menus: data.menus
     };
@@ -81,7 +88,7 @@ export class ReservationService {
     });
 
     return new Promise((resolve, reject) => {
-      this.http.post(`${apiUrl}reservations/`, body, {headers}).subscribe((response: any) => {
+      this.http.post(`${apiUrl}orders/`, body, {headers}).subscribe((response: any) => {
         resolve(response);
       }, (errorResponse) => {
         reject(errorResponse);
@@ -90,22 +97,19 @@ export class ReservationService {
   }
 
   cancel(data){
-    console.log("data-service-reserve", data);
-
+    console.log("data-service-order", data);
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
       'Authorization': `token ${data.user.token}`
     });
 
-    console.log("head-service-reserve", headers);
+    console.log("head-service-order", headers);
 
     return new Promise((resolve , reject) => {
-      this.http.put(`${apiUrl}reservations/${data.id}/cancel/`, null, { headers }).subscribe((response:any) => {
-        console.log("RES-SERV-RES", response);
+      this.http.put(`${apiUrl}orders/${data.id}/cancel/`, null, { headers }).subscribe((response:any) => {
         this.process_get(response)
         resolve(response)
       }),( err => {
-        console.log("ERR-SERV-RES", err);
         reject(err);
       });
     });

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { NavController, AlertController } from '@ionic/angular';
+import { NavController } from '@ionic/angular';
 import { StorageService } from '../../services/storage/storage.service';
 import { ToastService } from 'src/app/services/toast/toast.service';
 import { UserInterface } from 'src/app/interfaces/user';
@@ -13,6 +13,7 @@ import { Validators } from '@angular/forms';
 })
 export class AddItemOrderPage implements OnInit {
 
+  type:string;
   category_name:string;
   product:any;
   restaurant:any;
@@ -47,6 +48,7 @@ export class AddItemOrderPage implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.type = this.route.getCurrentNavigation().extras.state.type;
     this.category_name = this.route.getCurrentNavigation().extras.state.category_name;
     this.product = this.route.getCurrentNavigation().extras.state.product;
     this.restaurant = this.route.getCurrentNavigation().extras.state.restaurant;
@@ -336,6 +338,7 @@ export class AddItemOrderPage implements OnInit {
     this.activeAgregate = true;
 
     let pedido = {
+      type: this.type,
       user: this.user,
       restaurant: this.restaurant.id,
       product: {
@@ -395,11 +398,11 @@ export class AddItemOrderPage implements OnInit {
 
     this.storage.addObject("list_order", this.order);
 
-    this.toast.show("Orden agregada con éxito!", 2300);
+    this.toast.show("Orden agregada con éxito!", 1200);
 
     setTimeout(() => {
       this.navCtrl.back();
-    }, 2700);
+    }, 1200);
   }
 
 }

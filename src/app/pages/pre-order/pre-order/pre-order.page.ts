@@ -6,7 +6,6 @@ import { CategoriesService } from '../../../services/products/categories.service
 import { StorageService } from '../../../services/storage/storage.service';
 import { UserInterface } from 'src/app/interfaces/user';
 import { UsersService } from '../../../services/users/user.service';
-import { element } from 'protractor';
 
 @Component({
   selector: 'app-pre-order',
@@ -19,6 +18,8 @@ export class PreOrderPage implements OnInit {
 
   user:UserInterface;
   restaurant:restaurant;
+  type:string;
+  data_order:any;
   product_categories:any[] = [];
   product_titles:any[] = [];
   menues:any[] = [];
@@ -39,9 +40,9 @@ export class PreOrderPage implements OnInit {
 
   ngOnInit() {
     this.restaurant = this.route.getCurrentNavigation().extras.state.restaurant;
-    console.log(this.restaurant);
+    this.type = this.route.getCurrentNavigation().extras.state.type;
+    this.data_order = this.route.getCurrentNavigation().extras.state.data;
     this.user = this.userService.user;
-    console.log("USer", this.user);
   }
 
   ionViewDidEnter(){
@@ -76,7 +77,7 @@ export class PreOrderPage implements OnInit {
               }
             }
 
-            prices_order = prices_order.concat(order.product.price);
+            prices_order = prices_order.concat(order.product.price * order.product.count);
           });
 
           if(prices_order.length > 0){
@@ -95,6 +96,7 @@ export class PreOrderPage implements OnInit {
   addItemOrder(category_name:string, product) {
     let navigationExtras: NavigationExtras = {
       state: {
+        type: this.type,
         category_name,
         product,
         restaurant: {id: this.restaurant.id},
@@ -111,7 +113,12 @@ export class PreOrderPage implements OnInit {
 
   viewOrders() {
     let navigationExtras: NavigationExtras = {
-      state: {restaurant: this.restaurant}};
+      state: {
+        type: this.type,
+        restaurant: this.restaurant,
+        data: this.data_order
+      }
+    };
     this.navCtrl.navigateForward(['/restaurant/view-list-orders'], navigationExtras);
   }
 

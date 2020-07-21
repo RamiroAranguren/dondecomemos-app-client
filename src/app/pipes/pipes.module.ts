@@ -8,6 +8,7 @@ import { ScoreUserPipe } from './score-user.pipe';
 import { FormatDatePipe } from './format-date.pipe';
 import { InitialUserPipe } from './initial-user.pipe';
 import { PriceItemPipe } from './price-item.pipe';
+import { CheckStarPipe } from './check-star.pipe';
 
 
 
@@ -20,7 +21,8 @@ import { PriceItemPipe } from './price-item.pipe';
     ScoreUserPipe,
     FormatDatePipe,
     InitialUserPipe,
-    PriceItemPipe
+    PriceItemPipe,
+    CheckStarPipe
   ],
   exports: [
     OpenClosePipe,
@@ -30,7 +32,8 @@ import { PriceItemPipe } from './price-item.pipe';
     ScoreUserPipe,
     FormatDatePipe,
     InitialUserPipe,
-    PriceItemPipe
+    PriceItemPipe,
+    CheckStarPipe
   ],
   imports: [
     CommonModule

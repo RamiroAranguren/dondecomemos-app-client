@@ -123,7 +123,7 @@ export class DetailsPage implements OnInit {
               }
             }
 
-            prices_order = prices_order.concat(order.product.price);
+            prices_order = prices_order.concat(order.product.price * order.product.count);
           });
 
           if(prices_order.length > 0){
@@ -243,9 +243,10 @@ export class DetailsPage implements OnInit {
     this.navCtrl.navigateForward(['/restaurant/qualify-review'], navigationExtras);
   }
 
-  addItemOrder(category_name:string, product) {
+  addItemOrder(type:string, category_name:string, product) {
     let navigationExtras: NavigationExtras = {
       state: {
+        type,
         category_name,
         product,
         restaurant: {id: this.restaurant.id},

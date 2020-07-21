@@ -7,7 +7,7 @@
     </ion-toolbar>
 </ion-header>
 
-<ion-content *ngIf="!invitado">
+<ion-content *ngIf="!user.guest">
     <ion-segment color="primary" value="pendientes" mode="md">
         <ion-segment-button (click)="back()" value="pendientes">
             <ion-label>Pendientes</ion-label>
@@ -19,74 +19,103 @@
 
     <ion-slides [options]="slideOpts">
         <ion-slide>
-            <ion-row *ngIf="reservation" class="most-favoritos">
-                <ion-item *ngFor="let item of [1,1,1,1,1]">
+            <ion-row *ngIf="pendientes.length > 0" class="most-favoritos">
+                <ion-item *ngFor="let item of pendientes">
                     <ion-thumbnail slot="end">
-                        <img src="../../../assets/img/resta_default.png" alt="rest-default" />
+                        <img src="https://panel.dondecomemos.com.ar/uploads/{{item.restaurant.profile_picture}}" alt="{{ item.id }}" />
                     </ion-thumbnail>
                     <div class="text-wrapper">
                         <div class="titulos">
-                            <h2>Reserva de mesa en La consentida</h2>
+                            <h2 *ngIf="item.type === 'RESERVE'">Reserva de mesa en {{ item.restaurant.name }}</h2>
+                            <h2 *ngIf="item.type === 'ORDER' && item.order_type === 'LOC'">Para llevar en {{ item.restaurant.name }}</h2>
+                            <h2 *ngIf="item.type === 'ORDER' && item.order_type === 'DEL'">Delivery en {{ item.restaurant.name }}</h2>
                         </div>
                         <div class="description">
-                            <p>Para 5 el lunes 23</p>
-                            <p>18:445 hs</p>
+                            <p *ngIf="item.type === 'RESERVE'">Para {{ item.diners }}, el {{ item.date | date:'EEEE d' }},</p>
+                            <p *ngIf="item.type === 'ORDER'">El {{ item.date | date:'EEEE d' }}</p>
+                            <p>{{ item.hour | slice:0:5 }} hs</p>
                         </div>
 
                     </div>
                     <div class="buttons">
-                        <ion-button [routerLink]="['/order/view-order']" routerLinkActive="router-link-active" fill="clear" shape="round">
+                        <ion-button
+                            *ngIf="item.type === 'RESERVE' && (item.orders.length > 0 || item.menus.length > 0)"
+                            (click)="goToReserve(item)"
+                            routerLinkActive="router-link-active" fill="clear" shape="round">
                             VER PEDIDO
                         </ion-button>
-                        <ion-button fill="clear" shape="round">
+                        <ion-button
+                            *ngIf="item.type === 'ORDER'"
+                            (click)="goToOrder(item)"
+                            routerLinkActive="router-link-active" fill="clear" shape="round">
+                            VER PEDIDO
+                        </ion-button>
+                        <ion-button
+                            (click)="cancel(item)"
+                            fill="clear" shape="round">
                             CANCELAR
                         </ion-button>
                     </div>
                 </ion-item>
             </ion-row>
-            <ion-row class="no-reservation" *ngIf="!reservation">
+            <ion-row class="no-reservation" *ngIf="pendientes.length <= 0">
                 <img src="../../../assets/img/ordersPage/noReservation.svg" alt="">
                 <h3>Aquí se mostrarán tus reservas y pedidos pendientes</h3>
             </ion-row>
+            <ion-button class="fixed-btn" shape="round" *ngIf="pendientes.length <= 0">
+                HACER UNA RESERVA
+            </ion-button>
         </ion-slide>
         <ion-slide>
-            <ion-row *ngIf="reservation" class="most-favoritos">
-                <ion-item *ngFor="let item of [1,1,1,1,1]">
+            <ion-row *ngIf="finalizados.length > 0" class="most-favoritos">
+                <ion-item *ngFor="let item of finalizados">
                     <ion-thumbnail slot="end">
-                        <img src="../../../assets/img/resta_default.png" alt="rest-default" />
+                        <img src="https://panel.dondecomemos.com.ar/uploads/{{item.restaurant.profile_picture}}" alt="{{ item.id }}" />
                     </ion-thumbnail>
                     <div class="text-wrapper">
                         <div class="titulos">
-                            <h2>Reserva de mesa en La consentida</h2>
+                            <h2 *ngIf="item.type === 'RESERVE'">Reserva de mesa en {{ item.restaurant.name }}</h2>
+                            <h2 *ngIf="item.type === 'ORDER'">Pedido en {{ item.restaurant.name }}</h2>
                         </div>
                         <div class="description">
-                            <p>Para 5 el lunes 23</p>
-                            <p>18:445 hs</p>
+                            <p *ngIf="item.type === 'RESERVE'">Para {{ item.diners }}, el {{ item.date | date:'EEEE d' }},</p>
+                            <p *ngIf="item.type === 'ORDER'">El {{ item.date | date:'EEEE d' }}</p>
+                            <p>{{ item.hour | slice:0:5 }} hs</p>
                         </div>
 
                     </div>
                     <div class="buttons">
-                        <ion-button [routerLink]="['/order/view-order']" routerLinkActive="router-link-active"  fill="clear" shape="round">
+                        <ion-button
+                            *ngIf="item.type === 'RESERVE' && (item.orders.length > 0 || item.menus.length > 0)"
+                            (click)="goToReserve(item)"
+                            routerLinkActive="router-link-active" fill="clear" shape="round">
                             VER PEDIDO
                         </ion-button>
-                        <ion-button fill="clear" shape="round" (click)="goToRate()">
+                        <ion-button
+                            *ngIf="item.type === 'ORDER' && (item.orders.length > 0 || item.menus.length > 0)"
+                            (click)="goToOrder(item)"
+                            routerLinkActive="router-link-active" fill="clear" shape="round">
+                            VER PEDIDO
+                        </ion-button>
+                        <ion-button fill="clear" shape="round" (click)="goToRate(item)">
                             CALIFICAR
                         </ion-button>
                     </div>
                 </ion-item>
             </ion-row>
-            <ion-row class="no-reservation" *ngIf="!reservation">
+            <ion-row class="no-reservation" *ngIf="finalizados.length <= 0">
                 <img src="../../../assets/img/ordersPage/noReservation.svg" alt="">
                 <h3>Aquí se mostrarán tus reservas y pedidos finalizados. ¡Hacé tu
                     primera reserva!</h3>
             </ion-row>
+            <ion-button class="fixed-btn" shape="round" *ngIf="finalizados.length <= 0">
+                HACER UNA RESERVA
+            </ion-button>
         </ion-slide>
     </ion-slides>
-    <ion-button class="fixed-btn" shape="round" *ngIf="!reservation">
-        HACER UNA RESERVA
-    </ion-button>
+
 </ion-content>
-<ion-content *ngIf="invitado">
+<ion-content *ngIf="user.guest">
     <ion-segment color="primary" value="pendientes" mode="md">
         <ion-segment-button (click)="back()" value="pendientes">
             <ion-label>Pendientes</ion-label>

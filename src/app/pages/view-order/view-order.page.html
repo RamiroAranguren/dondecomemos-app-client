@@ -9,46 +9,39 @@
 
 <ion-content class="main" >
     <ion-grid fixed>
-        <i-row class="order">
+        <ion-row class="order" *ngFor="let order of item.orders">
             <div class="wrapper-order">
-                <h3>Rabas con salsa alioli</h3>
-                <p class="first-p">2 Naguiri
-                </p>
-                <p class="second-p">4 Geishas</p>
-                <div>
-                    <h4>$410</h4>
-                    <h4>x1</h4>
-                </div>
+                <span *ngFor="let item of order.products">
+                    <h3><b>{{ item.product.category.name }}</b></h3>
+                    <p class="first-p" *ngIf="item.variant">
+                        {{ item.variant.name }}
+                    </p>
+                    <p class="first-p" *ngIf="!item.variant">
+                        {{ item.product.name }} <span style="color: rgb(116, 116, 116);" *ngIf="item.product.description">({{item.product.description}})</span>
+                    </p>
+                    <div *ngIf="item.variant">
+                        <h4>${{ item.variant.price }}</h4>
+                        <h4>x{{ item.amount }}</h4>
+                    </div>
+                    <div *ngIf="!item.variant">
+                        <h4>${{ item.product.price }}</h4>
+                        <h4>x{{ item.amount }}</h4>
+                    </div>
+                </span>
+                <br>
+                <span *ngIf="order.additionals.length > 0">
+                    <span>Adicionales:</span>
+                    <br>
+                    <p class="second-p" *ngFor="let add of order.additionals">
+                        {{ add.amount }} {{ add.additional.name }}
+                    </p>
+                </span>
             </div>
-        </i-row>
-        <i-row class="order">
-            <div class="wrapper-order">
-                <h3>Hamburguesa de lomo</h3>
-                <p class="first-p">Con panceta, cebolla y huevo a
-                    la plancha.</p>
-                <p class="second-p">Adicional: 1 huevo doble</p>
-                <div>
-                    <h4>$480</h4>
-                    <h4>x1</h4>
-                </div>
-            </div>
-        </i-row>
-        <i-row class="order">
-            <div class="wrapper-order">
-                <h3>Rabas con salsa alioli</h3>
-                <p class="first-p">Mix de pescados y mariscos al limón sobre
-                    colchón de verdes</p>
-                <p class="second-p">Porción: 1 mediana, 1 chica</p>
-                <div>
-                    <h4>$390</h4>
-                    <h4>x2</h4>
-                </div>
-            </div>
-        </i-row>
-        <i-row class="price-info">
+        </ion-row>
+        <ion-row class="price-info">
             <div class="price-wrapper">
-                <p class="total-price">Total $1053</p>
+                <p class="total-price">Total ${{price_total}}</p>
             </div>
-        </i-row>
+        </ion-row>
     </ion-grid>
 </ion-content>

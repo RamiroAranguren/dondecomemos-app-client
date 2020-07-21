@@ -18,7 +18,8 @@ export class CreditCardListComponent implements OnInit {
   constructor(
     private router: Router,
     private navCtrl: NavController,
-    private popoverController: PopoverController
+    private popoverController: PopoverController,
+    private popoverController2: PopoverController
   ) { }
 
   ngOnInit() { }
@@ -42,9 +43,8 @@ export class CreditCardListComponent implements OnInit {
   }
 
 
-  async presentCardCode(ev: any) {
-
-    const cardCodePop = await this.popoverController.create({
+  async presentCardCode(ev: any, card:any) {
+    const cardCodePop = await this.popoverController2.create({
       component: CardCodeComponent,
       cssClass: 'cardcodeclass',
       event: ev,
@@ -58,8 +58,8 @@ export class CreditCardListComponent implements OnInit {
     await cardCodePop.present();
 
     const { data } = await cardCodePop.onDidDismiss();
-
-    console.log("code", data.code);
+    await this.popoverController2.dismiss({ code: data.code });
+    await this.popoverController.dismiss({ code: data.code, card: card });
   }
 
 
