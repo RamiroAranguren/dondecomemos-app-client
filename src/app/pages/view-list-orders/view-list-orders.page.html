@@ -278,7 +278,7 @@
             <section>
                 <ion-item>
                     <ion-label position="floating">Dirección</ion-label>
-                    <ion-input [(ngModel)]="option_select.address"></ion-input>
+                    <ion-input (ionChange)="changedAddress($event)" [(ngModel)]="option_select.address" required></ion-input>
                 </ion-item>
             </section>
         </ion-row>
@@ -327,7 +327,7 @@
         </ion-row>
     </ion-grid>
     <ion-button
-        [disabled]="option_select.hs === ''"
+        [disabled]="!inactiveFinalizar"
         (click)="goToPaymentOrder()"
         class="fixed-btn" shape="round">
         Finalizar

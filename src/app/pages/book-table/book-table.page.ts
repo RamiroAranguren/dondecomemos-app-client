@@ -349,75 +349,76 @@ export class BookTablePage implements OnInit {
         await alert.present();
     }
 
-    async showAlertBack() {
-        let showAlertMessage = false;
+    showAlertBack() {
         this.storage.getObject("list_order").then(res => {
             if(res){
-            let orders = res.filter(ord => (ord.restaurant === this.restaurant.id && ord.user.id === this.user.id));
-            let prices_order = [];
-            orders.forEach(order => {
+                let orders = res.filter(ord => (ord.restaurant === this.restaurant.id && ord.user.id === this.user.id));
+                console.log("ORDERS-USER-RESTO");
+                let prices_order = [];
+                orders.forEach(order => {
 
-                if(order.product.variants !== undefined){
-                if(order.product.variants.length > 0) {
-                    let prices_var = order.product.variants.map(vary => {
-                    return vary.price * vary.count;
-                    });
-                    prices_order = prices_order.concat(prices_var);
-                }
-                }
+                    if(order.product.variants !== undefined){
+                    if(order.product.variants.length > 0) {
+                        let prices_var = order.product.variants.map(vary => {
+                        return vary.price * vary.count;
+                        });
+                        prices_order = prices_order.concat(prices_var);
+                    }
+                    }
 
-                if(order.product.additionals !== undefined) {
-                if(order.product.additionals.length > 0) {
-                    let prices_add = order.product.additionals.map(add => {
-                    return add.price * add.count;
-                    });
-                    prices_order = prices_order.concat(prices_add);
-                }
-                }
+                    if(order.product.additionals !== undefined) {
+                    if(order.product.additionals.length > 0) {
+                        let prices_add = order.product.additionals.map(add => {
+                        return add.price * add.count;
+                        });
+                        prices_order = prices_order.concat(prices_add);
+                    }
+                    }
 
-                prices_order = prices_order.concat(order.product.price * order.product.count);
-            });
+                    prices_order = prices_order.concat(order.product.price * order.product.count);
+                });
 
-            if(prices_order.length > 0){
-                showAlertMessage = true;
-            }
+                console.log("Prices_order", prices_order, prices_order.length);
+
+                if(prices_order.length > 0){
+                    this.showAlertMSG();
+                } else {
+                    let params: NavigationExtras = {state: {data: this.restaurant}};
+                    this.navCtrl.navigateForward(['/restaurant/details'], params);
+                }
             }
         });
+    }
 
-        if(showAlertMessage){
+    async showAlertMSG() {
+        const alert = await this.alertCtrl.create({
+            header: 'Si sale perderá todos los datos de la reserva',
+            buttons: [
+                {
+                text: 'Cancelar',
+                handler: () => {
+                    return;
+                }
+                },
+                {
+                text: 'Salir',
+                handler: () => {
+                    this.storage.getObject("list_order").then(res => {
+                        if(res){
+                            let orders = res.filter(ord => (ord.restaurant === this.restaurant.id && ord.user.id !== this.user.id));
+                            this.storage.addObject("list_order", orders);
+                        }
+                    });
+                    setTimeout(() => {
+                        let params: NavigationExtras = {state: {data: this.restaurant}};
+                        this.navCtrl.navigateForward(['/restaurant/details'], params);
+                    }, 800);
+                }
+                }
+            ]
+        });
 
-            const alert = await this.alertCtrl.create({
-                header: 'Si sale perderá todos los datos de la reserva',
-                buttons: [
-                    {
-                    text: 'Cancelar',
-                    handler: () => {
-                        return;
-                    }
-                    },
-                    {
-                    text: 'Salir',
-                    handler: () => {
-                        this.storage.getObject("list_order").then(res => {
-                            if(res){
-                                let orders = res.filter(ord => (ord.restaurant === this.restaurant.id && ord.user.id !== this.user.id));
-                                this.storage.addObject("list_order", orders);
-                            }
-                        });
-                        setTimeout(() => {
-                            let params: NavigationExtras = {state: {data: this.restaurant}};
-                            this.navCtrl.navigateForward(['/restaurant/details'], params);
-                        }, 800);
-                    }
-                    }
-                ]
-            });
-
-            await alert.present();
-        } else {
-            let params: NavigationExtras = {state: {data: this.restaurant}};
-            this.navCtrl.navigateForward(['/restaurant/details'], params);
-        }
+        await alert.present();
     }
 
 }

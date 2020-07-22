@@ -26,6 +26,8 @@ export class ViewListOrdersPage implements OnInit {
     expression = true;
     payPlace = true;
 
+    inactiveFinalizar = false;
+
     slideOptionsDate = {
         slidesPerView: 4,
     };
@@ -163,6 +165,9 @@ export class ViewListOrdersPage implements OnInit {
         item == "comer" ? this.comer = true : this.comer = false;
         item == "delivery" ? this.delivery = true : this.delivery = false;
         item == "retirar" ? this.retirar = true : this.retirar = false;
+
+        this.option_select.hs = "";
+        this.option_select.address = "";
     }
 
     changeExpression() {
@@ -173,6 +178,14 @@ export class ViewListOrdersPage implements OnInit {
         if(this.delivery || this.retirar){
           this.checkHoursOrder();
         }
+    }
+
+    changedAddress(ev){
+      console.log(ev.detail.value);
+      this.option_select.address = ev.detail.value;
+
+      console.log(this.option_select.hs, this.option_select.address);
+      this.inactiveFinalizar = this.option_select.hs !== '' && this.option_select.address !== '';
     }
 
     payNow(resp: boolean) {
@@ -412,6 +425,8 @@ export class ViewListOrdersPage implements OnInit {
       this.hours = list_hs.length === 1 ? list_hs: list_hs.slice(1);
 
       console.log("TIME", list_hs);
+
+      console.log("option_select.hs", this.option_select.hs);
   }
 
   selectHour(ev, hs:any){
