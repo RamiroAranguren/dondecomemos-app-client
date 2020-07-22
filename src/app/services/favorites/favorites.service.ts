@@ -53,16 +53,18 @@ export class FavoritesService {
     });
   }
 
-  post(resto:restaurant) {
+  post(id) {
     const body = {
       client: this.user.id,
-      restaurant_id: resto.id
+      restaurant_id: id
     }
 
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
       'Authorization': `token ${this.user.token}`
     });
+
+    console.log("POST-FAV",body);
 
     return new Promise((resolve, reject) => {
       this.http.post(`${apiUrl}favorite-restaurants/`, body, { headers }).subscribe((response) => {
@@ -80,6 +82,7 @@ export class FavoritesService {
       'Content-Type': 'application/json',
       'Authorization': `token ${this.user.token}`
     });
+    console.log("DELETE-FAV",id);
     return new Promise((resolve, reject) => {
       this.http.delete(`${apiUrl}favorite-restaurants/${id}`, { headers }).subscribe((response) => {
         // console.log(response);

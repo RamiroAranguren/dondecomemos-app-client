@@ -11,6 +11,7 @@ import { ModalGaleryPage } from '../../modal-galery/modal-galery.page';
 import { PicturesService } from '../../../services/pictures/pictures.service';
 import { CategoriesService } from '../../../services/products/categories.service';
 import { MenusService } from '../../../services/menus/menus.service';
+import { ToastService } from '../../../services/toast/toast.service';
 
 @Component({
   selector: 'app-details',
@@ -56,6 +57,7 @@ export class DetailsPage implements OnInit {
     private alertCtrl: AlertController,
     private modalCtrl: ModalController,
     private navCtrl: NavController,
+    private toast: ToastService,
     private route: Router,
     private loader: LoaderService,
     private storage: StorageService,
@@ -74,8 +76,9 @@ export class DetailsPage implements OnInit {
         let id_restos = this.favorites.map(data => {
           return data.restaurant.id;
         });
-        if(id_restos.includes(this.restaurant.id))
+        if(id_restos.includes(this.restaurant.id)){
           this.isFav = true;
+        }
       }
     });
     this.isGuest = this.userService.isGuestUser();
@@ -169,56 +172,69 @@ export class DetailsPage implements OnInit {
 
   addFavorite(resto: restaurant) {
     this.loader.display("Agregando a favoritos...");
-    this.favService.post(resto).then((res:any) => {
+    this.favService.post(resto.id).then((res:any) => {
       this.loader.hide();
-      if(!this.favorites.includes(resto.id))
-        this.favorites.push({id: res.id, client: this.user.id,  restaurant: {id: resto.id}});
-        this.storage.addObject("favorites", this.favorites);
       this.isFav = true;
+      this.toast.show("Agregado a Favoritos");
     }).catch (err => {
       this.loader.hide();
       console.log('err save DB favorites', err);
     });
-  }
-
-  removeFav(id_restorant:number) {
-    this.showAlert(id_restorant);
-  }
-
-  async showAlert(id:number) {
-
-    let alert = await this.alertCtrl.create({
-      header: 'Eliminar de favoritos',
-      message:"¿Seguro quiere eliminar al restaurante de Favoritos?",
-      buttons: [
-        {
-          text: 'Cancelar',
-          handler: data => {
-          }
-        },
-        {
-          text: 'Eliminar',
-          handler: () => {
-            this.storage.getObject("favorites").then(res => {
-              let id_fav = this.favorites.filter(data => data.restaurant.id === id);
-              this.favService.delete(id_fav[0].id).then((res:any) => {
-                let id_fav_resto = this.favorites.filter(fav => {
-                  if(fav.restaurant.id !== id)
-                    return fav;
-                });
-                this.storage.addObject("favorites", id_fav_resto);
-                this.isFav = false;
-              });
-            }).catch(err => {
-              console.log('err', err);
-            })
-          }
-        }
-      ]
+    // ACTAULIZO LOCAL-STORE CON FAVORITOS
+    this.favService.get(this.user.id).then((res:any) => {
+      this.storage.addObject("favorites", res);
     });
-
-    await alert.present();
   }
+
+  removeFav(id:number) {
+    // this.showAlert(id_restorant); // Pidieron que se saque
+    this.storage.getObject("favorites").then((res_local:any) => {
+      let id_fav = res_local.filter(data => data.restaurant.id === id);
+      this.favService.delete(id_fav[0].id).then((response:any) => {
+        let id_fav_resto = res_local.filter(fav => fav.restaurant.id !== id);
+        this.storage.addObject("favorites", id_fav_resto);
+        this.isFav = false;
+        this.toast.show("Eliminado de Favoritos");
+      });
+    }).catch(err => {
+      console.log('err', err);
+    })
+  }
+
+  // async showAlert(id:number) {
+
+  //   let alert = await this.alertCtrl.create({
+  //     header: 'Eliminar de favoritos',
+  //     message:"¿Seguro quiere eliminar al restaurante de Favoritos?",
+  //     buttons: [
+  //       {
+  //         text: 'Cancelar',
+  //         handler: data => {
+  //         }
+  //       },
+  //       {
+  //         text: 'Eliminar',
+  //         handler: () => {
+  //           this.storage.getObject("favorites").then(res => {
+  //             let id_fav = this.favorites.filter(data => data.restaurant.id === id);
+  //             this.favService.delete(id_fav[0].id).then((res:any) => {
+  //               let id_fav_resto = this.favorites.filter(fav => {
+  //                 if(fav.restaurant.id !== id)
+  //                   return fav;
+  //               });
+  //               this.storage.addObject("favorites", id_fav_resto);
+  //               this.isFav = false;
+  //             });
+  //           }).catch(err => {
+  //             console.log('err', err);
+  //           })
+  //         }
+  //       }
+  //     ]
+  //   });
+
+  //   await alert.present();
+  // }
 
   async showModalGalery(index) {
     let modal = await this.modalCtrl.create({

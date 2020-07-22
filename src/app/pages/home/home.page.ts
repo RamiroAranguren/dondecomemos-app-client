@@ -31,6 +31,7 @@ export class HomePage implements OnInit {
   valueSearch:string = "";
 
   chips:any[] = [];
+  filters:any[] = [];
   // detecta si hay que aplicar estilo o no al icono de filtro
   filterColor = '';
 
@@ -126,6 +127,14 @@ export class HomePage implements OnInit {
       this.restaurantService.get().then((res:any) => {
         this.restaurants = res;
         this.restaurantsCopy = res;
+        this.storage.getObject("filters").then(filters_local => {
+          if(filters_local){
+            this.chips = filters_local;
+            this.restaurants = this.restaurantService.getRestaurantByFilters(filters_local, this.restaurants);
+          }
+        }).catch(err => {
+          console.log("Error in get local filters", err);
+        });
         console.log(this.restaurants);
         this.loaderService.hide();
       });
@@ -136,6 +145,14 @@ export class HomePage implements OnInit {
     this.restaurantService.get().then((res:any) => {
       this.restaurants = res;
       this.restaurantsCopy = res;
+      this.storage.getObject("filters").then(filters_local => {
+        if(filters_local){
+          this.chips = filters_local;
+          this.restaurants = this.restaurantService.getRestaurantByFilters(filters_local, this.restaurants);
+        }
+      }).catch(err => {
+        console.log("Error in get local filters", err);
+      });
       console.log(this.restaurants);
       evento.target.complete();
     });
@@ -277,6 +294,7 @@ export class HomePage implements OnInit {
 
     if(this.chips.length > 0) {
       this.filterColor = 'btn-dc';
+      this.storage.addObject('filters', data.filters[0].all);
       let resulServiceFilters = this.restaurantService.getRestaurantByFilters(data.filters[0]);
       this.restaurants = resulServiceFilters;
     } else {
@@ -285,18 +303,13 @@ export class HomePage implements OnInit {
   }
 
   removeChip(data:any) {
-    this.chips = this.chips.filter(chip => {
-      if(chip.type !== data.type){
-        return chip;
-      } else {
-        if(chip.id !== data.id){
-          return chip;
-        }
-      }
-    });
+    // remove from local store
+    let filter_chip_local = this.chips.filter(chip => chip.id !== data.id);
+    this.storage.addObject('filters', filter_chip_local);
 
-    let resulServiceFilters = this.restaurantService.getRestaurantByFilters(this.chips);
-    this.restaurants = resulServiceFilters;
+    // remove from list for filter
+    this.chips = this.chips.filter(chip => chip.type !== data.type || chip.id !== data.id);
+    this.restaurants = this.restaurantService.getRestaurantByFilters(this.chips);
 
     if(this.chips.length <= 0) {
       this.filterColor = '';

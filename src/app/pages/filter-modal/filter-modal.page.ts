@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { ChipService } from '../../services/chips/chip.service';
 import { chip } from '../../interfaces/chip';
+import { StorageService } from '../../services/storage/storage.service';
 
 @Component({
   selector: 'app-filter-modal',
@@ -12,15 +13,18 @@ export class FilterModalPage implements OnInit {
 
   chips:any[] = [];
   filters:any[] = [];
+  pre_filters:any[] = [];
 
   types = {
     level: [],
     cook: [],
-    place: []
+    place: [],
+    all: []
   }
 
   constructor(
     public modalCtrl: ModalController,
+    private storage: StorageService,
     private chipService: ChipService
   ) {
 
@@ -29,7 +33,32 @@ export class FilterModalPage implements OnInit {
   ngOnInit() {
     this.chipService.get().then((res:any) => {
       this.chips = res;
+      console.log("CHIPPSSS", this.chips);
+      this.storage.getObject('filters').then(res => {
+        if(res){
+          this.pre_filters = res;
+          console.log("filters_pre_selecss", this.pre_filters);
+          this.pre_filters.forEach(filter => {
+            let element = document.getElementById(`${filter.type}-${filter.id}`);
+            console.log("ELEMENT", `${filter.type}-${filter.id}`, element);
+            element.classList.add('chip-checked');
+            if(filter.type === "level"){
+              this.types.level.push(filter);
+            }
+            if(filter.type === "cook"){
+              this.types.cook.push(filter);
+            }
+            if(filter.type === "place"){
+              this.types.place.push(filter);
+            }
+            this.types.all.push(filter);
+          });
+        }
+      }).catch(err => {
+        console.log("Error read local store filters", err);
+      })
     });
+
   }
 
   addChip(type:string, chip:any){
@@ -61,6 +90,8 @@ export class FilterModalPage implements OnInit {
       if(type === "place"){
         this.types.place.push(chip);
       }
+
+      this.types.all.push(chip);
     }
   }
 

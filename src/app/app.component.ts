@@ -59,7 +59,7 @@ export class AppComponent {
       });
   }
   checkFirstTime() {
-    this.storage.get('firstTime').then((resp: any) => {      
+    this.storage.get('firstTime').then((resp: any) => {
       if (resp == null) {
         console.log('primera vez', resp);
         this.setFirstTime();
