@@ -117,7 +117,30 @@ export class FilterModalPage implements OnInit {
   }
 
   closeFilters() {
-    this.modalCtrl.dismiss({filters: this.filters});
+    let types = {
+      level: [],
+      cook: [],
+      place: [],
+    }
+    this.storage.getObject('filters').then(res => {
+      console.log("CLOSE", res);
+      if(res){
+        res.forEach(chip => {
+          if(chip.type === "level"){
+            types.level.push(chip);
+          }
+          if(chip.type === "cook"){
+            types.cook.push(chip);
+          }
+          if(chip.type === "place"){
+            types.place.push(chip);
+          }
+        });
+      }
+      console.log("DISSSMISS-1", types);
+    });
+    console.log("DISSSMISS-2", types);
+    this.modalCtrl.dismiss({filters: [types]});
   }
 
 }
