@@ -66,8 +66,8 @@
             <ion-col id="country-chips" size="12">
                 <ion-row  class="ion-padding-start ion-padding-end">
                     <div  *ngFor="let chip of chips">
-                        <ion-chip id="cook-{{ chip.tag.id }}"  (click)="addChip('cook', chip.tag)">
-                            <ion-label>{{ chip.tag.name }}</ion-label>
+                        <ion-chip id="cook-{{ chip.id }}"  (click)="addChip('cook', chip)">
+                            <ion-label>{{ chip.name }}</ion-label>
                         </ion-chip>
                     </div>
                 </ion-row>

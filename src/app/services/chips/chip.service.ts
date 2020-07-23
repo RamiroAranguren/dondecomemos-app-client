@@ -42,4 +42,19 @@ export class ChipService {
 
   }
 
+  getTags(){
+
+    const headers = new HttpHeaders();
+
+    return new Promise((resolve , reject) => {
+      this.http.get(`${apiUrl}tags-macro/`, { headers }).subscribe((response:any) => {
+        this.process_get(response)
+        resolve(response)
+      }),( err => {
+        reject(err);
+      });
+    });
+
+  }
+
 }

@@ -126,7 +126,7 @@ export class HomePage implements OnInit {
     this.loaderService.display('Cargando listado...').then(() => {
       this.restaurantService.get().then((res:any) => {
         this.restaurants = res;
-        this.restaurantsCopy = res;
+        this.restaurantsCopy = [...res];
         this.storage.getObject("filters").then(filters_local => {
           if(filters_local){
             this.chips = filters_local;
@@ -144,7 +144,7 @@ export class HomePage implements OnInit {
   doRefresh(evento) {
     this.restaurantService.get().then((res:any) => {
       this.restaurants = res;
-      this.restaurantsCopy = res;
+      this.restaurantsCopy = [...res];
       this.storage.getObject("filters").then(filters_local => {
         if(filters_local){
           this.chips = filters_local;
@@ -290,15 +290,30 @@ export class HomePage implements OnInit {
 
     const { data } = await modal.onDidDismiss();
 
-    this.chips = data.filters[0].place.concat(data.filters[0].cook).concat(data.filters[0].level);
+    if(data.filters.length > 0){
 
-    if(this.chips.length > 0) {
-      this.filterColor = 'btn-dc';
-      this.storage.addObject('filters', data.filters[0].all);
-      let resulServiceFilters = this.restaurantService.getRestaurantByFilters(data.filters[0]);
-      this.restaurants = resulServiceFilters;
+      this.chips = data.filters[0].place.concat(data.filters[0].cook).concat(data.filters[0].level);
+
+      if(this.chips.length > 0) {
+        this.filterColor = 'btn-dc';
+        let save_filters_place = data.filters[0].place.map(fl => {
+          return {id: fl.id, name: fl.name, type: fl.type}
+        });
+        let save_filters_cook = data.filters[0].cook.map(fl => {
+          return {id: fl.id, name: fl.name, type: fl.type}
+        });
+        let save_filters_level = data.filters[0].level.map(fl => {
+          return {id: fl.id, name: fl.name, type: fl.type}
+        });
+        this.storage.addObject('filters', save_filters_place.concat(save_filters_cook).concat(save_filters_level));
+        let resulServiceFilters = this.restaurantService.getRestaurantByFilters(data.filters[0]);
+        this.restaurants = resulServiceFilters;
+      } else {
+        this.filterColor = '';
+      }
     } else {
-      this.filterColor = '';
+      this.chips = [];
+      this.restaurants = this.restaurantsCopy;
     }
   }
 

@@ -31,7 +31,7 @@ export class FilterModalPage implements OnInit {
   }
 
   ngOnInit() {
-    this.chipService.get().then((res:any) => {
+    this.chipService.getTags().then((res:any) => {
       this.chips = res;
       console.log("CHIPPSSS", this.chips);
       this.storage.getObject('filters').then(res => {
@@ -56,6 +56,8 @@ export class FilterModalPage implements OnInit {
         }
       }).catch(err => {
         console.log("Error read local store filters", err);
+      }).catch(err => {
+        console.log("Error read service tags", err);
       })
     });
 
@@ -68,6 +70,9 @@ export class FilterModalPage implements OnInit {
     let hasClassOk = this.hasClass(element, 'chip-checked');
 
     if(hasClassOk === true) {
+      console.log("REmove", type, chip);
+      this.pre_filters = this.pre_filters.filter(filt => filt.id !== chip.id);
+      this.storage.addObject('filters', this.pre_filters);
       element.classList.remove('chip-checked');
       if(type === "level"){
         this.types.level = this.types.level.filter((chipe:chip) => chipe.id !== chip.id);
@@ -100,17 +105,15 @@ export class FilterModalPage implements OnInit {
   }
 
   applicateFilters() {
+
     this.filters.push(this.types);
     this.filters = this.filters.reduce((newTempArr, el) => (newTempArr.includes(el) ? newTempArr : [...newTempArr, el]), [])
     this.modalCtrl.dismiss({filters: this.filters});
   }
 
   resetFilters() {
-    this.modalCtrl.dismiss({filters: [{
-      level: [],
-      cook: [],
-      place: []
-    }]});
+    this.storage.removeObject('filters');
+    this.modalCtrl.dismiss({filters: []});
   }
 
   closeFilters() {

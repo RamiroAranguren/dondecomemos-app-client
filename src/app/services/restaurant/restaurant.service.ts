@@ -12,6 +12,7 @@ import { chip } from '../../interfaces/chip';
 export class RestaurantService extends BaseService {
 
   restaurants = [];
+  restaurantsCopy = [];
   resturantById: restaurant;
 
   types = {
@@ -49,6 +50,8 @@ export class RestaurantService extends BaseService {
   getRestaurantByFilters(filters, resto=null): any {
 
     this.restaurants = resto === null? this.restaurants : resto;
+
+    console.log();
 
     if(filters.length <= 0) {
       return this.restaurants;
