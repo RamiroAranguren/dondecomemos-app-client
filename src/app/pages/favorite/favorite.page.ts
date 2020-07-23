@@ -17,7 +17,7 @@ import { NavigationExtras } from '@angular/router';
 })
 export class FavoritePage implements OnInit {
 
-  menuHide = true;
+  isGuest = true;
 
   resto_favs: any[] = [];
   favorites: any[] = [];
@@ -43,11 +43,11 @@ export class FavoritePage implements OnInit {
   }
 
   ionViewDidEnter() {
-    let isGuest = this.userService.isGuestUser();
-    if(isGuest){
-      this.menuHide = false;
+    this.user = this.userService.user;
+    if(this.user.guest){
+      this.isGuest = true;
     } else {
-      this.user = this.userService.user;
+      this.isGuest = false;
       this.loader.display("Cargando favoritos...");
       setTimeout(() => {
         this.favService.get(this.user.id).then((res:any) => {

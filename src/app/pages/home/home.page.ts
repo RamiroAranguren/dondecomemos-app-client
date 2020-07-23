@@ -74,10 +74,6 @@ export class HomePage implements OnInit {
 
   }
 
-  getType() {
-    return "restaurant"
-  }
-
   ngOnInit() {
     this.getSotrageDataInit();
   }

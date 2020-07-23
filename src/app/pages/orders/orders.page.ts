@@ -49,116 +49,114 @@ export class OrdersPage implements OnInit {
     }
 
     ionViewWillEnter(){
+        this.user = this.userService.user;
         this.slides.lockSwipes(true);
+        if(!this.user.guest){
+            this.loaderService.display('Cargando órdenes...').then(() => {
 
-        this.loaderService.display('Cargando órdenes...').then(() => {
+                // LIST RESERVES
+                let data = {
+                    user: this.user,
+                    resto: "",
+                    date: "",
+                    hour: ""
+                };
 
-            // LIST RESERVES
-            let data = {
-                user: this.user,
-                resto: "",
-                date: "",
-                hour: ""
-            };
+                this.reserveService.get(data, true).then((res:any) => {
+                    if(res.length > 0){
+                        this.reserves = res;
+                        let pends = this.reserves.filter(reserve => reserve.status === "IN_PROGRESS");
+                        this.pends_res = pends.map(res => {
+                            return {
+                                id: res.id,
+                                type: "RESERVE",
+                                date: res.reservation_date,
+                                hour: res.reservation_hour,
+                                restaurant: res.restaurant,
+                                client: res.client,
+                                menus: res.menus,
+                                orders: res.orders,
+                                order_type: "RES",
+                                diners: res.diners
+                            }
+                        });
+                        let ends = this.reserves.filter(reserve => reserve.status === "FINALIZE");
+                        this.fin_res = ends.map(res => {
+                            return {
+                                id: res.id,
+                                type: "RESERVE",
+                                date: res.reservation_date,
+                                hour: res.reservation_hour,
+                                restaurant: res.restaurant,
+                                client: res.client,
+                                menus: res.menus,
+                                orders: res.orders,
+                                order_type: "RES",
+                                diners: res.diners
+                            }
+                        });
+                    }
 
-            this.reserveService.get(data, true).then((res:any) => {
-                console.log("RES", res);
-                if(res.length > 0){
-                    this.reserves = res;
-                    let pends = this.reserves.filter(reserve => reserve.status === "IN_PROGRESS");
-                    this.pends_res = pends.map(res => {
-                        return {
-                            id: res.id,
-                            type: "RESERVE",
-                            date: res.reservation_date,
-                            hour: res.reservation_hour,
-                            restaurant: res.restaurant,
-                            client: res.client,
-                            menus: res.menus,
-                            orders: res.orders,
-                            order_type: "RES",
-                            diners: res.diners
-                        }
-                    });
-                    let ends = this.reserves.filter(reserve => reserve.status === "FINALIZE");
-                    this.fin_res = ends.map(res => {
-                        return {
-                            id: res.id,
-                            type: "RESERVE",
-                            date: res.reservation_date,
-                            hour: res.reservation_hour,
-                            restaurant: res.restaurant,
-                            client: res.client,
-                            menus: res.menus,
-                            orders: res.orders,
-                            order_type: "RES",
-                            diners: res.diners
-                        }
-                    });
-                }
+                }).catch(err => {
+                    console.log("Error in list orders", err);
+                });
 
-            }).catch(err => {
-                console.log("Error in list orders", err);
+                // LIST ORDERS
+                let dataOrders = {
+                    user: this.user,
+                    resto: "",
+                    date: {
+                        from: "",
+                        to: ""
+                    },
+                    type: ""
+                };
+                this.orderService.get(dataOrders, true).then((ord:any) => {
+                    if(ord.length > 0){
+                        this.orders = ord;
+                        let pends = this.orders.filter(order => order.status === "IN_PROGRESS");
+                        this.pends_ord = pends.map(ord => {
+                            return {
+                                id: ord.id,
+                                type: "ORDER",
+                                date: ord.order_date,
+                                hour: ord.order_hour,
+                                restaurant: ord.restaurant,
+                                client: ord.client,
+                                menus: ord.menus,
+                                orders: ord.orders,
+                                order_type: ord.order_type,
+                                diners: 0
+                            }
+                        });
+                        let ends = this.orders.filter(order => order.status === "FINALIZE");
+                        this.fin_ord = ends.map(ord => {
+                            return {
+                                id: ord.id,
+                                type: "ORDER",
+                                date: ord.order_date,
+                                hour: ord.order_hour,
+                                restaurant: ord.restaurant,
+                                client: ord.client,
+                                menus: ord.menus,
+                                orders: ord.orders,
+                                order_type: ord.order_type,
+                                diners: 0
+                            }
+                        });
+                    }
+
+                }).catch(err => {
+                    console.log("Error in list orders", err);
+                });
             });
 
-            // LIST ORDERS
-            let dataOrders = {
-                user: this.user,
-                resto: "",
-                date: {
-                    from: "",
-                    to: ""
-                },
-                type: ""
-            };
-            this.orderService.get(dataOrders, true).then((ord:any) => {
-                console.log("ORDS", ord);
-                if(ord.length > 0){
-                    this.orders = ord;
-                    let pends = this.orders.filter(order => order.status === "IN_PROGRESS");
-                    this.pends_ord = pends.map(ord => {
-                        return {
-                            id: ord.id,
-                            type: "ORDER",
-                            date: ord.order_date,
-                            hour: ord.order_hour,
-                            restaurant: ord.restaurant,
-                            client: ord.client,
-                            menus: ord.menus,
-                            orders: ord.orders,
-                            order_type: ord.order_type,
-                            diners: 0
-                        }
-                    });
-                    let ends = this.orders.filter(order => order.status === "FINALIZE");
-                    this.fin_ord = ends.map(ord => {
-                        return {
-                            id: ord.id,
-                            type: "ORDER",
-                            date: ord.order_date,
-                            hour: ord.order_hour,
-                            restaurant: ord.restaurant,
-                            client: ord.client,
-                            menus: ord.menus,
-                            orders: ord.orders,
-                            order_type: ord.order_type,
-                            diners: 0
-                        }
-                    });
-                }
-
-            }).catch(err => {
-                console.log("Error in list orders", err);
-            });
-        });
-
-        setTimeout(() => {
-            this.pendientes = this.pends_res.concat(this.pends_ord);
-            this.finalizados = this.fin_res.concat(this.fin_ord);
-            this.loaderService.hide();
-            console.log("PENDS", this.pendientes);
-            console.log("ENDS", this.finalizados);
-        }, 2500);
+            setTimeout(() => {
+                this.pendientes = this.pends_res.concat(this.pends_ord);
+                this.finalizados = this.fin_res.concat(this.fin_ord);
+                this.loaderService.hide();
+            }, 2500);
+        }
 
     }
 
@@ -194,7 +192,6 @@ export class OrdersPage implements OnInit {
     }
 
     cancel(item:any){
-        console.log("cancel", item);
         let data = {
             user: this.user,
             id: item.id
@@ -218,7 +215,6 @@ export class OrdersPage implements OnInit {
                 {
                     text: 'Si, cancelar',
                     handler: () => {
-                        console.log("DAAAAATTAAA", data);
                         if(item.type === "RESERVE") {
                             //cancel de reservas
                             this.reserveService.cancel(data).then(res => {

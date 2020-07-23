@@ -9,7 +9,7 @@
 
 
 <!--! cambiar la condicion de IF -->
-<ion-content *ngIf="resto_favs.length > 0" class="most-favoritos">
+<ion-content *ngIf="resto_favs.length > 0 && !isGuest" class="most-favoritos">
     <ion-item *ngFor="let fav of resto_favs" (click)="details(fav.restaurant)">
         <ion-thumbnail slot="end">
             <img style="border-radius: 8px;" *ngIf="fav.restaurant.profile_picture" [src]="fav.restaurant.profile_picture" [alt]="fav.restaurant.name"/>
@@ -30,7 +30,7 @@
                 <!-- <ion-icon id="heart-icon" name="heart" (click)="removeFav(fav.id)"></ion-icon> -->
                 <div>
                     <img src="../../../assets/icon/favorite/hearth-favorite.svg" alt="" srcset="">
-                </div>                
+                </div>
             </div>
         </ion-label>
     </ion-item>
@@ -40,7 +40,7 @@
 
 
 <!-- !cambiar la condicion de IF -->
-<ion-content class="pnt-inicio" *ngIf="!menuHide">
+<ion-content class="pnt-inicio" *ngIf="isGuest">
     <ion-grid fixed>
         <ion-row class="ion-justify-content-center ion-margin-top">
             <ion-col size="8">
@@ -94,7 +94,7 @@
 </ion-content>
 
 <!-- !cambiar la condicion de IF -->
-<ion-content class="bus-resto" *ngIf="menuHide && resto_favs.length <= 0" fullscreen>
+<ion-content class="bus-resto" *ngIf="!isGuest && resto_favs.length <= 0" fullscreen>
 
     <ion-grid fixed>
 

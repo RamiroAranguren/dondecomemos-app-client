@@ -33,14 +33,11 @@ export class FilterModalPage implements OnInit {
   ngOnInit() {
     this.chipService.getTags().then((res:any) => {
       this.chips = res;
-      console.log("CHIPPSSS", this.chips);
       this.storage.getObject('filters').then(res => {
         if(res){
           this.pre_filters = res;
-          console.log("filters_pre_selecss", this.pre_filters);
           this.pre_filters.forEach(filter => {
             let element = document.getElementById(`${filter.type}-${filter.id}`);
-            console.log("ELEMENT", `${filter.type}-${filter.id}`, element);
             element.classList.add('chip-checked');
             if(filter.type === "level"){
               this.types.level.push(filter);
@@ -70,7 +67,6 @@ export class FilterModalPage implements OnInit {
     let hasClassOk = this.hasClass(element, 'chip-checked');
 
     if(hasClassOk === true) {
-      console.log("REmove", type, chip);
       this.pre_filters = this.pre_filters.filter(filt => filt.id !== chip.id);
       this.storage.addObject('filters', this.pre_filters);
       element.classList.remove('chip-checked');
@@ -123,7 +119,6 @@ export class FilterModalPage implements OnInit {
       place: [],
     }
     this.storage.getObject('filters').then(res => {
-      console.log("CLOSE", res);
       if(res){
         res.forEach(chip => {
           if(chip.type === "level"){
@@ -137,9 +132,7 @@ export class FilterModalPage implements OnInit {
           }
         });
       }
-      console.log("DISSSMISS-1", types);
     });
-    console.log("DISSSMISS-2", types);
     this.modalCtrl.dismiss({filters: [types]});
   }
 

@@ -51,8 +51,6 @@ export class RestaurantService extends BaseService {
 
     this.restaurants = resto === null? this.restaurants : resto;
 
-    console.log();
-
     if(filters.length <= 0) {
       return this.restaurants;
     }
@@ -68,7 +66,6 @@ export class RestaurantService extends BaseService {
     }
 
     try {
-      console.log("POR TRY", filters, this.restaurants);
       filters.map(chip => {
         if(chip.type === "level"){
           this.types.level.push(chip.id);
@@ -84,15 +81,10 @@ export class RestaurantService extends BaseService {
       levels = this.types.level;
       places = this.types.place;
     } catch (error) {
-      console.log("POR CATCH", filters, this.restaurants);
       cooks = filters.cook.map((chip:chip) => chip.id);
       levels = filters.level.map((chip:chip) => chip.id);
       places = filters.place.map((chip:chip) => chip.id);
     }
-
-    console.log("cooks", cooks);
-    console.log("levels", levels);
-    console.log("places", places);
 
     let result_cook = this.restaurants.map((resto:restaurant) => {
       let cook_ids = resto.chips.map((chip:chip) => chip.tag.id);
