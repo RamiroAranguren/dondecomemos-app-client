@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, Validators, FormBuilder, ReactiveFormsModule } from '@angular/forms';
-import { AlertController } from '@ionic/angular';
+import { AlertController, NavController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { UsersService } from '../../services/users/user.service';
 import { LoaderService } from '../../services/loader/loader.service';
+import { StorageService } from '../../services/storage/storage.service';
 
 @Component({
   selector: 'app-change-old-password',
@@ -30,8 +31,10 @@ export class ChangeOldPasswordPage implements OnInit {
 
   constructor(
     private alertCtrl: AlertController,
+    private navCtrl: NavController,
     private route: Router,
     public formBuild: FormBuilder,
+    private storage: StorageService,
     private userService: UsersService,
     private loader: LoaderService
   ) {
@@ -66,7 +69,11 @@ export class ChangeOldPasswordPage implements OnInit {
         {
           text: 'Aceptar',
           handler: () => {
-            console.log("Click aceptar");
+            this.userService.login(this.user.email, this.userForm.copy_password).then(res => {
+              this.navCtrl.navigateRoot('/tabs/home');
+            }).catch(errors => {
+              console.log(errors);
+            })
           }
         }
       ]

@@ -56,12 +56,17 @@ export class VerifyNumberCodePage implements OnInit {
           this.loginNet();
         } else {
           // CUANDO ES UN REGISTRO CLASICO REDIRECCIONA AL LOGIN
-          this.navCtrl.navigateRoot('/login');
+          this.userService.login(this.user.email, this.user.password).then(res => {
+            console.log("Verify-Login", res);
+            this.navCtrl.navigateRoot('/tabs/home');
+          }).catch(errors => {
+            console.log(errors);
+          })
+          // this.navCtrl.navigateRoot('/login');
         }
-      }, 3000);
+      }, 2000);
     }).catch((error) => {
       this.errors.code = ["Error: no se pudo validar el código, intente de nuevo."];
-      
     })
   }
 

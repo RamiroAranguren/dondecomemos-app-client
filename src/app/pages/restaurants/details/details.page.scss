@@ -99,12 +99,12 @@ ion-col {
 }
 
 .col-score {
-    color: #ff7300;
     font-family: FieldworkGeoRegular;
     span {
         padding-top: -5px;
     }
     ion-icon {
+        color: #F89B4C;
         padding-top: 1px;
     }
 }
@@ -180,9 +180,11 @@ ion-col {
         }
     }
     ion-slides {
-        padding-left: 5vw;
+        //padding-left: 5vw;
         font-family: FieldworkGeoLight;
         ion-slide {
+            width: 86% !important;
+            border-radius: 10px;
             p {
                 color: var(--ion-color-medium);
             }
@@ -298,7 +300,7 @@ ion-col {
     width: 90vw;
     .promo1-text {
         text-align: justify;
-        font-size: 5vw;
+        font-size: 4vw;
         top: 2%;
         bottom: 2%;
         left: 0;

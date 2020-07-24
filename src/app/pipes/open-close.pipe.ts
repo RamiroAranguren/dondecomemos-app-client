@@ -8,32 +8,57 @@ import { restaurant } from 'src/app/interfaces/restaurant';
   name: 'openClose'
 })
 export class OpenClosePipe implements PipeTransform {
-  format = 'HH:mm:ss'
 
-  transform(restaurant:any, close:any=false): string {
-    if(close){
+  transform(restaurant:restaurant, close:any=false): string {
+    let now = moment();
+    let hs_now = restaurant.hours_week.filter(hs => hs.day === now.day().toString());
 
-      if(restaurant.hours.length > 0){
-        return restaurant.hours[0].closing_hour?.substring(0,5);
+    let partial_state = "Cerrado";
+    let state = false;
+    let state_data_list = {
+      status: false,
+      open: null,
+      close: null
+    };
+
+    console.log("NOW", now.day(), hs_now, hs_now.length);
+
+    if(close){ // return Full State: date + hs
+
+      if(hs_now.length <= 0) {
+        return "Hoy cerrado";
       } else {
-        return "--"
-      }
-
-    } else {
-
-      if(restaurant.hours.length === 0) {
-        return "Cerrado";
-      }
-      if(restaurant.hours.length > 0) {
-        let now = moment();
-        let opensAt = moment(restaurant.hours[0].opening_hour, this.format);
-        let closesAt = moment(restaurant.hours[0].closing_hour, this.format);
-        if(now.isBetween(opensAt, closesAt)){
-          return "Abierto";
+        for(var i=0; i< hs_now.length; i++){
+          let opensAt = moment(hs_now[i].opening_hour, 'HH:mm:ss');
+          let closesAt = moment(hs_now[i].closing_hour, 'HH:mm:ss');
+          state_data_list.open = hs_now[i].opening_hour;
+          state_data_list.close = hs_now[i].closing_hour;
+          if(now.isBetween(opensAt, closesAt)){
+            state_data_list.status = true;
+            break;
+          }
         }
+        if(state_data_list.status === true){
+          return `Abierto - cierra a las ${state_data_list.close.slice(0,5)}`;
+        }
+        return `Cerrado - abre a las ${state_data_list.open.slice(0,5)}`;
+      }
+
+    } else { // Return Partial State: 'Abierto' - 'Cerrado'
+
+      if(hs_now.length <= 0) {
         return "Cerrado";
+      } else {
+        hs_now.forEach(hs => {
+          let opensAt = moment(hs.opening_hour, 'HH:mm:ss');
+          let closesAt = moment(hs.closing_hour, 'HH:mm:ss');
+          console.log(opensAt, closesAt, now.isBetween(opensAt, closesAt));
+          if(now.isBetween(opensAt, closesAt)){
+            partial_state = "Abierto";
+          }
+        });
+        return partial_state;
       }
     }
   }
-
 }

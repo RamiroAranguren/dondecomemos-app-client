@@ -142,6 +142,10 @@ export class DetailsPage implements OnInit {
     this.content.scrollToPoint(0, y.offsetTop-80, 1000);
   }
 
+  toBack(){
+    this.navCtrl.navigateRoot('/tabs/home', { animationDirection: 'back'});
+  }
+
   async showAlertBack() {
     const alert = await this.alertCtrl.create({
       header: 'Si sale perderá el pedido',
@@ -160,7 +164,7 @@ export class DetailsPage implements OnInit {
               this.storage.addObject("list_order", this.orders);
             });
             setTimeout(() => {
-              this.navCtrl.navigateRoot('/tabs/home');
+              this.navCtrl.navigateRoot('/tabs/home', { animationDirection: 'back'});
             }, 800);
           }
         }
@@ -200,41 +204,6 @@ export class DetailsPage implements OnInit {
       console.log('err', err);
     })
   }
-
-  // async showAlert(id:number) {
-
-  //   let alert = await this.alertCtrl.create({
-  //     header: 'Eliminar de favoritos',
-  //     message:"¿Seguro quiere eliminar al restaurante de Favoritos?",
-  //     buttons: [
-  //       {
-  //         text: 'Cancelar',
-  //         handler: data => {
-  //         }
-  //       },
-  //       {
-  //         text: 'Eliminar',
-  //         handler: () => {
-  //           this.storage.getObject("favorites").then(res => {
-  //             let id_fav = this.favorites.filter(data => data.restaurant.id === id);
-  //             this.favService.delete(id_fav[0].id).then((res:any) => {
-  //               let id_fav_resto = this.favorites.filter(fav => {
-  //                 if(fav.restaurant.id !== id)
-  //                   return fav;
-  //               });
-  //               this.storage.addObject("favorites", id_fav_resto);
-  //               this.isFav = false;
-  //             });
-  //           }).catch(err => {
-  //             console.log('err', err);
-  //           })
-  //         }
-  //       }
-  //     ]
-  //   });
-
-  //   await alert.present();
-  // }
 
   async showModalGalery(index) {
     let modal = await this.modalCtrl.create({
@@ -281,6 +250,10 @@ export class DetailsPage implements OnInit {
     let navigationExtras: NavigationExtras = {
       state: {user: this.user, restaurant: this.restaurant}};
     this.navCtrl.navigateForward(['/restaurant/view-list-orders'], navigationExtras);
+  }
+
+  addMenu(menu){
+    console.log(menu);
   }
 
 }
