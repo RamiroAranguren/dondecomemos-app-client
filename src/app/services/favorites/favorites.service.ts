@@ -42,7 +42,6 @@ export class FavoritesService {
       id = this.user.id;
     }
     const params = {client: id};
-    console.log(`${apiUrl}${this.getURL(params)}`);
     return new Promise((resolve , reject) => {
       this.http.get(`${apiUrl}${this.getURL(params)}`).subscribe((response:any) => {
         this.process_get(response)
@@ -64,11 +63,8 @@ export class FavoritesService {
       'Authorization': `token ${this.user.token}`
     });
 
-    console.log("POST-FAV",body);
-
     return new Promise((resolve, reject) => {
       this.http.post(`${apiUrl}favorite-restaurants/`, body, { headers }).subscribe((response) => {
-        // console.log(response);
         resolve(response);
       }, (errorResponse) => {
         console.log(errorResponse.error);
@@ -82,10 +78,8 @@ export class FavoritesService {
       'Content-Type': 'application/json',
       'Authorization': `token ${this.user.token}`
     });
-    console.log("DELETE-FAV",id);
     return new Promise((resolve, reject) => {
       this.http.delete(`${apiUrl}favorite-restaurants/${id}`, { headers }).subscribe((response) => {
-        // console.log(response);
         resolve(response);
       }, (errorResponse) => {
         console.log(errorResponse.error);

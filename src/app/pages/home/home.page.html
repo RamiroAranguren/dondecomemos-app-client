@@ -9,14 +9,15 @@
           [(ngModel)]="valueSearch"
           placeholder='Buscar restaurantes o ciudades'
           showCancelButton="focus"
+          inputmode="text"
+          [ngClass]="{'bgcolorSearch':searchColor}"
           class="placeholder-input">
         </ion-searchbar>
-        <ion-tab-button>
+        <ion-tab-button
+          (click)="openFilters()"
+          [ngClass]="{'filters_check':filterColor}">
             <span
-              class="material-icons"
-              color="{{ filterColor }}"
-              (click)="openFilters()"
-            >
+              class="material-icons">
                 filter_list
              </span>
            <ion-label>Filtro</ion-label>
@@ -29,19 +30,19 @@
 <ion-content [ngClass]="{ bgcolor: activeDefault }"  *ngIf="searchChange">
 
   <ion-list>
-    <ion-item *ngFor="let item of resultSearch" (click)="selectResult( item )">
+    <ion-item *ngFor="let resto of resultSearch" (click)="selectResult( resto )">
         <ion-avatar slot="start">
-          <img [src]="item.profile_picture" *ngIf="item.type === 'resto'">
-          <ion-icon size="large" name="location" *ngIf="item.type === 'city'"></ion-icon>
+          <img [src]="resto.profile_picture" *ngIf="resto.type === 'resto'">
+          <ion-icon size="large" name="location" *ngIf="resto.type === 'city'"></ion-icon>
         </ion-avatar>
-        <ion-label *ngIf="item.type === 'resto'">
-          <h2>{{ item.name }}</h2>
-          <h3>{{ item.address }}</h3>
+        <ion-label *ngIf="resto.type === 'resto'">
+          <h2>{{ resto.name }}</h2>
+          <h3>{{ resto.address }}</h3>
         </ion-label>
-        <ion-label *ngIf="item.type === 'city'">
-          <h2>{{ item.name }}</h2>
+        <ion-label *ngIf="resto.type === 'city'">
+          <h2>{{ resto.name }}</h2>
         </ion-label>
-        <span  *ngIf="item.type === 'city'" slot="end" style="color:rgb(117, 117, 117)">({{ item.count }})</span>
+        <span  *ngIf="resto.type === 'city'" slot="end" style="color:rgb(117, 117, 117)">({{ resto.count }})</span>
     </ion-item>
   </ion-list>
 
@@ -66,7 +67,7 @@
         </ion-chip>
       </ion-col>
     </ion-row>
-    <ion-card  class="title-restaurants">
+    <ion-card class="title-restaurants" *ngIf="chips.length <= 0 && valueSearch === ''">
         <ion-text color="dark">
             <h5>Explorar restaurantes populares</h5>
         </ion-text>

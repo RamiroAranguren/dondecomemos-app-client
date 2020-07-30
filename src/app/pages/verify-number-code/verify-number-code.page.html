@@ -7,20 +7,25 @@
             </ion-back-button>
         </ion-buttons>
         <div class="logo">
-            <img src="assets/img/sms_verify.png">
+            <!-- <img src="assets/img/sms_verify.png"> -->
         </div>
     </div>
     <div class="body-content">
         <form novalidate (submit)="doVerify()" [formGroup]="form">
-            <ion-fab horizontal="end" horizontal="end" slot="fixed" edge="true">
+            <!-- <ion-fab horizontal="end" horizontal="end" slot="fixed" edge="true">
                 <ion-button [disabled]="form.invalid" size="large" type="submit">
                     <ion-icon name="arrow-forward-outline"></ion-icon>
                 </ion-button>
-            </ion-fab>
+            </ion-fab> -->
+            <div class="bg-btn">
+                <ion-button [disabled]="form.invalid" size="large" class="login-btn" type="submit" fill="solid">
+                    <ion-icon name="arrow-forward"></ion-icon>
+                </ion-button>
+            </div>
             <ion-grid fixed>
                 <ion-row>
-                    <ion-col>
-                        <label for="" style="font-size: 15px; font-weight: lighter;">Último paso</label>
+                    <ion-col class="first-label">
+                        <label for="">Último paso</label>
                     </ion-col>
                 </ion-row>
                 <ion-row>

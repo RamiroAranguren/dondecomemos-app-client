@@ -29,6 +29,8 @@ export class DetailsPage implements OnInit {
   menues:any[] = [];
   orders:any[] = [];
 
+  page_call = "home";
+
   price_total = 0;
 
   isFav = false;
@@ -70,6 +72,8 @@ export class DetailsPage implements OnInit {
 
   ngOnInit() {
     this.restaurant = this.route.getCurrentNavigation().extras.state.data;
+    this.page_call = this.route.getCurrentNavigation().extras.state.call;
+
     this.storage.getObject("favorites").then(res => {
       if(res){
         this.favorites = res;
@@ -107,7 +111,6 @@ export class DetailsPage implements OnInit {
   }
 
   calculatePrice(){
-    console.log("CALL calculatePrice");
     this.storage.getObject("list_order").then(res => {
       if(res){
         this.orders = res.filter(ord => (ord.restaurant === this.restaurant.id && ord.user.id === this.user.id));
@@ -155,7 +158,7 @@ export class DetailsPage implements OnInit {
   }
 
   toBack(){
-    this.navCtrl.navigateRoot('/tabs/home', { animationDirection: 'back'});
+    this.navCtrl.navigateRoot(`/tabs/${this.page_call}`, { animationDirection: 'back'});
   }
 
   async showAlertBack() {
@@ -176,7 +179,7 @@ export class DetailsPage implements OnInit {
               this.storage.addObject("list_order", this.orders);
             });
             setTimeout(() => {
-              this.navCtrl.navigateRoot('/tabs/home', { animationDirection: 'back'});
+              this.navCtrl.navigateRoot(`/tabs/${this.page_call}`, { animationDirection: 'back'});
             }, 800);
           }
         }

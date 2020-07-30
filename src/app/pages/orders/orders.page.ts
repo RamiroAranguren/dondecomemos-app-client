@@ -63,7 +63,6 @@ export class OrdersPage implements OnInit {
                 };
 
                 this.reserveService.get(data, true).then((res:any) => {
-                    console.log("RESERVES", res);
                     if(res.length > 0){
                         let pends = res.filter(reserve => reserve.status === "IN_PROGRESS");
                         this.pends_res = pends.map(res => {

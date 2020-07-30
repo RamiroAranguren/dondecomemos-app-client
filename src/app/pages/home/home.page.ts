@@ -33,7 +33,8 @@ export class HomePage implements OnInit {
   chips:any[] = [];
   filters:any[] = [];
   // detecta si hay que aplicar estilo o no al icono de filtro
-  filterColor = '';
+  filterColor = false;
+  searchColor = false;
 
   icons: Array<any>;
   items: Array<any>;
@@ -125,8 +126,11 @@ export class HomePage implements OnInit {
         this.restaurantsCopy = [...res];
         this.storage.getObject("filters").then(filters_local => {
           if(filters_local){
+            this.filterColor = filters_local.length > 0;
             this.chips = filters_local;
             this.restaurants = this.restaurantService.getRestaurantByFilters(filters_local, this.restaurants);
+          } else {
+            this.filterColor = false;
           }
         }).catch(err => {
           console.log("Error in get local filters", err);
@@ -142,6 +146,7 @@ export class HomePage implements OnInit {
       this.restaurants = res;
       this.restaurantsCopy = [...res];
       this.storage.getObject("filters").then(filters_local => {
+        this.filterColor = filters_local.length > 0;
         if(filters_local){
           this.chips = filters_local;
           this.restaurants = this.restaurantService.getRestaurantByFilters(filters_local, this.restaurants);
@@ -204,6 +209,7 @@ export class HomePage implements OnInit {
   }
 
   searchFilter( event )  {
+    this.searchColor = true;
     this.resultSearchResto = [];
     this.resultSearchCity = [];
     let count = 0;
@@ -238,7 +244,8 @@ export class HomePage implements OnInit {
     } else {
       this.valueSearch = "";
       this.searchChange = false;
-      this.filterColor = '';
+      this.searchColor = false;
+      this.filterColor = false;
     }
 
     this.resultSearchCity = Array.from(
@@ -259,19 +266,21 @@ export class HomePage implements OnInit {
 
   onCancel() {
     this.valueSearch = "";
+    this.searchColor = false;
     this.searchChange = false;
-    this.filterColor = '';
+    this.filterColor = false;
     this.restaurants = this.restaurantsCopy
   }
 
-  selectResult (item) {
-    this.valueSearch = item.name;
+  selectResult (resto) {
+    this.valueSearch = resto.name;
     this.searchChange = false;
-    this.filterColor = 'btn-dc';
-    if (item.type === 'city'){
-      this.restaurants =  this.restaurantService.getRestaurantByCity(item);
+    this.searchColor = true;
+    if (resto.type === 'city'){
+      this.restaurants =  this.restaurantService.getRestaurantByCity(resto);
     } else {
-      this.restaurants =  this.restaurantService.getRestaurantById(item.id)
+      let params: NavigationExtras = {state: {data: resto, call:'home'}};
+      this.navCtrl.navigateForward(['/restaurant/details'], params);
     }
   }
 
@@ -291,7 +300,7 @@ export class HomePage implements OnInit {
       this.chips = data.filters[0].place.concat(data.filters[0].cook).concat(data.filters[0].level);
 
       if(this.chips.length > 0) {
-        this.filterColor = 'btn-dc';
+        this.filterColor = true;
         let save_filters_place = data.filters[0].place.map(fl => {
           return {id: fl.id, name: fl.name, type: fl.type}
         });
@@ -305,7 +314,7 @@ export class HomePage implements OnInit {
         let resulServiceFilters = this.restaurantService.getRestaurantByFilters(data.filters[0]);
         this.restaurants = resulServiceFilters;
       } else {
-        this.filterColor = '';
+        this.filterColor = false;
       }
     } else {
       this.chips = [];
@@ -323,12 +332,7 @@ export class HomePage implements OnInit {
     this.restaurants = this.restaurantService.getRestaurantByFilters(this.chips);
 
     if(this.chips.length <= 0) {
-      this.filterColor = '';
+      this.filterColor = false;
     }
-  }
-
-  details(resto:restaurant) {
-    let params: NavigationExtras = {state: {data: resto}};
-    this.navCtrl.navigateForward(['/restaurant/details'], params);
   }
 }

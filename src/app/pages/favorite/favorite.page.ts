@@ -107,7 +107,7 @@ export class FavoritePage implements OnInit {
   }
 
   details(resto:restaurant) {
-    let params: NavigationExtras = {state: {data: resto}};
+    let params: NavigationExtras = {state: {data: resto, call: 'favorite'}};
     this.navCtrl.navigateForward(['/restaurant/details'], params);
   }
 

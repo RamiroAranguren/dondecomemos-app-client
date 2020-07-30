@@ -43,18 +43,19 @@
                 <ion-row>
                     <ion-col size="12" class="ion-text-center">
                         <span *ngIf="!error.ok" style="color:red; font-size: 15px;">
-                  {{ error.mensaje }}
-              </span>
+                            {{ error.mensaje }}
+                        </span>
+                    </ion-col>
+                </ion-row>
+                <br><br>
+                <ion-row>
+                    <ion-col>
+                        <span class="forgot" (click)="forgotPassword()" fill="clear">
+                            Olvidé mi contraseña
+                        </span>
                     </ion-col>
                 </ion-row>
             </ion-grid>
         </form>
     </div>
 </ion-content>
-<ion-footer>
-    <ion-toolbar>
-        <span class="forgot" (click)="forgotPassword()" fill="clear">
-        Olvidé mi contraseña
-      </span>
-    </ion-toolbar>
-</ion-footer>

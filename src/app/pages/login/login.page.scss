@@ -13,7 +13,8 @@ ion-back-button {
     --color: #655c3d;
 }
 .body-content {
-    height: 60vh;
+    height: 65vh;
+    // height: 60vh;
     position: absolute;
     bottom: 0;
     min-height: 85vw;
@@ -59,7 +60,7 @@ ion-back-button {
 }
 
 .forgot {
-    margin: 0 0 0 32px;
+    // margin: 0 0 0 32px;
     font-family: FieldworkGeoLight;
 }
 
@@ -92,53 +93,3 @@ ion-item {
 .colorBlack{
     color:black;
 }
-
-
-// ion-fab {
-//     margin: -50px 20px 0 0;
-//     ion-button {
-//         --transition: background-color,opacity 100ms linear;
-//         --ripple-color: currentColor;
-//         --border-radius: 50%;
-//         --border-width: 0;
-//         --border-style: none;
-//         --border-color: initial;
-//         --padding-top: 0;
-//         --padding-end: 0;
-//         --padding-bottom: 0;
-//         --padding-start: 0;
-//         margin-left: 0;
-//         margin-right: 0;
-//         margin-top: 0;
-//         margin-bottom: 0;
-//         display: block;
-//         width: 56px;
-//         height: 56px;
-//         position: relative;
-//         font-size: 14px;
-//         text-align: center;
-//         text-overflow: ellipsis;
-//         text-transform: none;
-//         white-space: nowrap;
-//         -webkit-font-kerning: none;
-//         font-kerning: none;
-//         ion-icon{
-//             margin: 0;
-//             position: absolute;
-//             top: 50%;
-//             -ms-transform: translateY(-50%);
-//             transform: translateY(-50%);
-//         }
-//     }
-// }
-// @media (max-height: 576px) {
-//     .header-content {
-//         height: 10%;
-//     }
-//     .body-content {
-//         height: 90%;
-//     }
-//     ion-content {
-//         --background: white !important;
-//     }
-// }

@@ -72,22 +72,24 @@ export class LoginPage implements OnInit {
   doLogin( event ) {
 
     this.error.mensaje = "";
-
-    
-    this.userService.login(this.form.value.email, this.form.value.password)
-      .then(() => {
+    this.loader.display('Iniciando sesión...').then(() => {
+      this.userService.login(this.form.value.email, this.form.value.password).then(() => {
         if (this.restaurant) {
           // this.viewController.dismiss()
         } else {
           this.navCtrl.navigateRoot('/tabs/home')
         }
-      })
-      .catch(errors => {
+        this.loader.hide();
+      }).catch(errors => {
         this.error.status = errors.status;
         this.error.ok = false;
         this.error.mensaje = "Error: Email y/o contraseña inválidos."
-
-      })
+        this.loader.hide();
+      });
+    }).catch(err => {
+      console.log("error", err);
+      this.loader.hide();
+    });
   }
 
   forgotPassword() {

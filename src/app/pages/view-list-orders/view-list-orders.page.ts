@@ -110,12 +110,9 @@ export class ViewListOrdersPage implements OnInit {
         this.user = this.userService.user;
         this.type = this.route.getCurrentNavigation().extras.state.type;
 
-        console.log("DATA_ORDER", this.data_order);
         if(this.type === undefined){
           this.type = "ORDER";
         }
-
-        console.log("TYPE", this.type);
     }
 
     ionViewDidEnter(){
@@ -128,7 +125,6 @@ export class ViewListOrdersPage implements OnInit {
 
         setTimeout(() => {
           this.storage.getObject("list_order").then(res => {
-              console.log("ORD", res);
             if(res){
               this.orders = res.filter(ord => (ord.restaurant === this.restaurant.id && ord.user.id === this.user.id));
               let prices_order = [];
@@ -185,10 +181,7 @@ export class ViewListOrdersPage implements OnInit {
     }
 
     changedAddress(ev){
-      console.log(ev.detail.value);
       this.option_select.address = ev.detail.value;
-
-      console.log(this.option_select.hs, this.option_select.address);
       this.inactiveFinalizar = this.option_select.hs !== '' && this.option_select.address !== '';
     }
 
@@ -263,7 +256,6 @@ export class ViewListOrdersPage implements OnInit {
 
       let controlResto = false;
 
-      console.log("DAY", item);
       if(this.countPeople !== 0) {
           this.option_select.date = item.date;
 
@@ -275,7 +267,6 @@ export class ViewListOrdersPage implements OnInit {
           horarios = horarios.map(data => [data.opening_hour, data.closing_hour]);
 
           let date_now = moment();
-          console.log("isToday", item.date.slice(-2), date_now.format("DD"));
           if(item.date.slice(-2) === date_now.format("DD")){
               isToday = true;
           }
@@ -325,8 +316,6 @@ export class ViewListOrdersPage implements OnInit {
               }
           });
 
-          console.log("list_hs", list_hs);
-
           if(controlResto){
 
               let date_now_init = moment();
@@ -341,7 +330,6 @@ export class ViewListOrdersPage implements OnInit {
 
           this.hours = list_hs.length === 1 ? list_hs: list_hs.slice(1);
 
-          console.log("TIME", list_hs);
       } else {
           this.message_hours = "Seleccione la cantidad de personas y luego verá los horarios."
       }
@@ -353,8 +341,6 @@ export class ViewListOrdersPage implements OnInit {
       let controlResto = false;
 
       let now = moment();
-
-      console.log("DAY", now);
 
       this.option_select.date = now.format('YYYY-MM-DD');
 
@@ -412,8 +398,6 @@ export class ViewListOrdersPage implements OnInit {
           }
       });
 
-      console.log("list_hs", list_hs);
-
       if(controlResto){
 
           let date_now_init = moment();
@@ -427,10 +411,6 @@ export class ViewListOrdersPage implements OnInit {
       }
 
       this.hours = list_hs.length === 1 ? list_hs: list_hs.slice(1);
-
-      console.log("TIME", list_hs);
-
-      console.log("option_select.hs", this.option_select.hs);
   }
 
   selectHour(ev, hs:any){
@@ -448,7 +428,6 @@ export class ViewListOrdersPage implements OnInit {
 
       let currently_occupied = 0;
       this.reserveService.get(data).then((res:any[]) => {
-          console.log("RES", res);
           if(res.length > 0) {
               let diners = res.map(reserve => reserve.diners);
               currently_occupied = diners.reduce((prev:number, curr:number) => prev + curr);
@@ -510,13 +489,9 @@ export class ViewListOrdersPage implements OnInit {
   }
 
   goToPaymentReserve(){
-    console.log("Payment data", this.data_payment);
-    console.log("Order data", this.orders);
-
     let data:any;
 
     if(this.type === 'ORDER'){
-      // console.log("OPT-1", this.option_select);
       data = {
           user: this.user,
           restaurant_id: this.restaurant.id,
@@ -529,7 +504,6 @@ export class ViewListOrdersPage implements OnInit {
           menus: []
       };
     } else {
-      // console.log("OPT-2", this.data_order);
       data = {
           user: this.user,
           restaurant_id: this.data_order.restaurant_id,
@@ -583,9 +557,6 @@ export class ViewListOrdersPage implements OnInit {
   }
 
   goToPaymentOrder(){
-    console.log("Payment data", this.data_payment);
-    console.log("Order data", this.orders);
-
     let data:any;
 
     let order_type = "LOC";

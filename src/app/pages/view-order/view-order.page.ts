@@ -20,7 +20,6 @@ export class ViewOrderPage implements OnInit {
   ngOnInit() {
     this.item = this.route.getCurrentNavigation().extras.state.item;
     this.user = this.route.getCurrentNavigation().extras.state.user;
-    console.log("Order-item", this.item);
   }
 
   ionViewDidEnter(){

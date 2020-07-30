@@ -54,7 +54,6 @@ export class OrderService {
       } else {
         url_api = `${apiUrl}${this.getURLUser()}`;
       }
-      console.log("URL-GET-ORDERS", url_api);
       this.http.get(url_api, { headers }).subscribe((response:any) => {
         this.process_get(response)
         resolve(response)
@@ -80,8 +79,6 @@ export class OrderService {
       menus: data.menus
     };
 
-    console.log("BODY-SAVE", body);
-
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
       'Authorization': `token ${data.user.token}`
@@ -97,13 +94,10 @@ export class OrderService {
   }
 
   cancel(data){
-    console.log("data-service-order", data);
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
       'Authorization': `token ${data.user.token}`
     });
-
-    console.log("head-service-order", headers);
 
     return new Promise((resolve , reject) => {
       this.http.put(`${apiUrl}orders/${data.id}/cancel/`, null, { headers }).subscribe((response:any) => {

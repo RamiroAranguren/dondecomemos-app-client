@@ -50,7 +50,6 @@ export class ReservationService {
       } else {
         url_api = `${apiUrl}${this.getURLUser()}`;
       }
-      console.log("URL-GET-RESERVES", url_api);
       this.http.get(url_api, { headers }).subscribe((response:any) => {
         this.process_get(response)
         resolve(response)
@@ -73,8 +72,6 @@ export class ReservationService {
       menus: data.menus
     };
 
-    console.log("BODY-SAVE", body);
-
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
       'Authorization': `token ${data.user.token}`
@@ -90,22 +87,17 @@ export class ReservationService {
   }
 
   cancel(data){
-    console.log("data-service-reserve", data);
 
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
       'Authorization': `token ${data.user.token}`
     });
 
-    console.log("head-service-reserve", headers);
-
     return new Promise((resolve , reject) => {
       this.http.put(`${apiUrl}reservations/${data.id}/cancel/`, null, { headers }).subscribe((response:any) => {
-        console.log("RES-SERV-RES", response);
         this.process_get(response)
         resolve(response)
       }),( err => {
-        console.log("ERR-SERV-RES", err);
         reject(err);
       });
     });
