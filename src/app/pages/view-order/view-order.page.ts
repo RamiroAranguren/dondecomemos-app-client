@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { UserInterface } from 'src/app/interfaces/user';
 
 @Component({
   selector: 'app-view-order',
@@ -9,6 +10,7 @@ import { Router } from '@angular/router';
 export class ViewOrderPage implements OnInit {
 
   item:any;
+  user:UserInterface;
   price_total = 0;
 
   constructor(
@@ -17,6 +19,7 @@ export class ViewOrderPage implements OnInit {
 
   ngOnInit() {
     this.item = this.route.getCurrentNavigation().extras.state.item;
+    this.user = this.route.getCurrentNavigation().extras.state.user;
     console.log("Order-item", this.item);
   }
 
@@ -25,7 +28,6 @@ export class ViewOrderPage implements OnInit {
 
     this.item.orders.forEach(order => {
       order.products.forEach(product => {
-
         if(product.variant !== null) {
           prices_order = prices_order.concat(product.variant.price * product.amount);
         } else {
@@ -37,7 +39,11 @@ export class ViewOrderPage implements OnInit {
         return add.additional.price * add.amount;
       });
 
-      prices_order = prices_order.concat(prices_adds);
+      let prices_menus = order.menus.map(menu => {
+        return menu.category.price * menu.amount;
+      });
+
+      prices_order = prices_order.concat(prices_adds).concat(prices_menus);
     });
 
     if(prices_order.length > 0){

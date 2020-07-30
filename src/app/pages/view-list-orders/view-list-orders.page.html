@@ -13,7 +13,7 @@
 <ion-content class="main" *ngIf="expression">
     <ion-grid fixed>
         <ion-row class="order" *ngFor="let order of orders">
-            <div class="wrapper-order">
+            <div class="wrapper-order" *ngIf="order.product !== null">
                 <h3>{{ order.product.name }}</h3>
                 <p class="first-p" *ngFor="let variant of order.product.variants">
                     {{ variant.count }} {{ variant.name }}
@@ -25,6 +25,18 @@
                 <div>
                     <h4>${{ order | priceItem }}</h4>
                     <h4>x{{ order.product.count }}</h4>
+                </div>
+            </div>
+            <div class="wrapper-order" *ngIf="order.menu !== null">
+                <h3>{{ order.menu.name }} <small style="color: rgb(82, 82, 82);">({{ order.menu.description }})</small></h3>
+                <span class="first-p" *ngFor="let submenu of order.menu.sub_menus">
+                    <h4>{{ submenu.name }}</h4>
+                    <p>{{ submenu.value }}</p>
+                </span>
+                <br>
+                <div>
+                    <h4>${{ order.menu.real_price }}</h4>
+                    <h4>x1</h4>
                 </div>
             </div>
         </ion-row>

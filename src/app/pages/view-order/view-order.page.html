@@ -10,7 +10,7 @@
 <ion-content class="main" >
     <ion-grid fixed>
         <ion-row class="order" *ngFor="let order of item.orders">
-            <div class="wrapper-order">
+            <div class="wrapper-order" *ngIf="order.products.length > 0">
                 <span *ngFor="let item of order.products">
                     <h3><b>{{ item.product.category.name }}</b></h3>
                     <p class="first-p" *ngIf="item.variant">
@@ -33,9 +33,21 @@
                     <span>Adicionales:</span>
                     <br>
                     <p class="second-p" *ngFor="let add of order.additionals">
-                        {{ add.amount }} {{ add.additional.name }}
+                        {{ add.amount }} {{ add.additional.name }} <span style="font-size:12px; color: rgb(87, 87, 87);">(${{ add.additional.price }} c/u)</span>
                     </p>
                 </span>
+            </div>
+            <div class="wrapper-order" *ngFor="let menu of order.menus">
+                <h3>{{ menu.name }} <small style="color: rgb(82, 82, 82);">({{ menu.description }})</small></h3>
+                <span class="first-p" *ngFor="let submenu of menu.submenus">
+                    <h4>{{ submenu.name }}</h4>
+                    <p>{{ submenu.description }}</p>
+                </span>
+                <br>
+                <div>
+                    <h4>${{ menu.category.price }}</h4>
+                    <h4>x{{ menu.amount }}</h4>
+                </div>
             </div>
         </ion-row>
         <ion-row class="price-info">

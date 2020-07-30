@@ -21,8 +21,6 @@ export class OpenClosePipe implements PipeTransform {
       close: null
     };
 
-    console.log("NOW", now.day(), hs_now, hs_now.length);
-
     if(close){ // return Full State: date + hs
 
       if(hs_now.length <= 0) {
@@ -52,7 +50,6 @@ export class OpenClosePipe implements PipeTransform {
         hs_now.forEach(hs => {
           let opensAt = moment(hs.opening_hour, 'HH:mm:ss');
           let closesAt = moment(hs.closing_hour, 'HH:mm:ss');
-          console.log(opensAt, closesAt, now.isBetween(opensAt, closesAt));
           if(now.isBetween(opensAt, closesAt)){
             partial_state = "Abierto";
           }

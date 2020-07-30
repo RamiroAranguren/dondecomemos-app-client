@@ -351,41 +351,44 @@ export class BookTablePage implements OnInit {
 
     showAlertBack() {
         this.storage.getObject("list_order").then(res => {
+            let prices_order = [];
             if(res){
                 let orders = res.filter(ord => (ord.restaurant === this.restaurant.id && ord.user.id === this.user.id));
                 console.log("ORDERS-USER-RESTO");
-                let prices_order = [];
                 orders.forEach(order => {
+                    if(order.product !== null){
+                        if(order.product.variants !== undefined){
+                            if(order.product.variants.length > 0) {
+                                let prices_var = order.product.variants.map(vary => {
+                                    return vary.price * vary.count;
+                                });
+                                prices_order = prices_order.concat(prices_var);
+                            }
+                        }
 
-                    if(order.product.variants !== undefined){
-                    if(order.product.variants.length > 0) {
-                        let prices_var = order.product.variants.map(vary => {
-                        return vary.price * vary.count;
-                        });
-                        prices_order = prices_order.concat(prices_var);
-                    }
-                    }
+                        if(order.product.additionals !== undefined) {
+                            if(order.product.additionals.length > 0) {
+                                let prices_add = order.product.additionals.map(add => {
+                                    return add.price * add.count;
+                                });
+                                prices_order = prices_order.concat(prices_add);
+                            }
+                        }
 
-                    if(order.product.additionals !== undefined) {
-                    if(order.product.additionals.length > 0) {
-                        let prices_add = order.product.additionals.map(add => {
-                        return add.price * add.count;
-                        });
-                        prices_order = prices_order.concat(prices_add);
+                        prices_order = prices_order.concat(order.product.price * order.product.count);
                     }
+                    if(order.menu !== null){
+                        prices_order = prices_order.concat(order.menu.real_price * 1)
                     }
-
-                    prices_order = prices_order.concat(order.product.price * order.product.count);
                 });
 
                 console.log("Prices_order", prices_order, prices_order.length);
-
-                if(prices_order.length > 0){
-                    this.showAlertMSG();
-                } else {
-                    let params: NavigationExtras = {state: {data: this.restaurant}};
-                    this.navCtrl.navigateForward(['/restaurant/details'], params);
-                }
+            }
+            if(prices_order.length > 0){
+                this.showAlertMSG();
+            } else {
+                let params: NavigationExtras = {state: {data: this.restaurant}};
+                this.navCtrl.navigateForward(['/restaurant/details'], params);
             }
         });
     }

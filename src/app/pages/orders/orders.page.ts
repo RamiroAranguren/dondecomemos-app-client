@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { IonSlides, IonSegment, IonSegmentButton, NavController, AlertController } from '@ionic/angular';
+import { IonSlides, NavController, AlertController } from '@ionic/angular';
 import { UserInterface } from 'src/app/interfaces/user';
 import { UsersService } from '../../services/users/user.service';
 import { OrderService } from 'src/app/services/order/order.service';
@@ -63,9 +63,9 @@ export class OrdersPage implements OnInit {
                 };
 
                 this.reserveService.get(data, true).then((res:any) => {
+                    console.log("RESERVES", res);
                     if(res.length > 0){
-                        this.reserves = res;
-                        let pends = this.reserves.filter(reserve => reserve.status === "IN_PROGRESS");
+                        let pends = res.filter(reserve => reserve.status === "IN_PROGRESS");
                         this.pends_res = pends.map(res => {
                             return {
                                 id: res.id,
@@ -74,13 +74,12 @@ export class OrdersPage implements OnInit {
                                 hour: res.reservation_hour,
                                 restaurant: res.restaurant,
                                 client: res.client,
-                                menus: res.menus,
                                 orders: res.orders,
                                 order_type: "RES",
                                 diners: res.diners
                             }
                         });
-                        let ends = this.reserves.filter(reserve => reserve.status === "FINALIZE");
+                        let ends = res.filter(reserve => reserve.status === "FINALIZE");
                         this.fin_res = ends.map(res => {
                             return {
                                 id: res.id,
@@ -89,7 +88,6 @@ export class OrdersPage implements OnInit {
                                 hour: res.reservation_hour,
                                 restaurant: res.restaurant,
                                 client: res.client,
-                                menus: res.menus,
                                 orders: res.orders,
                                 order_type: "RES",
                                 diners: res.diners
@@ -123,7 +121,6 @@ export class OrdersPage implements OnInit {
                                 hour: ord.order_hour,
                                 restaurant: ord.restaurant,
                                 client: ord.client,
-                                menus: ord.menus,
                                 orders: ord.orders,
                                 order_type: ord.order_type,
                                 diners: 0
@@ -138,7 +135,6 @@ export class OrdersPage implements OnInit {
                                 hour: ord.order_hour,
                                 restaurant: ord.restaurant,
                                 client: ord.client,
-                                menus: ord.menus,
                                 orders: ord.orders,
                                 order_type: ord.order_type,
                                 diners: 0

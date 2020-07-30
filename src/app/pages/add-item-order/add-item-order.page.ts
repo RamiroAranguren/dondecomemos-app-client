@@ -4,7 +4,6 @@ import { NavController } from '@ionic/angular';
 import { StorageService } from '../../services/storage/storage.service';
 import { ToastService } from 'src/app/services/toast/toast.service';
 import { UserInterface } from 'src/app/interfaces/user';
-import { Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-add-item-order',
@@ -26,6 +25,8 @@ export class AddItemOrderPage implements OnInit {
 
   order:any[] = [];
 
+  multiplos = [];
+
   count_variants = {};
   count_additionals = {};
 
@@ -36,9 +37,14 @@ export class AddItemOrderPage implements OnInit {
   cantProductVariant = 0;
   cantProductAdd = 0;
   cantAdditionals = 0;
+  cantAdditionalsViews = "";
   counters:any;
 
+  checkItem:any;
+
   activeAgregate = true;
+
+  validar_cantidad = "";
 
   constructor(
     private route: Router,
@@ -65,6 +71,8 @@ export class AddItemOrderPage implements OnInit {
   }
 
   ionViewDidEnter() {
+
+    console.log("PROD", this.product);
 
     // VARIANTES
     let variante = {
@@ -94,10 +102,54 @@ export class AddItemOrderPage implements OnInit {
     };
     let option_add = [];
     this.product.additionals_products.forEach(addit => {
-      if(addit.type !== 'Obligatoria'){
-        this.activeAgregate = false;
+      console.log("ADD", addit);
+
+      if(addit.type === 'Obligatoria' && addit.multiple === false) {
+        // Obligatorio - Unico - No hace falta poner cantidad (en panel) =
+        // La cantidad de adicioanles tiene que ser igula a la cantidad de productos en la pantalla.
+        //this.cantAdditionals = this.cantProduct;
+        this.validar_cantidad = "cant_pantalla";
       }
-      this.cantAdditionals += addit.amount;
+
+      if(addit.type === 'Opcional' && addit.multiple === false) {
+        // Opcional - Unico - No hace falta poner cantidad (en panel) =
+        // La cantidad de adicioanles tiene que ser menor o igual a la cantidad de productos en la pantalla.
+        this.validar_cantidad = "menorIgual_pantalla";
+      }
+
+      if(addit.type === 'Obligatoria' && addit.multiple === true) {
+        // Obligatorio - Multiple - Hace falta poner la cantidad en panel (CANTPANEL) =
+        // La cantidad de adicionales tiene que ser igual CANTPANEL * la cantidad seleccionada
+        // en la pantalla del prodcuto.
+        this.validar_cantidad = "validar";
+        this.cantAdditionals += addit.amount;
+      }
+
+      if(addit.type === 'Opcional' && addit.multiple === true) {
+        // Opcional - Multiple - Hace falta poner la cantidad en panel (CANTPANEL) =
+        // La cantidad de adiciones tiene que ser multiplo a CANTPANEL.
+        // Puede ser 0. No tiene que superar CANTPANEL * cantidad de producto en la pantalla del producto.
+        this.validar_cantidad = "multiplo";
+        this.cantAdditionals += addit.amount;
+        ////
+        this.multiplos = [];
+        for(var i=0; i<=this.cantProduct;i++){
+          this.multiplos.push(i*this.cantAdditionals);
+        }
+        this.cantAdditionalsViews = `${this.multiplos.join("-")}`;
+      }
+
+      if(addit.type === 'Opcional' && addit.multiple === true && addit.amount === -1) {
+        // Opcional - Multiple - No validar
+        this.validar_cantidad = "noValidar";
+        this.cantAdditionalsViews = "o no";
+      }
+      if(addit.type === 'Obligatoria' && addit.multiple === true && addit.amount === -1) {
+        // Obligatorio - Multiple - al menos.
+        this.validar_cantidad = "minimo_uno";
+        this.cantAdditionalsViews = "mínimo 1";
+      }
+
       addit.additionals_items.forEach(item => {
         if (item.name !== additional.item.name) {
           option_add.push({"id": item.id, "name": item.name, "price": item.price});
@@ -112,6 +164,25 @@ export class AddItemOrderPage implements OnInit {
     if(this.product.variants.length === 0 && this.product.additionals_products.length === 0) {
       this.activeAgregate = false;
     }
+    if(this.product.variants.length === 0 && this.product.additionals_products.length !== 0) {
+      switch (this.validar_cantidad) {
+        case "cant_pantalla":
+          this.activeAgregate = true;
+          this.cantAdditionalsViews = (this.cantProduct).toString();
+          break;
+        case "validar":
+          this.activeAgregate = true;
+          this.cantAdditionalsViews = (this.cantProduct * this.cantAdditionals).toString();
+          break;
+        case "minimo_uno":
+          this.activeAgregate = true;
+          break;
+        default:
+          this.activeAgregate = false;
+      }
+    }
+
+    console.log("VALIDADOR", this.validar_cantidad);
 
   }
 
@@ -121,19 +192,11 @@ export class AddItemOrderPage implements OnInit {
 
   addCantProduct() {
     this.cantProduct += 1;
-    if(this.product.variants.length === 0 && this.product.additionals_products.length === 0) {
-      this.activeAgregate = false;
-    } else {
-      if(this.product.additionals_products.length > 0){
-        if(this.product.additionals_products[0].type !== 'Obligatoria'){
-          this.activeAgregate = false;
-        } else {
-          this.activeAgregate = true;
-        }
-      } else {
-        this.activeAgregate = true;
-      }
-
+    this.setTextAdditional();
+    if(this.counters_add !== undefined){
+      let addes_validate = Object.values(this.counters_add).reduce(
+        (previous:number, current:number) => previous + current );
+      this.validateBtn(addes_validate, this.checkItem);
     }
   }
 
@@ -141,19 +204,11 @@ export class AddItemOrderPage implements OnInit {
     if(this.cantProduct >= 2){
       this.cantProduct -= 1;
     }
-    if(this.product.variants.length === 0 && this.product.additionals_products.length === 0) {
-      this.activeAgregate = false;
-    } else {
-      if(this.product.additionals_products.length > 0){
-        if(this.product.additionals_products[0].type !== 'Obligatoria'){
-          this.activeAgregate = false;
-        } else {
-          this.activeAgregate = true;
-        }
-      } else {
-        this.activeAgregate = true;
-      }
-
+    this.setTextAdditional();
+    if(this.counters_add !== undefined){
+      let addes_validate = Object.values(this.counters_add).reduce(
+        (previous:number, current:number) => previous + current );
+      this.validateBtn(addes_validate, this.checkItem);
     }
   }
 
@@ -167,19 +222,16 @@ export class AddItemOrderPage implements OnInit {
       let element = document.getElementById(idElement);
       element.innerHTML=this.cantProductVariant.toString();
 
-      if(this.counters_add === undefined){
-        this.activeAgregate = false;
-      } else {
-        this.activeAgregate = true;
-      }
-    }
-
-    if(this.variants.length > 0 && this.counters_var !== undefined) {
       let vares = Object.values<number>(this.counters_var).reduce(
-        (previous:number, current:number) => {
-          return previous + current
-        }, 0);
+        (previous:number, current:number) => { return previous + current }, 0);
       this.cantProduct = vares;
+
+      this.setTextAdditional();
+      if(this.counters_add !== undefined){
+        let addes_validate = Object.values(this.counters_add).reduce(
+          (previous:number, current:number) => previous + current );
+        this.validateBtn(addes_validate, this.checkItem);
+      }
     }
   }
 
@@ -201,87 +253,70 @@ export class AddItemOrderPage implements OnInit {
         element.innerHTML = this.cantProductVariant.toString();
       }
 
-      if(this.counters_add === undefined){
-        this.activeAgregate = false;
-      } else {
-        this.activeAgregate = true;
+      let vares_valid = Object.values<number>(this.counters_var).reduce(
+        (previous:number, current:number) => { return previous + current }, 0);
+      this.cantProduct = vares_valid;
+
+      this.setTextAdditional();
+
+      if(this.counters_add !== undefined){
+        let addes_validate = Object.values(this.counters_add).reduce(
+          (previous:number, current:number) => previous + current );
+        this.validateBtn(addes_validate, this.checkItem);
       }
 
     }
+  }
 
-    if(this.variants.length > 0 && this.counters_var !== undefined) {
-      let vares = Object.values<number>(this.counters_var).reduce(
-        (previous:number, current:number) => {
-          return previous + current
-        }, 0);
-      this.cantProduct = vares;
+  setTextAdditional(){
+    if(this.validar_cantidad === 'cant_pantalla'){
+      this.cantAdditionalsViews = this.cantProduct.toString();
+    }
+
+    if(this.validar_cantidad === 'menorIgual_pantalla'){
+      this.cantAdditionalsViews = this.cantProduct.toString();
+    }
+
+    if(this.validar_cantidad === 'multiplo'){
+      this.multiplos = [];
+      for(var i=0; i<=this.cantProduct;i++){
+        this.multiplos.push(i*this.cantAdditionals);
+      }
+      this.cantAdditionalsViews = `${this.multiplos.join("-")}`;
+    }
+
+    if(this.validar_cantidad === 'validar'){
+      this.cantAdditionalsViews = (this.cantProduct * this.cantAdditionals).toString();
+    }
+
+    if(this.validar_cantidad === 'noValidar'){
+      this.cantAdditionalsViews = "o no";
+    }
+
+    if(this.validar_cantidad === 'minimo_uno'){
+      this.cantAdditionalsViews = "mínimo 1";
     }
   }
 
   addCantAdd(item, idSelect, name) {
-    if(this.variants.length > 0 && this.counters_var !== undefined) {
-      let vares = Object.values<number>(this.counters_var).reduce(
-        (previous:number, current:number) => {
-          return previous + current
-        }, 0);
-      this.cantProduct = vares;
-    }
-
+    this.checkItem = item;
     if(this.counters_add !== undefined) {
-      let addes = Object.values(this.counters_add).reduce(
-        (previous:number, current:number) => previous + current );
-
-      if(addes < (this.cantProduct * item.amount)){
-        this.counters_add[name] += 1;
-        this.cantProductAdd = this.counters_add[name];
-        let idElement = `count-additional-${idSelect}`;
-        let element = document.getElementById(idElement);
-        element.innerHTML=this.cantProductAdd.toString();
-      }
-
-      let vares:any;
-      if(this.variants.length > 0 && this.counters_var !== undefined) {
-        vares = Object.values<number>(this.counters_var).reduce(
-          (previous:number, current:number) => {
-            return previous + current
-          }, 0);
-      } else {
-        vares = undefined;
-      }
-
-      let addes_validation = Object.values(this.counters_add).reduce(
-        (previous:number, current:number) => previous + current );
-
-      if(item.type === 'Obligatoria'){
-        if(vares !== undefined) {
-          if(addes_validation === (this.cantProduct * item.amount) && vares === this.cantProduct){
-            this.activeAgregate = false;
-          } else {
-            this.activeAgregate = true;
-          }
-        } else {
-          if(addes_validation === (this.cantProduct * item.amount)){
-            this.activeAgregate = false;
-          } else {
-            this.activeAgregate = true;
-          }
-        }
-      } else {
-        this.activeAgregate = false;
-      }
+      this.counters_add[name] += 1;
+      this.cantProductAdd = this.counters_add[name];
+      let idElement = `count-additional-${idSelect}`;
+      let element = document.getElementById(idElement);
+      element.innerHTML=this.cantProductAdd.toString();
     }
+
+    let addes = Object.values(this.counters_add).reduce(
+        (previous:number, current:number) => previous + current );
+
+    this.validateBtn(addes, item);
+
   }
 
   removeCantAdd(item, idSelect, name) {
-
-    if(this.variants.length > 0 && this.counters_var !== undefined) {
-      let vares = Object.values<number>(this.counters_var).reduce(
-        (previous:number, current:number) => {
-          return previous + current
-        }, 0);
-      this.cantProduct = vares;
-    }
-
+    this.checkItem = item;
     if(this.counters_add !== undefined) {
       let addes = Object.values(this.counters_add).reduce(
         (previous:number, current:number) => previous + current );
@@ -300,42 +335,135 @@ export class AddItemOrderPage implements OnInit {
         }
       }
 
-      let vares:any;
-      if(this.variants.length > 0 && this.counters_var !== undefined) {
-        vares = Object.values<number>(this.counters_var).reduce(
+      let addes_validate = Object.values(this.counters_add).reduce(
+        (previous:number, current:number) => previous + current );
+
+      this.validateBtn(addes_validate, item);
+    }
+  }
+
+  validateBtn(cant, item){
+    if(this.validar_cantidad === 'cant_pantalla'){
+      console.log("Obligatorio - Unico - No hace falta poner cantidad (en panel) = La cantidad de adicioanles tiene que ser igula a la cantidad de productos en la pantalla.");
+      if(this.variants.length === 0){
+        // NO HAY VARIANTES ENTONCES ME RIJO X CANT PRODUCTO
+        if(cant === this.cantProduct){
+          this.activeAgregate = false;
+        } else {
+          this.activeAgregate = true;
+        }
+      }
+      if(this.variants.length > 0 && this.counters_var !== undefined){
+        // HAY VARIANTES ENTONCES ME RIJO X CANT VARIANTES
+        let vares = Object.values<number>(this.counters_var).reduce(
           (previous:number, current:number) => {
             return previous + current
           }, 0);
-      } else {
-        vares = undefined;
-      }
-
-      let addes_validation = Object.values(this.counters_add).reduce(
-        (previous:number, current:number) => previous + current );
-
-      if(item.type === 'Obligatoria'){
-        if(vares !== undefined) {
-          if(addes_validation === (this.cantProduct * item.amount) && vares === this.cantProduct){
-            this.activeAgregate = false;
-          } else {
-            this.activeAgregate = true;
-          }
+        if(cant === vares){
+          this.activeAgregate = false;
         } else {
-          if(addes_validation === (this.cantProduct * item.amount)){
-            this.activeAgregate = false;
-          } else {
-            this.activeAgregate = true;
-          }
+          this.activeAgregate = true;
         }
-      } else {
+      }
+    }
+
+    if(this.validar_cantidad === 'menorIgual_pantalla'){
+      console.log("Opcional - Unico - No hace falta poner cantidad (en panel) = La cantidad de adicioanles tiene que ser menor o igual a la cantidad de productos en la pantalla.");
+      if(this.variants.length === 0){
+        // NO HAY VARIANTES ENTONCES ME RIJO X CANT PRODUCTO
+        if(cant <= this.cantProduct){
+          this.activeAgregate = false;
+        } else {
+          this.activeAgregate = true;
+        }
+      }
+      if(this.variants.length > 0 && this.counters_var !== undefined){
+        // HAY VARIANTES ENTONCES ME RIJO X CANT VARIANTES
+        let vares = Object.values<number>(this.counters_var).reduce(
+          (previous:number, current:number) => {
+            return previous + current
+          }, 0);
+        if(cant <= vares){
+          this.activeAgregate = false;
+        } else {
+          this.activeAgregate = true;
+        }
+      }
+    }
+
+    if(this.validar_cantidad === 'validar'){
+      console.log("Obligatorio - Multiple - Hace falta poner la cantidad en panel (CANTPANEL) = La cantidad de adicionales tiene que ser igual CANTPANEL * la cantidad seleccionada en la pantalla del prodcuto.");
+      if(this.variants.length === 0){
+        // NO HAY VARIANTES ENTONCES ME RIJO X CANT PRODUCTO
+        if(cant === (this.cantProduct * item.amount)){
+          this.activeAgregate = false;
+        } else {
+          this.activeAgregate = true;
+        }
+      }
+      if(this.variants.length > 0 && this.counters_var !== undefined){
+        // HAY VARIANTES ENTONCES ME RIJO X CANT VARIANTES
+        let vares = Object.values<number>(this.counters_var).reduce(
+          (previous:number, current:number) => {
+            return previous + current
+          }, 0);
+        if(cant === (vares * item.amount)){
+          this.activeAgregate = false;
+        } else {
+          this.activeAgregate = true;
+        }
+      }
+    }
+
+    if(this.validar_cantidad === 'multiplo'){
+      console.log("Opcional - Multiple - Hace falta poner la cantidad en panel (CANTPANEL) = La cantidad de adiciones tiene que ser multiplo a CANTPANEL. Puede ser 0. No tiene que superar CANTPANEL * cantidad de producto en la pantalla del producto.", this.multiplos);
+      if(this.multiplos.includes(cant) && this.variants.length === 0){
         this.activeAgregate = false;
+      } else {
+        this.activeAgregate = true;
+      }
+      if(this.multiplos.includes(cant) && this.variants.length !== 0){
+        let vares = Object.values<number>(this.counters_var).reduce(
+          (previous:number, current:number) => {
+            return previous + current
+          }, 0);
+        if(vares >=1){
+          this.activeAgregate = false;
+        } else {
+          this.activeAgregate = true;
+        }
+      }
+    }
+
+    if(this.validar_cantidad === 'noValidar'){
+      console.log("Opcional - Multiple - CANTPANEL:-1 = No hacer validaciones.");
+      this.activeAgregate = false;
+    }
+
+    if(this.validar_cantidad === 'minimo_uno'){
+      console.log("Obligatorio - Multiple - CANTPANEL:-1 = Al menos uno elegido.", cant, this.variants.length);
+      if(cant >= 1 && this.variants.length === 0){
+        this.activeAgregate = false;
+      } else {
+        this.activeAgregate = true;
+      }
+      if(cant >= 1 && this.variants.length !== 0){
+        let vares = Object.values<number>(this.counters_var).reduce(
+          (previous:number, current:number) => {
+            return previous + current
+          }, 0);
+        if(vares >=1){
+          this.activeAgregate = false;
+        } else {
+          this.activeAgregate = true;
+        }
       }
     }
   }
 
   addOrder() {
     // DESACTIVA BOTON AGREGAR
-    this.activeAgregate = true;
+    // this.activeAgregate = true;
 
     let pedido = {
       type: this.type,
@@ -349,7 +477,8 @@ export class AddItemOrderPage implements OnInit {
         comments: this.comments,
         variants: [],
         additionals: []
-      }
+      },
+      menu: null
     };
 
     let variant_key = Object.keys(this.counters_var);

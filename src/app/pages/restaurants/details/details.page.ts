@@ -102,12 +102,19 @@ export class DetailsPage implements OnInit {
     });
 
     setTimeout(() => {
-      this.storage.getObject("list_order").then(res => {
-        if(res){
-          this.orders = res.filter(ord => (ord.restaurant === this.restaurant.id && ord.user.id === this.user.id));
-          let prices_order = [];
-          this.orders.forEach(order => {
+      this.calculatePrice();
+    }, 800);
+  }
 
+  calculatePrice(){
+    console.log("CALL calculatePrice");
+    this.storage.getObject("list_order").then(res => {
+      if(res){
+        this.orders = res.filter(ord => (ord.restaurant === this.restaurant.id && ord.user.id === this.user.id));
+        let prices_order = [];
+        this.orders.forEach(order => {
+
+          if(order.product !== null){
             if(order.product.variants !== undefined){
               if(order.product.variants.length > 0) {
                 let prices_var = order.product.variants.map(vary => {
@@ -127,14 +134,19 @@ export class DetailsPage implements OnInit {
             }
 
             prices_order = prices_order.concat(order.product.price * order.product.count);
-          });
-
-          if(prices_order.length > 0){
-            this.price_total = prices_order.reduce((prev, curr) => prev + curr);
           }
+
+          if(order.menu !== null){
+            prices_order = prices_order.concat(order.menu.real_price * 1)
+          }
+
+        });
+
+        if(prices_order.length > 0){
+          this.price_total = prices_order.reduce((prev, curr) => prev + curr);
         }
-      });
-    }, 800);
+      }
+    });
   }
 
   scrollTo(elementId: string) {
@@ -253,7 +265,25 @@ export class DetailsPage implements OnInit {
   }
 
   addMenu(menu){
-    console.log(menu);
+    let pedido = {
+      type: "ORDER",
+      user: this.user,
+      restaurant: this.restaurant.id,
+      product: null,
+      menu: null
+    };
+
+    pedido.menu = menu;
+
+    this.loader.display("Agregando el menú a la orden...");
+    setTimeout(() => {
+      this.orders.push(pedido);
+      this.storage.addObject('list_order', this.orders);
+      this.loader.hide();
+    }, 1200);
+    setTimeout(() => {
+      this.calculatePrice();
+    }, 1500);
   }
 
 }

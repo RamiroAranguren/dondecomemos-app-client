@@ -39,7 +39,7 @@
                     </div>
                     <div class="buttons">
                         <ion-button
-                            *ngIf="item.type === 'RESERVE' && (item.orders.length > 0 || item.menus.length > 0)"
+                            *ngIf="item.type === 'RESERVE' && (item.orders.length > 0)"
                             (click)="goToReserve(item)"
                             routerLinkActive="router-link-active" fill="clear" shape="round">
                             VER PEDIDO
@@ -86,13 +86,13 @@
                     </div>
                     <div class="buttons">
                         <ion-button
-                            *ngIf="item.type === 'RESERVE' && (item.orders.length > 0 || item.menus.length > 0)"
+                            *ngIf="item.type === 'RESERVE' && (item.orders.length > 0)"
                             (click)="goToReserve(item)"
                             routerLinkActive="router-link-active" fill="clear" shape="round">
                             VER PEDIDO
                         </ion-button>
                         <ion-button
-                            *ngIf="item.type === 'ORDER' && (item.orders.length > 0 || item.menus.length > 0)"
+                            *ngIf="item.type === 'ORDER' && (item.orders.length > 0)"
                             (click)="goToOrder(item)"
                             routerLinkActive="router-link-active" fill="clear" shape="round">
                             VER PEDIDO

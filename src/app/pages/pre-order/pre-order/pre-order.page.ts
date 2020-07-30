@@ -58,26 +58,30 @@ export class PreOrderPage implements OnInit {
           this.orders = res.filter(ord => (ord.restaurant === this.restaurant.id && ord.user.id === this.user.id));
           let prices_order = [];
           this.orders.forEach(order => {
-
-            if(order.product.variants !== undefined){
-              if(order.product.variants.length > 0) {
-                let prices_var = order.product.variants.map(vary => {
-                  return vary.price * vary.count;
-                });
-                prices_order = prices_order.concat(prices_var);
+            if(order.product !== null){
+              if(order.product.variants !== undefined){
+                if(order.product.variants.length > 0) {
+                  let prices_var = order.product.variants.map(vary => {
+                    return vary.price * vary.count;
+                  });
+                  prices_order = prices_order.concat(prices_var);
+                }
               }
-            }
 
-            if(order.product.additionals !== undefined) {
-              if(order.product.additionals.length > 0) {
-                let prices_add = order.product.additionals.map(add => {
-                  return add.price * add.count;
-                });
-                prices_order = prices_order.concat(prices_add);
+              if(order.product.additionals !== undefined) {
+                if(order.product.additionals.length > 0) {
+                  let prices_add = order.product.additionals.map(add => {
+                    return add.price * add.count;
+                  });
+                  prices_order = prices_order.concat(prices_add);
+                }
               }
-            }
 
-            prices_order = prices_order.concat(order.product.price * order.product.count);
+              prices_order = prices_order.concat(order.product.price * order.product.count);
+            }
+            if(order.menu !== null){
+              prices_order = prices_order.concat(order.menu.real_price * 1)
+            }
           });
 
           if(prices_order.length > 0){
