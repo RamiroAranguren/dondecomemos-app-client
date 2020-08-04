@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, Validators, FormBuilder, ReactiveFormsModule } from '@angular/forms';
-import { NavController } from '@ionic/angular';
+import { NavController, AlertController } from '@ionic/angular';
 import { Router, NavigationExtras } from '@angular/router';
 import { UsersService } from '../../services/users/user.service';
 import { LoaderService } from '../../services/loader/loader.service';
@@ -24,12 +24,15 @@ export class VerifyNumberCodePage implements OnInit {
     code: null
   }
 
+  code_server = null;
+
   constructor(
     private route: Router,
     public formBuild: FormBuilder,
     private navCtrl: NavController,
     private userService: UsersService,
-    private loader: LoaderService
+    private loader: LoaderService,
+    private alertCtrl: AlertController
   ) {
     this.form = this.formBuild.group({
         "code": ["", [
@@ -44,30 +47,88 @@ export class VerifyNumberCodePage implements OnInit {
   }
 
   sendSMS() {
-    this.userService.sendCodeSms(this.user.email, this.user.phone);
+    console.log("Enviando SMS");
+    this.userService.sendCodeSms(this.user.email, this.user.phone).then((result:any) => {
+      this.code_server = result.code;
+    });
   }
 
-  doVerify() {
-    this.userService.checkCodeSms(this.numberRegister.code).then(() => {
-      setTimeout(() => {
+  doVerifyAndRegister() {
+    console.log("VerIFICANDO", this.code_server, this.numberRegister.code, this.code_server !== this.numberRegister.code);
+    if(this.code_server.toString() !== this.numberRegister.code){
+      this.errors.code = ["Error: verifique que el código ingresado sea el mismo que recibió."];
+    } else {
+      this.loader.display('Verificando código...');
+      this.userService.checkCodeSms(this.user.email, this.user.phone, this.numberRegister.code).then(() => {
+        this.loader.hide();
         if (this.user.net !== null) {
-          // CUANDO EL REGISTRO VIENE DE UNA RED SOCIAL, LLAMA A LA FUNCION
+          // CUANDO EL REGISTRO VIENE DE UNA RED SOCIAL, HACE EL REGISTRO Y LUEGO
           // LOGIN Y LOGUEA DIRECTAMENTE AL USUARIO
-          this.loginNet();
+          this.loader.display('Registrando usuario...');
+          this.userService.register(this.user).then(() => {
+            this.loader.hide();
+            console.log("loginNet", this.user.email, this.user.password);
+            this.userService.login(this.user.email, this.user.password).then(res => {
+              console.log("Verify-Login", res);
+              this.navCtrl.navigateRoot('/tabs/home');
+
+            }).catch(errors => {
+              console.log(errors);
+            });
+          }).catch((error) => {
+            this.loader.hide();
+            console.log(error);
+            if (error.username && error.username.length > 0) {
+              this.showAlert();
+            }
+          });
         } else {
-          // CUANDO ES UN REGISTRO CLASICO REDIRECCIONA AL LOGIN
-          this.userService.login(this.user.email, this.user.password).then(res => {
-            console.log("Verify-Login", res);
-            this.navCtrl.navigateRoot('/tabs/home');
-          }).catch(errors => {
-            console.log(errors);
-          })
-          // this.navCtrl.navigateRoot('/login');
+          // CUANDO ES UN REGISTRO CLASICO - HACEMOS EL REGISTRO Y LUEGO LOGIN
+          this.loader.display('Registrando usuario...');
+          this.userService.register(this.user).then(() => {
+            this.loader.hide();
+            this.userService.login(this.user.email, this.user.password).then(res => {
+              console.log("Verify-Login", res);
+              this.navCtrl.navigateRoot('/tabs/home');
+            }).catch(errors => {
+              console.log(errors);
+            });
+          }).catch((error) => {
+            this.loader.hide();
+            console.log(error);
+            if (error.username && error.username.length > 0) {
+              this.showAlert();
+            }
+          });
         }
-      }, 2000);
-    }).catch((error) => {
-      this.errors.code = ["Error: no se pudo validar el código, intente de nuevo."];
-    })
+      }).catch((error) => {
+        this.errors.code = ["Error: no se pudo validar el código, intente de nuevo."];
+      })
+    }
+  }
+
+  async showAlert() {
+    const alert = await this.alertCtrl.create({
+      header: 'Cuenta ya existente',
+      message: 'El email ya se encuentra asociado a una cuenta de Donde Comemos',
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: () => {
+            console.log('Confirm Cancel');
+          }
+        }, {
+          text: 'Iniciar sesión',
+          handler: () => {
+            this.navCtrl.navigateRoot('/login');
+          }
+        }
+      ]
+    });
+
+    await alert.present();
   }
 
   reSendSMS() {
@@ -79,16 +140,4 @@ export class VerifyNumberCodePage implements OnInit {
       this.errors.code = ["Error: no se pudo enviar, intente de nuevo."];
     })
   }
-
-  loginNet() {
-    console.log("loginNet", this.user.email, this.user.password);
-    this.userService.login(this.user.email, this.user.password).then(res => {
-      console.log("Verify-Login", res);
-      this.navCtrl.navigateRoot('/tabs/home');
-
-    }).catch(errors => {
-      console.log(errors);
-    })
-  }
-
 }

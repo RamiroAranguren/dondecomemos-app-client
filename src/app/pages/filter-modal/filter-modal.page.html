@@ -76,10 +76,12 @@
     </ion-grid>
 </ion-content>
 <ion-footer>
-    <ion-button (click)="applicateFilters()" class="filter-button"  expand="block" shape="round">
-        Aplicar filtros
-    </ion-button>
-    <ion-button (click)="resetFilters()" class="filter-button-reset" color="light" expand="block" shape="round">
-        Resetear
-    </ion-button>
+    <p>
+        <ion-button (click)="applicateFilters()" class="filter-button"  expand="block" shape="round">
+            Aplicar filtros
+        </ion-button>
+        <a style="color: #1d252d" (click)="resetFilters()" class="filter-button-reset" color="light" expand="block" shape="round">
+            Resetear
+        </a>
+    </p>
 </ion-footer>

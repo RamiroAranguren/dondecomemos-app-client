@@ -146,8 +146,8 @@ export class HomePage implements OnInit {
       this.restaurants = res;
       this.restaurantsCopy = [...res];
       this.storage.getObject("filters").then(filters_local => {
-        this.filterColor = filters_local.length > 0;
         if(filters_local){
+          this.filterColor = filters_local.length > 0;
           this.chips = filters_local;
           this.restaurants = this.restaurantService.getRestaurantByFilters(filters_local, this.restaurants);
         }
@@ -317,6 +317,7 @@ export class HomePage implements OnInit {
         this.filterColor = false;
       }
     } else {
+      this.filterColor = false;
       this.chips = [];
       this.restaurants = this.restaurantsCopy;
     }

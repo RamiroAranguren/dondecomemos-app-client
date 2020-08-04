@@ -86,8 +86,11 @@ ion-footer{
     }
 
     .filter-button-reset {
-        --border-color: white !important;
-        --box-shadow: none !important;
+        margin-left: 35vw;
+        --color: #1d252d !important;
+    }
+    a {
+        text-decoration: none;
+        --color: #1d252d !important;
     }
 }
-

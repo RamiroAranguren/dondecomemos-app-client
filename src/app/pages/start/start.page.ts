@@ -68,19 +68,9 @@ export class StartPage implements OnInit {
         this.loginSocialFcbk.last_name = namelong[1];
       }
       console.log("data register", this.loginSocialFcbk);
-      // INTENTA REGISTRAR AL USER FACEBOOK
-      this.userService.register(this.loginSocialFcbk).then(() => {
-        let navigationExtras: NavigationExtras = {
-          state: {data: this.loginSocialFcbk}
-        };
-        this.navCtrl.navigateForward(['/verify-number'], navigationExtras);
-      }).catch((error) => {
-        console.log(error);
-        // SI YA EXISTE USUARIO CON ESE EMAIL LO QUE HACE ES LOGUEAR A ESE USER
-        if (error.username && error.username.length > 0){
-          this.toast.show("Ya existe un usuario registrado con esa cuenta");
-        }
-      });
+      let navigationExtras: NavigationExtras = {
+        state: {data: this.loginSocialFcbk}};
+      this.navCtrl.navigateForward(['/verify-number'], navigationExtras);
     }).catch(error => {
       console.log(error);
       this.toast.show("Hubo un error al intentar ingresar con Facebook");
