@@ -92,20 +92,24 @@ ion-col {
     padding: 0;
 }
 
-.col-level,
-.col-score {
+.col-level {
     padding: 5px;
     font-family: FieldworkGeoRegular;
 }
 
 .col-score {
-    font-family: FieldworkGeoRegular;
     span {
-        padding-top: -5px;
+        padding-top: 5px;
+        font-family: FieldworkGeoRegular;
+        font-size: 16px;
     }
+}
+
+.col-score-icon {
     ion-icon {
         color: #F89B4C;
-        padding-top: 1px;
+        padding-top: 3px;
+        font-size: 20px;
     }
 }
 
@@ -300,7 +304,8 @@ ion-col {
     width: 90vw;
     .promo1-text {
         text-align: justify;
-        font-size: 4vw;
+        font-size: 16px;
+        letter-spacing: -0.8px;
         top: 2%;
         bottom: 2%;
         left: 0;

@@ -29,9 +29,7 @@ export class VerifyNumberPage implements OnInit {
   constructor(
     private route: Router,
     private formBuild: FormBuilder,
-    private navCtrl: NavController,
-    private userService: UsersService,
-    private loader: LoaderService
+    private navCtrl: NavController
   ) {
     this.form = this.formBuild.group({
         "phone": ["", [
@@ -46,6 +44,7 @@ export class VerifyNumberPage implements OnInit {
 
   doVerify() {
     this.user.phone = this.numberRegister.phone;
+    console.log("Pasar a cargar codigo", this.user);
     let navigationExtras: NavigationExtras = {state: {data: this.user}};
     this.navCtrl.navigateForward(['/verify-number-code'], navigationExtras);
   }

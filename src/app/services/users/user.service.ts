@@ -290,8 +290,8 @@ export class UsersService {
     })
   }
 
-  checkCodeSms(code){
-    const body = { code };
+  checkCodeSms(email, phone, code){
+    const body = { email, phone ,code };
     return new Promise((resolve, reject) => {
       this.http.post(`${apiUrl}verify-number-code/checkCode/`, body).subscribe((response: any) => {
         resolve(response);

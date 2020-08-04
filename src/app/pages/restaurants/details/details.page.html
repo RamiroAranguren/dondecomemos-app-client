@@ -42,9 +42,11 @@
                   <span [innerHTML]="restaurant | level:'0'"></span>
                   <span [innerHTML]="restaurant | level:''" style="color: rgb(156, 156, 156);"></span>
                 </ion-col>
-                <ion-col size="2" class="ion-text-end col-score">
+                <ion-col size="1" class="ion-text-end col-score-icon">
                   <ion-icon *ngIf="restaurant.qualifications.length > 0" name="star"></ion-icon>
-                  <span class="qualify">{{ restaurant | score }}</span>
+                </ion-col>
+                <ion-col size="1" class="ion-text-end col-score">
+                  <span>{{ restaurant | score }}</span>
                 </ion-col>
               </ion-row>
             </ion-grid>

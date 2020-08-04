@@ -39,10 +39,7 @@ export class RegisterPage implements OnInit {
   constructor(
     public formBuild: FormBuilder,
     private modalCtrl: ModalController,
-    public navCtrl: NavController,
-    private alertCtrl: AlertController,
-    private loader: LoaderService,
-    private userService: UsersService
+    public navCtrl: NavController
   ) {
     this.form = this.formBuild.group({
       "first_name": ["", [Validators.required], []],
@@ -63,48 +60,13 @@ export class RegisterPage implements OnInit {
   doRegister() {
 
     if (this.form.valid) {
-      this.loader.display('Registrando...');
-      this.userService.register(this.userRegister).then(() => {
-        this.loader.hide();
-        let navigationExtras: NavigationExtras = {
-          state: { data: this.userRegister }
-        };
-        this.navCtrl.navigateForward(['/verify-number'], navigationExtras);
-      }).catch((error) => {
-        this.loader.hide();
-        console.log(error);
-        if (error.username && error.username.length > 0) {
-          this.showAlert();
-        }
-      });
+      let navigationExtras: NavigationExtras = {
+        state: { data: this.userRegister }};
+      this.navCtrl.navigateForward(['/verify-number'], navigationExtras);
     }
   }
 
-  async showAlert() {
-    const alert = await this.alertCtrl.create({
-      header: 'Cuenta ya existente',
-      message: 'El email ya se encuentra asociado a una cuenta de Donde Comemos',
-      buttons: [
-        {
-          text: 'Cancelar',
-          role: 'cancel',
-          cssClass: 'secondary',
-          handler: () => {
-            console.log('Confirm Cancel');
-          }
-        }, {
-          text: 'Iniciar sesión',
-          handler: () => {
-            this.navCtrl.navigateRoot('/login');
-          }
-        }
-      ]
-    });
-
-    await alert.present();
-  }
-
-  checkPassword() {  
+  checkPassword(){
     this.errors.password = [];
     clearTimeout(this.timePassCheck);
     this.timePassCheck = setTimeout(() => {
