@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ModalController, AlertController, NavController } from '@ionic/angular';
+import { ModalController, AlertController, NavController, Platform } from '@ionic/angular';
 
 import { FilterModalPage } from '../filter-modal/filter-modal.page';
 
@@ -14,6 +14,8 @@ import { FavoritesService } from '../../services/favorites/favorites.service';
 import { UsersService } from '../../services/users/user.service';
 import { UserInterface } from 'src/app/interfaces/user';
 import { NavigationExtras } from '@angular/router';
+import { AppMinimize } from '@ionic-native/app-minimize/ngx';
+import { BackButtonServiceService } from 'src/app/services/back-button/back-button-service.service';
 
 
 @Component({
@@ -28,10 +30,10 @@ export class HomePage implements OnInit {
   // Muestra/Oculta list-item de restaurantes - list result de search-bar
   searchChange = false;
 
-  valueSearch:string = "";
+  valueSearch: string = "";
 
-  chips:any[] = [];
-  filters:any[] = [];
+  chips: any[] = [];
+  filters: any[] = [];
   // detecta si hay que aplicar estilo o no al icono de filtro
   filterColor = false;
   searchColor = false;
@@ -59,7 +61,11 @@ export class HomePage implements OnInit {
     place: []
   }
 
-  user:UserInterface;
+  user: UserInterface;
+
+  backbuttonSubscription: any;
+
+  backButtonStatus: boolean = true;
 
   constructor(
     public modalCtrl: ModalController,
@@ -71,12 +77,32 @@ export class HomePage implements OnInit {
     private loaderService: LoaderService,
     private storage: StorageService,
     private userService: UsersService,
+    private appMinimize: AppMinimize,
+    private platform: Platform,
+    private backButtonServiceService: BackButtonServiceService,
   ) {
 
   }
 
   ngOnInit() {
     this.getSotrageDataInit();
+  }
+  ionViewDidEnter() {
+    this.backButtonServiceService.changeStatusToMinimize.subscribe((status)=>{
+      this.backButtonStatus = status;
+    })
+    this.backbuttonSubscription = this.platform.backButton.subscribe(() => {
+      if (this.backButtonStatus) {
+        this.appMinimize.minimize();
+      }
+    });
+  }
+
+  ionViewWillLeave() {
+    this.unsucribeBackButton()
+  }
+  unsucribeBackButton() {
+    this.backbuttonSubscription.unsubscribe();
   }
 
   getSotrageDataInit() {
@@ -85,16 +111,16 @@ export class HomePage implements OnInit {
 
     this.storage.getObject("locations").then(locations => {
       this.locations = locations;
-      if(!locations){
-        this.locationService.get().then((locations:any) => {
+      if (!locations) {
+        this.locationService.get().then((locations: any) => {
           this.storage.addObject("locations", locations);
           this.locations = locations;
-          this.locations.filter((location:LocationInterface) => {
+          this.locations.filter((location: LocationInterface) => {
             this.dict_locations[location.id] = location.name;
           });
         });
       } else {
-        this.locations.filter((location:LocationInterface) => {
+        this.locations.filter((location: LocationInterface) => {
           this.dict_locations[location.id] = location.name;
         });
       }
@@ -106,10 +132,10 @@ export class HomePage implements OnInit {
     // SI NO ES INVITADO: TOMO LOS FAVORITOS SI EXISTEN EN EL STORAGE
     // SINO LO TRAIGO DESDE EL SERVICE
     let isGuest = this.userService.isGuestUser();
-    if(!isGuest){
+    if (!isGuest) {
       this.user = this.userService.user;
       setTimeout(() => {
-        this.favService.get(this.user.id).then((favs_data:any) => {
+        this.favService.get(this.user.id).then((favs_data: any) => {
           this.storage.addObject("favorites", favs_data);
         }).catch(error => {
           console.log("error favs", error);
@@ -121,11 +147,11 @@ export class HomePage implements OnInit {
 
   ionViewWillEnter() {
     this.loaderService.display('Cargando listado...').then(() => {
-      this.restaurantService.get().then((res:any) => {
+      this.restaurantService.get().then((res: any) => {
         this.restaurants = res;
         this.restaurantsCopy = [...res];
         this.storage.getObject("filters").then(filters_local => {
-          if(filters_local){
+          if (filters_local) {
             this.filterColor = filters_local.length > 0;
             this.chips = filters_local;
             this.restaurants = this.restaurantService.getRestaurantByFilters(filters_local, this.restaurants);
@@ -142,11 +168,11 @@ export class HomePage implements OnInit {
   }
 
   doRefresh(evento) {
-    this.restaurantService.get().then((res:any) => {
+    this.restaurantService.get().then((res: any) => {
       this.restaurants = res;
       this.restaurantsCopy = [...res];
       this.storage.getObject("filters").then(filters_local => {
-        if(filters_local){
+        if (filters_local) {
           this.filterColor = filters_local.length > 0;
           this.chips = filters_local;
           this.restaurants = this.restaurantService.getRestaurantByFilters(filters_local, this.restaurants);
@@ -163,7 +189,7 @@ export class HomePage implements OnInit {
   async presentAlert() {
 
     this.locations.forEach((location, index) => {
-      let checkedStatus =  index === 0 ? true : false;
+      let checkedStatus = index === 0 ? true : false;
       this.myInputs.push({
         type: 'radio',
         label: location.name,
@@ -174,7 +200,7 @@ export class HomePage implements OnInit {
 
     let alert = await this.alertCtrl.create({
       header: '¿Cuál es tu ubicación?',
-      message:"Te mostraremos los más cercanos.",
+      message: "Te mostraremos los más cercanos.",
       inputs: this.myInputs,
       buttons: [
         {
@@ -208,7 +234,7 @@ export class HomePage implements OnInit {
     this.restaurants = this.restaurantService.getRestaurantsByLocation(location.id)
   }
 
-  searchFilter( event )  {
+  searchFilter(event) {
     this.searchColor = true;
     this.resultSearchResto = [];
     this.resultSearchCity = [];
@@ -217,25 +243,25 @@ export class HomePage implements OnInit {
 
     this.inputSearch = val;
 
-    if (val && val.trim() !== ''){
+    if (val && val.trim() !== '') {
 
-      if(val.length >= 1){
+      if (val.length >= 1) {
 
         this.searchChange = true;
 
-        this.restaurants.filter((resto:restaurant) =>{
+        this.restaurants.filter((resto: restaurant) => {
 
-          if(resto.name.toLowerCase().search(val.toLowerCase()) !== -1) {
+          if (resto.name.toLowerCase().search(val.toLowerCase()) !== -1) {
             resto.type = "resto";
             this.resultSearchResto.push(resto);
             return;
           }
 
           let resto_city = this.dict_locations[resto.influence_range];
-          if(resto_city.toLowerCase().search(val.toLowerCase()) !== -1) {
+          if (resto_city.toLowerCase().search(val.toLowerCase()) !== -1) {
             resto.type = "city";
             this.resultSearchCity.push(
-              {"influence_range": resto.influence_range, "name": resto_city, "type": "city", "count": count});
+              { "influence_range": resto.influence_range, "name": resto_city, "type": "city", "count": count });
             return;
           }
         });
@@ -272,19 +298,19 @@ export class HomePage implements OnInit {
     this.restaurants = this.restaurantsCopy
   }
 
-  selectResult (resto) {
+  selectResult(resto) {
     this.valueSearch = resto.name;
     this.searchChange = false;
     this.searchColor = true;
-    if (resto.type === 'city'){
-      this.restaurants =  this.restaurantService.getRestaurantByCity(resto);
+    if (resto.type === 'city') {
+      this.restaurants = this.restaurantService.getRestaurantByCity(resto);
     } else {
-      let params: NavigationExtras = {state: {data: resto, call:'home'}};
+      let params: NavigationExtras = { state: { data: resto, call: 'home' } };
       this.navCtrl.navigateForward(['/restaurant/details'], params);
     }
   }
 
-  async openFilters(){
+  async openFilters() {
     let modal = await this.modalCtrl.create({
       component: FilterModalPage,
       backdropDismiss: false,
@@ -295,20 +321,20 @@ export class HomePage implements OnInit {
 
     const { data } = await modal.onDidDismiss();
 
-    if(data.filters.length > 0){
+    if (data.filters.length > 0) {
 
       this.chips = data.filters[0].place.concat(data.filters[0].cook).concat(data.filters[0].level);
 
-      if(this.chips.length > 0) {
+      if (this.chips.length > 0) {
         this.filterColor = true;
         let save_filters_place = data.filters[0].place.map(fl => {
-          return {id: fl.id, name: fl.name, type: fl.type}
+          return { id: fl.id, name: fl.name, type: fl.type }
         });
         let save_filters_cook = data.filters[0].cook.map(fl => {
-          return {id: fl.id, name: fl.name, type: fl.type}
+          return { id: fl.id, name: fl.name, type: fl.type }
         });
         let save_filters_level = data.filters[0].level.map(fl => {
-          return {id: fl.id, name: fl.name, type: fl.type}
+          return { id: fl.id, name: fl.name, type: fl.type }
         });
         this.storage.addObject('filters', save_filters_place.concat(save_filters_cook).concat(save_filters_level));
         let resulServiceFilters = this.restaurantService.getRestaurantByFilters(data.filters[0]);
@@ -323,7 +349,7 @@ export class HomePage implements OnInit {
     }
   }
 
-  removeChip(data:any) {
+  removeChip(data: any) {
     // remove from local store
     let filter_chip_local = this.chips.filter(chip => chip.id !== data.id);
     this.storage.addObject('filters', filter_chip_local);
@@ -332,7 +358,7 @@ export class HomePage implements OnInit {
     this.chips = this.chips.filter(chip => chip.type !== data.type || chip.id !== data.id);
     this.restaurants = this.restaurantService.getRestaurantByFilters(this.chips);
 
-    if(this.chips.length <= 0) {
+    if (this.chips.length <= 0) {
       this.filterColor = false;
     }
   }

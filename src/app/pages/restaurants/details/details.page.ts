@@ -4,7 +4,7 @@ import { Router, NavigationExtras } from '@angular/router';
 import { StorageService } from '../../../services/storage/storage.service';
 import { FavoritesService } from '../../../services/favorites/favorites.service';
 import { LoaderService } from '../../../services/loader/loader.service';
-import { AlertController, ModalController, IonContent, NavController } from '@ionic/angular';
+import { AlertController, ModalController, IonContent, NavController, Platform } from '@ionic/angular';
 import { UsersService } from '../../../services/users/user.service';
 import { UserInterface } from 'src/app/interfaces/user';
 import { ModalGaleryPage } from '../../modal-galery/modal-galery.page';
@@ -13,6 +13,7 @@ import { CategoriesService } from '../../../services/products/categories.service
 import { MenusService } from '../../../services/menus/menus.service';
 import { ToastService } from '../../../services/toast/toast.service';
 import { NativePageTransitions, NativeTransitionOptions } from '@ionic-native/native-page-transitions/ngx';
+import { BackButtonServiceService } from 'src/app/services/back-button/back-button-service.service';
 
 @Component({
   selector: 'app-details',
@@ -56,7 +57,7 @@ export class DetailsPage implements OnInit {
   favorites: any[] = [];
   user:UserInterface;
 
-  
+  backButtonSuscription:any;
 
   constructor(
     private alertCtrl: AlertController,
@@ -71,7 +72,9 @@ export class DetailsPage implements OnInit {
     private picsService: PicturesService,
     private productCategoriesService: CategoriesService,
     private menuService: MenusService,
-    private nativePageTransitions: NativePageTransitions
+    private nativePageTransitions: NativePageTransitions,
+    private backButtonServiceService: BackButtonServiceService,
+    private platform: Platform,
   ) {}
 
   ngOnInit() {
@@ -94,6 +97,10 @@ export class DetailsPage implements OnInit {
   }
 
   ionViewDidEnter(){
+    this.backButtonServiceService.changeStatusToMinimize.emit(false);
+    this.backButtonSuscription = this.platform.backButton.subscribe(()=>{
+      this.toBack();
+    })
     this.picsService.get(this.restaurant.id).then((pics:any) => {
       this.pictures = pics;
     });
@@ -114,6 +121,7 @@ export class DetailsPage implements OnInit {
     }, 800);
   }
   ionViewWillLeave() {
+    this.backButtonSuscription.unsubscribe();
    }
   
 
@@ -165,6 +173,7 @@ export class DetailsPage implements OnInit {
   }
 
   toBack(){
+    this.backButtonServiceService.changeStatusToMinimize.emit(true);
     this.navCtrl.navigateRoot(`/tabs/${this.page_call}`, { animationDirection: 'back'});
   }
 

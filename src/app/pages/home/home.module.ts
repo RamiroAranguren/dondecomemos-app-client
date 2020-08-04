@@ -11,6 +11,7 @@ import { ComponentsModule } from '../../components/components.module';
 import { FilterModalPage } from '../filter-modal/filter-modal.page';
 import { FilterModalPageModule } from '../filter-modal/filter-modal.module';
 import { PipesModule } from '../../pipes/pipes.module';
+import { AppMinimize } from '@ionic-native/app-minimize/ngx';
 
 @NgModule({
   entryComponents: [
@@ -24,6 +25,9 @@ import { PipesModule } from '../../pipes/pipes.module';
     ComponentsModule,
     FilterModalPageModule,
     PipesModule
+  ],
+  providers:[
+    AppMinimize
   ],
   declarations: [HomePage]
 })

@@ -2,8 +2,8 @@ ion-card{
     margin-top: 20px;
     margin-bottom: 20px;
     border-radius: 15px;
-    height: 43vh;
-    min-height: 75vw;
+    height: min-content;
+    min-height: min-content;
     box-shadow: none;
     margin-bottom: 0;
     #dto1{
@@ -75,31 +75,18 @@ ion-card{
 ion-col{
     padding: 0;
 }
+.card-row{
+    justify-content: space-between;
 
-@media (min-height: 750px) {
-    ion-card{
-        height: 32vh;
-    }
 }
-@media (min-height: 700px) {
-    ion-card{
-        height: 37vh;
-    }
-}
-
-// @media (max-height: 600px) {
-//     ion-card-title{
-//         font-size: 1.1em !important;
-//     }
-//     ion-card-subtitle{      
-//         font-size: 0.9em !important;
-//     }
-// }
-
 
 .qualify {
     color: #ff7300;
     font-family: FieldworkGeoRegular;
+    font-size: 14px;
+}
+.qualify-icon{
+    font-size: 14px;
 }
 
 

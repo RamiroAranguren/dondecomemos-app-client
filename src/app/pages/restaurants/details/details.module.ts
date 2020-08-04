@@ -11,6 +11,7 @@ import { PipesModule } from '../../../pipes/pipes.module';
 import { ModalGaleryPage } from '../../modal-galery/modal-galery.page';
 import { ModalGaleryPageModule } from '../../modal-galery/modal-galery.module';
 import { NativePageTransitions} from '@ionic-native/native-page-transitions/ngx';
+import { AppMinimize } from '@ionic-native/app-minimize/ngx';
 
 @NgModule({
   entryComponents: [
@@ -23,6 +24,9 @@ import { NativePageTransitions} from '@ionic-native/native-page-transitions/ngx'
     DetailsPageRoutingModule,
     PipesModule,
     ModalGaleryPageModule,
+  ],
+  providers:[
+    AppMinimize
   ],
   declarations: [DetailsPage]
 })

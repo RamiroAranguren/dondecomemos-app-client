@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { ModalController } from '@ionic/angular';
+import { ModalController, Platform } from '@ionic/angular';
 import { ChipService } from '../../services/chips/chip.service';
 import { chip } from '../../interfaces/chip';
 import { StorageService } from '../../services/storage/storage.service';
+import { BackButtonServiceService } from 'src/app/services/back-button/back-button-service.service';
 
 @Component({
   selector: 'app-filter-modal',
@@ -22,10 +23,14 @@ export class FilterModalPage implements OnInit {
     all: []
   }
 
+  backButtonSuscription:any;
+
   constructor(
     public modalCtrl: ModalController,
     private storage: StorageService,
-    private chipService: ChipService
+    private chipService: ChipService,
+    private backButtonServiceService: BackButtonServiceService,
+    private platform: Platform,
   ) {
 
   }
@@ -59,6 +64,17 @@ export class FilterModalPage implements OnInit {
     });
 
   }
+
+  ionViewDidEnter(){
+    this.backButtonServiceService.changeStatusToMinimize.emit(false);
+    this.backButtonSuscription = this.platform.backButton.subscribe(()=>{
+      this.closeFilters();
+    })
+  }
+
+  ionViewWillLeave() {
+    this.backButtonServiceService.changeStatusToMinimize.emit(true);
+   }
 
   addChip(type:string, chip:any){
     chip.type = type;

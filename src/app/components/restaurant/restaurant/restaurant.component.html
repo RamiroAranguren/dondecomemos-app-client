@@ -15,7 +15,7 @@
         <ion-card-header>
           <ion-card-title >{{ restaurant.name }}</ion-card-title>
           <ion-card-subtitle style="font-family: FieldworkGeoLight; font-size: 14px; color:#1D252D;">{{ restaurant | chips }}</ion-card-subtitle>
-          <ion-row>
+          <ion-row class="card-row">
             <ion-col size="3" class="desc_resto" *ngIf="restaurant.qualifications.length > 0">
               <span [innerHTML]="restaurant | level:'0'" style="color: rgb(5, 5, 5);font-family: DMSerifDisplayRegular; font-size: 16px;"></span>
               <span [innerHTML]="restaurant | level:''" style="color: rgb(156, 156, 156);font-family: DMSerifDisplayRegular;font-size: 16px;"></span>
@@ -32,7 +32,7 @@
             </ion-col>
             <ion-col size="3" class="ion-text-right" class="desc_resto" *ngIf="restaurant.qualifications.length > 0">
               <span class="qualify">{{ restaurant | score }}</span>
-              <ion-icon color="btn-dc" style="margin-top: 2px;" name="star"></ion-icon>
+              <ion-icon class="qualify-icon" color="btn-dc" style="margin-top: 2px;" name="star"></ion-icon>
             </ion-col>
           </ion-row>
         </ion-card-header>
