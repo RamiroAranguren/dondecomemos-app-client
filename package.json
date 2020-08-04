@@ -31,6 +31,7 @@
     "@ionic-native/status-bar": "^5.0.0",
     "@ionic/angular": "^5.0.0",
     "@ionic/storage": "^2.2.0",
+    "com.telerik.plugins.nativepagetransitions": "^0.7.0",
     "cordova-android": "8.1.0",
     "cordova-ios": "5.1.1",
     "cordova-plugin-androidx": "^2.0.0",
@@ -113,7 +114,8 @@
       },
       "cordova-plugin-androidx": {},
       "cordova-plugin-androidx-adapter": {},
-      "cordova-plugin-appminimize": {}
+      "cordova-plugin-appminimize": {},
+      "com.telerik.plugins.nativepagetransitions": {}
     },
     "platforms": [
       "android",

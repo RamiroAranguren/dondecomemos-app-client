@@ -23,6 +23,7 @@ import { environment } from '../environments/environment.prod';
 
 import { Facebook } from '@ionic-native/facebook/ngx';
 import { GooglePlus } from '@ionic-native/google-plus/ngx';
+import { NativePageTransitions } from '@ionic-native/native-page-transitions/ngx';
 
 registerLocaleData(localeEsAR, 'es-Ar');
 
@@ -49,7 +50,9 @@ registerLocaleData(localeEsAR, 'es-Ar');
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     { provide: LOCALE_ID, useValue: 'es-Ar' },
     GooglePlus,
-    Facebook
+    Facebook,
+    NativePageTransitions,
+
   ],
   bootstrap: [AppComponent]
 })

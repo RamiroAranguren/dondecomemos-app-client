@@ -12,6 +12,7 @@ import { PicturesService } from '../../../services/pictures/pictures.service';
 import { CategoriesService } from '../../../services/products/categories.service';
 import { MenusService } from '../../../services/menus/menus.service';
 import { ToastService } from '../../../services/toast/toast.service';
+import { NativePageTransitions, NativeTransitionOptions } from '@ionic-native/native-page-transitions/ngx';
 
 @Component({
   selector: 'app-details',
@@ -55,6 +56,8 @@ export class DetailsPage implements OnInit {
   favorites: any[] = [];
   user:UserInterface;
 
+  
+
   constructor(
     private alertCtrl: AlertController,
     private modalCtrl: ModalController,
@@ -67,7 +70,8 @@ export class DetailsPage implements OnInit {
     private userService: UsersService,
     private picsService: PicturesService,
     private productCategoriesService: CategoriesService,
-    private menuService: MenusService
+    private menuService: MenusService,
+    private nativePageTransitions: NativePageTransitions
   ) {}
 
   ngOnInit() {
@@ -109,6 +113,9 @@ export class DetailsPage implements OnInit {
       this.calculatePrice();
     }, 800);
   }
+  ionViewWillLeave() {
+   }
+  
 
   calculatePrice(){
     this.storage.getObject("list_order").then(res => {
@@ -239,8 +246,25 @@ export class DetailsPage implements OnInit {
   }
 
   review(restaurant:restaurant) {
-    let navigationExtras: NavigationExtras = { state: { data: restaurant } };
+    this.transitionAnimation();
+    let navigationExtras: NavigationExtras = { state: { data: restaurant }};
     this.navCtrl.navigateForward(['/restaurant/qualify-review'], navigationExtras);
+  }
+
+  transitionAnimation(){
+    let options: NativeTransitionOptions = {
+      direction: 'right',
+      duration: 500,
+      slowdownfactor: 3,
+      slidePixels: 20,
+      iosdelay: 100,
+      androiddelay: 150,
+      fixedPixelsTop: 0,
+      fixedPixelsBottom: 60
+     }
+    this.nativePageTransitions.slide(options)
+      .then(onSuccess => console.log('exito'))
+      .catch(onError => console.log(onError,'error'));
   }
 
   addItemOrder(type:string, category_name:string, product) {

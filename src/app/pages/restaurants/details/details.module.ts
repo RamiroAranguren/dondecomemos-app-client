@@ -10,6 +10,7 @@ import { DetailsPage } from './details.page';
 import { PipesModule } from '../../../pipes/pipes.module';
 import { ModalGaleryPage } from '../../modal-galery/modal-galery.page';
 import { ModalGaleryPageModule } from '../../modal-galery/modal-galery.module';
+import { NativePageTransitions} from '@ionic-native/native-page-transitions/ngx';
 
 @NgModule({
   entryComponents: [
@@ -21,7 +22,7 @@ import { ModalGaleryPageModule } from '../../modal-galery/modal-galery.module';
     IonicModule,
     DetailsPageRoutingModule,
     PipesModule,
-    ModalGaleryPageModule
+    ModalGaleryPageModule,
   ],
   declarations: [DetailsPage]
 })
