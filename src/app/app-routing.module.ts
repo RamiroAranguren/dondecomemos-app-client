@@ -5,7 +5,7 @@ const routes: Routes = [
 
   {
     path: '',
-    redirectTo: 'start',
+    redirectTo: 'tabs',
     pathMatch: 'full'
   },
   // {

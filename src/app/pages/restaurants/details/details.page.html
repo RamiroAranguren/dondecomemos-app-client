@@ -59,9 +59,9 @@
     </ion-col>
   </ion-row>
 
-  <ion-row class="section-qualify">
+  <ion-row (click)="review(restaurant)" class="section-qualify">
     <ion-col size="10"class="qualify">Ver calificaciones y reseñas</ion-col>
-    <ion-col class="2 icon-col" (click)="review(restaurant)"><ion-icon name="chevron-forward-outline"></ion-icon></ion-col>
+    <ion-col class="2 icon-col"><ion-icon name="chevron-forward-outline"></ion-icon></ion-col>
   </ion-row><br>
   <ion-row class="section-slides">
     <ion-col size="12">
