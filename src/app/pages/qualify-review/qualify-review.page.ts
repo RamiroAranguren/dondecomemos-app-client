@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { restaurant } from 'src/app/interfaces/restaurant';
 import { Router } from '@angular/router';
+import { NativeTransitionOptions, NativePageTransitions } from '@ionic-native/native-page-transitions/ngx';
+
 
 @Component({
   selector: 'app-qualify-review',
@@ -19,7 +21,8 @@ export class QualifyReviewPage implements OnInit {
 
 
   constructor(
-    private route: Router
+    private route: Router,
+    private nativePageTransitions: NativePageTransitions
   ) { }
 
   ngOnInit() {
@@ -45,6 +48,26 @@ export class QualifyReviewPage implements OnInit {
     this.score_categories.ambiente = result_ambiente;
     this.score_categories.servicio = result_servicio;
 
+  }
+
+  ionViewWillLeave(){
+    this.transitionAnimation()
+  }
+
+  transitionAnimation(){
+    let options: NativeTransitionOptions = {
+      direction: 'left',
+      duration: 500,
+      slowdownfactor: 3,
+      slidePixels: 20,
+      iosdelay: 100,
+      androiddelay: 150,
+      fixedPixelsTop: 0,
+      fixedPixelsBottom: 60
+     }
+    this.nativePageTransitions.slide(options)
+      .then(onSuccess => console.log(onSuccess))
+      .catch(onError => console.log(onError,'error'));
   }
 
 

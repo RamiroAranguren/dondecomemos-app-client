@@ -65,6 +65,8 @@ ion-content {
             }
             .category-col {
                 padding-left: 10vw;
+                display: grid;
+                align-content: center;
                 ion-row {
                     ion-col {
                         color: #1d252d;

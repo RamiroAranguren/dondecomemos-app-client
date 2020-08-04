@@ -260,9 +260,9 @@ export class DetailsPage implements OnInit {
     this.navCtrl.navigateForward(['/restaurant/qualify-review'], navigationExtras);
   }
 
-  transitionAnimation(){
+  transitionAnimation(directionTransition = 'right'){
     let options: NativeTransitionOptions = {
-      direction: 'right',
+      direction: directionTransition,
       duration: 500,
       slowdownfactor: 3,
       slidePixels: 20,
@@ -285,6 +285,7 @@ export class DetailsPage implements OnInit {
         restaurant: {id: this.restaurant.id},
       }
     };
+    this.transitionAnimation('left')
     this.navCtrl.navigateForward(['/restaurant/add-item-order'], navigationExtras);
   }
 
