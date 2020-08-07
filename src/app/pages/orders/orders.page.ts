@@ -48,6 +48,10 @@ export class OrdersPage implements OnInit {
         this.user = this.userService.user;
     }
 
+    loadData(){
+        console.log("loadData()");
+    }
+
     ionViewWillEnter(){
         this.user = this.userService.user;
         this.slides.lockSwipes(true);

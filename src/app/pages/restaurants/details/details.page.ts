@@ -96,6 +96,34 @@ export class DetailsPage implements OnInit {
     this.user = this.userService.user;
   }
 
+  ionViewDidLeave() {
+    console.log("ionViewDidLeave");
+  }
+
+  ionViewDidLoad(){
+    console.log("ionViewDidLoad");
+  }
+
+  // ionViewWillLeave(){
+  //   console.log("ionViewWillLeave");
+  // }
+
+  // ionViewDidEnter(){
+  //   console.log("ionViewDidEnter");
+  // }
+
+  ionViewWillUnload(){
+    console.log("ionViewWillUnload");
+  }
+
+  ionViewCanEnter(){
+    console.log("ionViewCanEnter");
+  }
+
+  ionViewCanLeave(){
+    console.log("ionViewCanLeave");
+  }
+
   ionViewDidEnter(){
     this.backButtonServiceService.changeStatusToMinimize.emit(false);
     this.backButtonSuscription = this.platform.backButton.subscribe(()=>{
@@ -120,10 +148,10 @@ export class DetailsPage implements OnInit {
       this.calculatePrice();
     }, 800);
   }
+  
   ionViewWillLeave() {
     this.backButtonSuscription.unsubscribe();
-   }
-  
+  }
 
   calculatePrice(){
     this.storage.getObject("list_order").then(res => {
@@ -174,7 +202,7 @@ export class DetailsPage implements OnInit {
 
   toBack(){
     this.backButtonServiceService.changeStatusToMinimize.emit(true);
-    this.navCtrl.navigateRoot(`/tabs/${this.page_call}`, { animationDirection: 'back'});
+    this.navCtrl.navigateRoot([`/tabs/${this.page_call}`]);
   }
 
   async showAlertBack() {
@@ -195,7 +223,8 @@ export class DetailsPage implements OnInit {
               this.storage.addObject("list_order", this.orders);
             });
             setTimeout(() => {
-              this.navCtrl.navigateRoot(`/tabs/${this.page_call}`, { animationDirection: 'back'});
+              this.backButtonServiceService.changeStatusToMinimize.emit(true);
+              this.navCtrl.navigateRoot([`/tabs/${this.page_call}`]);
             }, 800);
           }
         }

@@ -14,6 +14,9 @@ export class InfoPage implements OnInit {
 
   restaurant:restaurant;
 
+  spinnHs = true;
+  spinnPay = true;
+  spinnService = true;
   services:any;
   payment_methods:any;
 
@@ -45,16 +48,19 @@ export class InfoPage implements OnInit {
       console.log("RES-SERVICES", res);
       let result = res.map(service => service.name);
       this.services = result.join(", ");
+      this.spinnService = false;
     });
 
     this.paymentsService.get(this.restaurant.id).then((res:any) => {
       console.log("RES-PAYMENTS", res);
       let result = res.map(method => method.name);
       this.payment_methods = result.join(", ");
+      this.spinnPay = false;
     });
 
     this.hoursOpenService.get(this.restaurant.id).then((res:any) => {
       console.log("RES-HOURS", res);
+      this.spinnHs = false;
       let days = {
         Lun: [],
         Mar: [],

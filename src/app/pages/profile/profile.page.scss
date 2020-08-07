@@ -1,20 +1,19 @@
+ion-toolbar {
+    padding: 5px;
+    h1 {
+        font-family: DMSerifDisplayRegular;
+        font-size: 1.6rem;
+        font-weight: normal;
+        margin: 10px 0px 10px 10vw;
+    }
+}
+
 .DMSerifDisplayRegular{
     font-family: DMSerifDisplayRegular;
 }
 
 .FieldworkGeoLight{
     font-family: FieldworkGeoLight;
-}
-
-.guardarHeader{
-    font-family: FieldworkGeoRegular;
-    font-size: 16px;
-    color:#707070;
-}
-
-.perfilTitulo{
-    font-family: DMSerifDisplayRegular;
-    font-size: 24px;
 }
 
 .content {
@@ -59,94 +58,10 @@
     }
 }
 
-.nombre {
-    font-size: 2rem;
-    font-family: DMSerifDisplayRegular;
-    font-weight: lighter;
-    margin-bottom: 4vh;
-}
-
 .label {
     font-size: 1rem;
     font-family: FieldworkGeoLight;
     letter-spacing: 0.6px;
-}
-
-ion-row {
-    margin-bottom: 10px;
-}
-
-
-.legendh1 {
-    --color: black;
-    font-family: FieldworkGeoLight;
-    font-size: 20px;
-    margin: 10px;
-}
-
-.formProfile {
-    height: 75vh;
-    ion-item {
-        margin: 30px 30px 0 30px;
-    }
-}
-
-ion-item {
-    border-radius: 6px 6px 0px 0px;
-    --border-color: #1D252D;
-    --highlight-color-focused:#F89B4C !important;
-    --highlight-background:#F89B4C !important;
-    ion-label {
-        font-family: FieldworkGeoLight;
-    }
-}
-
-.colorBlack{
-    color:black;
-}
-
-
-
-.legend {
-    color: rgb(129, 129, 129);
-    margin-left: 30px;
-    font-family: FieldworkGeoRegular;
-    font-size: 12px;
-}
-
-.change-passw {
-    --border-color: white;
-    span{
-        margin-left: 32px;
-    font-family: FieldworkGeoRegular;
-    font-size: 16px;
-    }
-    
-}
-
-.error-message {
-    color: red;
-    margin-left: 10px;
-}
-
-.legal-css {
-    font-size: 20px;
-    font-family: DMSerifDisplayRegular;
-}
-
-.pnt-inicio {
-    .logo {
-        width: 90%;
-        max-width: 300px;
-    }
-    .legendh1 {
-        p {
-            color: black;
-            font-family: FieldworkGeoThin;
-            font-size: 20px;
-            text-align: center;
-        }
-    }
 }
 
 .cnx_btn {
@@ -161,7 +76,6 @@ ion-item {
     --padding-top: 23px;
     letter-spacing: 0.05rem;
     --box-shadow: 0px 1.83px 5px 0px rgba(0,0,0,0.5);
-
 }
 
 .img-cont {
@@ -171,12 +85,18 @@ ion-item {
     align-content: center;
 }
 
-ion-toolbar {
-    padding: 5px;
-    h1 {
-        font-family: DMSerifDisplayRegular;
-        font-size: 1.6rem;
-        font-weight: normal;
-        margin: 10px 0px 10px 10vw;
+//pantalla con inicio de sesion
+.pnt-inicio {
+    .logo {
+        width: 90%;
+        max-width: 300px;
+    }
+    .legendh1 {
+        p {
+            color: black;
+            font-family: FieldworkGeoLight;
+            font-size: 20px;
+            text-align: center;
+        }
     }
 }

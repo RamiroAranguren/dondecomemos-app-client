@@ -10,8 +10,8 @@
 
 <!--! cambiar la condicion de IF -->
 <ion-content *ngIf="resto_favs.length > 0 && !isGuest" class="most-favoritos">
-    <ion-item *ngFor="let fav of resto_favs" (click)="details(fav.restaurant)">
-        <ion-thumbnail slot="end">
+    <ion-item *ngFor="let fav of resto_favs">
+        <ion-thumbnail slot="end" (click)="details(fav.restaurant)">
             <img style="border-radius: 8px;" *ngIf="fav.restaurant.profile_picture" [src]="fav.restaurant.profile_picture" [alt]="fav.restaurant.name"/>
             <img *ngIf="!fav.restaurant.profile_picture" src="assets/img/icon.png" alt="img_resto" />
         </ion-thumbnail>
@@ -19,17 +19,17 @@
         <ion-label>
             <div class="titulos">
                 <h2>{{ fav.restaurant.name }}</h2>
-                <h3>{{ fav.restaurant | chips }}</h3>
+                <h3 [innerHTML]="fav.restaurant | chips:'list'"></h3>
             </div>
             <div class="iconos">
-                <div id="icon-rate">
+                <div id="icon-rate" (click)="details(fav.restaurant)">
                     <!-- <ion-icon name="star" *ngIf="fav.restaurant.qualifications.length > 0"></ion-icon> -->
                     <img id="star-icon" src="../../../assets/icon/favorite/star-favorite.svg" *ngIf="fav.restaurant.qualifications.length > 0" alt=""> 
                     <span style="font-family: FieldworkGeoLight;">{{ fav.restaurant | score }} {{ fav.restaurant.score }}</span>
                 </div>
                 <!-- <ion-icon id="heart-icon" name="heart" (click)="removeFav(fav.id)"></ion-icon> -->
                 <div>
-                    <img src="../../../assets/icon/favorite/hearth-favorite.svg" alt="" srcset="">
+                    <img src="../../../assets/icon/favorite/hearth-favorite.svg" (click)="removeFav(fav.id)" alt="" srcset="">
                 </div>
             </div>
         </ion-label>
@@ -37,12 +37,10 @@
 
 </ion-content>
 
-
-
 <!-- !cambiar la condicion de IF -->
 <ion-content class="pnt-inicio" *ngIf="isGuest">
     <ion-grid fixed>
-        <ion-row class="ion-justify-content-center ion-margin-top">
+        <ion-row class="ion-justify-content-center">
             <ion-col size="8">
                 <div class="img-cont">
                     <img class="logo" src="../../../assets/img/favoritos.svg">
@@ -58,7 +56,7 @@
 
         <ion-row>
             <ion-col size=" 12 " class="ion-padding-top ion-padding-bottom">
-                <ion-button (click)="login() " class="cnx_btn " expand="block " shape="round ">
+                <ion-button (click)="login() " class="cnx_btn " expand="block" shape="round">
                     Iniciar sesión
                 </ion-button>
             </ion-col>
@@ -66,7 +64,7 @@
 
         <ion-row>
             <ion-col size="12 " class="ion-padding-top">
-                <ion-button (click)="register() " class="cnx_btn " expand="block " fill="clear " shape="round ">
+                <ion-button (click)="register() " class="cnx_btn " expand="block" shape="round">
                     Registrarse
                 </ion-button>
             </ion-col>
@@ -117,8 +115,8 @@
             <ion-col size="12 ">
                 <ion-button
                     routerLink="/tabs/home"
-                    class="cnx_btn "
-                    expand="block " fill="clear " shape="round ">
+                    class="cnx_btn"
+                    expand="block" shape="round">
                     Buscar un restaurante
                 </ion-button>
             </ion-col>

@@ -6,13 +6,16 @@ import { restaurant } from '../interfaces/restaurant';
 })
 export class ChipsPipe implements PipeTransform {
 
-  transform(restaurant:restaurant): string {
-    let chips = []
+  transform(restaurant:restaurant, format=null): string {
+    let chips = [];
     restaurant.chips.map((chip, index) =>{
       if (index <= 1){
         chips.push(chip.tag.name);
       }
     });
+    if(format !== null){
+      return chips.join(" / <br>");
+    }
     return chips.join(" / ");
   }
 

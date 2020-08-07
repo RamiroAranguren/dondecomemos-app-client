@@ -3,13 +3,11 @@ import { AlertController, NavController, ModalController } from '@ionic/angular'
 import { FormGroup, Validators, FormBuilder, ReactiveFormsModule } from '@angular/forms';
 
 import { UsersService } from '../../services/users/user.service';
-import { LegalModalPage } from '../legal-modal/legal-modal.page';
 import { UserInterface } from '../../interfaces/user';
 import { StorageService } from '../../services/storage/storage.service';
-import { TermsModalPage } from '../terms-modal/terms-modal.page';
 import { LoaderService } from '../../services/loader/loader.service';
 import { ToastService } from '../../services/toast/toast.service';
-import { NavigationExtras, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { Platform } from '@ionic/angular';
 
 @Component({
@@ -21,8 +19,6 @@ export class ProfilePage implements OnInit {
 
     guestStatus = true;
     menuHide = false;
-    profile = false;
-    legal = false;
     backButtonSuscription: any;
 
     initals = "";
@@ -112,8 +108,6 @@ export class ProfilePage implements OnInit {
     ionViewWillLeave() {
         this.guestStatus = true;
         this.menuHide = false;
-        this.profile = false;
-        this.legal = false;
         this.backButtonSuscription.unsubscribe();
     }
 
@@ -181,10 +175,6 @@ export class ProfilePage implements OnInit {
 
     field(fieldName) {
         return this.form.controls[fieldName]
-    }
-
-    viewCards() {
-        this.navCtrl.navigateForward('/credit-card-list');
     }
 
 }

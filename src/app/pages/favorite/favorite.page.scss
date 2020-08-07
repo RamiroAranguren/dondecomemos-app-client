@@ -19,6 +19,7 @@ ion-toolbar {
     --padding-bottom: 23px;
     --padding-top: 23px;
     letter-spacing: 0.05rem;
+    --box-shadow: 0px 1.83px 7px 0px rgba(0,0,0,0.5);
 }
 
 .img-cont {
@@ -126,6 +127,6 @@ ion-toolbar {
         font-family: FieldworkGeoLight;
     }
     .cnx_btn {
-        text-transform: uppercase;
+        text-transform: none; //uppercase;
     }
 }

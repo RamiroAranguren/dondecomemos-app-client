@@ -1,57 +1,36 @@
 <ion-header>
   <ion-toolbar>
     <h1 *ngIf="menuHide || guestStatus">Perfil</h1>
-    <h1 *ngIf="legal">Legal</h1>
-    <h1 *ngIf="profile">Mis datos</h1>
-
-    <ion-buttons slot="start" *ngIf="legal">
-      <ion-button (click)="closeLegal()">
-        <ion-icon slot="start" name="arrow-back"></ion-icon>
-      </ion-button>
-    </ion-buttons>
-
-    <ion-buttons slot="start" *ngIf="profile">
-      <ion-button (click)="closeProfile()">
-        <ion-icon slot="start" name="close"></ion-icon>
-      </ion-button>
-    </ion-buttons>
-
-    <ion-buttons slot="end" *ngIf="profile">
-      <ion-button (click)="saveProfile()" class="guardarHeader">
-        GUARDAR
-      </ion-button>
-    </ion-buttons>
-
   </ion-toolbar>
 </ion-header>
 
-<ion-content class="pnt-inicio" *ngIf="guestStatus" fullscreen>
-    <ion-grid >
-        <ion-row class="ion-justify-content-center ion-margin-top">
-            <ion-col size="8">
-                <div class="img-cont">
-                    <img class="logo" src="../../../assets/img/perfil.svg">
-                </div>
-            </ion-col>
-        </ion-row>
+<ion-content class="pnt-inicio" *ngIf="guestStatus">
+  <ion-grid fixed>
+      <ion-row class="ion-justify-content-center">
+          <ion-col size="8">
+              <div class="img-cont">
+                  <img class="logo" src="../../../assets/img/favoritos.svg">
+              </div>
+          </ion-col>
+      </ion-row>
 
-        <ion-row class="legendh1">
-            <ion-col size="12">
-                <p>Por favor inicie sesión o regístrese para ver sus restaurantes favoritos</p>
-            </ion-col>
-        </ion-row>
+      <ion-row class="legendh1">
+          <ion-col size="12">
+              <p>Por favor inicie sesión o regístrese para ver sus restaurantes favoritos</p>
+          </ion-col>
+      </ion-row>
 
         <ion-row>
             <ion-col size=" 12 " class="ion-padding-top ion-padding-bottom">
-                <ion-button (click)="login() " class="cnx_btn " expand="block " fill="clear " shape="round ">
-                    Iniciar Sesión
+                <ion-button (click)="login() " class="cnx_btn" expand="block" shape="round">
+                    Iniciar sesión
                 </ion-button>
             </ion-col>
         </ion-row>
 
         <ion-row>
             <ion-col size="12 " class="ion-padding-top">
-                <ion-button (click)="register() " class="cnx_btn " expand="block " fill="clear " shape="round ">
+                <ion-button (click)="register() " class="cnx_btn" expand="block" shape="round">
                     Registrarse
                 </ion-button>
             </ion-col>
@@ -94,9 +73,6 @@
           <ion-row>
             <ion-col size="12" (click)="dataView()"><label class="FieldworkGeoLight" style="font-size: 16px;">Mis datos</label></ion-col>
           </ion-row>
-          <!-- <ion-row>
-            <ion-col size="12" (click)="viewCards()"><label class="FieldworkGeoLight" style="font-size: 16px;">Tarjetas</label></ion-col>
-          </ion-row> -->
           <ion-row>
             <ion-col size="12" (click)="legalView()"><label class="FieldworkGeoLight" style="font-size: 16px;">Legal</label></ion-col>
           </ion-row>

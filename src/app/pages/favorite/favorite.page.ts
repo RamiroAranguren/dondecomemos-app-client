@@ -32,9 +32,12 @@ export class FavoritePage implements OnInit {
     private favService: FavoritesService,
     private loader: LoaderService,
     private toastCtrl: ToastService
-  ) { }
+  ) {
+    console.log("constructor");
+  }
 
   ngOnInit() {
+    console.log("INIT");
     this.storage.getObject("favorites").then(res => {
       if(res){
         this.favorites = res;
@@ -42,7 +45,7 @@ export class FavoritePage implements OnInit {
     });
   }
 
-  ionViewDidEnter() {
+  loadData(){
     this.user = this.userService.user;
     if(this.user.guest){
       this.isGuest = true;
@@ -58,7 +61,27 @@ export class FavoritePage implements OnInit {
           this.loader.hide();
           console.log('err-get-favs', err);
         });
-      }, 1000);
+      }, 800);
+    }
+  }
+
+  ionViewWillEnter() {
+    this.user = this.userService.user;
+    if(this.user.guest){
+      this.isGuest = true;
+    } else {
+      this.isGuest = false;
+      this.loader.display("Cargando favoritos...");
+      setTimeout(() => {
+        this.favService.get(this.user.id).then((res:any) => {
+          this.loader.hide();
+          this.resto_favs = res;
+          this.storage.addObject("favorites", res);
+        }).catch(err => {
+          this.loader.hide();
+          console.log('err-get-favs', err);
+        });
+      }, 800);
     }
   }
 

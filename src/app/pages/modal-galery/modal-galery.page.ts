@@ -1,6 +1,5 @@
 import { Component, OnInit, ViewChild, Input } from '@angular/core';
 import { IonSlides } from '@ionic/angular';
-import { restaurant } from 'src/app/interfaces/restaurant';
 
 @Component({
   selector: 'app-modal-galery',
@@ -14,15 +13,21 @@ export class ModalGaleryPage implements OnInit {
   @Input() pictures;
   @Input() index;
 
-  options:any;
+  options = {
+    initialSlide: this.index,
+    speed: 400,
+    navigation: {
+      nextEl: '.swiper-button-next',
+      prevEl: '.swiper-button-prev'
+    }
+  };
 
   constructor() { }
 
-  ngOnInit() {
+  ngOnInit() { }
 
-  }
-
-  ionViewDidEnter() {
+  ionViewWillEnter() {
+    console.log("ionViewWillEnter");
     this.options = {
       initialSlide: this.index,
       speed: 400,
@@ -30,9 +35,9 @@ export class ModalGaleryPage implements OnInit {
         nextEl: '.swiper-button-next',
         prevEl: '.swiper-button-prev'
       }
-    }
+    };
 
-    this.slide.slideTo(this.index, 400);
+    this.slide.slideTo(this.index, 10);
 
   }
 
