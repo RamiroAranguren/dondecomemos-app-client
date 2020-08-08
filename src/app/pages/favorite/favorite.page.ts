@@ -21,7 +21,7 @@ export class FavoritePage implements OnInit {
 
   resto_favs: any[] = [];
   favorites: any[] = [];
-
+  spinnFavorite = true;
   user:UserInterface;
 
   constructor(
@@ -51,14 +51,16 @@ export class FavoritePage implements OnInit {
       this.isGuest = true;
     } else {
       this.isGuest = false;
-      this.loader.display("Cargando favoritos...");
+      // this.loader.display("Cargando favoritos...");
       setTimeout(() => {
         this.favService.get(this.user.id).then((res:any) => {
-          this.loader.hide();
+          // this.loader.hide();
           this.resto_favs = res;
           this.storage.addObject("favorites", res);
+          this.spinnFavorite = false;
         }).catch(err => {
-          this.loader.hide();
+          // this.loader.hide();
+          this.spinnFavorite = false;
           console.log('err-get-favs', err);
         });
       }, 800);
@@ -66,19 +68,19 @@ export class FavoritePage implements OnInit {
   }
 
   ionViewWillEnter() {
+    this.spinnFavorite = true;
     this.user = this.userService.user;
     if(this.user.guest){
       this.isGuest = true;
     } else {
       this.isGuest = false;
-      this.loader.display("Cargando favoritos...");
       setTimeout(() => {
         this.favService.get(this.user.id).then((res:any) => {
-          this.loader.hide();
           this.resto_favs = res;
           this.storage.addObject("favorites", res);
+          this.spinnFavorite = false;
         }).catch(err => {
-          this.loader.hide();
+          this.spinnFavorite = false;
           console.log('err-get-favs', err);
         });
       }, 800);

@@ -86,6 +86,7 @@ export class UsersService {
   }
 
   login(username: string, password: string) {
+    console.log("LOGIN", username, password);
     return new Promise((resolve, reject) => {
       this.http.post(`${apiUrl}login/`, { username, password }).subscribe((res: UserInterface) => {
         this.user.token = res.token;
@@ -124,14 +125,17 @@ export class UsersService {
     await this.storage.removeObject("favorites");
   }
 
-  register(form) {
+  register(form, code=null) {
     const body = {
       username: form.email,
       password: form.password,
       email: form.email,
       first_name: form.first_name,
-      last_name: form.last_name
+      last_name: form.last_name,
+      phone: form.phone,
+      code: code
     }
+
     return new Promise((resolve, reject) => {
       this.http.post(`${apiUrl}users/`, body).subscribe((response) => {
         resolve(response);

@@ -54,57 +54,60 @@ export class VerifyNumberCodePage implements OnInit {
   }
 
   doVerifyAndRegister() {
-    console.log("VerIFICANDO", this.code_server, this.numberRegister.code, this.code_server !== this.numberRegister.code);
-    if(this.code_server.toString() !== this.numberRegister.code){
-      this.errors.code = ["Error: verifique que el código ingresado sea el mismo que recibió."];
-    } else {
-      this.loader.display('Verificando código...');
-      this.userService.checkCodeSms(this.user.email, this.user.phone, this.numberRegister.code).then(() => {
-        this.loader.hide();
-        if (this.user.net !== null) {
-          // CUANDO EL REGISTRO VIENE DE UNA RED SOCIAL, HACE EL REGISTRO Y LUEGO
-          // LOGIN Y LOGUEA DIRECTAMENTE AL USUARIO
-          this.loader.display('Registrando usuario...');
-          this.userService.register(this.user).then(() => {
-            this.loader.hide();
-            console.log("loginNet", this.user.email, this.user.password);
-            this.userService.login(this.user.email, this.user.password).then(res => {
-              console.log("Verify-Login", res);
-              this.navCtrl.navigateRoot('/tabs/home');
+    this.loader.display('Verificando código...');
+    setTimeout(() => {
+      this.loader.hide();
+      if(this.code_server.toString() !== this.numberRegister.code){
+        this.errors.code = ["Error: verifique que el código ingresado sea el mismo que recibió."];
+      } else {
+        //this.userService.checkCodeSms(this.user.email, this.user.phone, this.numberRegister.code).then(() => {
+          //this.loader.hide();
+          if (this.user.net !== null) {
+            // CUANDO EL REGISTRO VIENE DE UNA RED SOCIAL, HACE EL REGISTRO Y LUEGO
+            // LOGIN Y LOGUEA DIRECTAMENTE AL USUARIO
+            this.loader.display('Registrando usuario...');
+            this.userService.register(this.user, this.numberRegister.code).then(() => {
+              this.loader.hide();
+              console.log("loginNet", this.user.email, this.user.password);
+              this.userService.login(this.user.email, this.user.password).then(res => {
+                console.log("Verify-Login", res);
+                this.navCtrl.navigateRoot('/tabs/home');
 
-            }).catch(errors => {
-              console.log(errors);
+              }).catch(errors => {
+                console.log(errors);
+              });
+            }).catch((error) => {
+              this.loader.hide();
+              console.log(error);
+              if (error.username && error.username.length > 0) {
+                this.showAlert();
+              }
             });
-          }).catch((error) => {
-            this.loader.hide();
-            console.log(error);
-            if (error.username && error.username.length > 0) {
-              this.showAlert();
-            }
-          });
-        } else {
-          // CUANDO ES UN REGISTRO CLASICO - HACEMOS EL REGISTRO Y LUEGO LOGIN
-          this.loader.display('Registrando usuario...');
-          this.userService.register(this.user).then(() => {
-            this.loader.hide();
-            this.userService.login(this.user.email, this.user.password).then(res => {
-              console.log("Verify-Login", res);
-              this.navCtrl.navigateRoot('/tabs/home');
-            }).catch(errors => {
-              console.log(errors);
+          } else {
+            // CUANDO ES UN REGISTRO CLASICO - HACEMOS EL REGISTRO Y LUEGO LOGIN
+            this.loader.display('Registrando usuario...');
+            this.userService.register(this.user, this.numberRegister.code).then(() => {
+              this.loader.hide();
+              this.userService.login(this.user.email, this.user.password).then(res => {
+                console.log("Verify-Login", res);
+                this.navCtrl.navigateRoot('/tabs/home');
+              }).catch(errors => {
+                console.log(errors);
+              });
+            }).catch((error) => {
+              this.loader.hide();
+              console.log(error);
+              if (error.username && error.username.length > 0) {
+                this.showAlert();
+              }
             });
-          }).catch((error) => {
-            this.loader.hide();
-            console.log(error);
-            if (error.username && error.username.length > 0) {
-              this.showAlert();
-            }
-          });
-        }
-      }).catch((error) => {
-        this.errors.code = ["Error: no se pudo validar el código, intente de nuevo."];
-      })
-    }
+          }
+        //}).catch((error) => {
+        //  this.errors.code = ["Error: no se pudo validar el código, intente de nuevo."];
+        //})
+      }
+    }, 500);
+    
   }
 
   async showAlert() {
@@ -133,7 +136,8 @@ export class VerifyNumberCodePage implements OnInit {
 
   reSendSMS() {
     this.loader.display('Enviando nuevo código...');
-    this.userService.sendCodeSms(this.user.email, this.user.phone).then(() => {
+    this.userService.sendCodeSms(this.user.email, this.user.phone).then((result:any) => {
+      this.code_server = result.code;
       this.loader.hide();
     }).catch(() => {
       this.loader.hide();

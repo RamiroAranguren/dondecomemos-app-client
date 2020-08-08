@@ -10,6 +10,16 @@
 
 <!--! cambiar la condicion de IF -->
 <ion-content *ngIf="resto_favs.length > 0 && !isGuest" class="most-favoritos">
+    <ion-grid fixed *ngIf="spinnFavorite">
+        <ion-row class="ion-justify-content-center">
+            <ion-col size="5"></ion-col>
+            <ion-col size="2">
+                <ion-spinner name="lines"></ion-spinner>
+            </ion-col>
+            <ion-col size="5"></ion-col>
+        </ion-row>
+    </ion-grid>
+
     <ion-item *ngFor="let fav of resto_favs">
         <ion-thumbnail slot="end" (click)="details(fav.restaurant)">
             <img style="border-radius: 8px;" *ngIf="fav.restaurant.profile_picture" [src]="fav.restaurant.profile_picture" [alt]="fav.restaurant.name"/>
@@ -109,6 +119,11 @@
                 <p>Aquí se mostrarán sus<br>restaurantes favoritos</p>
             </ion-col>
 
+        </ion-row>
+        <ion-row class=" ion-justify-content-center" *ngIf="spinnFavorite">
+            <ion-col size="12">
+                <p><ion-spinner name="lines"></ion-spinner></p>
+            </ion-col>
         </ion-row>
 
         <ion-row class=" ion-justify-content-center">
