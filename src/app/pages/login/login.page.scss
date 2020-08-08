@@ -3,7 +3,8 @@
 //     height: 40%;
 // }
 .header-content {
-    height: 10%;
+    // height: 10%;
+    height: 40%;
     ion-buttons {
         padding-left: 3vw;
         padding-top: 3vw;
@@ -13,11 +14,11 @@ ion-back-button {
     --color: #655c3d;
 }
 .body-content {
-    height: 65vh;
+    height: 60%;
     // height: 60vh;
-    position: absolute;
-    bottom: 0;
-    min-height: 85vw;
+    // position: absolute;
+    // bottom: 0;
+    // min-height: 85vw;
 }
 
 .eye-icon{
@@ -28,7 +29,7 @@ ion-back-button {
 
 .bg-btn {
     position: absolute;
-    top: -38px;
+    top: 35%;
     right: 44px;
     border-radius: 50%;
     width: 70px;
@@ -61,6 +62,7 @@ ion-back-button {
 
 .forgot {
     // margin: 0 0 0 32px;
+    background: white;
     font-family: FieldworkGeoLight;
 }
 
@@ -92,4 +94,29 @@ ion-item {
 
 .colorBlack{
     color:black;
+}
+
+@media (max-height: 576px) {
+    .header-content {
+        height: 10%;
+    }
+    .body-content {
+        height: 90%;
+    }
+    ion-content {
+        --background: white !important;
+    }
+    .bg-btn {
+        position: absolute;
+        top: 7%;
+        right: 44px;
+        border-radius: 50%;
+        width: 70px;
+        height: 70px;
+        background: #E0E0E0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 0px;
+    }
 }

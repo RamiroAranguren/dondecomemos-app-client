@@ -259,6 +259,7 @@ export class HomePage implements OnInit {
   }
 
   searchFilter(event) {
+    this.restaurants = this.restaurantsCopy;
     this.searchColor = true;
     this.resultSearchResto = [];
     this.resultSearchCity = [];
@@ -296,6 +297,7 @@ export class HomePage implements OnInit {
       this.searchChange = false;
       this.searchColor = false;
       this.filterColor = false;
+      this.restaurants = this.restaurantsCopy;
     }
 
     this.resultSearchCity = Array.from(
@@ -381,6 +383,17 @@ export class HomePage implements OnInit {
     // remove from list for filter
     this.chips = this.chips.filter(chip => chip.type !== data.type || chip.id !== data.id);
     this.restaurants = this.restaurantService.getRestaurantByFilters(this.chips);
+    // this.restaurants.filter((resto:restaurant) => resto.influence_range === city.influence_range);
+    // this.restaurants = this.restaurantService.getRestaurantByCity(resto);
+    // this.restaurants.filter((resto: restaurant) => {
+    //   let resto_city = this.dict_locations[resto.influence_range];
+    //   if (resto_city.toLowerCase().search(this.search.toLowerCase()) !== -1) {
+    //     resto.type = "city";
+    //     this.resultSearchCity.push(
+    //       { "influence_range": resto.influence_range, "name": resto_city, "type": "city", "count": count });
+    //     return;
+    //   }
+    // });
 
     if (this.chips.length <= 0) {
       this.filterColor = false;

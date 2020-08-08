@@ -57,14 +57,14 @@
             <span class="legend" *ngIf="errors.phone.length <= 0">
               Incluir código de área.
             </span>
-
           </ion-list>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="12" class="change-passw">
+          <span (click)="changePassword()">Cambiar contraseña</span>
         </ion-col>
       </ion-row>
     </ion-grid>
   </form>
-  <ion-item class="change-passw">
-    <span (click)="changePassword()">Cambiar contraseña</span>
-  </ion-item>
-
 </ion-content>
