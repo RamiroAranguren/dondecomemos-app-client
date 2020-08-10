@@ -24,15 +24,27 @@
             <ion-item color="input-background">
               <ion-label class="colorBlack" position="floating" style="font-family: FieldworkGeoRegular;">Nombre
               </ion-label>
-              <ion-input class="colorBlack" (ionChange)="changedInput()" [(ngModel)]="user.first_name" formControlName="first_name"
-                name="first_name" type="text" required></ion-input>
+              <ion-input
+                class="colorBlack input-capitalize"
+                (ionChange)="changedInput()"
+                [(ngModel)]="user.first_name"
+                formControlName="first_name"
+                name="first_name"
+                type="text"
+                required></ion-input>
             </ion-item>
 
             <ion-item color="input-background">
               <ion-label class="colorBlack" position="floating" style="font-family: FieldworkGeoRegular;">Apellido
               </ion-label>
-              <ion-input class="colorBlack" (ionChange)="changedInput()" [(ngModel)]="user.last_name" formControlName="last_name" name="last_name"
-                type="text" required></ion-input>
+              <ion-input
+                class="colorBlack input-capitalize"
+                (ionChange)="changedInput()"
+                [(ngModel)]="user.last_name"
+                formControlName="last_name"
+                name="last_name"
+                type="text"
+                required></ion-input>
             </ion-item>
 
             <ion-item color="input-background">

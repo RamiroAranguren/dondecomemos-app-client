@@ -7,11 +7,6 @@
   </div>
   <div class="body-content">
       <form novalidate (submit)="doVerify()" [formGroup]="form">
-          <!-- <ion-fab horizontal="end" horizontal="end" slot="fixed" edge="true">
-              <ion-button [disabled]="form.invalid" size="large" type="submit" class="register-btn">
-                  <ion-icon name="arrow-forward-outline"></ion-icon>
-              </ion-button>
-          </ion-fab> -->
         <div class="bg-btn">
             <ion-button [disabled]="form.invalid" size="large" class="login-btn" type="submit" fill="solid">
                 <ion-icon name="arrow-forward"></ion-icon>
@@ -34,11 +29,10 @@
                         <label>Por favor, ingrese su número de celular</label>
                       </div>
                       <ion-list>
-                          <ion-item>
+                          <ion-item color="input-background">
                               <ion-label class="colorBlack" position="floating">Celular</ion-label>
                               <ion-input
                                 class="colorBlack"
-                                color="input-background"
                                 [(ngModel)]="numberRegister.phone"
                                 formControlName="phone"
                                 name="phone"

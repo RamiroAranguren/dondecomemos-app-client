@@ -1,22 +1,12 @@
-<!-- <app-header title=""></app-header> -->
-
 <ion-content fullscreen fixed scrollY="true">
     <div class="header-content">
         <ion-buttons mode="md" slot="start">
             <ion-back-button mode="md" icon="arrow-back-outline" defaultHref="/">
             </ion-back-button>
         </ion-buttons>
-        <div class="logo">
-            <!-- <img src="assets/img/sms_verify.png"> -->
-        </div>
     </div>
     <div class="body-content">
         <form novalidate (submit)="doVerifyAndRegister()" [formGroup]="form">
-            <!-- <ion-fab horizontal="end" horizontal="end" slot="fixed" edge="true">
-                <ion-button [disabled]="form.invalid" size="large" type="submit">
-                    <ion-icon name="arrow-forward-outline"></ion-icon>
-                </ion-button>
-            </ion-fab> -->
             <div class="bg-btn">
                 <ion-button [disabled]="form.invalid" size="large" class="login-btn" type="submit" fill="solid">
                     <ion-icon name="arrow-forward"></ion-icon>
@@ -41,10 +31,16 @@
                             </label>
                         </div>
                         <ion-list>
-                            <ion-item>
-                                <ion-label position="floating">Código</ion-label>
-                                <ion-input [(ngModel)]="numberRegister.code" formControlName="code" name="code"
-                                    type="text" required></ion-input>
+                            <ion-item color="input-background">
+                                <ion-label class="colorBlack" position="floating">Código</ion-label>
+                                <ion-input
+                                    class="colorBlack"
+                                    [(ngModel)]="numberRegister.code"
+                                    formControlName="code"
+                                    name="code"
+                                    inputmode="number"
+                                    type="number"
+                                    required></ion-input>
                             </ion-item>
 
                             <span *ngIf="errors.code" class="error-message">
@@ -53,14 +49,15 @@
                         </ion-list>
                     </ion-col>
                 </ion-row>
+                <br><br>
+                <ion-row>
+                    <ion-col size="12" class="footer-message">
+                        <span class="forgot" (click)="reSendSMS()" fill="clear">
+                            Reenviar código
+                        </span>
+                    </ion-col>
+                </ion-row>
             </ion-grid>
         </form>
-        <div class="ion-text-justify" class="footer-message">
-            <ion-toolbar>
-                <span class="forgot" (click)="reSendSMS()" fill="clear">
-                    Reenviar código
-                </span>
-            </ion-toolbar>
-        </div>
     </div>
 </ion-content>

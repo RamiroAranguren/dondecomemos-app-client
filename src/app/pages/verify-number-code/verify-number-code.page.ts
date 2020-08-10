@@ -57,7 +57,7 @@ export class VerifyNumberCodePage implements OnInit {
     this.loader.display('Verificando código...');
     setTimeout(() => {
       this.loader.hide();
-      if(this.code_server.toString() !== this.numberRegister.code){
+      if(this.code_server !== this.numberRegister.code){
         this.errors.code = ["Error: verifique que el código ingresado sea el mismo que recibió."];
       } else {
         //this.userService.checkCodeSms(this.user.email, this.user.phone, this.numberRegister.code).then(() => {
@@ -91,12 +91,12 @@ export class VerifyNumberCodePage implements OnInit {
               this.userService.login(this.user.email, this.user.password).then(res => {
                 console.log("Verify-Login", res);
                 this.navCtrl.navigateRoot('/tabs/home');
-              }).catch(errors => {
-                console.log(errors);
+              }).catch(error => {
+                console.log("Login-error", error);
               });
             }).catch((error) => {
               this.loader.hide();
-              console.log(error);
+              console.log("Register-error", error);
               if (error.username && error.username.length > 0) {
                 this.showAlert();
               }
@@ -107,7 +107,6 @@ export class VerifyNumberCodePage implements OnInit {
         //})
       }
     }, 500);
-    
   }
 
   async showAlert() {

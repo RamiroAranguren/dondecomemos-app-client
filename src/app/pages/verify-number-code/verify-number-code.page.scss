@@ -10,29 +10,24 @@
 ion-back-button {
     --color: #655c3d !important;
 }
+.colorBlack {
+    color: black;
+}
+
+.body-content {
+    border-radius: 58px 58px 0 0;
+    // height: 60vh;
+    height: 60%;
+    padding: 0;
+    margin: 0;
+    form {
+        padding: 10vw;
+    }
+}
+
 ion-grid {
     padding: 0;
     padding-right: 5vw;
-    ion-row {
-        padding: 0;
-    }
-    ion-col {
-        padding: 0;
-    }
-}
-.header-content {
-    height: 40%;
-}
-form {
-    padding: 10vw;
-}
-.body-content {
-    margin: 0;
-    border-radius: 58px 58px 0 0;
-    padding: 0;
-    position: absolute;
-    bottom: 0;
-    height: 60vh;   
     h2 {
         font-size: 24px;
         font-family: DMSerifDisplayRegular;
@@ -41,33 +36,10 @@ form {
         margin-bottom: 5vw;
     }
     ion-row {
-        .first-label {
-            margin: 0;
-            margin-bottom: 5vw;
-            label {
-                font-size: 16px;
-                font-family: FieldworkGeoLight;
-                color: #1d252d;
-            }
-        }
-        ion-list {
-            ion-item {
-                margin: 0;
-                font-family: FieldworkGeoLight;
-                --background: var(--secondary-grey);
-                --highlight-color-invalid: #f89b4c;
-                --highlight-background: #f89b4c;
-                ion-label {
-                    font-family: FieldworkGeoLight;
-                    font-size: 16px;
-                }
-                ion-input {
-                    --placeholder-font-style: FieldworkGeoLight;
-                    font-size: 16px;
-                    color: #1d252d;
-                }
-            }
-        }
+        padding: 0;
+    }
+    ion-col {
+        padding: 0;
     }
 }
 
@@ -78,9 +50,9 @@ form {
 .footer-message {
     font-size: 16px;
     font-family: FieldworkGeoLight;
-    position: absolute;
+    // position: absolute;
     bottom: 10vw;
-    left: 10vw;
+    // left: 10vw;
     color: #1d252d;
     span {
         font-size: 16px;
@@ -89,87 +61,20 @@ form {
     }
 }
 
-
-ion-fab {
-    position: absolute;
-    bottom: 56vh;
-    margin-right: 8vw;
-    ion-button.button-disabled {
-        opacity: 1;
-        --background: #e0e0e0;
-        ion-icon {
-            color: #aeaeae;
-        }
-    }
-    ion-button {
-        --background: #f89b4c;
-        --transition: background-color,opacity 100ms linear;
-        --ripple-color: currentColor;
-        --border-radius: 50%;
-        --border-width: 0;
-        --border-style: none;
-        --border-color: initial;
-        --padding-top: 0;
-        --padding-end: 0;
-        --padding-bottom: 0;
-        --padding-start: 0;
-        margin-left: 0;
-        margin-right: 0;
-        margin-top: 0;
-        margin-bottom: 0;
-        display: block;
-        width: 56px;
-        height: 56px;
-        position: relative;
-        font-size: 14px;
-        text-align: center;
-        text-overflow: ellipsis;
-        text-transform: none;
-        white-space: nowrap;
-        -webkit-font-kerning: none;
-        font-kerning: none;
-        ion-icon{
-            margin: 0;
-            position: absolute;
-            top: 50%;
-            -ms-transform: translateY(-50%);
-            transform: translateY(-50%);
-        }
-    }
-}
-.footer-message {
-    font-size: 16px;
-    font-family: FieldworkGeoLight;
-    position: absolute;
-    bottom: 10vw;
-    left: 10vw;
-    color: #1d252d;
-    span {
-        font-size: 16px;
+ion-item {
+    border-radius: 6px 6px 0px 0px;
+    margin-top: 20px;
+    --border-color: #1d252d;
+    --highlight-color-focused: #f89b4c !important;
+    --highlight-background: #f89b4c !important;
+    ion-label {
         font-family: FieldworkGeoLight;
-        color: #1d252d;
-    }
-}
-@media (max-height: 576px) {
-    .header-content {
-        height: 10%;
-    }
-    .body-content {
-        height: 90%;
-    }
-    ion-content {
-        --background: white !important;
-    }
-}
-@media (min-height: 800px) {
-    ion-fab {
-        bottom: 56.7vh;
     }
 }
 
 .bg-btn {
     position: absolute;
-    top: -38px;
+    top: 35%;
     right: 44px;
     border-radius: 50%;
     width: 70px;
@@ -197,5 +102,37 @@ ion-fab {
         // --background: red;
         --box-shadow: none;
         --opacity: 1;
+    }
+}
+
+
+@media (max-height: 576px) {
+    .header-content {
+        height: 10%;
+    }
+    .body-content {
+        height: 90%;
+    }
+    ion-content {
+        --background: white !important;
+    }
+    .bg-btn {
+        position: absolute;
+        top: 7%;
+        right: 44px;
+        border-radius: 50%;
+        width: 70px;
+        height: 70px;
+        background: #E0E0E0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 0px;
+    }
+}
+
+@media (min-height: 800px) {
+    ion-fab {
+        bottom: 56.7vh;
     }
 }

@@ -45,15 +45,12 @@ export class RecoveryPasswordCodeStep2Page implements OnInit {
   doVerify() {
 
     if (this.form.valid) {
-      
       this.userService.checkCodeProvider(this.userRegister.code, this.userRegister.email).then(() => {
-        
         let navigationExtras: NavigationExtras = {
           state: {data: this.userRegister}
         };
         this.navCtrl.navigateForward(['/change-password'], navigationExtras);
       }).catch(() => {
-        
         this.errors.code = ['Error: código incorrecto.'];
       });
     }
@@ -72,11 +69,8 @@ export class RecoveryPasswordCodeStep2Page implements OnInit {
   }
 
   reSendCode() {
-    
     this.userService.recoverPassword(this.user.email).then(() => {
-    
     }).catch(() => {
-    
       this.addError("code", "Error: no se pudo enviar el email.");
     })
   }
