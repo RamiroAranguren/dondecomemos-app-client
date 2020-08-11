@@ -48,7 +48,7 @@
                 <div [ngClass]="{'check-color' : payPlace}" (click)="payNow(true)">
                     <p>En el restaurante</p>
                 </div>
-                <div [ngClass]="{'check-color' : !payPlace}" (click)="presentPopover(false)">
+                <div [ngClass]="{'check-color' : !payPlace}" (click)="presentPopover(false, $event)">
                     <p>Ahora</p>
                 </div>
             </div>
@@ -150,7 +150,7 @@
                 <div [ngClass]="{'check-color' : payPlace}" (click)="payNow(true)">
                     <p>En el restaurante</p>
                 </div>
-                <div [ngClass]="{'check-color' : !payPlace}" (click)="presentPopover(false)">
+                <div [ngClass]="{'check-color' : !payPlace}" (click)="presentPopover(false, $event)">
                     <p>Ahora</p>
                 </div>
             </div>
@@ -229,7 +229,7 @@
                 <div [ngClass]="{'check-color' : payPlace}" (click)="payNow(true)">
                     <p>En el restaurante</p>
                 </div>
-                <div [ngClass]="{'check-color' : !payPlace}" (click)="presentPopover(false)">
+                <div [ngClass]="{'check-color' : !payPlace}" (click)="presentPopover(false, $event)">
                     <p>Ahora</p>
                 </div>
             </div>
@@ -300,7 +300,7 @@
                 <div [ngClass]="{'check-color' : payPlace}" (click)="payNow(true)">
                     <p>En el restaurante</p>
                 </div>
-                <div [ngClass]="{'check-color' : !payPlace}" (click)="presentPopover(false)">
+                <div [ngClass]="{'check-color' : !payPlace}" (click)="presentPopover(false, $event)">
                     <p>Ahora</p>
                 </div>
             </div>

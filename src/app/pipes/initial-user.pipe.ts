@@ -6,7 +6,7 @@ import { UserInterface } from 'src/app/interfaces/user';
 })
 export class InitialUserPipe implements PipeTransform {
 
-  transform(user:UserInterface): unknown {
+  transform(user:UserInterface): string {
     return `${user.first_name.slice(0, 1)}${user.last_name.slice(0, 1)}`;
   }
 

@@ -13,7 +13,7 @@ export class SecurityCardCodeAmericanComponent implements OnInit {
     ) { }
 
     ngOnInit() { }
-    
+
     async dismissPopover(){
         await this.popoverController.dismiss()
     }
