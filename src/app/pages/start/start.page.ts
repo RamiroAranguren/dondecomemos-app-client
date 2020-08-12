@@ -59,6 +59,7 @@ export class StartPage implements OnInit {
 
   loginFcbk(){
     this.userService.loginFcbk().then(res => {
+      console.log("FCBK-RES", res);
       this.loginSocialFcbk.net = "facebook";
       this.loginSocialFcbk.email = res.email;
       this.loginSocialFcbk.password = res.uid;
@@ -72,8 +73,9 @@ export class StartPage implements OnInit {
         state: {data: this.loginSocialFcbk}};
       this.navCtrl.navigateForward(['/verify-number'], navigationExtras);
     }).catch(error => {
-      console.log(error);
-      this.toast.show("Hubo un error al intentar ingresar con Facebook");
+      console.log("FCBK-ERROR", error);
+      console.log("FCBK-ERROR-JSON", JSON.stringify(error));
+      this.toast.show(`Hubo un error ${JSON.stringify(error)} al intentar ingresar con Facebook`);
     })
   }
 

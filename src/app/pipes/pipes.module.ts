@@ -9,6 +9,7 @@ import { FormatDatePipe } from './format-date.pipe';
 import { InitialUserPipe } from './initial-user.pipe';
 import { PriceItemPipe } from './price-item.pipe';
 import { CheckStarPipe } from './check-star.pipe';
+import { ValidateDiscountPipe } from './validate-discount.pipe';
 
 
 
@@ -22,7 +23,8 @@ import { CheckStarPipe } from './check-star.pipe';
     FormatDatePipe,
     InitialUserPipe,
     PriceItemPipe,
-    CheckStarPipe
+    CheckStarPipe,
+    ValidateDiscountPipe
   ],
   exports: [
     OpenClosePipe,
@@ -33,7 +35,8 @@ import { CheckStarPipe } from './check-star.pipe';
     FormatDatePipe,
     InitialUserPipe,
     PriceItemPipe,
-    CheckStarPipe
+    CheckStarPipe,
+    ValidateDiscountPipe
   ],
   imports: [
     CommonModule

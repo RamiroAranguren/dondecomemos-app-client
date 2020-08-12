@@ -86,7 +86,6 @@ export class UsersService {
   }
 
   login(username: string, password: string) {
-    console.log("LOGIN", username, password);
     return new Promise((resolve, reject) => {
       this.http.post(`${apiUrl}login/`, { username, password }).subscribe((res: UserInterface) => {
         this.user.token = res.token;

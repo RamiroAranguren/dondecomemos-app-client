@@ -106,14 +106,14 @@
         "WEB_APPLICATION_CLIENT_ID": "1093058886974-rl5goa09bu4vbehlot9qbmpjhkvq3tge.apps.googleusercontent.com",
         "PLAY_SERVICES_VERSION": "15.0.1"
       },
-      "cordova-plugin-facebook4": {
-        "APP_ID": "299546784631782",
-        "APP_NAME": "DCFBLogin"
-      },
       "cordova-plugin-androidx": {},
       "cordova-plugin-androidx-adapter": {},
       "cordova-plugin-appminimize": {},
-      "com.telerik.plugins.nativepagetransitions": {}
+      "com.telerik.plugins.nativepagetransitions": {},
+      "cordova-plugin-facebook4": {
+        "APP_ID": "375502420102577",
+        "APP_NAME": "DCLogin"
+      }
     },
     "platforms": [
       "android",

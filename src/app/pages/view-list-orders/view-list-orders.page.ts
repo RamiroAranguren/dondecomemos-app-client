@@ -57,6 +57,9 @@ export class ViewListOrdersPage implements OnInit {
     laboral = false;
     otro = false;
 
+    place_discount = 'RES';
+    discount = 0;
+
     message_hours = "Seleccione una fecha ver los horarios.";
 
     capacity:number;
@@ -106,6 +109,7 @@ export class ViewListOrdersPage implements OnInit {
 
     ngOnInit() {
         this.restaurant = this.route.getCurrentNavigation().extras.state.restaurant;
+        console.log(this.restaurant.placediscounts);
         this.data_order = this.route.getCurrentNavigation().extras.state.data;
         this.user = this.userService.user;
         this.type = this.route.getCurrentNavigation().extras.state.type;
@@ -113,6 +117,8 @@ export class ViewListOrdersPage implements OnInit {
         if(this.type === undefined){
           this.type = "ORDER";
         }
+
+        this.validateDiscount();
     }
 
     ionViewDidEnter(){
@@ -161,10 +167,49 @@ export class ViewListOrdersPage implements OnInit {
         }, 800);
     }
 
+    validateDiscount(discount_type=null){
+      this.discount = 0;
+      let now = moment();
+      let list_days = [];
+      let place = discount_type !== null ? discount_type : 'RES';
+      console.log("PLACE-validateDiscount", discount_type, place);
+      if(this.restaurant.placediscounts.length <= 0){
+        this.discount = 0;
+        console.log("CHECK-ITEM-SIN-DESCUENTOS", this.discount);
+        return;
+      }
+      let discount = this.restaurant.placediscounts.filter(disc => disc.place === place)[0];
+      // VALIDAR SI DATE_DISCOUNT ES IGUAL A HOY
+
+      if(now.format('YYYY-MM-DD').toString() === discount.date_discount){
+        this.discount = discount.amount;
+        console.log("CHECK-ITEM-DES-FECHA", this.discount);
+      }
+      // CREO LISTA DE DIAS
+      if(discount.sunday){ list_days.push(0)}
+      if(discount.monday){ list_days.push(1)}
+      if(discount.tuesday){ list_days.push(2)}
+      if(discount.wednesday){ list_days.push(3)}
+      if(discount.thursday){ list_days.push(4)}
+      if(discount.friday){ list_days.push(5)}
+      if(discount.saturday){ list_days.push(6)}
+
+      // VALIDAR SI EL DIA DE HOY ESTA INCLUIDO DENTRO DE LA LISTA DE DIAS DE
+      // DESCUENTOS
+      if(list_days.includes(now.day())){
+        this.discount = discount.amount;
+        console.log("CHECK-ITEM-DES-DIA", this.discount);
+      }
+    }
+
     check(item: string) {
         item == "comer" ? this.comer = true : this.comer = false;
         item == "delivery" ? this.delivery = true : this.delivery = false;
         item == "retirar" ? this.retirar = true : this.retirar = false;
+
+        if(this.comer){this.validateDiscount('RES')}
+        if(this.delivery){this.validateDiscount('DEL')}
+        if(this.retirar){this.validateDiscount('LOC')}
 
         this.option_select.hs = "";
         this.option_select.address = "";

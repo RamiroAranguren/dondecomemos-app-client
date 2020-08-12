@@ -172,6 +172,7 @@ export class HomePage implements OnInit {
   ionViewWillEnter() {
     this.loaderService.display('Cargando listado...').then(() => {
       this.restaurantService.get().then((res: any) => {
+        console.log("RES", res);
         this.restaurants = res;
         this.restaurantsCopy = [...res];
         this.storage.getObject("filters").then(filters_local => {

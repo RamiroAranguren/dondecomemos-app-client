@@ -63,11 +63,16 @@
                     <p>Subtotal</p>
                     <p class="price-percent">${{ price_total }}</p>
                 </div>
-                <div>
+                <div *ngIf="restaurant.placediscounts.length > 0">
                     <p>Descuento</p>
-                    <p class="price-percent">10%</p>
+                    <p class="price-percent">{{ discount }}%</p>
                 </div>
-                <p class="total-price">Total ${{ price_total }}</p>
+                <div *ngIf="restaurant.placediscounts.length <= 0">
+                    <p>Descuento</p>
+                    <p class="price-percent">0%</p>
+                </div>
+                <p class="total-price" *ngIf="discount !== 0">Total ${{ price_total - (price_total * (discount * 0.01)) }}</p>
+                <p class="total-price" *ngIf="discount === 0">Total ${{ price_total }}</p>
             </div>
         </ion-row>
 
@@ -165,11 +170,16 @@
                     <p>Subtotal</p>
                     <p class="price-percent">${{ price_total }}</p>
                 </div>
-                <div>
+                <div *ngIf="restaurant.placediscounts.length > 0">
                     <p>Descuento</p>
-                    <p class="price-percent">10%</p>
+                    <p class="price-percent">{{ discount }}%</p>
                 </div>
-                <p class="total-price">Total ${{ price_total }}</p>
+                <div *ngIf="restaurant.placediscounts.length <= 0">
+                    <p>Descuento</p>
+                    <p class="price-percent">0%</p>
+                </div>
+                <p class="total-price" *ngIf="discount !== 0">Total ${{ price_total - (price_total * (discount * 0.01)) }}</p>
+                <p class="total-price" *ngIf="discount === 0">Total ${{ price_total }}</p>
             </div>
         </ion-row>
         <h2>Motivo (opcional)</h2>
@@ -244,11 +254,16 @@
                     <p>Subtotal</p>
                     <p class="price-percent">${{ price_total }}</p>
                 </div>
-                <div>
+                <div *ngIf="restaurant.placediscounts.length > 0">
                     <p>Descuento</p>
-                    <p class="price-percent">10%</p>
+                    <p class="price-percent">{{ discount }}%</p>
                 </div>
-                <p class="total-price">Total ${{ price_total }}</p>
+                <div *ngIf="restaurant.placediscounts.length <= 0">
+                    <p>Descuento</p>
+                    <p class="price-percent">0%</p>
+                </div>
+                <p class="total-price" *ngIf="discount !== 0">Total ${{ price_total - (price_total * (discount * 0.01)) }}</p>
+                <p class="total-price" *ngIf="discount === 0">Total ${{ price_total }}</p>
             </div>
         </ion-row>
         <h2>Comentario (opcional)</h2>
@@ -321,11 +336,16 @@
                     <p>Subtotal</p>
                     <p class="price-percent">${{ price_total }}</p>
                 </div>
-                <div>
+                <div *ngIf="restaurant.placediscounts.length > 0">
                     <p>Descuento</p>
-                    <p class="price-percent">10%</p>
+                    <p class="price-percent">{{ discount }}%</p>
                 </div>
-                <p class="total-price">Total ${{ price_total }}</p>
+                <div *ngIf="restaurant.placediscounts.length <= 0">
+                    <p>Descuento</p>
+                    <p class="price-percent">0%</p>
+                </div>
+                <p class="total-price" *ngIf="discount !== 0">Total ${{ price_total - (price_total * (discount * 0.01)) }}</p>
+                <p class="total-price" *ngIf="discount === 0">Total ${{ price_total }}</p>
             </div>
         </ion-row>
         <h2>Comentario (opcional)</h2>
