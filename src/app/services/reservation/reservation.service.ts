@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from '../../../environments/environment.prod';
-import { StorageService } from '../storage/storage.service';
 
 const apiUrl = environment.apiUrl;
 
@@ -12,10 +11,7 @@ export class ReservationService {
 
   reservations:any[] = [];
 
-  constructor(
-    public http: HttpClient,
-    public storage: StorageService
-  ) {
+  constructor(public http: HttpClient) {
   }
 
   protected getURL(data) {
@@ -95,6 +91,24 @@ export class ReservationService {
 
     return new Promise((resolve , reject) => {
       this.http.put(`${apiUrl}reservations/${data.id}/cancel/`, null, { headers }).subscribe((response:any) => {
+        this.process_get(response)
+        resolve(response)
+      }),( err => {
+        reject(err);
+      });
+    });
+  }
+
+  patch(user, id, data, status){
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `token ${user.token}`
+    });
+
+    let body = {mp_id: data, mp_status: status};
+
+    return new Promise((resolve , reject) => {
+      this.http.patch(`${apiUrl}reservations/${id}/`, body, { headers }).subscribe((response:any) => {
         this.process_get(response)
         resolve(response)
       }),( err => {

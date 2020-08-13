@@ -75,8 +75,8 @@ export class CreditcardsService {
         resolve(response);
       }, (errorResponse) => {
         reject(errorResponse);
-      })
-    })
+      });
+    });
   }
 
   update(data) {

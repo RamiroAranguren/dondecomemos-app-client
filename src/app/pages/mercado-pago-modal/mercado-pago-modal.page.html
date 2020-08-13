@@ -1,0 +1,109 @@
+<ion-header>
+  <ion-toolbar>
+      <ion-buttons slot="start">
+          <ion-button (click)="dismiss()">
+              <ion-icon slot="start" name="arrow-back"></ion-icon>
+          </ion-button>
+      </ion-buttons>
+      <ion-title>Datos para el pago</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <div class="center_screen">
+    <form action="" #payForm method="post" id="payForm" (submit)="submitForm()" name="pay">
+      <ion-item>
+        <ion-label>Número de tarjeta</ion-label>
+        <ion-input
+          type="tel"
+          #cardNumber
+          maxlength="16"
+          [value]="this.data_payment.card.number"
+          (keyup)='mercadoPagoProvider.guessingPaymentMethod("change")'
+          data-checkout="cardNumber"
+          disabled=true>
+        </ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Código de seguridad</ion-label>
+        <ion-input
+          type="tel"
+          maxlength="3"
+          [value]="this.data_payment.code"
+          id="securityCode"
+          data-checkout="securityCode"
+          disabled=true>
+        </ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Mes de expiración</ion-label>
+        <ion-input
+          type="tel"
+          id="cardExpirationMonth"
+          maxlength="2"
+          [value]="this.data_payment.card.expire | slice:0:2"
+          data-checkout="cardExpirationMonth"
+          disabled=true>
+        </ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Año de expiración</ion-label>
+        <ion-input
+          type="number"
+          id="cardExpirationYear"
+          [value]="this.data_payment.card.expire | slice:3:5"
+          data-checkout="cardExpirationYear"
+          disabled=true>
+        </ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Nombre completo</ion-label>
+        <ion-input
+          type="text"
+          id="cardholderName"
+          [value]="this.data_payment.card.titular"
+          data-checkout="cardholderName"
+          disabled=true>
+        </ion-input>
+      </ion-item>
+
+      <ion-item>
+        <label for="docType">Tipo de documento:</label>
+        <select id="docType" data-checkout="docType"></select>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Número de documento</ion-label>
+        <ion-input
+          type="tel"
+          id="docNumber"
+          [value]="this.data_payment.card.document"
+          #docNumber
+          data-checkout="docNumber"
+          disabled=true>
+        </ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Total: ${{this.total}}</ion-label>
+      </ion-item>
+
+      <input type="hidden" name="paymentMethodId" [(ngModel)]="mercadoPagoProvider.paymentMethodId">
+      <input type="hidden" name="token" [(ngModel)]="mercadoPagoProvider.token">
+
+      <ion-button
+        [disabled]="disabledPay"
+        type="submit"
+        class="cnx_btn" shape="round" expand="block"
+        #payButton
+        value="Pay!">{{txtBtnPay}}</ion-button>
+    </form>
+
+  </div>
+</ion-content>
+

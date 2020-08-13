@@ -194,8 +194,9 @@ export class AddItemOrderPage implements OnInit {
     this.cantProduct += 1;
     this.setTextAdditional();
     if(this.counters_add !== undefined){
-      let addes_validate = Object.values(this.counters_add).reduce(
-        (previous:number, current:number) => previous + current );
+      let addes_validate = Object.values(this.counters_add).reduce((previous:number, current:number) => {
+        return previous + current
+      }, 0);
       this.validateBtn(addes_validate, this.checkItem);
     }
   }

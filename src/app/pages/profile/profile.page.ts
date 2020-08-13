@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AlertController, NavController, ModalController } from '@ionic/angular';
+import { AlertController, NavController } from '@ionic/angular';
 import { FormGroup, Validators, FormBuilder, ReactiveFormsModule } from '@angular/forms';
 
 import { UsersService } from '../../services/users/user.service';
@@ -51,7 +51,6 @@ export class ProfilePage implements OnInit {
 
     constructor(
         public alertCtrl: AlertController,
-        public modalCtrl: ModalController,
         private navCtrl: NavController,
         private userService: UsersService,
         private storage: StorageService,

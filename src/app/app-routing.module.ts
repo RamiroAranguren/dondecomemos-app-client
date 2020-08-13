@@ -8,10 +8,6 @@ const routes: Routes = [
     redirectTo: 'tabs',
     pathMatch: 'full'
   },
-  // {
-  //   path: 'home',
-  //   loadChildren: () => import('./pages/home/home.module').then( m => m.HomePageModule)
-  // },
   {
     path: 'login',
     loadChildren: () => import('./pages/login/login.module').then( m => m.LoginPageModule)
@@ -36,18 +32,6 @@ const routes: Routes = [
     path: 'tabs',
     loadChildren: () => import('./pages/tabs/tabs.module').then( m => m.TabsPageModule)
   },
-  // {
-  //   path: 'profile',
-  //   loadChildren: () => import('./pages/profile/profile.module').then( m => m.ProfilePageModule)
-  // },
-  // {
-  //   path: 'favorite',
-  //   loadChildren: () => import('./pages/favorite/favorite.module').then( m => m.FavoritePageModule)
-  // },
-  // {
-  //   path: 'orders',
-  //   loadChildren: () => import('./pages/orders/orders.module').then( m => m.OrdersPageModule)
-  // },
   {
     path: 'verify-number-code',
     loadChildren: () => import('./pages/verify-number-code/verify-number-code.module').then( m => m.VerifyNumberCodePageModule)
@@ -124,9 +108,6 @@ const routes: Routes = [
     path: 'legal',
     loadChildren: () => import('./pages/legal/legal.module').then( m => m.LegalPageModule)
   }
-
-
-
 
 ];
 

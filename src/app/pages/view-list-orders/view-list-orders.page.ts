@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { restaurant } from 'src/app/interfaces/restaurant';
 import { UserInterface } from 'src/app/interfaces/user';
 import { UsersService } from 'src/app/services/users/user.service';
-import { PopoverController, NavController, AlertController } from '@ionic/angular';
+import { PopoverController, NavController, AlertController, ModalController } from '@ionic/angular';
 import { CreditcardsService } from '../../services/creditcards/creditcards.service';
 import { CreditCardListComponent } from '../../components/credit-card-list/credit-card-list.component';
 import { ReservationService } from '../../services/reservation/reservation.service';
@@ -13,6 +13,7 @@ import * as moment from 'moment';
 import { ReserveInfoComponent } from '../../components/reserve/reserve-info/reserve-info.component';
 import { ToastService } from '../../services/toast/toast.service';
 import { OrderService } from '../../services/order/order.service';
+import { MercadoPagoModalPage } from '../mercado-pago-modal/mercado-pago-modal.page';
 
 @Component({
     selector: 'app-view-list-orders',
@@ -95,6 +96,7 @@ export class ViewListOrdersPage implements OnInit {
     constructor(
         private route: Router,
         private alertCtrl: AlertController,
+        private modalCtrl: ModalController,
         private navCtrl: NavController,
         private popOver: PopoverController,
         private popOC: PopoverController,
@@ -179,8 +181,13 @@ export class ViewListOrdersPage implements OnInit {
         return;
       }
       let discount = this.restaurant.placediscounts.filter(disc => disc.place === place)[0];
-      // VALIDAR SI DATE_DISCOUNT ES IGUAL A HOY
+      if(discount === undefined){
+        this.discount = 0;
+        console.log("CHECK-ITEM-SIN-DESCUENTOS", this.discount);
+        return;
+      }
 
+      // VALIDAR SI DATE_DISCOUNT ES IGUAL A HOY
       if(now.format('YYYY-MM-DD').toString() === discount.date_discount){
         this.discount = discount.amount;
         console.log("CHECK-ITEM-DES-FECHA", this.discount);
@@ -231,7 +238,7 @@ export class ViewListOrdersPage implements OnInit {
     }
 
     payNow(resp: boolean) {
-        this.payPlace = resp
+        this.payPlace = resp;
     }
 
     checkReason(item :string){
@@ -570,16 +577,39 @@ export class ViewListOrdersPage implements OnInit {
 
       if(!this.payPlace){
         console.log("CALL MP");
-        this.showAlert();
+        this.modalMP(data, res.id, "RES");
       } else {
         this.showAlert();
       }
 
     }).catch(err => {
-        this.toast.show("Ha ocurrido un error al intentar guardar su reserva, por favor, vuelva a intentarlo.")
-        console.log("Err save reserve with order", err);
+      this.toast.show("Ha ocurrido un error al intentar guardar su reserva, por favor, vuelva a intentarlo.")
+      console.log("Err save reserve with order", err);
     });
 
+  }
+
+  async modalMP(data, id, tipo) {
+    let total = this.price_total;
+    if(this.discount !== 0) {
+      total = this.price_total - (this.price_total * (this.discount * 0.01));
+    }
+    let modal = await this.modalCtrl.create({
+      component: MercadoPagoModalPage,
+      backdropDismiss: false,
+      keyboardClose: false,
+      componentProps: {
+        restaurantId: this.restaurant.id,
+        publicKey: this.restaurant.public_key,
+        data_payment: this.data_payment,
+        info: data,
+        tipo: tipo,
+        total: total,
+        id: id
+      }
+    });
+
+    await modal.present();
   }
 
   async showAlert() {
@@ -628,18 +658,18 @@ export class ViewListOrdersPage implements OnInit {
     data.products = this.orders.filter(order => order.product !== null);
     data.menus = this.orders.filter(order => order.menu !== null);
 
-    this.orderService.post(data).then((res:any) => {
-
+    this.orderService.post(data).then((order:any) => {
       if(!this.payPlace){
         console.log("CALL MP");
-        this.showAlertOrder();
+        this.modalMP(data, order.id, "ORD");
+        //this.showAlertOrder();
       } else {
         this.showAlertOrder();
       }
 
     }).catch(err => {
-        this.toast.show("Ha ocurrido un error al intentar guardar su reserva, por favor, vuelva a intentarlo.")
-        console.log("Err save reserve with order", err);
+       this.toast.show("Ha ocurrido un error al intentar guardar su reserva, por favor, vuelva a intentarlo.")
+       console.log("Err save reserve with order", err);
     });
   }
 

@@ -6,6 +6,7 @@ import { RestaurantComponent } from './restaurant/restaurant/restaurant.componen
 import { PipesModule } from '../pipes/pipes.module';
 import { ReserveInfoComponent } from './reserve/reserve-info/reserve-info.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MercadoPagoComponent } from './mercado-pago/mercado-pago.component';
 
 
 
@@ -13,12 +14,14 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
   declarations: [
     HeaderComponent,
     RestaurantComponent,
-    ReserveInfoComponent
+    ReserveInfoComponent,
+    MercadoPagoComponent
   ],
   exports: [
     HeaderComponent,
     RestaurantComponent,
-    ReserveInfoComponent
+    ReserveInfoComponent,
+    MercadoPagoComponent
   ],
   imports: [
     CommonModule,

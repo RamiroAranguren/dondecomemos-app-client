@@ -8,14 +8,20 @@ import { ViewListOrdersPageRoutingModule } from './view-list-orders-routing.modu
 
 import { ViewListOrdersPage } from './view-list-orders.page';
 import { PipesModule } from '../../pipes/pipes.module';
+import { MercadoPagoModalPage } from '../mercado-pago-modal/mercado-pago-modal.page';
+import { MercadoPagoModalPageModule } from '../mercado-pago-modal/mercado-pago-modal.module';
 
 @NgModule({
+  entryComponents: [
+    MercadoPagoModalPage
+  ],
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
     PipesModule,
-    ViewListOrdersPageRoutingModule
+    ViewListOrdersPageRoutingModule,
+    MercadoPagoModalPageModule
   ],
   declarations: [ViewListOrdersPage]
 })

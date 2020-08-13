@@ -1,0 +1,51 @@
+
+  <div class="center_screen">
+    <form action="" #payForm method="post" id="payForm" (ngSubmit)="submitForm()" name="pay">
+      <!-- <ion-item>
+        <ion-label>Total: $2536</ion-label>
+      </ion-item> -->
+      <ion-item>
+        <ion-label>Número de tarjeta</ion-label>
+        <ion-input type="tel" #cardNumber maxlength="16"
+                (keyup)='mercadoPagoProvider.guessingPaymentMethod("change")'
+                data-checkout="cardNumber" placeholder="*ingrese los 16 digitos de su tarjeta" >
+        </ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Código de seguridad</ion-label>
+        <ion-input type="tel" maxlength="3" id="securityCode" data-checkout="securityCode" placeholder="*ingrese los 3 digitos del dorso" ></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Mes de expiración</ion-label>
+        <ion-input type="tel" id="cardExpirationMonth" maxlength="2" data-checkout="cardExpirationMonth" placeholder="12" ></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Año de expiración</ion-label>
+        <ion-input type="number" id="cardExpirationYear" data-checkout="cardExpirationYear" placeholder="2019" ></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Nombre completo</ion-label>
+        <ion-input type="text" id="cardholderName" data-checkout="cardholderName" placeholder="*como figura en la tarjeta"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <label for="docType">Tipo de documento:</label>
+        <select id="docType" data-checkout="docType"></select>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Número de documento</ion-label>
+        <ion-input type="tel" id="docNumber" #docNumber data-checkout="docNumber" placeholder="12345678"></ion-input>
+      </ion-item>
+
+      <input type="hidden" name="paymentMethodId" [(ngModel)]="mercadoPagoProvider.paymentMethodId">
+      <input type="hidden" name="token" [(ngModel)]="mercadoPagoProvider.token">
+
+      <button ion-button #payButton  type="submit" value="Pay!" block>PAGAR</button>
+    </form>
+
+  </div>
