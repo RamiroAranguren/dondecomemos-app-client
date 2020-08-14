@@ -103,8 +103,7 @@
       },
       "cordova-plugin-googleplus": {
         "REVERSED_CLIENT_ID": "com.googleusercontent.apps.958354498223-uk0evpabnkj4c5bh40kp5k88bl1sm551",
-        "WEB_APPLICATION_CLIENT_ID": "1093058886974-rl5goa09bu4vbehlot9qbmpjhkvq3tge.apps.googleusercontent.com",
-        "PLAY_SERVICES_VERSION": "15.0.1"
+        "WEB_APPLICATION_CLIENT_ID": "1093058886974-nctcjq3ruvgnq5kngibmf345hsqtbkso.apps.googleusercontent.com"
       },
       "cordova-plugin-androidx": {},
       "cordova-plugin-androidx-adapter": {},

@@ -9,6 +9,7 @@ import { FCM } from '@ionic-native/fcm/ngx';
 
 import { AngularFireAuth } from '@angular/fire/auth';
 import { auth } from 'firebase/app';
+// import firebase from 'firebase';
 
 import { Facebook, FacebookLoginResponse } from '@ionic-native/facebook/ngx';
 
@@ -26,27 +27,8 @@ export class UsersService {
   user: UserInterface;
   isShowingPopUp = false;
 
-  userGplus = {
-    uid: "",
-    username: "",
-    password: "",
-    email: "",
-    first_name: "",
-    last_name: "",
-    name: "",
-    picture:""
-  }
-
-  userFcbk = {
-    uid: "",
-    username: "",
-    password: "",
-    email: "",
-    first_name: "",
-    last_name: "",
-    name: "",
-    picture:""
-  }
+  userGplus:any = {};
+  userFcbk:any = {};
 
   constructor(
     private http: HttpClient,
@@ -189,41 +171,60 @@ export class UsersService {
     })
   }
 
-  loginGoogle() {
-    let data_google = this.google.login({})
-      .then(result => console.log(result))
-      .catch(err => console.log(`Error ${JSON.stringify(err)}`));
+  // async loginGoogle() {
+    // let data_google = this.google.login({})
+    //   .then(result => console.log(result))
+    //   .catch(err => console.log(`Error ${JSON.stringify(err)}`));
 
-    return data_google;
+    // return data_google;
     // const res = await this.google.login({});
+    // console.log("RES G+", res);
+    // return res;
     // const googleCredential = auth.GoogleAuthProvider.credential(res.idToken);
     // const resConfirmed = await this.afAuth.auth.signInWithCredential(googleCredential);
     // const userGplus = resConfirmed.user;
     // console.log("userGplus", userGplus);
     // this.storage.addObject("userGplus", userGplus);
     // return userGplus;
-  }
+  // }
 
-  async loginFcbk() {
-    const res: FacebookLoginResponse = await this.facebook.login(['public_profile', 'email']);
-    const facebookCredential = auth.FacebookAuthProvider.credential(res.authResponse.accessToken);
-    const resConfirmed = await this.afAuth.auth.signInWithCredential(facebookCredential);
-    const dataFcbk = resConfirmed.user;
-    console.log("userFcbk", dataFcbk);
-    this.storage.addObject("userFcbk", dataFcbk);
-    return dataFcbk;
-  }
+  // loginFcbk() {
+    // let info:any = null;
+    // // const res: FacebookLoginResponse = await this.facebook.login(['public_profile', 'email']);
+    // const res = await this.facebook.login(['public_profile', 'email']);
+    // if(res.status === 'connected'){
+    //   info = this.getInfo();
+    // }
+    // return info;
+    // const facebookCredential = auth.FacebookAuthProvider.credential(res.authResponse.accessToken);
+    // const resConfirmed = await this.afAuth.auth.signInWithCredential(facebookCredential);
+    // const dataFcbk = resConfirmed.user;
+    // console.log("userFcbk", dataFcbk);
+    // this.storage.addObject("userFcbk", dataFcbk);
+    // return dataFcbk;
+  // }
 
-  getInfo(){
-    this.facebook.api('/me?fields=id,name,email,first_name,picture,last_name,gender',['public_profile','email'])
-    .then(data => {
-      console.log("data_fcbk-antes", data);
-      return data;
-    })
-    .catch(error =>{
-      console.error( error );
-    });
-  }
+  // loginFcbk(): Promise<any> {
+  //   return this.facebook.login(['email']).then( (res:FacebookLoginResponse) => {
+  //     const facebookCredential = auth.FacebookAuthProvider.credential(res.authResponse.accessToken);
+  //     auth().signInWithCredential(facebookCredential).then( success => {
+  //       console.log("Firebase success: " + JSON.stringify(success));
+  //     });
+  //   }).catch((error) => {
+  //     console.log(error);
+  //   });
+  // }
+
+  // getInfo(){
+  //   this.facebook.api('/me?fields=id,name,email,first_name,picture,last_name,gender',['public_profile','email'])
+  //   .then((data:any) => {
+  //     console.log("data_fcbk-antes", data);
+  //     this.userFcbk = data;
+  //   })
+  //   .catch(error =>{
+  //     console.error( error );
+  //   });
+  // }
 
   recoverPassword(email) {
     const body = { email };

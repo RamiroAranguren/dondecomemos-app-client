@@ -30,6 +30,13 @@
               {
                 "client_id": "958354498223-23qb7d2kavn9c4l3771b31m23nknhlg9.apps.googleusercontent.com",
                 "client_type": 3
+              },
+              {
+                "client_id": "958354498223-uk0evpabnkj4c5bh40kp5k88bl1sm551.apps.googleusercontent.com",
+                "client_type": 2,
+                "ios_info": {
+                  "bundle_id": "com.gaia.dondecomemos"
+                }
               }
             ]
           }
