@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { LoaderService } from '../../services/loader/loader.service';
 import { UsersService } from '../../services/users/user.service';
 import { NavController, Platform } from '@ionic/angular';
 import { NavigationExtras } from '@angular/router';
@@ -16,29 +15,21 @@ import { GooglePlus } from '@ionic-native/google-plus/ngx';
   styleUrls: ['./start.page.scss'],
 })
 export class StartPage implements OnInit {
-  backbuttonSubscription: any;
-  loginSocialGplus = {
-    email: "",
-    password: "",
-    first_name: "",
-    last_name: "",
-    net: null,
-    data: null
-  }
 
-  loginSocialFcbk = {
+  backbuttonSubscription: any;
+
+  loginSocial = {
     email: "",
     password: "",
     first_name: "",
     last_name: "",
     net: null,
     data: null
-  }
+  };
 
   constructor(
     private navCtrl: NavController,
     private platform: Platform,
-    private loader: LoaderService,
     private userService: UsersService,
     private toast: ToastService,
     private appMinimize: AppMinimize,
@@ -77,12 +68,12 @@ export class StartPage implements OnInit {
   getInfo(){
     this.facebook.api('/me?fields=id,name,email,first_name,picture,last_name,gender',['public_profile','email'])
     .then((data:any) => {
-      this.loginSocialFcbk.net = "facebook";
-      this.loginSocialFcbk.data = JSON.stringify(data);
-      this.loginSocialFcbk.email = data.email;
-      this.loginSocialFcbk.password = data.id;
-      this.loginSocialFcbk.first_name = data.first_name;
-      this.loginSocialFcbk.last_name = data.last_name;
+      this.loginSocial.net = "facebook";
+      this.loginSocial.data = JSON.stringify(data);
+      this.loginSocial.email = data.email;
+      this.loginSocial.password = data.id;
+      this.loginSocial.first_name = data.first_name;
+      this.loginSocial.last_name = data.last_name;
       // SE INTENTA LOGUEAR PRIMERO POR SI YA ESTA REGISTRADO
       // SINO, SE LO ENVIA A REGISTRAR
       this.userService.login(data.email, data.id).then(res => {
@@ -90,7 +81,7 @@ export class StartPage implements OnInit {
       }).catch(error => {
         console.log("Error Login", error);
         let navigationExtras: NavigationExtras = {
-          state: {data: this.loginSocialFcbk}};
+          state: {data: this.loginSocial}};
         this.navCtrl.navigateForward(['/verify-number'], navigationExtras);
       });
     }).catch(error =>{
@@ -100,14 +91,14 @@ export class StartPage implements OnInit {
 
   loginGoogle(){
     this.google.login({}).then(data => {
-      this.loginSocialGplus.net = "google";
-      this.loginSocialGplus.data = JSON.stringify(data);
-      this.loginSocialGplus.email = data.email;
-      this.loginSocialGplus.password = data.userId;
+      this.loginSocial.net = "google";
+      this.loginSocial.data = JSON.stringify(data);
+      this.loginSocial.email = data.email;
+      this.loginSocial.password = data.userId;
       if (data.displayName && data.displayName !== "") {
         let namelong = data.displayName.split(" ");
-        this.loginSocialGplus.first_name = namelong[0];
-        this.loginSocialGplus.last_name = namelong[1];
+        this.loginSocial.first_name = namelong[0];
+        this.loginSocial.last_name = namelong[1];
       }
       // SE INTENTA LOGUEAR PRIMERO POR SI YA ESTA REGISTRADO
       // SINO, SE LO ENVIA A REGISTRAR
@@ -116,7 +107,7 @@ export class StartPage implements OnInit {
       }).catch(error => {
         console.log("Error Login", error);
         let navigationExtras: NavigationExtras = {
-          state: {data: this.loginSocialGplus}};
+          state: {data: this.loginSocial}};
         this.navCtrl.navigateForward(['/verify-number'], navigationExtras);
       });
     }).catch(err => {
