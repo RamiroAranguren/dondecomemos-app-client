@@ -77,10 +77,11 @@ export class LoginPage implements OnInit {
         if (this.restaurant) {
           // this.viewController.dismiss()
         } else {
-          this.navCtrl.navigateRoot('/tabs/home')
+          this.navCtrl.navigateRoot('/tabs/home');
         }
         this.loader.hide();
       }).catch(errors => {
+        console.log("Error Login", errors);
         this.error.status = errors.status;
         this.error.ok = false;
         this.error.mensaje = "Error: Email y/o contraseña inválidos."

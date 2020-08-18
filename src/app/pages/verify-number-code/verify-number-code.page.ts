@@ -4,6 +4,7 @@ import { NavController, AlertController } from '@ionic/angular';
 import { Router, NavigationExtras } from '@angular/router';
 import { UsersService } from '../../services/users/user.service';
 import { LoaderService } from '../../services/loader/loader.service';
+import { ToastService } from '../../services/toast/toast.service';
 
 @Component({
   selector: 'app-verify-number-code',
@@ -32,6 +33,7 @@ export class VerifyNumberCodePage implements OnInit {
     private navCtrl: NavController,
     private userService: UsersService,
     private loader: LoaderService,
+    private toast: ToastService,
     private alertCtrl: AlertController
   ) {
     this.form = this.formBuild.group({
@@ -73,11 +75,13 @@ export class VerifyNumberCodePage implements OnInit {
                 console.log("Verify-Login", res);
                 this.navCtrl.navigateRoot('/tabs/home');
 
-              }).catch(errors => {
-                console.log(errors);
+              }).catch(error => {
+                this.toast.show(`Hubo un error al intentar login ${error}`)
+                console.log(error);
               });
             }).catch((error) => {
               this.loader.hide();
+              this.toast.show(`Hubo un error al intentar login ${error}`)
               console.log(error);
               if (error.username && error.username.length > 0) {
                 this.showAlert();

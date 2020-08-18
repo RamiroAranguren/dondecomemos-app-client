@@ -7,15 +7,8 @@ import { StorageService } from '../storage/storage.service';
 import { Platform } from '@ionic/angular';
 import { FCM } from '@ionic-native/fcm/ngx';
 
-import { AngularFireAuth } from '@angular/fire/auth';
-import { auth } from 'firebase/app';
-// import firebase from 'firebase';
-
 import { Facebook, FacebookLoginResponse } from '@ionic-native/facebook/ngx';
-
 import { GooglePlus } from '@ionic-native/google-plus/ngx';
-import { UserNetInterface } from '../../interfaces/user-net';
-
 
 const apiUrl = environment.apiUrl;
 
@@ -29,13 +22,13 @@ export class UsersService {
 
   userGplus:any = {};
   userFcbk:any = {};
+  dataLogin:any;
 
   constructor(
     private http: HttpClient,
     private storage: StorageService,
     private platform: Platform,
     private fcm: FCM,
-    public afAuth: AngularFireAuth,
     private facebook: Facebook,
     private google: GooglePlus
   ) {
@@ -52,7 +45,8 @@ export class UsersService {
       last_name: "",
       token: "",
       guest: false,
-      phone: null
+      phone: null,
+      net: null
     }
   }
 
@@ -67,7 +61,7 @@ export class UsersService {
     return this.user.guest;
   }
 
-  login(username: string, password: string) {
+  login(username: string, password: string, net=null) {
     return new Promise((resolve, reject) => {
       this.http.post(`${apiUrl}login/`, { username, password }).subscribe((res: UserInterface) => {
         this.user.token = res.token;
@@ -80,7 +74,7 @@ export class UsersService {
           this.user = res;
           this.user.token = token;
           this.user.guest = false;
-
+          if(net !== null){this.user.net = net;}
           //luego de loguear, pido el token y lo envio al back-end
           this.fcm.getToken().then(token => {
             this.registerFcmToken(token, this.user, headers);
@@ -104,6 +98,26 @@ export class UsersService {
     await this.storage.removeObject("user");
     await this.storage.removeObject("locations");
     await this.storage.removeObject("favorites");
+  }
+
+  logoutFb(){
+    this.facebook.logout().then(res => {
+      this.storage.removeObject("user");
+      this.storage.removeObject("locations");
+      this.storage.removeObject("favorites");
+    }).catch(err => {
+      console.log("Err Logout FB", err);
+    });
+  }
+
+  logoutGplus(){
+    this.google.logout().then(res => {
+      this.storage.removeObject("user");
+      this.storage.removeObject("locations");
+      this.storage.removeObject("favorites");
+    }).catch(err => {
+      console.log("Err Logout G+", err);
+    });
   }
 
   register(form, code=null) {
@@ -170,61 +184,6 @@ export class UsersService {
         })
     })
   }
-
-  // async loginGoogle() {
-    // let data_google = this.google.login({})
-    //   .then(result => console.log(result))
-    //   .catch(err => console.log(`Error ${JSON.stringify(err)}`));
-
-    // return data_google;
-    // const res = await this.google.login({});
-    // console.log("RES G+", res);
-    // return res;
-    // const googleCredential = auth.GoogleAuthProvider.credential(res.idToken);
-    // const resConfirmed = await this.afAuth.auth.signInWithCredential(googleCredential);
-    // const userGplus = resConfirmed.user;
-    // console.log("userGplus", userGplus);
-    // this.storage.addObject("userGplus", userGplus);
-    // return userGplus;
-  // }
-
-  // loginFcbk() {
-    // let info:any = null;
-    // // const res: FacebookLoginResponse = await this.facebook.login(['public_profile', 'email']);
-    // const res = await this.facebook.login(['public_profile', 'email']);
-    // if(res.status === 'connected'){
-    //   info = this.getInfo();
-    // }
-    // return info;
-    // const facebookCredential = auth.FacebookAuthProvider.credential(res.authResponse.accessToken);
-    // const resConfirmed = await this.afAuth.auth.signInWithCredential(facebookCredential);
-    // const dataFcbk = resConfirmed.user;
-    // console.log("userFcbk", dataFcbk);
-    // this.storage.addObject("userFcbk", dataFcbk);
-    // return dataFcbk;
-  // }
-
-  // loginFcbk(): Promise<any> {
-  //   return this.facebook.login(['email']).then( (res:FacebookLoginResponse) => {
-  //     const facebookCredential = auth.FacebookAuthProvider.credential(res.authResponse.accessToken);
-  //     auth().signInWithCredential(facebookCredential).then( success => {
-  //       console.log("Firebase success: " + JSON.stringify(success));
-  //     });
-  //   }).catch((error) => {
-  //     console.log(error);
-  //   });
-  // }
-
-  // getInfo(){
-  //   this.facebook.api('/me?fields=id,name,email,first_name,picture,last_name,gender',['public_profile','email'])
-  //   .then((data:any) => {
-  //     console.log("data_fcbk-antes", data);
-  //     this.userFcbk = data;
-  //   })
-  //   .catch(error =>{
-  //     console.error( error );
-  //   });
-  // }
 
   recoverPassword(email) {
     const body = { email };

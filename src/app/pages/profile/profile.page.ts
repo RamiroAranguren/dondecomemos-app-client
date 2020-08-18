@@ -131,8 +131,18 @@ export class ProfilePage implements OnInit {
                 }, {
                     text: 'Cerrar sesión',
                     handler: () => {
-                        this.userService.logout();
-                        this.userService.loginAsGuest();
+                        if(this.userService.user.net === null){
+                            this.userService.logout();
+                            this.userService.loginAsGuest();
+                        } else {
+                            // LOGOUT DE FB - G+
+                            if(this.userService.user.net === 'facebook'){
+                                this.userService.logoutFb();
+                            }
+                            if(this.userService.user.net === 'google'){
+                                this.userService.logoutGplus();
+                            }
+                        }
                         this.navCtrl.navigateRoot('/tabs/home');
                     }
                 }

@@ -7,5 +7,6 @@ export interface UserInterface {
     last_name: string,
     token: string,
     guest: boolean,
-    phone: string
+    phone: string,
+    net: string
 }
