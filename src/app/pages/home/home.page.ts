@@ -88,29 +88,6 @@ export class HomePage implements OnInit {
     this.getSotrageDataInit();
   }
 
-  loadData(){
-    this.getSotrageDataInit();
-    this.loaderService.display('Cargando listado...').then(() => {
-      this.restaurantService.get().then((res: any) => {
-        this.restaurants = res;
-        this.restaurantsCopy = [...res];
-        this.storage.getObject("filters").then(filters_local => {
-          if (filters_local) {
-            this.filterColor = filters_local.length > 0;
-            this.chips = filters_local;
-            this.restaurants = this.restaurantService.getRestaurantByFilters(filters_local, this.restaurants);
-          } else {
-            this.filterColor = false;
-          }
-        }).catch(err => {
-          console.log("Error in get local filters", err);
-        });
-        console.log(this.restaurants);
-        this.loaderService.hide();
-      });
-    });
-  }
-
   ionViewDidEnter() {
     this.backButtonServiceService.changeStatusToMinimize.subscribe((status)=>{
       this.backButtonStatus = status;
@@ -170,7 +147,7 @@ export class HomePage implements OnInit {
   }
 
   ionViewWillEnter() {
-    this.loaderService.display('Cargando listado...').then(() => {
+    //this.loaderService.display('Cargando listado...').then(() => {
       this.restaurantService.get().then((res: any) => {
         console.log("RES", res);
         this.restaurants = res;
@@ -187,9 +164,9 @@ export class HomePage implements OnInit {
           console.log("Error in get local filters", err);
         });
         console.log(this.restaurants);
-        this.loaderService.hide();
+        //this.loaderService.hide();
       });
-    });
+    //});
   }
 
   doRefresh(evento) {

@@ -76,7 +76,7 @@ export class StartPage implements OnInit {
       this.loginSocial.last_name = data.last_name;
       // SE INTENTA LOGUEAR PRIMERO POR SI YA ESTA REGISTRADO
       // SINO, SE LO ENVIA A REGISTRAR
-      this.userService.login(data.email, data.id).then(res => {
+      this.userService.login(data.email, data.id, "facebook").then(res => {
         this.navCtrl.navigateRoot('/tabs/home');
       }).catch(error => {
         console.log("Error Login", error);
@@ -102,7 +102,7 @@ export class StartPage implements OnInit {
       }
       // SE INTENTA LOGUEAR PRIMERO POR SI YA ESTA REGISTRADO
       // SINO, SE LO ENVIA A REGISTRAR
-      this.userService.login(data.email, data.id).then(res => {
+      this.userService.login(data.email, data.id, "google").then(res => {
         this.navCtrl.navigateRoot('/tabs/home');
       }).catch(error => {
         console.log("Error Login", error);

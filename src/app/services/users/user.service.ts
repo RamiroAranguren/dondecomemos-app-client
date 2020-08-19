@@ -74,7 +74,7 @@ export class UsersService {
           this.user = res;
           this.user.token = token;
           this.user.guest = false;
-          if(net !== null){this.user.net = net;}
+          this.user.net = (net !== null && net !== "") ? net : null;
           //luego de loguear, pido el token y lo envio al back-end
           this.fcm.getToken().then(token => {
             this.registerFcmToken(token, this.user, headers);
