@@ -138,7 +138,6 @@ ion-slide {
                 margin: 0;
                 width: 35vw;
             }
-           
         }
     }
 }
@@ -157,4 +156,12 @@ ion-slide {
     letter-spacing: 0.05rem;
     --background: #f89b4c;
     margin: 0;
+}
+
+.sticky-row{
+    position: sticky;
+    top: -2px;
+    padding-bottom: 2vw;
+    background-color: white;
+    z-index: 100;
 }

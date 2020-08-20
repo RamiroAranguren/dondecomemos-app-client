@@ -8,7 +8,7 @@
 </ion-header>
 
 <ion-content *ngIf="!user.guest">
-    <ion-segment color="primary" value="pendientes" mode="md">
+    <ion-segment class="sticky-row" color="primary" value="pendientes" mode="md">
         <ion-segment-button (click)="back()" value="pendientes">
             <ion-label>Pendientes</ion-label>
         </ion-segment-button>
