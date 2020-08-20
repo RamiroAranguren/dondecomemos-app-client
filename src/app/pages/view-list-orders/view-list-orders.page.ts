@@ -282,8 +282,10 @@ export class ViewListOrdersPage implements OnInit {
           this.data_payment.card = data.card;
           this.data_payment.code = data.code;
           this.inactiveConfirm = true;
+          this.payNow(false);
         } else {
           this.inactiveConfirm = false;
+          this.payNow(true);
         }
         await this.popOC.dismiss();
     }
