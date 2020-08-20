@@ -57,16 +57,22 @@
                 </ion-segment-button>
             </ion-segment>
         </ion-row>
-        <h2>Desea pre-ordenar la comida</h2>
         <ion-row class="pre-order-question">
-            <div class="wrapper">
-                <div [ngClass]="{'check-color' : preOrder}" (click)="preOrderAnswer(false)">
-                    <p>No</p>
+            <ion-col size="12">
+                <h2>¿Querés pre-ordenar la comida?</h2>
+            </ion-col>
+            <ion-col size="2">&nbsp;</ion-col>
+            <ion-col size="8">
+                <div class="wrapper">
+                    <div [ngClass]="{'check-color' : preOrder}" (click)="preOrderAnswer(false)">
+                        <p>No</p>
+                    </div>
+                    <div [ngClass]="{'check-color' : !preOrder}" (click)="preOrderAnswer(true)">
+                        <p> Si </p>
+                    </div>
                 </div>
-                <div [ngClass]="{'check-color' : !preOrder}" (click)="preOrderAnswer(true)">
-                    <p> Si </p>
-                </div>
-            </div>
+            </ion-col>
+            <ion-col size="2">&nbsp;</ion-col>
         </ion-row>
         <h2>Motivo (opcional)</h2>
         <ion-row class="reason">
@@ -81,13 +87,14 @@
         <h2>Comentario (opcional)</h2>
         <ion-row class="commentary">
             <section>
-                <ion-item>
-                    <ion-label position="floating">Comentario</ion-label>
-                    <ion-input [(ngModel)]="option_select.comments"></ion-input>
+                <ion-item color="input-background">
+                    <ion-label class="colorBlack" position="floating">Comentario</ion-label>
+                    <ion-input class="colorBlack" [(ngModel)]="option_select.comments"></ion-input>
                   </ion-item>
             </section>
         </ion-row>
     </ion-grid>
+    <br><br>
     <ion-button
     [disabled]="deactiveNextStep"
     *ngIf="!preOrder"

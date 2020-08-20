@@ -121,6 +121,7 @@ ion-content {
                 flex-direction: row;
                 justify-content: space-evenly;
                 div {
+                    margin-right: 10vw;
                     width: 48px;
                     height: 48px;
                     border: 1px solid #1d252d;
@@ -194,4 +195,19 @@ ion-content {
 }
 .check-segment{
     --border-style: none;
+}
+
+.colorBlack{
+    color:black;
+}
+
+ion-item {
+    border-radius: 6px 6px 0px 0px;
+    margin-top: 20px;
+    --border-color: #1D252D;
+    --highlight-color-focused:#F89B4C !important;
+    --highlight-background:#F89B4C !important;
+    ion-label {
+        font-family: FieldworkGeoLight;
+    }
 }
