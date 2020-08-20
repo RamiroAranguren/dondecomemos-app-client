@@ -8,7 +8,7 @@ import { NavigationExtras, Router } from '@angular/router';
     styleUrls: ['./rate.page.scss'],
 })
 export class RatePage implements OnInit {
-    disabledButton: boolean = false;
+    disabledButton: boolean = true;
 
     item:any;
     user:any;
@@ -33,16 +33,26 @@ export class RatePage implements OnInit {
     rateComida(value) {
         console.log("Commida", value);
         this.rate.comida = value;
+        if(this.rate.ambiente !== 0 && this.rate.servicio !== 0){
+            this.disabledButton = false;
+        }
+
     }
 
     rateAmbiente(value) {
         console.log("Ambiente", value);
         this.rate.ambiente = value;
+        if(this.rate.comida !== 0 && this.rate.servicio !== 0){
+            this.disabledButton = false;
+        }
     }
 
     rateServicio(value) {
         console.log("Servicio", value);
         this.rate.servicio = value;
+        if(this.rate.ambiente !== 0 && this.rate.comida !== 0){
+            this.disabledButton = false;
+        }
     }
 
     goToReview() {

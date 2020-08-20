@@ -54,7 +54,11 @@
     <ion-grid>
         <ion-row>
             <ion-col size="12">
-                <ion-button (click)="goToReview()" class="fixed-btn" [ngClass]="{'disabled-button': disabledButton}" [disabled]="disabledButton" shape="round">
+                <ion-button
+                    (click)="goToReview()"
+                    class="fixed-btn"
+                    [ngClass]="{'disabled-button': disabledButton}"
+                    [disabled]="disabledButton" shape="round">
                     CALIFICAR
                 </ion-button>
             </ion-col>
