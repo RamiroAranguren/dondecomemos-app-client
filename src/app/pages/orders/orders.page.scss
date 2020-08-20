@@ -160,8 +160,17 @@ ion-slide {
 
 .sticky-row{
     position: sticky;
-    top: -2px;
+    top: -3px;
     padding-bottom: 2vw;
     background-color: white;
     z-index: 100;
+}
+
+ion-header {
+    display: block;
+    position: relative;
+    -ms-flex-order: -1;
+    order: -1;
+    width: 100%;
+    /* z-index: 10; */
 }
