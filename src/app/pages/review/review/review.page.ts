@@ -89,10 +89,11 @@ export class ReviewPage implements OnInit {
 
   async showAlert(){
     const alert = await this.alertCtrl.create({
-      header: `Gracias por ayudarnos!`,
+      header: `Calificación exitosa`,
+      subHeader: "Muchas gracias, la calificación ha sido realizada con éxito.",
       buttons: [
           {
-              text: 'Ok',
+              text: 'Aceptar',
               handler: () => {
                   this.navCtrl.navigateRoot('/tabs/orders');
               }
