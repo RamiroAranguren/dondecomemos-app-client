@@ -204,7 +204,7 @@ export class BookTablePage implements OnInit {
 
             console.log("TIME", list_hs);
         } else {
-            this.message_hours = "Seleccione la cantidad de personas y luego verá los horarios."
+            this.message_hours = "Elegir la cantidad de personas para ver horarios."
         }
 
     }

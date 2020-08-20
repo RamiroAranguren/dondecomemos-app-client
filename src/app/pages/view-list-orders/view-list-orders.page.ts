@@ -383,7 +383,7 @@ export class ViewListOrdersPage implements OnInit {
           this.hours = list_hs.length === 1 ? list_hs: list_hs.slice(1);
 
       } else {
-          this.message_hours = "Seleccione la cantidad de personas y luego verá los horarios."
+        this.message_hours = "Elegir la cantidad de personas para ver horarios."
       }
 
   }
