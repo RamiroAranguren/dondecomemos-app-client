@@ -50,7 +50,7 @@ export class DetailsPage implements OnInit {
   }
 
   slideOptionsMenu = {
-    slidesPerView: 1,
+    slidesPerView: 1.158,
     spaceBetween: 10
   }
 
