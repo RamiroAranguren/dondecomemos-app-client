@@ -3,14 +3,14 @@
         <ion-buttons slot="start">
             <ion-icon size="large" name="arrow-back" (click)="showAlertBack()"></ion-icon>
         </ion-buttons>
-        <ion-title>Reserva Mesa</ion-title>
+        <ion-title class="header-title">Reserva Mesa</ion-title>
     </ion-toolbar>
 </ion-header>
 
 <ion-content>
     <ion-grid fixed>
         <h2>¿Cuántas personas?</h2>
-        <small style="color:rgb(143, 143, 143); font-family: Arial, Helvetica, sans-serif;">Capacidad máx.: {{ restaurant.max_diners }} personas.</small>
+        <!-- <small style="color:rgb(143, 143, 143); font-family: Arial, Helvetica, sans-serif;">Capacidad máx.: {{ restaurant.max_diners }} personas.</small> -->
         <ion-row class="people-counter">
             <ion-col size="6">
                 <p>{{ countPeople }}</p>
@@ -27,7 +27,7 @@
 
             </ion-col>
         </ion-row>
-        <h2>Elija la fecha</h2>
+        <h2>Elegir una fecha</h2>
         <ion-row class="choose-date">
             <ion-segment scrollable="true" value="lun" mode="md">
                 <ion-segment-button
@@ -35,14 +35,14 @@
                     (click)="checkHours(item)"
                     mode="md"
                     [value]="item.day">
-                    <div>
-                        <p class="day">{{ item.day}}</p>
+                    <div class="ion-text-center" style="padding: 2px">
+                        <p class="day">{{ item.day }}</p>
                         <p>{{ item.date | slice:-2 }}</p>
                     </div>
                 </ion-segment-button>
             </ion-segment>
         </ion-row>
-        <h2>Seleccione hora</h2>
+        <h2>Seleccionar hora</h2>
         <p *ngIf="hours.length <= 0" style="color: rgb(168, 167, 167);"> {{ message_hours }} </p>
         <ion-row class="choose-hour" *ngIf="hours.length > 0">
             <ion-segment scrollable="true" value="" mode="md">

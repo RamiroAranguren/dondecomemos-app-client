@@ -1,0 +1,18 @@
+
+
+.r-btn {
+    display: flex;
+    justify-content: flex-end;
+}
+
+ion-button {
+    --color: white;
+    --background: black;
+    --border-radius: 50%;
+    width: 10vw;
+    height: 10vw;
+    font-size: 1.2rem;
+    text-transform: uppercase;
+    margin: 0px 5px;
+    --background-activated: black;
+}

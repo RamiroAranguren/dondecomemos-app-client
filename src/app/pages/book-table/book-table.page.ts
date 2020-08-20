@@ -3,12 +3,13 @@ import { restaurant } from 'src/app/interfaces/restaurant';
 import { Router, NavigationExtras } from '@angular/router';
 
 import * as moment from 'moment';
-import { NavController, PopoverController, AlertController } from '@ionic/angular';
+import { NavController, PopoverController, AlertController, ModalController } from '@ionic/angular';
 import { ReservationService } from 'src/app/services/reservation/reservation.service';
 import { UserInterface } from 'src/app/interfaces/user';
 import { ReserveInfoComponent } from 'src/app/components/reserve/reserve-info/reserve-info.component';
 import { ToastService } from '../../services/toast/toast.service';
 import { StorageService } from '../../services/storage/storage.service';
+import { ConfirmModalPage } from '../confirm-modal/confirm-modal.page';
 
 
 @Component({
@@ -69,6 +70,7 @@ export class BookTablePage implements OnInit {
         private navCtrl: NavController,
         private popOver: PopoverController,
         private alertCtrl: AlertController,
+        private modalCtrl: ModalController,
         private toast: ToastService,
         private reserveService: ReservationService,
         private storage: StorageService
@@ -326,30 +328,24 @@ export class BookTablePage implements OnInit {
             products: [],
             menus: []
         }
-        this.reserveService.post(data).then(res => {
+        this.showAlert();
+        /*this.reserveService.post(data).then(res => {
             this.showAlert();
         }).catch(err => {
             this.toast.show("Ha ocurrido un error al intentar guardar su reserva, por favor, vuelva a intentarlo.")
-        });
+        });*/
     }
 
     async showAlert() {
 
-        let alert = await this.alertCtrl.create({
-          header: 'Se creó con éxito su reserva!',
-          subHeader: 'Recuerde no llegar tarde',
-          message:"Los restaurantes califican a los usuarios para ofrecer un mejor servicio",
-          backdropDismiss: false,
-          buttons: [
-            {
-              text: 'OK',
-              handler: () => {
-                this.navCtrl.navigateRoot('/tabs/home');
-              }
-            }
-          ]
+        let modal = await this.modalCtrl.create({
+            component: ConfirmModalPage,
+            backdropDismiss: false,
+            keyboardClose: false,
+            cssClass: 'custom-success-modal-css',
         });
-        await alert.present();
+
+        await modal.present();
     }
 
     showAlertBack() {

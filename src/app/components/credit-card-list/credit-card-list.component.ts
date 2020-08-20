@@ -1,6 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { creditCard } from 'src/app/interfaces/credit-card';
-import { Router, NavigationExtras } from '@angular/router';
+import { NavigationExtras } from '@angular/router';
 import { PopoverController, NavController } from '@ionic/angular';
 import { CardCodeComponent } from '../card-code/card-code.component';
 
@@ -16,7 +15,6 @@ export class CreditCardListComponent implements OnInit {
   @Input() cards;
 
   constructor(
-    private router: Router,
     private navCtrl: NavController,
     private popoverController: PopoverController,
     private popoverController2: PopoverController

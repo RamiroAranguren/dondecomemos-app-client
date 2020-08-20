@@ -100,7 +100,12 @@
         </ion-row>
 
     </ion-grid>
-    <ion-button *ngIf="type === 'RESERVE'" (click)="goToPaymentReserve()" class="fixed-btn" shape="round">
+    <br><br><br>
+    <ion-button
+        [disabled]="inactiveConfirm"
+        *ngIf="type === 'RESERVE'"
+        (click)="goToPaymentReserve()"
+        class="fixed-btn" shape="round">
         CONFIRMAR
     </ion-button>
     <ion-button *ngIf="type === 'ORDER'" class="fixed-btn" shape="round" (click)="changeExpression()">
@@ -111,7 +116,7 @@
 <ion-content class="restaurant" *ngIf="!expression && comer">
     <ion-grid fixed>
         <h2>¿Cuántas personas?</h2>
-        <small style="color:rgb(143, 143, 143); font-family: Arial, Helvetica, sans-serif;">Capacidad máx.: {{ restaurant.max_diners }} personas.</small>
+        <!-- <small style="color:rgb(143, 143, 143); font-family: Arial, Helvetica, sans-serif;">Capacidad máx.: {{ restaurant.max_diners }} personas.</small> -->
         <ion-row class="people-counter">
             <ion-col size="6">
                 <p>{{ countPeople }}</p>
@@ -220,6 +225,7 @@
             </section>
         </ion-row>
     </ion-grid>
+    <br><br><br>
     <ion-button
         [disabled]="option_select.hs === ''"
         (click)="goToPaymentReserve()"
@@ -289,6 +295,7 @@
             </section>
         </ion-row>
     </ion-grid>
+    <br><br><br>
     <ion-button
         [disabled]="option_select.hs === ''"
         (click)="goToPaymentOrder()"
@@ -376,6 +383,7 @@
             </section>
         </ion-row>
     </ion-grid>
+    <br><br><br>
     <ion-button
         [disabled]="!inactiveFinalizar"
         (click)="goToPaymentOrder()"

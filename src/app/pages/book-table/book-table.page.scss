@@ -15,7 +15,7 @@ ion-content {
             padding: 5vw 5vw 15vw 5vw;
             ion-col {
                 padding: 0;
-                height: 64px;
+                height: 50px;
                 p {
                     font-size: 38px;
                     font-family: FieldworkGeoLight;
@@ -73,6 +73,7 @@ ion-content {
                         .day {
                             padding-bottom: 8px;
                             padding-top: 5px;
+                            text-align: center;
                         }
                     }
                 }
@@ -109,6 +110,7 @@ ion-content {
                         .day {
                             padding-bottom: 8px;
                             padding-top: 5px;
+                            text-align: center;
                         }
                     }
                 }
@@ -210,4 +212,8 @@ ion-item {
     ion-label {
         font-family: FieldworkGeoLight;
     }
+}
+
+.header-title {
+    font-family: DMSerifDisplayRegular;
 }

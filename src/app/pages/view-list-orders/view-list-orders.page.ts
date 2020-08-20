@@ -14,6 +14,7 @@ import { ReserveInfoComponent } from '../../components/reserve/reserve-info/rese
 import { ToastService } from '../../services/toast/toast.service';
 import { OrderService } from '../../services/order/order.service';
 import { MercadoPagoModalPage } from '../mercado-pago-modal/mercado-pago-modal.page';
+import { ConfirmModalPage } from '../confirm-modal/confirm-modal.page';
 
 @Component({
     selector: 'app-view-list-orders',
@@ -28,6 +29,7 @@ export class ViewListOrdersPage implements OnInit {
     payPlace = true;
 
     inactiveFinalizar = false;
+    inactiveConfirm = false;
 
     slideOptionsDate = {
         slidesPerView: 4,
@@ -239,6 +241,9 @@ export class ViewListOrdersPage implements OnInit {
 
     payNow(resp: boolean) {
         this.payPlace = resp;
+        this.inactiveConfirm = false;
+        this.data_payment.card = null;
+        this.data_payment.code = null;
     }
 
     checkReason(item :string){
@@ -257,12 +262,12 @@ export class ViewListOrdersPage implements OnInit {
 
     async presentPopover(resp:any, ev:any) {
         this.payNow(resp);
-
         const myCards = await this.popOC2.create({
           component: CreditCardListComponent,
           cssClass: 'cardsPopover',
           event: ev,
           translucent: true,
+          backdropDismiss: false,
           componentProps: {
             user: this.user,
             cards: this.list_cards
@@ -272,9 +277,13 @@ export class ViewListOrdersPage implements OnInit {
         await myCards.present();
 
         const { data } = await myCards.onDidDismiss();
+        console.log("CARDDD", data);
         if(data !== undefined){
           this.data_payment.card = data.card;
           this.data_payment.code = data.code;
+          this.inactiveConfirm = true;
+        } else {
+          this.inactiveConfirm = false;
         }
         await this.popOC.dismiss();
     }
@@ -575,12 +584,13 @@ export class ViewListOrdersPage implements OnInit {
 
     this.reserveService.post(data).then((res:any) => {
 
-      if(!this.payPlace){
-        console.log("CALL MP");
-        this.modalMP(data, res.id, "RES");
-      } else {
-        this.showAlert();
-      }
+      // if(!this.payPlace){
+      //   console.log("CALL MP");
+      //   this.modalMP(data, res.id, "RES");
+      // } else {
+      //   this.showAlert();
+      // }
+      this.showAlert();
 
     }).catch(err => {
       this.toast.show("Ha ocurrido un error al intentar guardar su reserva, por favor, vuelva a intentarlo.")
@@ -613,22 +623,14 @@ export class ViewListOrdersPage implements OnInit {
   }
 
   async showAlert() {
-    let alert = await this.alertCtrl.create({
-      header: 'Se creó con éxito su reserva!',
-      subHeader: 'Recuerde no llegar tarde',
-      message:"Los restaurantes califican a los usuarios para ofrecer un mejor servicio",
-      backdropDismiss: false,
-      buttons: [
-        {
-          text: 'OK',
-          handler: () => {
-            this.storage.removeObject("list_order");
-            this.navCtrl.navigateRoot('/tabs/home');
-          }
-        }
-      ]
+    let modal = await this.modalCtrl.create({
+        component: ConfirmModalPage,
+        cssClass: 'custom-success-modal-css',
+        backdropDismiss: false,
+        keyboardClose: false,
     });
-    await alert.present();
+
+    await modal.present();
   }
 
   goToPaymentOrder(){
@@ -658,37 +660,30 @@ export class ViewListOrdersPage implements OnInit {
     data.products = this.orders.filter(order => order.product !== null);
     data.menus = this.orders.filter(order => order.menu !== null);
 
-    this.orderService.post(data).then((order:any) => {
-      if(!this.payPlace){
-        console.log("CALL MP");
-        this.modalMP(data, order.id, "ORD");
-        //this.showAlertOrder();
-      } else {
-        this.showAlertOrder();
-      }
+    // this.orderService.post(data).then((order:any) => {
+    //   if(!this.payPlace){
+    //     console.log("CALL MP");
+    //     this.modalMP(data, order.id, "ORD");
+    //     //this.showAlertOrder();
+    //   } else {
+    //     this.showAlertOrder();
+    //   }
 
-    }).catch(err => {
-       this.toast.show("Ha ocurrido un error al intentar guardar su reserva, por favor, vuelva a intentarlo.")
-       console.log("Err save reserve with order", err);
-    });
+    // }).catch(err => {
+    //    this.toast.show("Ha ocurrido un error al intentar guardar su reserva, por favor, vuelva a intentarlo.")
+    //    console.log("Err save reserve with order", err);
+    // });
+    this.showAlertOrder();
   }
 
   async showAlertOrder() {
-    let alert = await this.alertCtrl.create({
-      header: 'Se creó con éxito su pedido!',
-      subHeader: 'Recuerde no llegar tarde',
-      message:"Los restaurantes califican a los usuarios para ofrecer un mejor servicio",
-      backdropDismiss: false,
-      buttons: [
-        {
-          text: 'OK',
-          handler: () => {
-            this.storage.removeObject("list_order");
-            this.navCtrl.navigateRoot('/tabs/home');
-          }
-        }
-      ]
+    let modal = await this.modalCtrl.create({
+        component: ConfirmModalPage,
+        cssClass: 'custom-success-modal-css',
+        backdropDismiss: false,
+        keyboardClose: false,
     });
-    await alert.present();
+
+    await modal.present();
   }
 }
