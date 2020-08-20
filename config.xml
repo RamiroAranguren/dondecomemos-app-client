@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.gaia.dondecomemos" version="2.2.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="com.gaia.dondecomemos" version="2.2.2" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>donde comemos</name>
     <description>Ionic app for restaurants and clients.</description>
     <author email="crusso@orbit.com.ar" href="https://www.orbit.com.ar/">Orbit</author>

@@ -84,7 +84,7 @@
     <ion-col size="12">
       <h2>Menús del día</h2>
     </ion-col>
-    <!-- <p *ngIf="menues.length <= 0">El restaurant no tiene menú del día.</p> -->
+    <p *ngIf="menues.length <= 0" class="legend-menu">El restaurante no cuenta con menús del día.</p>
     <ion-slides pager="false" [options]="slideOptionsMenu" *ngIf="menues.length > 0">
       <ion-slide *ngFor="let menu of menues" (click)="addMenu(menu)">
         <div class="contenedor">
