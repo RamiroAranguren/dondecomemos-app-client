@@ -39,61 +39,61 @@ export class PreOrderPage implements OnInit {
   ) { }
 
   ngOnInit() {
+    console.log("ngOnInit");
     this.restaurant = this.route.getCurrentNavigation().extras.state.restaurant;
     this.type = this.route.getCurrentNavigation().extras.state.type;
     this.data_order = this.route.getCurrentNavigation().extras.state.data;
+    this.product_categories = this.route.getCurrentNavigation().extras.state.product_categories;
     this.user = this.userService.user;
   }
 
-  ionViewDidEnter(){
-    //SERVICE GET PRODUCTS-CATEGORIES
-    this.productCategoriesService.get(this.restaurant.id).then((categories:any) => {
-      this.product_categories = categories;
-      this.product_titles = this.product_categories.map(category => category.name);
-    });
-
-    setTimeout(() => {
-      this.storage.getObject("list_order").then(res => {
-        if(res){
-          this.orders = res.filter(ord => (ord.restaurant === this.restaurant.id && ord.user.id === this.user.id));
-          let prices_order = [];
-          this.orders.forEach(order => {
-            if(order.product !== null){
-              if(order.product.variants !== undefined){
-                if(order.product.variants.length > 0) {
-                  let prices_var = order.product.variants.map(vary => {
-                    return vary.price * vary.count;
-                  });
-                  prices_order = prices_order.concat(prices_var);
-                }
+  ionViewWillEnter(){
+    console.log("ionViewWillEnter");
+    this.product_titles = this.product_categories.map(category => category.name);
+    this.storage.getObject("list_order").then(res => {
+      if(res){
+        this.orders = res.filter(ord => (ord.restaurant === this.restaurant.id && ord.user.id === this.user.id));
+        let prices_order = [];
+        this.orders.forEach(order => {
+          if(order.product !== null){
+            if(order.product.variants !== undefined){
+              if(order.product.variants.length > 0) {
+                let prices_var = order.product.variants.map(vary => {
+                  return vary.price * vary.count;
+                });
+                prices_order = prices_order.concat(prices_var);
               }
+            }
 
-              if(order.product.additionals !== undefined) {
-                if(order.product.additionals.length > 0) {
-                  let prices_add = order.product.additionals.map(add => {
-                    return add.price * add.count;
-                  });
-                  prices_order = prices_order.concat(prices_add);
-                }
+            if(order.product.additionals !== undefined) {
+              if(order.product.additionals.length > 0) {
+                let prices_add = order.product.additionals.map(add => {
+                  return add.price * add.count;
+                });
+                prices_order = prices_order.concat(prices_add);
               }
-
-              prices_order = prices_order.concat(order.product.price * order.product.count);
             }
-            if(order.menu !== null){
-              prices_order = prices_order.concat(order.menu.real_price * 1)
-            }
-          });
 
-          if(prices_order.length > 0){
-            this.price_total = prices_order.reduce((prev, curr) => prev + curr);
+            prices_order = prices_order.concat(order.product.price * order.product.count);
           }
+          if(order.menu !== null){
+            prices_order = prices_order.concat(order.menu.real_price * 1)
+          }
+        });
+
+        if(prices_order.length > 0){
+          this.price_total = prices_order.reduce((prev, curr) => prev + curr);
         }
-      });
-    }, 800);
+      }
+    });
   }
 
   scrollTo(elementId: string) {
     let y = document.getElementById(elementId);
+    console.log(y);
+    console.log(y.offsetTop, y.offsetTop-80);
+    let top = y.offsetTop;
+    console.log(top);
     this.content.scrollToPoint(0, y.offsetTop-80, 1000);
   }
 
@@ -108,12 +108,6 @@ export class PreOrderPage implements OnInit {
     };
     this.navCtrl.navigateForward(['/restaurant/add-item-order'], navigationExtras);
   }
-
-  // bookTable() {
-  //   let navigationExtras: NavigationExtras = {
-  //     state: {restaurant: this.restaurant}};
-  //   this.navCtrl.navigateForward(['/restaurant/book-table'], navigationExtras);
-  // }
 
   viewOrders() {
     let navigationExtras: NavigationExtras = {

@@ -10,8 +10,9 @@ export interface restaurant {
     max_diners: number;
     profile_picture: String;
     influence_range: number;
-    delivery: boolean;
+    delivery: boolean; // tiene o no delivery
     self_service: boolean; //retiro por el local
+    reservations: boolean; // acepta o no reservas
     hours: {
         opening_hour: String,
         closing_hour: String

@@ -138,9 +138,10 @@
   <br><br><br>
 
   <ion-button
-    *ngIf="price_total === 0"
+    *ngIf="price_total === 0 && restaurant.reservations"
     (click)="bookTable()"
     class="fixed-btn"
+    [disabled]="product_categories.length <= 0"
     shape="round">
     Reservar mesa
   </ion-button>

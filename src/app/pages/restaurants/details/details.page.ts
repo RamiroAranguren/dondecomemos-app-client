@@ -104,13 +104,22 @@ export class DetailsPage implements OnInit {
     console.log("ionViewDidLoad");
   }
 
-  // ionViewWillLeave(){
-  //   console.log("ionViewWillLeave");
-  // }
+  ionViewWillEnter() {
+    this.picsService.get(this.restaurant.id).then((pics:any) => {
+      this.pictures = pics;
+    });
 
-  // ionViewDidEnter(){
-  //   console.log("ionViewDidEnter");
-  // }
+    //SERVICE GET PRODUCTS-CATEGORIES
+    this.productCategoriesService.get(this.restaurant.id).then((categories:any) => {
+      this.product_categories = categories;
+      this.product_titles = this.product_categories.map(category => category.name);
+    });
+
+    //SERVICE GET MENÚS
+    this.menuService.get(this.restaurant.id).then((menues:any) => {
+      this.menues = menues;
+    });
+  }
 
   ionViewWillUnload(){
     console.log("ionViewWillUnload");
@@ -129,26 +138,12 @@ export class DetailsPage implements OnInit {
     this.backButtonSuscription = this.platform.backButton.subscribe(()=>{
       this.toBack();
     })
-    this.picsService.get(this.restaurant.id).then((pics:any) => {
-      this.pictures = pics;
-    });
-
-    //SERVICE GET PRODUCTS-CATEGORIES
-    this.productCategoriesService.get(this.restaurant.id).then((categories:any) => {
-      this.product_categories = categories;
-      this.product_titles = this.product_categories.map(category => category.name);
-    });
-
-    //SERVICE GET MENÚS
-    this.menuService.get(this.restaurant.id).then((menues:any) => {
-      this.menues = menues;
-    });
 
     setTimeout(() => {
       this.calculatePrice();
     }, 800);
   }
-  
+
   ionViewWillLeave() {
     this.backButtonSuscription.unsubscribe();
   }
@@ -320,7 +315,8 @@ export class DetailsPage implements OnInit {
 
   bookTable() {
     let navigationExtras: NavigationExtras = {
-      state: {user: this.user, restaurant: this.restaurant}};
+      state: {user: this.user, restaurant: this.restaurant,
+        product_categories: this.product_categories}};
     this.navCtrl.navigateForward(['/restaurant/book-table'], navigationExtras);
   }
 

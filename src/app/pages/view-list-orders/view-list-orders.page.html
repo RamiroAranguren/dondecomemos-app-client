@@ -79,12 +79,21 @@
         <ion-row class="reason" *ngIf="type === 'ORDER'">
             <h2>El pedido es para...</h2>
             <section>
-                <ion-button [ngClass]="{'check-color-button' : comer}" (click)="check('comer')" size="small">
+                <ion-button
+                    *ngIf="restaurant.reservations"
+                    [ngClass]="{'check-color-button' : comer}"
+                    (click)="check('comer')" size="small">
                     Comer en el restaurante</ion-button>
-                <ion-button [ngClass]="{'check-color-button' : delivery}" (click)="check('delivery')" size="small">
+                <ion-button
+                    *ngIf="restaurant.delivery"
+                    [ngClass]="{'check-color-button' : delivery}"
+                    (click)="check('delivery')" size="small">
                     Delivery
                 </ion-button>
-                <ion-button [ngClass]="{'check-color-button' : retirar}" (click)="check('retirar')" size="small">Retirar
+                <ion-button
+                    *ngIf="restaurant.self_service"
+                    [ngClass]="{'check-color-button' : retirar}"
+                    (click)="check('retirar')" size="small">Retirar
                     por el local
                 </ion-button>
             </section>
@@ -202,9 +211,11 @@
         <h2>Comentario (opcional)</h2>
         <ion-row class="commentary">
             <section>
-                <ion-item>
-                    <ion-label position="floating">Comentario</ion-label>
-                    <ion-input [(ngModel)]="option_select.comments"></ion-input>
+                <ion-item color="input-background">
+                    <ion-label class="colorBlack" position="floating">Comentario</ion-label>
+                    <ion-input
+                        class="colorBlack"
+                        [(ngModel)]="option_select.comments"></ion-input>
                 </ion-item>
             </section>
         </ion-row>
@@ -269,9 +280,11 @@
         <h2>Comentario (opcional)</h2>
         <ion-row class="commentary">
             <section>
-                <ion-item>
-                    <ion-label position="floating">Comentario</ion-label>
-                    <ion-input [(ngModel)]="option_select.comments"></ion-input>
+                <ion-item color="input-background">
+                    <ion-label class="colorBlack" position="floating">Comentario</ion-label>
+                    <ion-input
+                        class="colorBlack"
+                        [(ngModel)]="option_select.comments"></ion-input>
                 </ion-item>
             </section>
         </ion-row>
@@ -303,9 +316,12 @@
         <h2>Dirección</h2>
         <ion-row class="commentary">
             <section>
-                <ion-item>
-                    <ion-label position="floating">Dirección</ion-label>
-                    <ion-input (ionChange)="changedAddress($event)" [(ngModel)]="option_select.address" required></ion-input>
+                <ion-item color="input-background">
+                    <ion-label class="colorBlack" position="floating">Dirección</ion-label>
+                    <ion-input
+                        class="colorBlack"
+                        (ionChange)="changedAddress($event)"
+                        [(ngModel)]="option_select.address"></ion-input>
                 </ion-item>
             </section>
         </ion-row>
@@ -351,9 +367,11 @@
         <h2>Comentario (opcional)</h2>
         <ion-row class="commentary">
             <section>
-                <ion-item>
-                    <ion-label position="floating">Comentario</ion-label>
-                    <ion-input [(ngModel)]="option_select.comments"></ion-input>
+                <ion-item color="input-background">
+                    <ion-label class="colorBlack" position="floating">Comentario</ion-label>
+                    <ion-input
+                        class="colorBlack"
+                        [(ngModel)]="option_select.comments"></ion-input>
                 </ion-item>
             </section>
         </ion-row>

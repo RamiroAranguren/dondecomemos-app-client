@@ -20,6 +20,7 @@ export class BookTablePage implements OnInit {
 
     restaurant:restaurant;
     user:UserInterface;
+    product_categories:any[] = [];
 
     countPeople = 0;
     occupied = 0;
@@ -76,6 +77,7 @@ export class BookTablePage implements OnInit {
     ngOnInit() {
         this.restaurant = this.route.getCurrentNavigation().extras.state.restaurant;
         this.user = this.route.getCurrentNavigation().extras.state.user;
+        this.product_categories = this.route.getCurrentNavigation().extras.state.product_categories;
         console.log(this.restaurant);
     }
 
@@ -304,7 +306,8 @@ export class BookTablePage implements OnInit {
             state: {
                 type:"RESERVE",
                 restaurant: this.restaurant,
-                data: data
+                data: data,
+                product_categories: this.product_categories
             }
         };
         this.navCtrl.navigateForward(['/order/pre-order'], navigationExtras);

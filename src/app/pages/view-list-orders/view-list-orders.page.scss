@@ -88,7 +88,7 @@ ion-header {
                         margin: 0;
                     }
                     .price-percent {
-                        width: 50px;
+                        width: 70px;
                     }
                 }
                 .total-price {
@@ -306,7 +306,7 @@ ion-header {
                         margin: 0;
                     }
                     .price-percent {
-                        width: 50px;
+                        width: 70px;
                     }
                 }
                 .total-price {
@@ -399,4 +399,19 @@ ion-header {
     letter-spacing: 0.05rem;
     --background: #f89b4c;
     margin: 0;
+}
+
+.colorBlack{
+    color:black;
+}
+
+ion-item {
+    border-radius: 6px 6px 0px 0px;
+    margin-top: 20px;
+    --border-color: #1D252D;
+    --highlight-color-focused:#F89B4C !important;
+    --highlight-background:#F89B4C !important;
+    ion-label {
+        font-family: FieldworkGeoLight;
+    }
 }
