@@ -586,13 +586,12 @@ export class ViewListOrdersPage implements OnInit {
 
     this.reserveService.post(data).then((res:any) => {
 
-      // if(!this.payPlace){
-      //   console.log("CALL MP");
-      //   this.modalMP(data, res.id, "RES");
-      // } else {
-      //   this.showAlert();
-      // }
-      this.showAlert();
+      if(!this.payPlace){
+        console.log("CALL MP");
+        this.modalMP(data, res.id, "RES");
+      } else {
+        this.showAlert();
+      }
 
     }).catch(err => {
       this.toast.show("Ha ocurrido un error al intentar guardar su reserva, por favor, vuelva a intentarlo.")
@@ -630,6 +629,9 @@ export class ViewListOrdersPage implements OnInit {
         cssClass: 'custom-success-modal-css',
         backdropDismiss: false,
         keyboardClose: false,
+        componentProps: {
+          message: "Reserva realizada con éxito!"
+        }
     });
 
     await modal.present();
@@ -662,20 +664,18 @@ export class ViewListOrdersPage implements OnInit {
     data.products = this.orders.filter(order => order.product !== null);
     data.menus = this.orders.filter(order => order.menu !== null);
 
-    // this.orderService.post(data).then((order:any) => {
-    //   if(!this.payPlace){
-    //     console.log("CALL MP");
-    //     this.modalMP(data, order.id, "ORD");
-    //     //this.showAlertOrder();
-    //   } else {
-    //     this.showAlertOrder();
-    //   }
+    this.orderService.post(data).then((order:any) => {
+      if(!this.payPlace){
+        console.log("CALL MP");
+        this.modalMP(data, order.id, "ORD");
+      } else {
+        this.showAlertOrder();
+      }
 
-    // }).catch(err => {
-    //    this.toast.show("Ha ocurrido un error al intentar guardar su reserva, por favor, vuelva a intentarlo.")
-    //    console.log("Err save reserve with order", err);
-    // });
-    this.showAlertOrder();
+    }).catch(err => {
+       this.toast.show("Ha ocurrido un error al intentar guardar su reserva, por favor, vuelva a intentarlo.")
+       console.log("Err save reserve with order", err);
+    });
   }
 
   async showAlertOrder() {
@@ -684,6 +684,9 @@ export class ViewListOrdersPage implements OnInit {
         cssClass: 'custom-success-modal-css',
         backdropDismiss: false,
         keyboardClose: false,
+        componentProps: {
+          message: "Pedido realizado con éxito!"
+        }
     });
 
     await modal.present();

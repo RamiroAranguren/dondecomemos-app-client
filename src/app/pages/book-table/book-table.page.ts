@@ -328,12 +328,11 @@ export class BookTablePage implements OnInit {
             products: [],
             menus: []
         }
-        this.showAlert();
-        /*this.reserveService.post(data).then(res => {
+        this.reserveService.post(data).then(res => {
             this.showAlert();
         }).catch(err => {
             this.toast.show("Ha ocurrido un error al intentar guardar su reserva, por favor, vuelva a intentarlo.")
-        });*/
+        });
     }
 
     async showAlert() {
@@ -343,6 +342,9 @@ export class BookTablePage implements OnInit {
             backdropDismiss: false,
             keyboardClose: false,
             cssClass: 'custom-success-modal-css',
+            componentProps: {
+                message: "¡Reserva realizada con éxito!"
+            }
         });
 
         await modal.present();

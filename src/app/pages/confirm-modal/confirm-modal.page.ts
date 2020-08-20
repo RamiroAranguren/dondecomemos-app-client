@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { ModalController, NavController } from '@ionic/angular';
 import { StorageService } from '../../services/storage/storage.service';
 
@@ -8,6 +8,8 @@ import { StorageService } from '../../services/storage/storage.service';
   styleUrls: ['./confirm-modal.page.scss'],
 })
 export class ConfirmModalPage implements OnInit {
+
+  @Input() message;
 
   constructor(
     private modalCtr: ModalController,
