@@ -11,9 +11,12 @@
     <ion-grid fixed>
         <h2>¿Cuántas personas?</h2>
         <!-- <small style="color:rgb(143, 143, 143); font-family: Arial, Helvetica, sans-serif;">Capacidad máx.: {{ restaurant.max_diners }} personas.</small> -->
+        <br>
         <ion-row class="people-counter">
             <ion-col size="6">
-                <p>{{ countPeople }}</p>
+                <span>
+                    {{ countPeople }}
+                </span>
             </ion-col>
             <ion-col size="6">
                 <div>
@@ -35,7 +38,7 @@
                     (click)="checkHours(item)"
                     mode="md"
                     [value]="item.day">
-                    <div class="ion-text-center" style="padding: 2px">
+                    <div>
                         <p class="day">{{ item.day }}</p>
                         <p>{{ item.date | slice:-2 }}</p>
                     </div>
@@ -97,6 +100,7 @@
     <br><br>
     <ion-button
     [disabled]="deactiveNextStep"
+    [ngClass]="{'disabled-button': deactiveNextStep}"
     *ngIf="!preOrder"
     class="fixed-btn"
     shape="round"
@@ -106,6 +110,7 @@
   <ion-button
     *ngIf="preOrder"
     [disabled]="deactiveNextStep"
+    [ngClass]="{'disabled-button': deactiveNextStep}"
     class="fixed-btn"
     shape="round"
     (click)="goToReserve()">
