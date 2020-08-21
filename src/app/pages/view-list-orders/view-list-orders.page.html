@@ -103,6 +103,7 @@
     <br><br><br>
     <ion-button
         [disabled]="inactiveConfirm"
+        [ngClass]="{'disabled-button': inactiveConfirm}"
         *ngIf="type === 'RESERVE'"
         (click)="goToPaymentReserve()"
         class="fixed-btn" shape="round">
@@ -228,6 +229,7 @@
     <br><br><br>
     <ion-button
         [disabled]="option_select.hs === ''"
+        [ngClass]="{'disabled-button': option_select.hs === ''}"
         (click)="goToPaymentReserve()"
         class="fixed-btn" shape="round">
         Finalizar
@@ -298,6 +300,7 @@
     <br><br><br>
     <ion-button
         [disabled]="option_select.hs === ''"
+        [ngClass]="{'disabled-button': option_select.hs === ''}"
         (click)="goToPaymentOrder()"
         class="fixed-btn" shape="round">
         Finalizar
@@ -386,6 +389,7 @@
     <br><br><br>
     <ion-button
         [disabled]="!inactiveFinalizar"
+        [ngClass]="{'disabled-button': !inactiveFinalizar}"
         (click)="goToPaymentOrder()"
         class="fixed-btn" shape="round">
         Finalizar
