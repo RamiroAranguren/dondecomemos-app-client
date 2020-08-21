@@ -25,6 +25,8 @@ export class PreOrderPage implements OnInit {
   menues:any[] = [];
   orders:any[] = [];
 
+  product_titles_first:any;
+
   price_total = 0;
 
   isFav = false;
@@ -33,7 +35,6 @@ export class PreOrderPage implements OnInit {
   constructor(
     private route: Router,
     private navCtrl: NavController,
-    private productCategoriesService: CategoriesService,
     private storage: StorageService,
     private userService: UsersService
   ) { }
@@ -52,6 +53,7 @@ export class PreOrderPage implements OnInit {
     this.product_titles = this.product_categories.map(category => {
       return {id: category.id, name:category.name}
     });
+    this.product_titles_first = this.product_titles[0].id;
     this.storage.getObject("list_order").then(res => {
       if(res){
         this.orders = res.filter(ord => (ord.restaurant === this.restaurant.id && ord.user.id === this.user.id));
