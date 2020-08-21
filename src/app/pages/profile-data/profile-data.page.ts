@@ -174,15 +174,15 @@ export class ProfileDataPage implements OnInit {
       header: '¿Descartar cambios?',
       buttons: [
         {
-          text: 'Descartar',
+          text: 'Cancelar',
           handler: data => {
-            this.navCtrl.navigateBack(['tabs/profile']);
             return;
           }
         },
         {
-          text: 'Cancelar',
+          text: 'Descartar',
           handler: data => {
+            this.navCtrl.navigateBack(['tabs/profile']);
             return;
           }
         }
