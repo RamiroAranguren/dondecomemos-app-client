@@ -7,8 +7,11 @@ import { UserInterface } from '../../interfaces/user';
 import { StorageService } from '../../services/storage/storage.service';
 import { LoaderService } from '../../services/loader/loader.service';
 import { ToastService } from '../../services/toast/toast.service';
-import { Router } from '@angular/router';
+import { Router, NavigationExtras } from '@angular/router';
 import { Platform } from '@ionic/angular';
+
+import { Facebook, FacebookLoginResponse } from '@ionic-native/facebook/ngx';
+import { GooglePlus } from '@ionic-native/google-plus/ngx';
 
 @Component({
     selector: 'app-profile',
@@ -20,6 +23,15 @@ export class ProfilePage implements OnInit {
     guestStatus = true;
     menuHide = false;
     backButtonSuscription: any;
+
+    loginSocial = {
+        email: "",
+        password: "",
+        first_name: "",
+        last_name: "",
+        net: null,
+        data: null
+    };
 
     initals = "";
 
@@ -58,7 +70,9 @@ export class ProfilePage implements OnInit {
         public formBuild: FormBuilder,
         private toast: ToastService,
         private platform: Platform,
-        private router: Router
+        private router: Router,
+        private facebook: Facebook,
+        private google: GooglePlus
     ) {
         this.form = this.formBuild.group({
             "first_name": ["", [Validators.required], []],
@@ -170,12 +184,65 @@ export class ProfilePage implements OnInit {
         this.navCtrl.navigateForward(['/register']);
     }
 
-    loginGoogle() {
-        console.log('fcbk');
+    loginFcbk(){
+        this.facebook.login(['public_profile', 'email']).then(rta => {
+            if(rta.status == 'connected'){
+            this.getInfo();
+            }
+        }).catch(error =>{
+            console.error( error );
+        });
     }
 
-    loginFcbk() {
-        console.log('g+');
+    getInfo(){
+        this.facebook.api('/me?fields=id,name,email,first_name,picture,last_name,gender',['public_profile','email'])
+        .then((data:any) => {
+            this.loginSocial.net = "facebook";
+            this.loginSocial.data = JSON.stringify(data);
+            this.loginSocial.email = data.email;
+            this.loginSocial.password = data.id;
+            this.loginSocial.first_name = data.first_name;
+            this.loginSocial.last_name = data.last_name;
+            // SE INTENTA LOGUEAR PRIMERO POR SI YA ESTA REGISTRADO
+            // SINO, SE LO ENVIA A REGISTRAR
+            this.userService.login(data.email, data.id, "facebook").then(res => {
+            this.navCtrl.navigateRoot('/tabs/home');
+            }).catch(error => {
+            console.log("Error Login", error);
+            let navigationExtras: NavigationExtras = {
+                state: {data: this.loginSocial}};
+            this.navCtrl.navigateForward(['/verify-number'], navigationExtras);
+            });
+        }).catch(error =>{
+            this.toast.show(`Hubo un error al intentar ingresar con Facebook`);
+        });
+    }
+
+    loginGoogle(){
+        this.google.login({}).then(data => {
+            this.loginSocial.net = "google";
+            this.loginSocial.data = JSON.stringify(data);
+            this.loginSocial.email = data.email;
+            this.loginSocial.password = data.userId;
+            if (data.displayName && data.displayName !== "") {
+            let namelong = data.displayName.split(" ");
+            this.loginSocial.first_name = namelong[0];
+            this.loginSocial.last_name = namelong[1];
+            }
+            // SE INTENTA LOGUEAR PRIMERO POR SI YA ESTA REGISTRADO
+            // SINO, SE LO ENVIA A REGISTRAR
+            this.userService.login(data.email, data.id, "google").then(res => {
+            this.navCtrl.navigateRoot('/tabs/home');
+            }).catch(error => {
+            console.log("Error Login", error);
+            let navigationExtras: NavigationExtras = {
+                state: {data: this.loginSocial}};
+            this.navCtrl.navigateForward(['/verify-number'], navigationExtras);
+            });
+        }).catch(err => {
+            console.log(`Error ${JSON.stringify(err)}`);
+            this.toast.show("Hubo un error al intentar ingresar con Google");
+        });
     }
 
     addError(key, msg) {

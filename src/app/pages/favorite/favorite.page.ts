@@ -9,6 +9,9 @@ import { ToastService } from '../../services/toast/toast.service';
 import { UserInterface } from 'src/app/interfaces/user';
 import { NavigationExtras } from '@angular/router';
 
+import { Facebook, FacebookLoginResponse } from '@ionic-native/facebook/ngx';
+import { GooglePlus } from '@ionic-native/google-plus/ngx';
+
 
 @Component({
   selector: 'app-favorite',
@@ -24,14 +27,24 @@ export class FavoritePage implements OnInit {
   spinnFavorite = true;
   user:UserInterface;
 
+  loginSocial = {
+    email: "",
+    password: "",
+    first_name: "",
+    last_name: "",
+    net: null,
+    data: null
+  };
+
   constructor(
     private navCtrl: NavController,
     private alertCtrl: AlertController,
     private storage: StorageService,
     private userService: UsersService,
     private favService: FavoritesService,
-    private loader: LoaderService,
-    private toastCtrl: ToastService
+    private toastCtrl: ToastService,
+    private facebook: Facebook,
+    private google: GooglePlus
   ) {
     console.log("constructor");
   }
@@ -136,15 +149,65 @@ export class FavoritePage implements OnInit {
     this.navCtrl.navigateForward(['/restaurant/details'], params);
   }
 
-  loginGoogle() {
-    console.log('g+');
-  // this.google.login({})
-  //     .then(res => console.log(res))
-  //     .catch(err => console.error(err));
-  }
+  loginFcbk(){
+    this.facebook.login(['public_profile', 'email']).then(rta => {
+        if(rta.status == 'connected'){
+        this.getInfo();
+        }
+    }).catch(error =>{
+        console.error( error );
+    });
+}
 
-  loginFcbk() {
-    console.log('fcbk');
-  }
+getInfo(){
+    this.facebook.api('/me?fields=id,name,email,first_name,picture,last_name,gender',['public_profile','email'])
+    .then((data:any) => {
+        this.loginSocial.net = "facebook";
+        this.loginSocial.data = JSON.stringify(data);
+        this.loginSocial.email = data.email;
+        this.loginSocial.password = data.id;
+        this.loginSocial.first_name = data.first_name;
+        this.loginSocial.last_name = data.last_name;
+        // SE INTENTA LOGUEAR PRIMERO POR SI YA ESTA REGISTRADO
+        // SINO, SE LO ENVIA A REGISTRAR
+        this.userService.login(data.email, data.id, "facebook").then(res => {
+        this.navCtrl.navigateRoot('/tabs/home');
+        }).catch(error => {
+        console.log("Error Login", error);
+        let navigationExtras: NavigationExtras = {
+            state: {data: this.loginSocial}};
+        this.navCtrl.navigateForward(['/verify-number'], navigationExtras);
+        });
+    }).catch(error =>{
+        this.toastCtrl.show(`Hubo un error al intentar ingresar con Facebook`);
+    });
+}
+
+loginGoogle(){
+    this.google.login({}).then(data => {
+        this.loginSocial.net = "google";
+        this.loginSocial.data = JSON.stringify(data);
+        this.loginSocial.email = data.email;
+        this.loginSocial.password = data.userId;
+        if (data.displayName && data.displayName !== "") {
+        let namelong = data.displayName.split(" ");
+        this.loginSocial.first_name = namelong[0];
+        this.loginSocial.last_name = namelong[1];
+        }
+        // SE INTENTA LOGUEAR PRIMERO POR SI YA ESTA REGISTRADO
+        // SINO, SE LO ENVIA A REGISTRAR
+        this.userService.login(data.email, data.id, "google").then(res => {
+        this.navCtrl.navigateRoot('/tabs/home');
+        }).catch(error => {
+        console.log("Error Login", error);
+        let navigationExtras: NavigationExtras = {
+            state: {data: this.loginSocial}};
+        this.navCtrl.navigateForward(['/verify-number'], navigationExtras);
+        });
+    }).catch(err => {
+        console.log(`Error ${JSON.stringify(err)}`);
+        this.toastCtrl.show("Hubo un error al intentar ingresar con Google");
+    });
+}
 
 }

@@ -7,6 +7,10 @@ import { ReservationService } from '../../services/reservation/reservation.servi
 import { LoaderService } from '../../services/loader/loader.service';
 import { NavigationExtras } from '@angular/router';
 
+import { Facebook, FacebookLoginResponse } from '@ionic-native/facebook/ngx';
+import { GooglePlus } from '@ionic-native/google-plus/ngx';
+import { ToastService } from '../../services/toast/toast.service';
+
 @Component({
     selector: 'app-orders',
     templateUrl: './orders.page.html',
@@ -18,6 +22,16 @@ export class OrdersPage implements OnInit {
         initialSlide: 0,
         speed: 400
     };
+
+    loginSocial = {
+        email: "",
+        password: "",
+        first_name: "",
+        last_name: "",
+        net: null,
+        data: null
+    };
+
     reservation:boolean = true;
     isGuest:boolean = false;
 
@@ -41,7 +55,10 @@ export class OrdersPage implements OnInit {
         private loaderService: LoaderService,
         private userService: UsersService,
         private orderService: OrderService,
-        private reserveService: ReservationService
+        private reserveService: ReservationService,
+        private toast: ToastService,
+        private facebook: Facebook,
+        private google: GooglePlus
     ) { }
 
     ngOnInit() {
@@ -54,7 +71,11 @@ export class OrdersPage implements OnInit {
 
     ionViewWillEnter(){
         this.user = this.userService.user;
-        this.slides.lockSwipes(true);
+        try {
+            this.slides.lockSwipes(true);
+        } catch (error) {
+            console.log(error);
+        }
         if(!this.user.guest){
             this.loaderService.display('Cargando órdenes...').then(() => {
 
@@ -235,6 +256,75 @@ export class OrdersPage implements OnInit {
         });
 
         await alert.present();
+    }
+
+    login() {
+        this.navCtrl.navigateForward(['/login']);
+    }
+
+    register() {
+        this.navCtrl.navigateForward(['/register']);
+    }
+
+    loginFcbk(){
+        this.facebook.login(['public_profile', 'email']).then(rta => {
+            if(rta.status == 'connected'){
+            this.getInfo();
+            }
+        }).catch(error =>{
+            console.error( error );
+        });
+    }
+
+    getInfo(){
+        this.facebook.api('/me?fields=id,name,email,first_name,picture,last_name,gender',['public_profile','email'])
+        .then((data:any) => {
+            this.loginSocial.net = "facebook";
+            this.loginSocial.data = JSON.stringify(data);
+            this.loginSocial.email = data.email;
+            this.loginSocial.password = data.id;
+            this.loginSocial.first_name = data.first_name;
+            this.loginSocial.last_name = data.last_name;
+            // SE INTENTA LOGUEAR PRIMERO POR SI YA ESTA REGISTRADO
+            // SINO, SE LO ENVIA A REGISTRAR
+            this.userService.login(data.email, data.id, "facebook").then(res => {
+            this.navCtrl.navigateRoot('/tabs/home');
+            }).catch(error => {
+            console.log("Error Login", error);
+            let navigationExtras: NavigationExtras = {
+                state: {data: this.loginSocial}};
+            this.navCtrl.navigateForward(['/verify-number'], navigationExtras);
+            });
+        }).catch(error =>{
+            this.toast.show(`Hubo un error al intentar ingresar con Facebook`);
+        });
+    }
+
+    loginGoogle(){
+        this.google.login({}).then(data => {
+            this.loginSocial.net = "google";
+            this.loginSocial.data = JSON.stringify(data);
+            this.loginSocial.email = data.email;
+            this.loginSocial.password = data.userId;
+            if (data.displayName && data.displayName !== "") {
+            let namelong = data.displayName.split(" ");
+            this.loginSocial.first_name = namelong[0];
+            this.loginSocial.last_name = namelong[1];
+            }
+            // SE INTENTA LOGUEAR PRIMERO POR SI YA ESTA REGISTRADO
+            // SINO, SE LO ENVIA A REGISTRAR
+            this.userService.login(data.email, data.id, "google").then(res => {
+            this.navCtrl.navigateRoot('/tabs/home');
+            }).catch(error => {
+            console.log("Error Login", error);
+            let navigationExtras: NavigationExtras = {
+                state: {data: this.loginSocial}};
+            this.navCtrl.navigateForward(['/verify-number'], navigationExtras);
+            });
+        }).catch(err => {
+            console.log(`Error ${JSON.stringify(err)}`);
+            this.toast.show("Hubo un error al intentar ingresar con Google");
+        });
     }
 
 }
