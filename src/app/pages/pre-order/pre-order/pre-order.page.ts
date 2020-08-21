@@ -49,7 +49,9 @@ export class PreOrderPage implements OnInit {
 
   ionViewWillEnter(){
     console.log("ionViewWillEnter");
-    this.product_titles = this.product_categories.map(category => category.name);
+    this.product_titles = this.product_categories.map(category => {
+      return {id: category.id, name:category.name}
+    });
     this.storage.getObject("list_order").then(res => {
       if(res){
         this.orders = res.filter(ord => (ord.restaurant === this.restaurant.id && ord.user.id === this.user.id));

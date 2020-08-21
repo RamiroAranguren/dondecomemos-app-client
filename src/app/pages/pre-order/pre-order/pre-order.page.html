@@ -10,22 +10,23 @@
 <ion-content #content>
 
   <ion-row class="section-menu sticky-row">
-    <ion-segment scrollable="true" class="segment-options"
+    <ion-segment scrollable="true"
+      class="segment-options"
       mode="md"
       [value]="product_titles[0]">
       <ion-segment-button
         mode="md"
         *ngFor="let category of product_titles"
-        [value]="category"
-        (click)="scrollTo(category)">
+        [value]="category.id"
+        (click)="scrollTo(category.id)">
           <ion-label  class="list-title" text-capitalize>
-            {{category}}
+            {{category.name}}
           </ion-label>
       </ion-segment-button>
 
     </ion-segment>
   </ion-row>
-  <ion-row class="category-list" *ngFor="let category of product_categories" id="{{ category.name }}">
+  <ion-row class="category-list" *ngFor="let category of product_categories" id="{{ category.id }}">
     <ion-col size="12">
       <h5 class="title_category">{{ category.name }}</h5>
       <div class="content_categories" *ngFor="let product of category.products"  (click)="addItemOrder(category.name, product)">
