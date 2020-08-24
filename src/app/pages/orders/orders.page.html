@@ -68,7 +68,10 @@
                 <ion-spinner *ngIf="spinnOrder" name="lines"></ion-spinner>
             </ion-row>
 
-            <ion-button class="fixed-btn" shape="round" *ngIf="pendientes.length <= 0">
+            <ion-button
+                (click)="goHome()"
+                class="fixed-btn"
+                shape="round" *ngIf="pendientes.length <= 0">
                 HACER UNA RESERVA
             </ion-button>
         </ion-slide>
@@ -115,7 +118,10 @@
                     primera reserva!</h3>
                 <ion-spinner *ngIf="spinnOrder" name="lines"></ion-spinner>
             </ion-row>
-            <ion-button class="fixed-btn" shape="round" *ngIf="finalizados.length <= 0">
+            <ion-button
+                (click)="goHome()"
+                class="fixed-btn"
+                shape="round" *ngIf="finalizados.length <= 0">
                 HACER UNA RESERVA
             </ion-button>
         </ion-slide>

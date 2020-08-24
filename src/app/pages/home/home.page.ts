@@ -152,6 +152,18 @@ export class HomePage implements OnInit {
         console.log("RES", res);
         this.restaurants = res;
         this.restaurantsCopy = [...res];
+        let resto_count = this.restaurants.reduce((cont, current, index) => {
+          return index + 1
+        }, 0);
+        let resto_delivery = this.restaurants.filter((resto:restaurant) => {
+          return resto.delivery === true;
+        });
+        let resto_local = this.restaurants.filter((resto:restaurant) => {
+          return resto.self_service === true;
+        });
+        console.log("CANT_RESTO", resto_count);
+        console.log("CANT_RESTO_DEL", resto_delivery);
+        console.log("CANT_RESTO_LOC", resto_local);
         this.storage.getObject("filters").then(filters_local => {
           if (filters_local) {
             this.filterColor = filters_local.length > 0;
@@ -163,7 +175,6 @@ export class HomePage implements OnInit {
         }).catch(err => {
           console.log("Error in get local filters", err);
         });
-        console.log(this.restaurants);
         //this.loaderService.hide();
       });
     //});
@@ -324,6 +335,8 @@ export class HomePage implements OnInit {
     await modal.present();
 
     const { data } = await modal.onDidDismiss();
+
+    console.log("DATA-FILTERS", data);
 
     if (data.filters.length > 0) {
 

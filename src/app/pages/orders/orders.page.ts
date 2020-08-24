@@ -331,4 +331,8 @@ export class OrdersPage implements OnInit {
         });
     }
 
+    goHome(){
+        this.navCtrl.navigateRoot('/tabs/home');
+    }
+
 }
