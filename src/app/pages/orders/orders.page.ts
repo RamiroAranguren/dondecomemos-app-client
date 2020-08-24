@@ -37,6 +37,7 @@ export class OrdersPage implements OnInit {
 
     user:UserInterface;
 
+    spinnOrder = true;
     orders:any[] = [];
     reserves:any[] = [];
 
@@ -70,6 +71,7 @@ export class OrdersPage implements OnInit {
     }
 
     ionViewWillEnter(){
+        this.spinnOrder = true;
         this.user = this.userService.user;
         try {
             this.slides.lockSwipes(true);
@@ -77,7 +79,7 @@ export class OrdersPage implements OnInit {
             console.log(error);
         }
         if(!this.user.guest){
-            this.loaderService.display('Cargando órdenes...').then(() => {
+            //this.loaderService.display('Cargando órdenes...').then(() => {
 
                 // LIST RESERVES
                 let data = {
@@ -88,6 +90,7 @@ export class OrdersPage implements OnInit {
                 };
 
                 this.reserveService.get(data, true).then((res:any) => {
+                    this.spinnOrder = false;
                     if(res.length > 0){
                         let pends = res.filter(reserve => reserve.status === "IN_PROGRESS");
                         this.pends_res = pends.map(res => {
@@ -134,6 +137,7 @@ export class OrdersPage implements OnInit {
                     type: ""
                 };
                 this.orderService.get(dataOrders, true).then((ord:any) => {
+                    this.spinnOrder = false;
                     if(ord.length > 0){
                         this.orders = ord;
                         let pends = this.orders.filter(order => order.status === "IN_PROGRESS");
@@ -169,12 +173,12 @@ export class OrdersPage implements OnInit {
                 }).catch(err => {
                     console.log("Error in list orders", err);
                 });
-            });
+            //});
 
             setTimeout(() => {
                 this.pendientes = this.pends_res.concat(this.pends_ord);
                 this.finalizados = this.fin_res.concat(this.fin_ord);
-                this.loaderService.hide();
+                // this.loaderService.hide();
             }, 2500);
         }
 
