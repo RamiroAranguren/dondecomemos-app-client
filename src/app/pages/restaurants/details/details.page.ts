@@ -305,7 +305,6 @@ export class DetailsPage implements OnInit {
   addItemOrder(type:string, category_name:string, product) {
     // VALIDAR SI ES  UN USER GUEST
     if(this.user.guest){
-      console.log("user is guest");
       this.showModalUserGuest();
       return;
     }
@@ -325,7 +324,6 @@ export class DetailsPage implements OnInit {
   bookTable() {
     // VALIDAR SI ES UN USER GUEST
     if(this.user.guest){
-      console.log("user is guest");
       this.showModalUserGuest();
       return;
     }
@@ -354,7 +352,6 @@ export class DetailsPage implements OnInit {
   addMenu(menu){
     // VALIDAR SI ES UN USER GUEST
     if(this.user.guest){
-      console.log("user is guest");
       this.showModalUserGuest();
       return;
     }
