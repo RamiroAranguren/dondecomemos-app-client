@@ -174,10 +174,12 @@ export class UsersService {
       'Authorization': `Token ${this.user.token}`
     });
     return new Promise((resolve, reject) => {
+      // this.http.patch(`${apiUrl}users/${this.user.id}/change/`, body, { headers })
       this.http.put(`${apiUrl}users/${this.user.id}/change/`, body, { headers })
         .subscribe(async (response: any) => {
           let returnedUser: UserInterface = response;
           this.user = { ...returnedUser, token: this.user.token }
+          this.storage.addObject("user", this.user);
           resolve(response);
         }, (errorResponse) => {
           reject(errorResponse.error);

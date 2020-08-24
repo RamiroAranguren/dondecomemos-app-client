@@ -133,7 +133,6 @@ export class ProfileDataPage implements OnInit {
         .then(() => {
           this.loader.hide();
           this.toast.show("Datos modificados con éxito", 2500);
-          this.storage.addObject("user", this.userService.user);
         })
         .catch(errors => {
           console.log(errors);

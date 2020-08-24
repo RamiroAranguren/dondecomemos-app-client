@@ -7,21 +7,25 @@
     </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content class="ion-padding">
     <ion-grid class="main" fixed>
         <ion-row class="main-title">
-            <p>Por favor, califique su experiencia en</p>
-            <h2>La Consentida</h2>
-            <p>La comunidad de Donde comemos se lo agradecerá.</p>
+            <ion-col size="12">
+                <p>Por favor, califique su experiencia en</p>
+                <h2>{{ item.restaurant.name }}</h2>
+                <p>La comunidad de Donde comemos se lo agradecerá.</p>
+            </ion-col>
         </ion-row>
         <ion-row class="review">
-            <ion-item>
-                <ion-label position="floating">Reseña</ion-label>
-                <ion-input
-                    (ionChange)="setReview($event)"
-                    name="review">
-                </ion-input>
-            </ion-item>
+            <ion-col size="12">
+                <ion-item>
+                    <ion-label position="floating">Reseña</ion-label>
+                    <ion-textarea
+                        rows="6" cols="20"
+                        (ionChange)="setReview($event)"
+                        name="review"></ion-textarea>
+                </ion-item>
+            </ion-col>
         </ion-row>
     </ion-grid>
     <ion-button

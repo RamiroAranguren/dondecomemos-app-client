@@ -31,7 +31,6 @@ export class RatePage implements OnInit {
     }
 
     rateComida(value) {
-        console.log("Commida", value);
         this.rate.comida = value;
         if(this.rate.ambiente !== 0 && this.rate.servicio !== 0){
             this.disabledButton = false;
@@ -40,7 +39,6 @@ export class RatePage implements OnInit {
     }
 
     rateAmbiente(value) {
-        console.log("Ambiente", value);
         this.rate.ambiente = value;
         if(this.rate.comida !== 0 && this.rate.servicio !== 0){
             this.disabledButton = false;
@@ -48,7 +46,6 @@ export class RatePage implements OnInit {
     }
 
     rateServicio(value) {
-        console.log("Servicio", value);
         this.rate.servicio = value;
         if(this.rate.ambiente !== 0 && this.rate.comida !== 0){
             this.disabledButton = false;

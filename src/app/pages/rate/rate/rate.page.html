@@ -7,51 +7,53 @@
     </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content class="ion-padding">
     <ion-grid class="main" fixed>
-        <div class="main-title">
-            <p>Por favor, califique su experiencia en</p>
-            <h2>La Consentida</h2>
-        </div>
-        <div class="qualification">
-            <div class="icon-title">
-                <h3>Comida</h3>
-                <img *ngIf="rate.comida !== 0" src="../../../../assets/icon/calificaciones/estrella-{{rate.comida}}.svg" alt="" srcset="">
-            </div>
-            <div class="stars-wrapper">
-                <img
-                    *ngFor="let item of [1,2,3,4,5]"
-                    (click)="rateComida(item)"
-                    src="{{ rate.comida | checkStar:item }}" alt="">
-            </div>
-        </div>
-        <div class="qualification">
-            <div class="icon-title">
-                <h3>Ambiente</h3>
-                <img *ngIf="rate.ambiente !== 0" src="../../../../assets/icon/calificaciones/estrella-{{rate.ambiente}}.svg" alt="" srcset="">
-            </div>
-            <div class="stars-wrapper">
-                <img
-                    *ngFor="let item of [1,2,3,4,5]"
-                    (click)="rateAmbiente(item)"
-                    src="{{ rate.ambiente | checkStar:item }}" alt="">
-            </div>
-        </div>
-        <div class="qualification">
-            <div class="icon-title">
-                <h3>Servicio</h3>
-                <img *ngIf="rate.servicio !== 0" src="../../../../assets/icon/calificaciones/estrella-{{rate.servicio}}.svg" alt="" srcset="">
-            </div>
-            <div class="stars-wrapper">
-                <img
-                    *ngFor="let item of [1,2,3,4,5]"
-                    (click)="rateServicio(item)"
-                    src="{{ rate.servicio | checkStar:item }}" alt="">
-            </div>
-        </div>
-        <br><br>
-    </ion-grid>
-    <ion-grid>
+        <ion-row>
+            <ion-col size="12">
+                <div class="main-title">
+                    <p>Por favor, califique su experiencia en</p>
+                    <h2>{{ item.restaurant.name | titlecase }}</h2>
+                </div>
+                <div class="qualification">
+                    <div class="icon-title">
+                        <h3>Comida</h3>
+                        <img *ngIf="rate.comida !== 0" src="../../../../assets/icon/calificaciones/estrella-{{rate.comida}}.svg" alt="" srcset="">
+                    </div>
+                    <div class="stars-wrapper">
+                        <img
+                            *ngFor="let item of [1,2,3,4,5]"
+                            (click)="rateComida(item)"
+                            src="{{ rate.comida | checkStar:item }}" alt="">
+                    </div>
+                </div>
+                <div class="qualification">
+                    <div class="icon-title">
+                        <h3>Ambiente</h3>
+                        <img *ngIf="rate.ambiente !== 0" src="../../../../assets/icon/calificaciones/estrella-{{rate.ambiente}}.svg" alt="" srcset="">
+                    </div>
+                    <div class="stars-wrapper">
+                        <img
+                            *ngFor="let item of [1,2,3,4,5]"
+                            (click)="rateAmbiente(item)"
+                            src="{{ rate.ambiente | checkStar:item }}" alt="">
+                    </div>
+                </div>
+                <div class="qualification">
+                    <div class="icon-title">
+                        <h3>Servicio</h3>
+                        <img *ngIf="rate.servicio !== 0" src="../../../../assets/icon/calificaciones/estrella-{{rate.servicio}}.svg" alt="" srcset="">
+                    </div>
+                    <div class="stars-wrapper">
+                        <img
+                            *ngFor="let item of [1,2,3,4,5]"
+                            (click)="rateServicio(item)"
+                            src="{{ rate.servicio | checkStar:item }}" alt="">
+                    </div>
+                </div>
+            </ion-col>
+        </ion-row>
+        <br><br><br><br>
         <ion-row>
             <ion-col size="12">
                 <ion-button

@@ -76,7 +76,7 @@
 
   <ion-row *ngIf="restaurant.promotions">
     <div class="col-promo1">
-        <div class="promo1-text"><span>{{ restaurant.promotions.promotion }}</span></div>
+        <div class="promo1-text"><span>{{ restaurant.promotions.promotion | uppercase }}</span></div>
     </div>
   </ion-row>
 
