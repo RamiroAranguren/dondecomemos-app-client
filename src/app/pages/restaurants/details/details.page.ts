@@ -14,6 +14,7 @@ import { MenusService } from '../../../services/menus/menus.service';
 import { ToastService } from '../../../services/toast/toast.service';
 import { NativePageTransitions, NativeTransitionOptions } from '@ionic-native/native-page-transitions/ngx';
 import { BackButtonServiceService } from 'src/app/services/back-button/back-button-service.service';
+import { UserguestModalPage } from '../../userguest-modal/userguest-modal.page';
 
 @Component({
   selector: 'app-details',
@@ -96,15 +97,16 @@ export class DetailsPage implements OnInit {
     this.user = this.userService.user;
   }
 
-  ionViewDidLeave() {
-    console.log("ionViewDidLeave");
-  }
+  // ionViewDidLeave() {
+  //   console.log("ionViewDidLeave");
+  // }
 
-  ionViewDidLoad(){
-    console.log("ionViewDidLoad");
-  }
+  // ionViewDidLoad(){
+  //   console.log("ionViewDidLoad");
+  // }
 
   ionViewWillEnter() {
+    console.log("ionViewWillEnter", this.user, this.user.guest);
     this.picsService.get(this.restaurant.id).then((pics:any) => {
       this.pictures = pics;
     });
@@ -121,17 +123,17 @@ export class DetailsPage implements OnInit {
     });
   }
 
-  ionViewWillUnload(){
-    console.log("ionViewWillUnload");
-  }
+  // ionViewWillUnload(){
+  //   console.log("ionViewWillUnload");
+  // }
 
-  ionViewCanEnter(){
-    console.log("ionViewCanEnter");
-  }
+  // ionViewCanEnter(){
+  //   console.log("ionViewCanEnter");
+  // }
 
-  ionViewCanLeave(){
-    console.log("ionViewCanLeave");
-  }
+  // ionViewCanLeave(){
+  //   console.log("ionViewCanLeave");
+  // }
 
   ionViewDidEnter(){
     this.backButtonServiceService.changeStatusToMinimize.emit(false);
@@ -301,6 +303,13 @@ export class DetailsPage implements OnInit {
   }
 
   addItemOrder(type:string, category_name:string, product) {
+    // VALIDAR SI ES  UN USER GUEST
+    if(this.user.guest){
+      console.log("user is guest");
+      this.showModalUserGuest();
+      return;
+    }
+    // SI NO ES USER GUEST ->
     let navigationExtras: NavigationExtras = {
       state: {
         type,
@@ -314,10 +323,26 @@ export class DetailsPage implements OnInit {
   }
 
   bookTable() {
+    // VALIDAR SI ES UN USER GUEST
+    if(this.user.guest){
+      console.log("user is guest");
+      this.showModalUserGuest();
+      return;
+    }
+    // SI NO ESA USER GUEST ->
     let navigationExtras: NavigationExtras = {
       state: {user: this.user, restaurant: this.restaurant,
         product_categories: this.product_categories}};
     this.navCtrl.navigateForward(['/restaurant/book-table'], navigationExtras);
+  }
+
+  async showModalUserGuest() {
+    let modal = await this.modalCtrl.create({
+      component: UserguestModalPage,
+      cssClass: 'custom-userguest-modal-css'
+    });
+
+    await modal.present();
   }
 
   viewOrders() {
@@ -327,6 +352,13 @@ export class DetailsPage implements OnInit {
   }
 
   addMenu(menu){
+    // VALIDAR SI ES UN USER GUEST
+    if(this.user.guest){
+      console.log("user is guest");
+      this.showModalUserGuest();
+      return;
+    }
+    // SI NO ES USER GUEST ->
     let pedido = {
       type: "ORDER",
       user: this.user,

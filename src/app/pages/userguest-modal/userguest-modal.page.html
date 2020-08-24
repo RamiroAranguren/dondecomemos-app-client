@@ -1,0 +1,36 @@
+<ion-content padding>
+  <div class="r-btn" (click)="close()">
+      <ion-icon slot="end" name="close" fill="clear"></ion-icon>
+  </div>
+  <ion-grid fixed>
+    <ion-row class="ion-text-center">
+      <ion-col size="12">
+        <img src="../../../assets/img/perfil.svg" style="width: 95px;" alt="">
+      </ion-col>
+    </ion-row>
+    <ion-row class="ion-text-center">
+      <ion-col size="12">
+        <label>Para hacer un pedido o reservar mesa, debe iniciar sesión.</label>
+      </ion-col>
+    </ion-row>
+    <ion-row class="ion-text-center">
+      <ion-col size="12">
+        <a (click)="login()" expand="block" shape="round">
+            Iniciar sesión
+        </a>
+      </ion-col>
+    </ion-row>
+    <ion-row class="ion-text-center">
+      <ion-col size="12">
+        <label>o puede</label>
+      </ion-col>
+    </ion-row>
+    <ion-row class="ion-text-center">
+      <ion-col size="12">
+        <a (click)="register()" expand="block" shape="round">
+            Registrarse
+        </a>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

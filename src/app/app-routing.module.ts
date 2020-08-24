@@ -107,6 +107,10 @@ const routes: Routes = [
   {
     path: 'legal',
     loadChildren: () => import('./pages/legal/legal.module').then( m => m.LegalPageModule)
+  },
+  {
+    path: 'userguest-modal',
+    loadChildren: () => import('./pages/userguest-modal/userguest-modal.module').then( m => m.UserguestModalPageModule)
   }
 
 ];
