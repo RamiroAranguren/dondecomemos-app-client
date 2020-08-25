@@ -161,9 +161,7 @@ export class HomePage implements OnInit {
         let resto_local = this.restaurants.filter((resto:restaurant) => {
           return resto.self_service === true;
         });
-        console.log("CANT_RESTO", resto_count);
-        console.log("CANT_RESTO_DEL", resto_delivery);
-        console.log("CANT_RESTO_LOC", resto_local);
+
         this.storage.getObject("filters").then(filters_local => {
           if (filters_local) {
             this.filterColor = filters_local.length > 0;
@@ -188,7 +186,6 @@ export class HomePage implements OnInit {
       this.restaurants = res;
       this.restaurantsCopy = [...res];
       this.storage.getObject("filters").then(filters_local => {
-        console.log("filters_local", filters_local);
         if (filters_local && filters_local !== undefined) {
           this.filterColor = filters_local.length > 0;
           this.chips = filters_local;
@@ -197,7 +194,6 @@ export class HomePage implements OnInit {
       }).catch(err => {
         console.log("Error in get local filters", err);
       });
-      console.log("RSTOS", this.restaurants);
       this.restaurants.forEach((resto:restaurant) => {
         if (resto.name.toLowerCase().search(this.valueSearch.toLowerCase()) !== -1) {
           resto.type = "resto";
@@ -213,7 +209,6 @@ export class HomePage implements OnInit {
       });
       this.resultSearchResto = this.resultSearchResto.reduce((newTempArr, el) => (newTempArr.includes(el) ? newTempArr : [...newTempArr, el]), [])
       this.restaurants = this.resultSearchCity.concat(this.resultSearchResto);
-      console.log("REEEEE", this.restaurants);
       evento.target.complete();
     });
     this.getSotrageDataInit();
@@ -267,23 +262,19 @@ export class HomePage implements OnInit {
     this.restaurants = this.restaurantService.getRestaurantsByLocation(location.id)
   }
 
-  searchFilter(event) {
+  searchFilter(event=null) {
     this.restaurants = this.restaurantsCopy;
     this.searchColor = true;
     this.resultSearchResto = [];
     this.resultSearchCity = [];
     let count = 0;
-    let val = event.target.value;
+    let val = event !== null ? event.target.value : this.valueSearch;
     this.storage.getObject('filters').then(res => {
       if(res){
         this.chips = res;
       }
     })
     let resulServiceFilters = this.restaurantService.getRestaurantByFilters(this.chips);
-
-    console.log(this.chips);
-    console.log(resulServiceFilters);
-
     this.inputSearch = val;
 
     if (val && val.trim() !== '') {
@@ -338,11 +329,13 @@ export class HomePage implements OnInit {
   }
 
   onCancel() {
+    console.log("CANCELLL");
     this.valueSearch = "";
     this.searchColor = false;
     this.searchChange = false;
     this.filterColor = false;
     this.restaurants = this.restaurantsCopy
+    this.searchFilter();
   }
 
   selectResult(resto) {
