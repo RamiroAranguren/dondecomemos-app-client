@@ -181,11 +181,15 @@ export class HomePage implements OnInit {
   }
 
   doRefresh(evento) {
+    let count = 0;
+    this.resultSearchResto = [];
+    this.resultSearchCity = [];
     this.restaurantService.get().then((res: any) => {
       this.restaurants = res;
       this.restaurantsCopy = [...res];
       this.storage.getObject("filters").then(filters_local => {
-        if (filters_local) {
+        console.log("filters_local", filters_local);
+        if (filters_local && filters_local !== undefined) {
           this.filterColor = filters_local.length > 0;
           this.chips = filters_local;
           this.restaurants = this.restaurantService.getRestaurantByFilters(filters_local, this.restaurants);
@@ -193,7 +197,23 @@ export class HomePage implements OnInit {
       }).catch(err => {
         console.log("Error in get local filters", err);
       });
-      console.log(this.restaurants);
+      console.log("RSTOS", this.restaurants);
+      this.restaurants.forEach((resto:restaurant) => {
+        if (resto.name.toLowerCase().search(this.valueSearch.toLowerCase()) !== -1) {
+          resto.type = "resto";
+          this.resultSearchResto.push(resto);
+          return;
+        }
+        let resto_city = this.dict_locations[resto.influence_range];
+        if (resto_city.toLowerCase().search(this.valueSearch.toLowerCase()) !== -1) {
+          resto.type = "city";
+          this.resultSearchCity.push(resto);
+          return;
+        }
+      });
+      this.resultSearchResto = this.resultSearchResto.reduce((newTempArr, el) => (newTempArr.includes(el) ? newTempArr : [...newTempArr, el]), [])
+      this.restaurants = this.resultSearchCity.concat(this.resultSearchResto);
+      console.log("REEEEE", this.restaurants);
       evento.target.complete();
     });
     this.getSotrageDataInit();
@@ -295,7 +315,7 @@ export class HomePage implements OnInit {
       this.searchChange = false;
       this.searchColor = false;
       this.filterColor = false;
-      this.restaurants = this.restaurantsCopy;
+      this.restaurants = resulServiceFilters;
     }
 
     this.resultSearchCity = Array.from(
