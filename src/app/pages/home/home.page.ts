@@ -46,6 +46,8 @@ export class HomePage implements OnInit {
   restaurants = [];
   restaurantsCopy = [];
 
+  result_selected:any;
+
   resultSearch = [];
   resultSearchResto = [];
   resultSearchCity = [];
@@ -339,11 +341,12 @@ export class HomePage implements OnInit {
   }
 
   selectResult(resto) {
+    this.result_selected = resto;
     this.valueSearch = resto.name;
     this.searchChange = false;
     this.searchColor = true;
     if (resto.type === 'city') {
-      this.restaurants = this.restaurantService.getRestaurantByCity(resto);
+      this.restaurants = this.restaurantService.getRestaurantByCity(null, resto);
     } else {
       let params: NavigationExtras = { state: { data: resto, call: 'home' } };
       this.navCtrl.navigateForward(['/restaurant/details'], params);
@@ -398,19 +401,12 @@ export class HomePage implements OnInit {
 
     // remove from list for filter
     this.chips = this.chips.filter(chip => chip.type !== data.type || chip.id !== data.id);
-    this.restaurants = this.restaurantService.getRestaurantByFilters(this.chips);
-    // this.restaurants.filter((resto:restaurant) => resto.influence_range === city.influence_range);
-    // this.restaurants = this.restaurantService.getRestaurantByCity(resto);
-    // this.restaurants.filter((resto: restaurant) => {
-    //   let resto_city = this.dict_locations[resto.influence_range];
-    //   if (resto_city.toLowerCase().search(this.search.toLowerCase()) !== -1) {
-    //     resto.type = "city";
-    //     this.resultSearchCity.push(
-    //       { "influence_range": resto.influence_range, "name": resto_city, "type": "city", "count": count });
-    //     return;
-    //   }
-    // });
-
+    let result_filters = this.restaurantService.getRestaurantByFilters(this.chips);
+    let result_searchs = this.restaurantService.getRestaurantByCity(result_filters, this.result_selected);
+    this.restaurants = result_searchs;
+    if(this.restaurants.length <= 0){
+      this.restaurants = this.restaurantsCopy;
+    }
     if (this.chips.length <= 0) {
       this.filterColor = false;
     }

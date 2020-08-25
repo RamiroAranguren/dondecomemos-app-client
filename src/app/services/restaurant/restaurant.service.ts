@@ -43,8 +43,11 @@ export class RestaurantService extends BaseService {
     return this.restaurants.filter((resto:restaurant) => resto.id === restaurantId)
   }
 
-  getRestaurantByCity(city) {
-    return this.restaurants.filter((resto:restaurant) => resto.influence_range === city.influence_range);
+  getRestaurantByCity(resto=null, city=null){
+    console.log("DATAAA", resto, city);
+    let list_resto = resto !== null? resto : this.restaurants;
+    console.log("DATAAA-2", list_resto);
+    return list_resto.filter((resto:restaurant) => resto.influence_range === city.influence_range);
   }
 
   getRestaurantByFilters(filters, resto=null): any {
