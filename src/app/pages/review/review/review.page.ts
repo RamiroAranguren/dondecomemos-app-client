@@ -20,7 +20,9 @@ export class ReviewPage implements OnInit {
   data = {
     review: "",
     rates: []
-  }
+  };
+
+  ratingsDB:any[] = [];
 
   categories = {
     "comida": 1,
@@ -42,7 +44,11 @@ export class ReviewPage implements OnInit {
   }
 
   ngOnInit() {
-
+    this.storage.getObject("ratings").then(res => {
+      if(res){
+        this.ratingsDB = res;
+      }
+    });
   }
 
   setReview(ev){
@@ -50,8 +56,6 @@ export class ReviewPage implements OnInit {
   }
 
   save(){
-
-    let ratings = [];
 
     let type = this.item.type === 'RESERVE'? 'reservation' : 'order';
 
@@ -67,8 +71,8 @@ export class ReviewPage implements OnInit {
       this.qualifyService.saveQualify(dataSend).then(res => {
         //ok
         console.log("RES-QUALIFY", res);
-        ratings.push(dataSend);
-        this.storage.addObject("ratings", ratings);
+        this.ratingsDB.push(dataSend);
+        this.storage.addObject("ratings", this.ratingsDB);
       }).catch(err => {
         console.log("Error al intentar calificar", err);
       });

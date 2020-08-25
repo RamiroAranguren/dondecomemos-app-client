@@ -254,6 +254,15 @@ export class HomePage implements OnInit {
     this.resultSearchCity = [];
     let count = 0;
     let val = event.target.value;
+    this.storage.getObject('filters').then(res => {
+      if(res){
+        this.chips = res;
+      }
+    })
+    let resulServiceFilters = this.restaurantService.getRestaurantByFilters(this.chips);
+
+    console.log(this.chips);
+    console.log(resulServiceFilters);
 
     this.inputSearch = val;
 
@@ -263,7 +272,7 @@ export class HomePage implements OnInit {
 
         this.searchChange = true;
 
-        this.restaurants.filter((resto: restaurant) => {
+        resulServiceFilters.filter((resto: restaurant) => {
 
           if (resto.name.toLowerCase().search(val.toLowerCase()) !== -1) {
             resto.type = "resto";
@@ -300,8 +309,11 @@ export class HomePage implements OnInit {
         }
       });
     this.resultSearchResto = this.resultSearchResto.reduce((newTempArr, el) => (newTempArr.includes(el) ? newTempArr : [...newTempArr, el]), [])
-
     this.resultSearch = this.resultSearchCity.concat(this.resultSearchResto);
+
+    if(this.chips){
+      console.log("ACA VER EL TEMA DE LOS FILTROS + EL SEARCH");
+    }
 
   }
 

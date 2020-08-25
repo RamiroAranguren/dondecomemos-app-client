@@ -74,7 +74,7 @@ export class RestaurantService extends BaseService {
           this.types.cook.push(chip.id);
         }
         if(chip.type === "place"){
-          this.types.place.push(chip.id);
+          this.types.place.push(chip.name);
         }
       });
       cooks = this.types.cook;
@@ -86,33 +86,9 @@ export class RestaurantService extends BaseService {
       places = filters.place.map((chip:chip) => chip.id);
     }
 
-    let result_cook = this.restaurants.map((resto:restaurant) => {
-      let cook_ids = resto.chips.map((chip:chip) => chip.tag.id);
-      let rest_cook = [];
-      cook_ids.forEach(pk => {
-        if(cooks.includes(pk)){
-          rest_cook.push(resto);
-        }
-      });
-      return rest_cook[0];
-    });
-
-    let result_level = this.restaurants.filter((resto:restaurant) => {
-      if(levels.includes(resto.level)){
-        return resto;
-      }
-    });
-
-    let result_place = this.restaurants.map((resto:restaurant) => {
-      let place_ids = resto.placediscounts.map(place => place.id);
-      let rest_place = [];
-      place_ids.forEach(pk => {
-        if(places.includes(pk)){
-          rest_place.push(resto);
-        }
-      });
-      return rest_place[0];
-    });
+    let result_cook = this.getRestoForCook(this.restaurants, cooks);
+    let result_level = this.getRestoForLevel(this.restaurants, levels);
+    let result_place = this.getRestoForPlace(this.restaurants, places);
 
     let result_end = [];
 
@@ -135,6 +111,45 @@ export class RestaurantService extends BaseService {
     result_end = result_end.reduce((newTempArr, el) => (newTempArr.includes(el) ? newTempArr : [...newTempArr, el]), []);
 
     return result_end;
+  }
+
+  getRestoForCook(restos:any[], cooks){
+    return restos.map((resto:restaurant) => {
+      let cook_ids = resto.chips.map((chip:chip) => chip.tag.id);
+      let rest_cook = [];
+      cook_ids.forEach(pk => {
+        if(cooks.includes(pk)){
+          rest_cook.push(resto);
+        }
+      });
+      return rest_cook[0];
+    });
+  }
+
+  getRestoForLevel(restos:any[], levels){
+    return restos.filter((resto:restaurant) => {
+      if(levels.includes(resto.level)){
+        return resto;
+      }
+    });
+  }
+
+  getRestoForPlace(restos:any[], places){
+    console.log("PLACES", places);
+    let rest_place = [];
+    restos.forEach((resto:restaurant) => {
+      places.forEach(place => {
+        console.log("PLACE", place, resto.name, resto.delivery, resto.self_service);
+        if((place === "Delivery" || place === 2) && resto.delivery){
+          rest_place.push(resto);
+        }
+        if((place === "Retiro por local" || place === 1) && resto.self_service){
+          rest_place.push(resto);
+        }
+      });
+    });
+    console.log("PLACES-2", rest_place);
+    return rest_place;
   }
 
 }
