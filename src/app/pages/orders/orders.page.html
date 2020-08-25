@@ -106,7 +106,10 @@
                             routerLinkActive="router-link-active" fill="clear" shape="round">
                             VER PEDIDO
                         </ion-button>
-                        <ion-button fill="clear" shape="round" (click)="goToRate(item)">
+                        <ion-button
+                            *ngIf="item|notQualify:item_ids"
+                            fill="clear"
+                            shape="round" (click)="goToRate(item)">
                             CALIFICAR
                         </ion-button>
                     </div>

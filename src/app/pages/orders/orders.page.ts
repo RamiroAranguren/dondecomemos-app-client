@@ -10,6 +10,7 @@ import { NavigationExtras } from '@angular/router';
 import { Facebook, FacebookLoginResponse } from '@ionic-native/facebook/ngx';
 import { GooglePlus } from '@ionic-native/google-plus/ngx';
 import { ToastService } from '../../services/toast/toast.service';
+import { StorageService } from '../../services/storage/storage.service';
 
 @Component({
     selector: 'app-orders',
@@ -34,6 +35,7 @@ export class OrdersPage implements OnInit {
 
     reservation:boolean = true;
     isGuest:boolean = false;
+    notQualify:boolean = false;
 
     user:UserInterface;
 
@@ -50,10 +52,13 @@ export class OrdersPage implements OnInit {
     pendientes:any[] = [];
     finalizados:any[] = [];
 
+    item_ids:any[] = [];
+
     constructor(
         private navCtrl: NavController,
         private alertCtrl: AlertController,
         private loaderService: LoaderService,
+        private storage: StorageService,
         private userService: UsersService,
         private orderService: OrderService,
         private reserveService: ReservationService,
@@ -71,6 +76,14 @@ export class OrdersPage implements OnInit {
     }
 
     ionViewWillEnter(){
+        this.storage.getObject("ratings").then(res => {
+            if(res){
+                this.item_ids = res.map(rating => {
+                    return rating.related_id
+                });
+            }
+        });
+
         this.spinnOrder = true;
         this.user = this.userService.user;
         try {
@@ -178,7 +191,6 @@ export class OrdersPage implements OnInit {
             setTimeout(() => {
                 this.pendientes = this.pends_res.concat(this.pends_ord);
                 this.finalizados = this.fin_res.concat(this.fin_ord);
-                // this.loaderService.hide();
             }, 2500);
         }
 

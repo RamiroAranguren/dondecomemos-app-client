@@ -10,6 +10,7 @@ import { InitialUserPipe } from './initial-user.pipe';
 import { PriceItemPipe } from './price-item.pipe';
 import { CheckStarPipe } from './check-star.pipe';
 import { ValidateDiscountPipe } from './validate-discount.pipe';
+import { NotQualifyPipe } from './not-qualify.pipe';
 
 
 
@@ -24,7 +25,8 @@ import { ValidateDiscountPipe } from './validate-discount.pipe';
     InitialUserPipe,
     PriceItemPipe,
     CheckStarPipe,
-    ValidateDiscountPipe
+    ValidateDiscountPipe,
+    NotQualifyPipe
   ],
   exports: [
     OpenClosePipe,
@@ -36,7 +38,8 @@ import { ValidateDiscountPipe } from './validate-discount.pipe';
     InitialUserPipe,
     PriceItemPipe,
     CheckStarPipe,
-    ValidateDiscountPipe
+    ValidateDiscountPipe,
+    NotQualifyPipe
   ],
   imports: [
     CommonModule

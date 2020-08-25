@@ -341,7 +341,7 @@ export class HomePage implements OnInit {
     if (data.filters.length > 0) {
 
       this.chips = data.filters[0].place.concat(data.filters[0].cook).concat(data.filters[0].level);
-
+      console.log("DATA-FILTERS-CHIPS", this.chips);
       if (this.chips.length > 0) {
         this.filterColor = true;
         let save_filters_place = data.filters[0].place.map(fl => {

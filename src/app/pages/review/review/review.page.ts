@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { QualifyService } from '../../../services/qualify-review/qualify.service';
 import { AlertController, NavController } from '@ionic/angular';
+import { StorageService } from '../../../services/storage/storage.service';
 
 @Component({
   selector: 'app-review',
@@ -31,14 +32,13 @@ export class ReviewPage implements OnInit {
     private route: Router,
     private alertCtrl: AlertController,
     private navCtrl: NavController,
+    private storage: StorageService,
     private qualifyService: QualifyService
   ) {
     this.rates = this.route.getCurrentNavigation().extras.state.rates;
     this.item = this.route.getCurrentNavigation().extras.state.item;
     this.user = this.route.getCurrentNavigation().extras.state.user;
-    console.log("RATING", this.rates);
     this.data.rates = this.rates;
-    console.log("DATA_FORM", this.data);
   }
 
   ngOnInit() {
@@ -46,13 +46,12 @@ export class ReviewPage implements OnInit {
   }
 
   setReview(ev){
-    console.log("REVIEW", ev.detail.value);
     this.data.review = ev.detail.value;
   }
 
   save(){
-    console.log("DATA_SEND", this.data);
-    console.log("DATA_SEND-ITEM", this.item);
+
+    let ratings = [];
 
     let type = this.item.type === 'RESERVE'? 'reservation' : 'order';
 
@@ -68,6 +67,8 @@ export class ReviewPage implements OnInit {
       this.qualifyService.saveQualify(dataSend).then(res => {
         //ok
         console.log("RES-QUALIFY", res);
+        ratings.push(dataSend);
+        this.storage.addObject("ratings", ratings);
       }).catch(err => {
         console.log("Error al intentar calificar", err);
       });
@@ -95,7 +96,8 @@ export class ReviewPage implements OnInit {
           {
               text: 'Aceptar',
               handler: () => {
-                  this.navCtrl.navigateRoot('/tabs/orders');
+                  this.navCtrl.navigateRoot('/tabs/home');
+                  //this.navCtrl.navigateRoot('/tabs/orders');
               }
           }
         ]
