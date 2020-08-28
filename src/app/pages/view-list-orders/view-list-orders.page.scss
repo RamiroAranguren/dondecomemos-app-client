@@ -383,22 +383,22 @@ ion-header {
     box-shadow: 0px 3px 5px -1px rgba(0, 0, 0, 0.4) !important;
 }
 .fixed-btn {
-    position: fixed;
-    left: 10%;
+    // position: fixed;
+    margin-left: 5vw;
     bottom: 10px;
-    right: 0;
+    // right: 0;
     width: 80%;
     height: 12vw;
-    z-index: 100;
+    // z-index: 100;
     --color: #1d252d;
-    text-transform: none;
+    text-transform: uppercase;
     font-family: FieldworkGeoLight;
     font-size: 5vw;
-    --padding-bottom: 23px;
-    --padding-top: 23px;
+    // --padding-bottom: 23px;
+    // --padding-top: 23px;
     letter-spacing: 0.05rem;
     --background: #f89b4c !important;
-    margin: 0;
+    // margin: 0;
 }
 
 .colorBlack{

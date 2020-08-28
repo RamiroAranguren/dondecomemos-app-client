@@ -98,20 +98,26 @@
                 </ion-button>
             </section>
         </ion-row>
+        <br><br><br>
+        <ion-row>
+            <ion-col size="12">
+                <ion-button
+                    [disabled]="inactiveConfirm"
+                    [ngClass]="{'disabled-button': inactiveConfirm}"
+                    *ngIf="type === 'RESERVE'"
+                    (click)="goToPaymentReserve()"
+                    expand="block"
+                    class="fixed-btn" shape="round">
+                    CONFIRMAR
+                </ion-button>
+                <ion-button *ngIf="type === 'ORDER'" expand="block" class="fixed-btn" shape="round" (click)="changeExpression()">
+                    CONTINUAR
+                </ion-button>
+            </ion-col>
+        </ion-row>
 
     </ion-grid>
-    <br><br><br>
-    <ion-button
-        [disabled]="inactiveConfirm"
-        [ngClass]="{'disabled-button': inactiveConfirm}"
-        *ngIf="type === 'RESERVE'"
-        (click)="goToPaymentReserve()"
-        class="fixed-btn" shape="round">
-        CONFIRMAR
-    </ion-button>
-    <ion-button *ngIf="type === 'ORDER'" class="fixed-btn" shape="round" (click)="changeExpression()">
-        CONTINUAR
-    </ion-button>
+    
 </ion-content>
 <!-- ----------------------- comer en el restaurant ------------------- -->
 <ion-content class="restaurant" *ngIf="!expression && comer">
@@ -225,15 +231,20 @@
                 </ion-item>
             </section>
         </ion-row>
+        <br><br><br>
+        <ion-row>
+            <ion-col size="12">
+                <ion-button
+                    [disabled]="option_select.hs === ''"
+                    [ngClass]="{'disabled-button': option_select.hs === ''}"
+                    (click)="goToPaymentReserve()"
+                    class="fixed-btn" shape="round">
+                    Finalizar
+                </ion-button>
+            </ion-col>
+        </ion-row>
     </ion-grid>
-    <br><br><br>
-    <ion-button
-        [disabled]="option_select.hs === ''"
-        [ngClass]="{'disabled-button': option_select.hs === ''}"
-        (click)="goToPaymentReserve()"
-        class="fixed-btn" shape="round">
-        Finalizar
-    </ion-button>
+
 </ion-content>
 <!-- -----------------------retiro por el local----------------------------- -->
 <ion-content class="restaurant" *ngIf="!expression && retirar">
@@ -296,15 +307,20 @@
                 </ion-item>
             </section>
         </ion-row>
+        <br><br><br>
+        <ion-row>
+            <ion-col size="12">
+                <ion-button
+                    [disabled]="option_select.hs === ''"
+                    [ngClass]="{'disabled-button': option_select.hs === ''}"
+                    (click)="goToPaymentOrder()"
+                    class="fixed-btn" shape="round">
+                    Finalizar
+                </ion-button>
+            </ion-col>
+        </ion-row>
     </ion-grid>
-    <br><br><br>
-    <ion-button
-        [disabled]="option_select.hs === ''"
-        [ngClass]="{'disabled-button': option_select.hs === ''}"
-        (click)="goToPaymentOrder()"
-        class="fixed-btn" shape="round">
-        Finalizar
-    </ion-button>
+
 </ion-content>
 <!-- ----------------------------Delivery---------------------------------------->
 <ion-content class="restaurant delivery" *ngIf="!expression && delivery">
@@ -385,13 +401,18 @@
                 </ion-item>
             </section>
         </ion-row>
+        <br><br><br>
+        <ion-row>
+            <ion-col size="12">
+                <ion-button
+                    [disabled]="!inactiveFinalizar"
+                    [ngClass]="{'disabled-button': !inactiveFinalizar}"
+                    (click)="goToPaymentOrder()"
+                    class="fixed-btn" shape="round">
+                    Finalizar
+                </ion-button>
+            </ion-col>
+        </ion-row>
     </ion-grid>
-    <br><br><br>
-    <ion-button
-        [disabled]="!inactiveFinalizar"
-        [ngClass]="{'disabled-button': !inactiveFinalizar}"
-        (click)="goToPaymentOrder()"
-        class="fixed-btn" shape="round">
-        Finalizar
-    </ion-button>
+
 </ion-content>
