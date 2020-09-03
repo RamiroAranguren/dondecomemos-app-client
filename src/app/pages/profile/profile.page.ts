@@ -114,21 +114,21 @@ export class ProfilePage implements OnInit {
             this.guestStatus = false;
             this.menuHide = true;
         }
-        this.backToHomeSuscription();
+        //this.backToHomeSuscription();
     }
 
 
     ionViewWillLeave() {
         this.guestStatus = true;
         this.menuHide = false;
-        this.backButtonSuscription.unsubscribe();
+        // this.backButtonSuscription.unsubscribe();
     }
 
-    backToHomeSuscription() {
-        this.backButtonSuscription = this.platform.backButton.subscribe(() => {
-            this.router.navigate(['tabs/home'])
-        })
-    }
+    //backToHomeSuscription() {
+        //this.backButtonSuscription = this.platform.backButton.subscribe(() => {
+            //this.router.navigate(['tabs/home'])
+        //})
+    //}
 
     async logOut() {
         const alert = await this.alertCtrl.create({
@@ -167,12 +167,12 @@ export class ProfilePage implements OnInit {
     }
 
     legalView() {
-        this.backButtonSuscription.unsubscribe();
+        //this.backButtonSuscription.unsubscribe();
         this.navCtrl.navigateForward(['/legal'])
     }
 
     dataView() {
-        this.backButtonSuscription.unsubscribe();
+        //this.backButtonSuscription.unsubscribe();
         this.navCtrl.navigateForward(['/profile-data']);
     }
 

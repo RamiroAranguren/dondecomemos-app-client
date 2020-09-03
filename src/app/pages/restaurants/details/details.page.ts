@@ -136,10 +136,10 @@ export class DetailsPage implements OnInit {
   // }
 
   ionViewDidEnter(){
-    this.backButtonServiceService.changeStatusToMinimize.emit(false);
-    this.backButtonSuscription = this.platform.backButton.subscribe(()=>{
-      this.toBack();
-    })
+    //this.backButtonServiceService.changeStatusToMinimize.emit(false);
+    //this.backButtonSuscription = this.platform.backButton.subscribe(()=>{
+      //this.toBack();
+    //})
 
     setTimeout(() => {
       this.calculatePrice();
@@ -147,7 +147,7 @@ export class DetailsPage implements OnInit {
   }
 
   ionViewWillLeave() {
-    this.backButtonSuscription.unsubscribe();
+    //this.backButtonSuscription.unsubscribe();
   }
 
   calculatePrice(){

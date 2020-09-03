@@ -61,6 +61,18 @@ export class UsersService {
     return this.user.guest;
   }
 
+  checkUser(email:any) {
+    const headers = new HttpHeaders();
+    let params = {email: email}
+    return new Promise((resolve, reject) => {
+      this.http.get(`${apiUrl}users/get_username/`, {params}).subscribe((res: any) => {
+        resolve(res);
+      }, (res) => {
+        reject(res);
+      });
+    });
+  }
+
   login(username: string, password: string, net=null) {
     return new Promise((resolve, reject) => {
       this.http.post(`${apiUrl}login/`, { username, password }).subscribe((res: UserInterface) => {
@@ -161,7 +173,7 @@ export class UsersService {
     })
   }
 
-  saveChanges(first_name: string, last_name: string, email: string, phone) {
+  saveChanges(first_name: string, last_name: string, email: string, phone, passw) {
     const body = {
       first_name,
       last_name,
@@ -175,12 +187,17 @@ export class UsersService {
     });
     return new Promise((resolve, reject) => {
       // this.http.patch(`${apiUrl}users/${this.user.id}/change/`, body, { headers })
-      this.http.put(`${apiUrl}users/${this.user.id}/change/`, body, { headers })
-        .subscribe(async (response: any) => {
+      this.http.put(`${apiUrl}users/${this.user.id}/change/`, body, { headers }).subscribe(async (response: any) => {
           let returnedUser: UserInterface = response;
           this.user = { ...returnedUser, token: this.user.token }
+          this.user.password = passw;
+          console.log('Pass', passw, this.user);
           this.storage.addObject("user", this.user);
-          resolve(response);
+          this.login(this.user.username, passw).then(res => {
+            resolve(res);
+          }).catch(err => {
+            reject(err);
+          });
         }, (errorResponse) => {
           reject(errorResponse.error);
         })

@@ -44,9 +44,7 @@ export class RestaurantService extends BaseService {
   }
 
   getRestaurantByCity(resto=null, city=null){
-    console.log("DATAAA", resto, city);
     let list_resto = resto !== null? resto : this.restaurants;
-    console.log("DATAAA-2", list_resto);
     return list_resto.filter((resto:restaurant) => resto.influence_range === city.influence_range);
   }
 
@@ -111,8 +109,9 @@ export class RestaurantService extends BaseService {
     });
     if(rest_cook.length <= 0){
       return restos;
+    } else {
+      return rest_cook;
     }
-    return rest_cook;
   }
 
   getRestoForLevel(restos:any[], levels){
@@ -124,8 +123,9 @@ export class RestaurantService extends BaseService {
     });
     if(resto_level.length <= 0){
       return restos;
+    } else {
+      return resto_level;
     }
-    return resto_level;
   }
 
   getRestoForPlace(restos:any[], places){

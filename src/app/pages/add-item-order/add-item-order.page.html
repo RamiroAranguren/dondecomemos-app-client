@@ -28,13 +28,13 @@
       <ion-grid fixed>
         <ion-row>
           <ion-col size="4">
-            <ion-icon name="add-circle-outline" (click)="addCantProduct()" class="icon-controls"></ion-icon>
+            <ion-icon name="remove-circle-outline" (click)="removeCantProduct()" class="icon-controls"></ion-icon>
           </ion-col>
           <ion-col size="2">
             <span style="font-size: 25px;">{{ cantProduct }}</span>
           </ion-col>
           <ion-col size="6">
-            <ion-icon name="remove-circle-outline" (click)="removeCantProduct()" class="icon-controls"></ion-icon>
+            <ion-icon name="add-circle-outline" (click)="addCantProduct()" class="icon-controls"></ion-icon>
           </ion-col>
         </ion-row>
       </ion-grid>
@@ -68,13 +68,13 @@
           <ion-grid fixed style="margin-top: 15px;">
             <ion-row>
               <ion-col size="5">
-                <ion-icon name="add-circle-outline" id="add-ico-{{data.id}}" (click)="addCantVariant(data.id, data.name)" class="ico-add"></ion-icon>
+                <ion-icon name="remove-circle-outline" id="remove-ico-{{data.id}}" (click)="removeCantVariant(data.id, data.name)"  class="ico-add"></ion-icon>
               </ion-col>
               <ion-col size="3">
                 <span style="font-size: 20px;" id="count-variant-{{data.id}}">0</span>
               </ion-col>
               <ion-col size="4">
-                <ion-icon name="remove-circle-outline" id="remove-ico-{{data.id}}" (click)="removeCantVariant(data.id, data.name)"  class="ico-add"></ion-icon>
+                <ion-icon name="add-circle-outline" id="add-ico-{{data.id}}" (click)="addCantVariant(data.id, data.name)" class="ico-add"></ion-icon>
               </ion-col>
             </ion-row>
           </ion-grid>
@@ -109,13 +109,13 @@
           <ion-grid fixed style="margin-top: 15px;">
             <ion-row>
               <ion-col size="5">
-                <ion-icon name="add-circle-outline" id="remove-ico-{{item.id}}" (click)="addCantAdd(additional, item.id, item.name)" class="ico-add"></ion-icon>
+                <ion-icon name="remove-circle-outline" id="remove-ico-{{item.id}}" (click)="removeCantAdd(additional, item.id, item.name)"  class="ico-add"></ion-icon>
               </ion-col>
               <ion-col size="3">
                 <span style="font-size: 20px;" id="count-additional-{{item.id}}">0</span>
               </ion-col>
               <ion-col size="4">
-                <ion-icon name="remove-circle-outline" id="remove-ico-{{item.id}}" (click)="removeCantAdd(additional, item.id, item.name)"  class="ico-add"></ion-icon>
+                <ion-icon name="add-circle-outline" id="remove-ico-{{item.id}}" (click)="addCantAdd(additional, item.id, item.name)" class="ico-add"></ion-icon>
               </ion-col>
             </ion-row>
           </ion-grid>

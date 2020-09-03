@@ -58,10 +58,15 @@
             </span>
 
             <ion-item color="input-background">
-              <ion-label class="colorBlack" position="floating" style="font-family: FieldworkGeoRegular;">Celular
-              </ion-label>
-              <ion-input class="colorBlack" (ionChange)="changedInput()" [(ngModel)]="user.phone" formControlName="phone" type="number" name="phone">
-              </ion-input>
+              <ion-label class="colorBlack" position="floating" style="font-family: FieldworkGeoRegular;">Celular</ion-label>
+              <ion-input
+                class="colorBlack"
+                (ionChange)="changedInput()"
+                [(ngModel)]="user.phone"
+                simpleMask="+54999999999999"
+                id="phone"
+                inputmode="number"
+                formControlName="phone" name="phone"></ion-input>
             </ion-item>
             <span *ngIf="errors.phone" class="error-message">
               {{errors.phone}}

@@ -8,13 +8,16 @@ import { ProfileDataPageRoutingModule } from './profile-data-routing.module';
 
 import { ProfileDataPage } from './profile-data.page';
 
+import { SimpleMaskModule } from 'ngx-ion-simple-mask';
+
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
     IonicModule,
-    ProfileDataPageRoutingModule
+    ProfileDataPageRoutingModule,
+    SimpleMaskModule
   ],
   declarations: [ProfileDataPage]
 })

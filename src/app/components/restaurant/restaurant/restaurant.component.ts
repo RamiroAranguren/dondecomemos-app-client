@@ -24,7 +24,7 @@ export class RestaurantComponent implements OnInit {
   }
 
   details(resto:restaurant) {
-    this.transitionAnimation();
+    //this.transitionAnimation();
     let params: NavigationExtras = {state: {data: resto, call: 'home'}};
     this.navCtrl.navigateForward(['/restaurant/details'], params);
   }

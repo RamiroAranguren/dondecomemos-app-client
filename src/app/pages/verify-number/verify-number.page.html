@@ -33,11 +33,13 @@
                               <ion-label class="colorBlack" position="floating">Celular</ion-label>
                               <ion-input
                                 class="colorBlack"
+                                id="phone"
                                 [(ngModel)]="numberRegister.phone"
                                 formControlName="phone"
                                 name="phone"
                                 inputmode="number"
-                                type="number"
+                                simpleMask="+54999999999999"
+                                id="phone"
                                 required></ion-input>
                           </ion-item>
 

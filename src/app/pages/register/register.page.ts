@@ -39,7 +39,8 @@ export class RegisterPage implements OnInit {
   constructor(
     public formBuild: FormBuilder,
     private modalCtrl: ModalController,
-    public navCtrl: NavController
+    public navCtrl: NavController,
+    private userService: UsersService
   ) {
     this.form = this.formBuild.group({
       "first_name": ["", [Validators.required], []],
@@ -58,12 +59,17 @@ export class RegisterPage implements OnInit {
   }
 
   doRegister() {
-
-    if (this.form.valid) {
-      let navigationExtras: NavigationExtras = {
-        state: { data: this.userRegister }};
-      this.navCtrl.navigateForward(['/verify-number'], navigationExtras);
-    }
+    this.userService.checkUser(this.userRegister.email).then((res:any)=>{
+      if(res.result){
+        this.errors.email = ["Error: El mail ingresado ya está en uso."];
+      } else {
+        if (this.form.valid) {
+          let navigationExtras: NavigationExtras = {
+            state: { data: this.userRegister }};
+          this.navCtrl.navigateForward(['/verify-number'], navigationExtras);
+        }
+      }
+    })
   }
 
   checkPassword(){

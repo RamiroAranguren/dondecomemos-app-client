@@ -18,19 +18,19 @@ export class TabsPage implements OnInit {
 
   ionViewWillEnter(){
     this.loadData();
-    this.backToHomeSuscription();
+    //this.backToHomeSuscription();
   }
 
   ionViewWillLeave(){
     console.log("a2");
     this.loadData();
-    this.backButtonSuscription.unsubscribe();
+    //this.backButtonSuscription.unsubscribe();
   }
 
   backToHomeSuscription() {
-    this.backButtonSuscription = this.platform.backButton.subscribe(() => {
-      this.router.navigateByUrl('tabs/home');
-    })
+    //this.backButtonSuscription = this.platform.backButton.subscribe(() => {
+      //this.router.navigateByUrl('tabs/home');
+    //})
   }
 
   loadData(){

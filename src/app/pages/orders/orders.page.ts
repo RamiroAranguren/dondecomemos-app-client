@@ -233,7 +233,6 @@ export class OrdersPage implements OnInit {
             id: item.id
         }
         this.showAlert(item, data);
-
     }
 
     async showAlert(item, data){

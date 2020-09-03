@@ -176,23 +176,19 @@ export class ViewListOrdersPage implements OnInit {
       let now = moment();
       let list_days = [];
       let place = discount_type !== null ? discount_type : 'RES';
-      console.log("PLACE-validateDiscount", discount_type, place);
       if(this.restaurant.placediscounts.length <= 0){
         this.discount = 0;
-        console.log("CHECK-ITEM-SIN-DESCUENTOS", this.discount);
         return;
       }
       let discount = this.restaurant.placediscounts.filter(disc => disc.place === place)[0];
       if(discount === undefined){
         this.discount = 0;
-        console.log("CHECK-ITEM-SIN-DESCUENTOS", this.discount);
         return;
       }
 
       // VALIDAR SI DATE_DISCOUNT ES IGUAL A HOY
       if(now.format('YYYY-MM-DD').toString() === discount.date_discount){
         this.discount = discount.amount;
-        console.log("CHECK-ITEM-DES-FECHA", this.discount);
       }
       // CREO LISTA DE DIAS
       if(discount.sunday){ list_days.push(0)}
@@ -207,7 +203,6 @@ export class ViewListOrdersPage implements OnInit {
       // DESCUENTOS
       if(list_days.includes(now.day())){
         this.discount = discount.amount;
-        console.log("CHECK-ITEM-DES-DIA", this.discount);
       }
     }
 
@@ -239,11 +234,13 @@ export class ViewListOrdersPage implements OnInit {
       this.inactiveFinalizar = this.option_select.hs !== '' && this.option_select.address !== '';
     }
 
-    payNow(resp: boolean) {
+    payNow(resp: boolean, clear=true) {
         this.payPlace = resp;
         this.inactiveConfirm = false;
-        this.data_payment.card = null;
-        this.data_payment.code = null;
+        if(clear){
+          this.data_payment.card = null;
+          this.data_payment.code = null;
+        }
     }
 
     checkReason(item :string){
@@ -277,12 +274,11 @@ export class ViewListOrdersPage implements OnInit {
         await myCards.present();
 
         const { data } = await myCards.onDidDismiss();
-        console.log("CARDDD", data);
         if(data !== undefined){
           this.data_payment.card = data.card;
           this.data_payment.code = data.code;
           this.inactiveConfirm = true;
-          this.payNow(false);
+          this.payNow(false, false);
         } else {
           this.inactiveConfirm = false;
           this.payNow(true);
@@ -553,7 +549,7 @@ export class ViewListOrdersPage implements OnInit {
 
   goToPaymentReserve(){
     let data:any;
-
+    console.log('goToPaymentReserve-this.type', this.type)
     if(this.type === 'ORDER'){
       data = {
           user: this.user,
@@ -585,10 +581,8 @@ export class ViewListOrdersPage implements OnInit {
     data.menus = this.orders.filter(order => order.menu !== null);
 
     this.reserveService.post(data).then((res:any) => {
-
       if(!this.payPlace){
-        console.log("CALL MP");
-        this.modalMP(data, res.id, "RES");
+        this.modalMP(data, res.response.id, "RES");
       } else {
         this.showAlert();
       }
@@ -666,7 +660,6 @@ export class ViewListOrdersPage implements OnInit {
 
     this.orderService.post(data).then((order:any) => {
       if(!this.payPlace){
-        console.log("CALL MP");
         this.modalMP(data, order.id, "ORD");
       } else {
         this.showAlertOrder();

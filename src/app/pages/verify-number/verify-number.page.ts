@@ -1,10 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Router, NavigationExtras } from '@angular/router';
 import { FormGroup, Validators, FormBuilder, ReactiveFormsModule } from '@angular/forms';
-import { NavController } from '@ionic/angular';
-
-import { UsersService } from '../../services/users/user.service';
-import { LoaderService } from '../../services/loader/loader.service';
+import { NavController, IonInput } from '@ionic/angular';
 
 
 @Component({
@@ -24,7 +21,7 @@ export class VerifyNumberPage implements OnInit {
 
   numberRegister = {
     phone: null
-  }
+  };
 
   constructor(
     private route: Router,
@@ -32,9 +29,10 @@ export class VerifyNumberPage implements OnInit {
     private navCtrl: NavController
   ) {
     this.form = this.formBuild.group({
-        "phone": ["", [
-          Validators.required, Validators.minLength(9)
-        ], []],
+        phone: [null, [Validators.required]],
+        // "phone": ["", [
+        //   Validators.required, Validators.minLength(9)
+        // ], []],
     });
   }
 
@@ -43,7 +41,7 @@ export class VerifyNumberPage implements OnInit {
   }
 
   doVerify() {
-    this.user.phone = this.numberRegister.phone;
+    this.user.phone = this.numberRegister.phone.slice(3);
     console.log("Pasar a cargar codigo", this.user);
     let navigationExtras: NavigationExtras = {state: {data: this.user}};
     this.navCtrl.navigateForward(['/verify-number-code'], navigationExtras);

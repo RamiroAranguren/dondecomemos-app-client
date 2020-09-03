@@ -16,6 +16,7 @@ import { UserInterface } from 'src/app/interfaces/user';
 import { NavigationExtras } from '@angular/router';
 import { AppMinimize } from '@ionic-native/app-minimize/ngx';
 import { BackButtonServiceService } from 'src/app/services/back-button/back-button-service.service';
+import { chip } from '../../interfaces/chip';
 
 
 @Component({
@@ -68,6 +69,10 @@ export class HomePage implements OnInit {
   backbuttonSubscription: any;
 
   backButtonStatus: boolean = true;
+
+  data_level:any[] = [];
+  data_cook:any[] = [];
+  data_place:any[] = [];
 
   constructor(
     public modalCtrl: ModalController,
@@ -265,18 +270,19 @@ export class HomePage implements OnInit {
   }
 
   searchFilter(event=null) {
+    console.log("restaurantsCopy", this.restaurantsCopy.length);
     this.restaurants = this.restaurantsCopy;
     this.searchColor = true;
     this.resultSearchResto = [];
     this.resultSearchCity = [];
     let count = 0;
     let val = event !== null ? event.target.value : this.valueSearch;
-    this.storage.getObject('filters').then(res => {
-      if(res){
-        this.chips = res;
-      }
-    })
-    let resulServiceFilters = this.restaurantService.getRestaurantByFilters(this.chips);
+    // this.storage.getObject('filters').then(res => {
+    //   if(res){
+    //     this.chips = res;
+    //   }
+    // })
+    //let resulServiceFilters = this.restaurantService.getRestaurantByFilters(this.chips);
     this.inputSearch = val;
 
     if (val && val.trim() !== '') {
@@ -285,7 +291,8 @@ export class HomePage implements OnInit {
 
         this.searchChange = true;
 
-        resulServiceFilters.filter((resto: restaurant) => {
+        // resulServiceFilters.filter((resto: restaurant) => {
+        this.restaurants.filter((resto: restaurant) => {
 
           if (resto.name.toLowerCase().search(val.toLowerCase()) !== -1) {
             resto.type = "resto";
@@ -308,6 +315,13 @@ export class HomePage implements OnInit {
       this.searchChange = false;
       this.searchColor = false;
       this.filterColor = false;
+      let restos = this.restaurantsCopy;
+      this.storage.getObject('filters').then(res => {
+        if(res){
+          this.chips = res;
+        }
+      })
+      let resulServiceFilters = this.restaurantService.getRestaurantByFilters(this.chips, restos);
       this.restaurants = resulServiceFilters;
     }
 
@@ -324,14 +338,13 @@ export class HomePage implements OnInit {
     this.resultSearchResto = this.resultSearchResto.reduce((newTempArr, el) => (newTempArr.includes(el) ? newTempArr : [...newTempArr, el]), [])
     this.resultSearch = this.resultSearchCity.concat(this.resultSearchResto);
 
-    if(this.chips){
-      console.log("ACA VER EL TEMA DE LOS FILTROS + EL SEARCH");
-    }
+    // if(this.chips){
+    //   console.log("ACA VER EL TEMA DE LOS FILTROS + EL SEARCH");
+    // }
 
   }
 
   onCancel() {
-    console.log("CANCELLL");
     this.valueSearch = "";
     this.searchColor = false;
     this.searchChange = false;
@@ -346,7 +359,33 @@ export class HomePage implements OnInit {
     this.searchChange = false;
     this.searchColor = true;
     if (resto.type === 'city') {
-      this.restaurants = this.restaurantService.getRestaurantByCity(null, resto);
+      let result = this.restaurantService.getRestaurantByCity(null, resto);
+      this.storage.getObject('filters').then(res => {
+        if(res){
+          this.chips = res;
+        }
+      });
+      let resulServiceFilters = [];
+      if(this.chips.length > 0){
+        this.chips.forEach((chip:chip) => {
+          if(chip.type === 'level'){
+            let data_level = this.restaurantService.getRestoForLevel(result, [chip.id]);
+            resulServiceFilters = data_level;
+          }
+          if(chip.type === 'cook'){
+            let data_cook = this.restaurantService.getRestoForCook(result, [chip.id]);
+            resulServiceFilters.concat(data_cook);
+          }
+          if(chip.type === 'place'){
+            let data_place = this.restaurantService.getRestoForPlace(result, [chip.id]);
+            resulServiceFilters.concat(data_place);
+          }
+        });
+        this.restaurants = resulServiceFilters;
+      } else {
+        this.restaurants = result;
+      }
+
     } else {
       let params: NavigationExtras = { state: { data: resto, call: 'home' } };
       this.navCtrl.navigateForward(['/restaurant/details'], params);
@@ -382,7 +421,39 @@ export class HomePage implements OnInit {
           return { id: fl.id, name: fl.name, type: fl.type }
         });
         this.storage.addObject('filters', save_filters_place.concat(save_filters_cook).concat(save_filters_level));
-        let resulServiceFilters = this.restaurantService.getRestaurantByFilters(data.filters[0]);
+
+        let resulServiceFilters:any[] = [];
+
+        if(this.result_selected !== undefined){
+          let result = this.restaurantService.getRestaurantByCity(this.restaurantsCopy, this.result_selected);
+
+          this.chips.forEach((chip:chip) => {
+            if(chip.type === 'level'){
+              let res = this.restaurantService.getRestoForLevel(result, [chip.id]);
+              res.forEach(resto => {
+                this.data_level.push(resto);
+              })
+            }
+            if(chip.type === 'cook'){
+              let res = this.restaurantService.getRestoForCook(result, [chip.id]);
+              res.forEach(resto => {
+                this.data_cook.push(resto);
+              })
+            }
+            if(chip.type === 'place'){
+              let res = this.restaurantService.getRestoForPlace(result, [chip.id]);
+              res.forEach(resto => {
+                this.data_place.push(resto);
+              })
+            }
+            resulServiceFilters = this.data_level.concat(this.data_cook).concat(this.data_place);
+            resulServiceFilters = resulServiceFilters.reduce((newTempArr, el) => (newTempArr.includes(el) ? newTempArr : [...newTempArr, el]), []);
+          });
+
+        } else {
+          resulServiceFilters = this.restaurantService.getRestaurantByFilters(data.filters[0]);
+        }
+
         this.restaurants = resulServiceFilters;
       } else {
         this.filterColor = false;
@@ -395,6 +466,9 @@ export class HomePage implements OnInit {
   }
 
   removeChip(data: any) {
+    this.data_level = [];
+    this.data_cook = [];
+    this.data_place = [];
     // remove from local store
     let filter_chip_local = this.chips.filter(chip => chip.id !== data.id);
     this.storage.addObject('filters', filter_chip_local);
@@ -402,8 +476,13 @@ export class HomePage implements OnInit {
     // remove from list for filter
     this.chips = this.chips.filter(chip => chip.type !== data.type || chip.id !== data.id);
     let result_filters = this.restaurantService.getRestaurantByFilters(this.chips);
-    let result_searchs = this.restaurantService.getRestaurantByCity(result_filters, this.result_selected);
-    this.restaurants = result_searchs;
+    if(this.result_selected !== undefined){
+      let result_searchs = this.restaurantService.getRestaurantByCity(result_filters, this.result_selected);
+      this.restaurants = result_searchs;
+    } else {
+      this.restaurants = result_filters;
+    }
+
     if(this.restaurants.length <= 0){
       this.restaurants = this.restaurantsCopy;
     }

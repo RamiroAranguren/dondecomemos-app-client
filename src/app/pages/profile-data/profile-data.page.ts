@@ -21,6 +21,8 @@ export class ProfileDataPage implements OnInit {
   backButtonSuscription: any;
   changedInputState: boolean = false
 
+  result = false;
+
   initals = "";
 
   form: FormGroup;
@@ -74,13 +76,12 @@ export class ProfileDataPage implements OnInit {
   }
 
   ngOnInit() {
-    this.storage.getObject("user")
-      .then((user: UserInterface) => {
-        this.user = user;
-        this.initals = `${this.user.first_name.slice(0, 1)}${this.user.last_name.slice(0, 1)}`;
-        this.changedInputState = false;
-      })
-      .catch(err => {
+    this.storage.getObject("user").then((user: UserInterface) => {
+      this.user = user;
+      this.user.phone = `+54${user.phone}`;
+      this.initals = `${this.user.first_name.slice(0, 1)}${this.user.last_name.slice(0, 1)}`;
+      this.changedInputState = false;
+    }).catch(err => {
         this.user = {
           id: "",
           username: "",
@@ -97,13 +98,13 @@ export class ProfileDataPage implements OnInit {
   }
 
   ionViewDidEnter() {
-    this.backButtonSuscription = this.platform.backButton.subscribeWithPriority(100, () => {
-      this.closeProfile();
-    })
+    //this.backButtonSuscription = this.platform.backButton.subscribeWithPriority(100, () => {
+      //this.closeProfile();
+    //})
   }
 
   ionViewWillLeave() {
-    this.backButtonSuscription.unsubscribe();
+    //this.backButtonSuscription.unsubscribe();
   }
 
   changedInput() {
@@ -128,8 +129,9 @@ export class ProfileDataPage implements OnInit {
       this.guestStatus = false;
       this.legal = false;
 
-      this.loader.display("Guardando cambios...")
-      this.userService.saveChanges(this.user.first_name, this.user.last_name, this.user.email, this.user.phone)
+      this.loader.display("Guardando cambios...");
+      let phone = (this.user.phone).includes("+54") ? this.user.phone.slice(3) : this.user.phone;
+      this.userService.saveChanges(this.user.first_name, this.user.last_name, this.user.email, phone, this.user.password)
         .then(() => {
           this.loader.hide();
           this.toast.show("Datos modificados con éxito", 2500);
@@ -155,17 +157,16 @@ export class ProfileDataPage implements OnInit {
   }
 
   changeForm() {
-    let result = false;
     if (this.user.first_name !== this.userService.user.first_name ||
       this.user.last_name !== this.userService.user.last_name ||
       this.user.email !== this.userService.user.email ||
-      this.user.phone !== this.userService.user.phone) {
+      this.user.phone.slice(3) !== this.userService.user.phone) {
       this.showAlert();
-      result = true;
+      this.result = true;
     } else {
-      result = false;
+      this.result = false;
     }
-    return result;
+    return this.result;
   }
 
   async showAlert() {

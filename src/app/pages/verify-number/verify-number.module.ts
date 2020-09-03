@@ -9,6 +9,9 @@ import { VerifyNumberPageRoutingModule } from './verify-number-routing.module';
 import { VerifyNumberPage } from './verify-number.page';
 import { ComponentsModule } from '../../components/components.module';
 
+import { SimpleMaskModule } from 'ngx-ion-simple-mask';
+
+
 @NgModule({
   imports: [
     CommonModule,
@@ -16,7 +19,8 @@ import { ComponentsModule } from '../../components/components.module';
     VerifyNumberPageRoutingModule,
     ComponentsModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    SimpleMaskModule
   ],
   declarations: [VerifyNumberPage]
 })
