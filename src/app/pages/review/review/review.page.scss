@@ -31,11 +31,11 @@ ion-grid{
         padding-bottom: 15vw;
     }
     .review{
-        ion-col {
-            height: 120px;
-        }
+        // ion-col {
+        //     height: 120px;
+        // }
         ion-item {
-            height: 120px;
+            // height: 120px;
             margin-right: 10vw;
             margin-left: 5vw;
             font-family: FieldworkGeoLight;
@@ -47,9 +47,9 @@ ion-grid{
                 --placeholder-font-style: FieldworkGeoLight;
             }
         }
-        ion-textarea {
-            height: 120px;
-        }
+        // ion-textarea {
+        //     height: 120px;
+        // }
     }
 
 }

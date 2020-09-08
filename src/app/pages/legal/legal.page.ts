@@ -19,7 +19,7 @@ export class LegalPage implements OnInit {
 
   ngOnInit() {
   }
-  
+
   async policyModal() {
     let modal = await this.modalCtrl.create({
       component: TermsModalPage,

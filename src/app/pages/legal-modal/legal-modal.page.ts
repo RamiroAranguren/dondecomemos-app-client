@@ -24,7 +24,7 @@ export class LegalModalPage implements OnInit {
 
     ionViewDidEnter() {
         //this.backButtonSuscription = this.platform.backButton.subscribeWithPriority(1000,() => {
-            this.modalCtrl.dismiss();
+            //this.modalCtrl.dismiss();
         //});
     }
 
