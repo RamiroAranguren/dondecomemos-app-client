@@ -5,8 +5,8 @@
 
       <ion-card>
         <ion-text *ngFor="let discount of restaurant.placediscounts; let i = index" id="dto{{ i+1 }}">
-          <span *ngIf="discount.place === 'DEL' && discount | validateDiscount">Delivery {{ discount.amount }}% dto</span>
-          <span *ngIf="discount.place === 'LOC' && discount | validateDiscount">Take-away {{ discount.amount }}% dto</span>
+          <span *ngIf="(discount.place === 'DEL' && discount | validateDiscount) && (restaurant | openClose) !== 'Cerrado'">Delivery {{ discount.amount }}% dto</span>
+          <span *ngIf="(discount.place === 'LOC' && discount | validateDiscount) && (restaurant | openClose) !== 'Cerrado'">Take-away {{ discount.amount }}% dto</span>
           <span *ngIf="discount.place === 'RES' && discount | validateDiscount">Reserva {{ discount.amount }}% dto</span>
         </ion-text>
         <img *ngIf="restaurant.profile_picture" [src]="restaurant.profile_picture" [alt]="restaurant.name"/>
