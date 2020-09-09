@@ -83,18 +83,19 @@
                     *ngIf="restaurant.reservations"
                     [ngClass]="{'check-color-button' : comer}"
                     (click)="check('comer')" size="small">
-                    Comer en el restaurante</ion-button>
+                    Comer en el restaurante
+                </ion-button>
                 <ion-button
-                    *ngIf="restaurant.delivery"
+                    *ngIf="restaurant.delivery && (restaurant | openClose) !== 'Cerrado'"
                     [ngClass]="{'check-color-button' : delivery}"
                     (click)="check('delivery')" size="small">
                     Delivery
                 </ion-button>
                 <ion-button
-                    *ngIf="restaurant.self_service"
+                    *ngIf="restaurant.self_service && (restaurant | openClose) !== 'Cerrado'"
                     [ngClass]="{'check-color-button' : retirar}"
-                    (click)="check('retirar')" size="small">Retirar
-                    por el local
+                    (click)="check('retirar')" size="small">
+                    Retirar por el local
                 </ion-button>
             </section>
         </ion-row>

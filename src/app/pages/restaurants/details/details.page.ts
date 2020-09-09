@@ -198,7 +198,7 @@ export class DetailsPage implements OnInit {
   }
 
   toBack(){
-    this.backButtonServiceService.changeStatusToMinimize.emit(true);
+    //this.backButtonServiceService.changeStatusToMinimize.emit(true);
     this.navCtrl.navigateRoot([`/tabs/${this.page_call}`]);
   }
 
@@ -220,7 +220,7 @@ export class DetailsPage implements OnInit {
               this.storage.addObject("list_order", this.orders);
             });
             setTimeout(() => {
-              this.backButtonServiceService.changeStatusToMinimize.emit(true);
+              //this.backButtonServiceService.changeStatusToMinimize.emit(true);
               this.navCtrl.navigateRoot([`/tabs/${this.page_call}`]);
             }, 800);
           }
@@ -281,7 +281,7 @@ export class DetailsPage implements OnInit {
   }
 
   review(restaurant:restaurant) {
-    this.transitionAnimation();
+    //this.transitionAnimation();
     let navigationExtras: NavigationExtras = { state: { data: restaurant }};
     this.navCtrl.navigateForward(['/restaurant/qualify-review'], navigationExtras);
   }
@@ -317,7 +317,7 @@ export class DetailsPage implements OnInit {
         restaurant: {id: this.restaurant.id},
       }
     };
-    this.transitionAnimation('left')
+    //his.transitionAnimation('left')
     this.navCtrl.navigateForward(['/restaurant/add-item-order'], navigationExtras);
   }
 

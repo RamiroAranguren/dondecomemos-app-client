@@ -51,7 +51,7 @@ export class QualifyReviewPage implements OnInit {
   }
 
   ionViewWillLeave(){
-    this.transitionAnimation()
+    //this.transitionAnimation()
   }
 
   transitionAnimation(){

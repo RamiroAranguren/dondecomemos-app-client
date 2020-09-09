@@ -113,7 +113,6 @@ export class ViewListOrdersPage implements OnInit {
 
     ngOnInit() {
         this.restaurant = this.route.getCurrentNavigation().extras.state.restaurant;
-        console.log(this.restaurant.placediscounts);
         this.data_order = this.route.getCurrentNavigation().extras.state.data;
         this.user = this.userService.user;
         this.type = this.route.getCurrentNavigation().extras.state.type;
