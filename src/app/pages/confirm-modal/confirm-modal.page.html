@@ -1,24 +1,24 @@
 <ion-content padding>
 
   <ion-grid fixed>
-    <ion-row class="ion-text-center">
+    <!-- <ion-row class="ion-text-center">
       <ion-col size="12">
         <img src="assets/img/dc_ico_success.png" alt="">
       </ion-col>
-    </ion-row>
+    </ion-row> -->
     <ion-row class="ion-text-center">
-      <ion-col size="12">
-        <h2>{{ message }}</h2>
+      <ion-col size="12" class="title">
+        <h2>{{ title }}</h2>
       </ion-col>
     </ion-row>
     <ion-row class="ion-text-center">
-      <ion-col size="12">
-        <h4>Recordá no llegar tarde.</h4>
+      <ion-col size="12" class="subtitle">
+        <h4>{{ subtitle }}</h4>
       </ion-col>
     </ion-row>
     <ion-row class="ion-text-center">
-      <ion-col size="12">
-        <p>Los restaurantes califican a los usuarios para ofrecer un mejor servicio.</p>
+      <ion-col size="12" class="message">
+        <p>{{ message }}</p>
       </ion-col>
     </ion-row>
   </ion-grid>

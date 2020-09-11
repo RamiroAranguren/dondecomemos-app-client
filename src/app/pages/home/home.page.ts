@@ -218,6 +218,7 @@ export class HomePage implements OnInit {
       this.restaurants = this.resultSearchCity.concat(this.resultSearchResto);
       evento.target.complete();
     });
+    console.log("REST", this.restaurants );
     this.getSotrageDataInit();
   }
 

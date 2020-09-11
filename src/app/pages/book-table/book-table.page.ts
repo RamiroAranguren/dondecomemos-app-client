@@ -343,7 +343,10 @@ export class BookTablePage implements OnInit {
             keyboardClose: false,
             cssClass: 'custom-success-modal-css',
             componentProps: {
-                message: "¡Reserva realizada con éxito!"
+                title: "¡Reserva realizada con éxito!",
+                subtitle: "Recordá no llegar tarde.",
+                message: "Los restaurantes califican a los usuarios para ofrecer un mejor servicio."
+
             }
         });
 

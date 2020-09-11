@@ -581,7 +581,7 @@ export class ViewListOrdersPage implements OnInit {
 
     this.reserveService.post(data).then((res:any) => {
       if(!this.payPlace){
-        this.modalMP(data, res.response.id, "RES");
+        this.modalMP(data, res.response.id, "RES", null);
       } else {
         this.showAlert();
       }
@@ -593,7 +593,7 @@ export class ViewListOrdersPage implements OnInit {
 
   }
 
-  async modalMP(data, id, tipo) {
+  async modalMP(data, id, tipo, order_type) {
     let total = this.price_total;
     if(this.discount !== 0) {
       total = this.price_total - (this.price_total * (this.discount * 0.01));
@@ -608,6 +608,7 @@ export class ViewListOrdersPage implements OnInit {
         data_payment: this.data_payment,
         info: data,
         tipo: tipo,
+        order_type: order_type,
         total: total,
         id: id
       }
@@ -623,7 +624,9 @@ export class ViewListOrdersPage implements OnInit {
         backdropDismiss: false,
         keyboardClose: false,
         componentProps: {
-          message: "Reserva realizada con éxito!"
+          title: '¡Reserva realizada con éxito!',
+          subtitle: 'Recordá no llegar tarde',
+          message:"Los restaurantes califican a los usuarios para ofrecer un mejor servicio."
         }
     });
 
@@ -659,9 +662,9 @@ export class ViewListOrdersPage implements OnInit {
 
     this.orderService.post(data).then((order:any) => {
       if(!this.payPlace){
-        this.modalMP(data, order.id, "ORD");
+        this.modalMP(data, order.id, "ORD", order_type);
       } else {
-        this.showAlertOrder();
+        this.showAlertOrder(order_type);
       }
 
     }).catch(err => {
@@ -670,15 +673,27 @@ export class ViewListOrdersPage implements OnInit {
     });
   }
 
-  async showAlertOrder() {
+  async showAlertOrder(order_type) {
+    let props = {};
+    if(order_type == "DEL"){
+      props = {
+        title: "Pedido realizado con éxito!",
+        subtitle: "",
+        message: "Te avisaremos cuando el pedido esté en camino."
+      }
+    } else {
+      props = {
+        title: "Pedido realizado con éxito!",
+        subtitle: "Recordá no llegar tarde.",
+        message: "Los restaurantes califican a los usuarios para ofrecer un mejor servicio."
+      }
+    }
     let modal = await this.modalCtrl.create({
         component: ConfirmModalPage,
         cssClass: 'custom-success-modal-css',
         backdropDismiss: false,
         keyboardClose: false,
-        componentProps: {
-          message: "Pedido realizado con éxito!"
-        }
+        componentProps: props
     });
 
     await modal.present();

@@ -9,6 +9,8 @@ import { StorageService } from '../../services/storage/storage.service';
 })
 export class ConfirmModalPage implements OnInit {
 
+  @Input() title;
+  @Input() subtitle;
   @Input() message;
 
   constructor(

@@ -24,6 +24,7 @@ export class MercadoPagoModalPage implements OnInit {
   @Input() publicKey;
   @Input() info;
   @Input() tipo;
+  @Input() order_type;
   @Input() data_payment;
   @Input() total;
   @Input() id;
@@ -103,7 +104,7 @@ export class MercadoPagoModalPage implements OnInit {
           });
         } else {
           this.orderService.patch(this.userProvider.user ,this.id, this.mpId, this.mpStatus).then((res:any) => {
-            this.showAlertOrder();
+            this.showAlertOrder(this.order_type);
           });
         }
       }, 4500);
@@ -116,9 +117,9 @@ export class MercadoPagoModalPage implements OnInit {
 
   async showAlert() {
     let alert = await this.alertCtrl.create({
-      header: 'Se creó con éxito su reserva!',
-      subHeader: 'Recuerde no llegar tarde',
-      message:"Los restaurantes califican a los usuarios para ofrecer un mejor servicio",
+      header: '¡Reserva realizada con éxito!',
+      subHeader: 'Recordá no llegar tarde',
+      message:"Los restaurantes califican a los usuarios para ofrecer un mejor servicio.",
       backdropDismiss: false,
       buttons: [
         {
@@ -134,23 +135,44 @@ export class MercadoPagoModalPage implements OnInit {
     await alert.present();
   }
 
-  async showAlertOrder() {
-    let alert = await this.alertCtrl.create({
-      header: 'Se creó con éxito su pedido!',
-      subHeader: 'Recuerde no llegar tarde',
-      message:"Los restaurantes califican a los usuarios para ofrecer un mejor servicio",
-      backdropDismiss: false,
-      buttons: [
-        {
-          text: 'OK',
-          handler: () => {
-            this.storage.removeObject("list_order");
-            this.navCtrl.navigateRoot('/tabs/home');
-            this.modalCtrl.dismiss();
+  async showAlertOrder(order_type) {
+    let options = {};
+
+    if(order_type == 'DEL'){
+      options = {
+        header: 'Pedido realizado con éxito!',
+        message:"Te avisaremos cuando el pedido esté en camino.",
+        backdropDismiss: false,
+        buttons: [
+          {
+            text: 'OK',
+            handler: () => {
+              this.storage.removeObject("list_order");
+              this.navCtrl.navigateRoot('/tabs/home');
+              this.modalCtrl.dismiss();
+            }
           }
-        }
-      ]
-    });
+        ]
+      }
+    } else {
+      options = {
+        header: 'Pedido realizado con éxito!',
+        subHeader: 'Recorá no llegar tarde',
+        message:"Los restaurantes califican a los usuarios para ofrecer un mejor servicio.",
+        backdropDismiss: false,
+        buttons: [
+          {
+            text: 'OK',
+            handler: () => {
+              this.storage.removeObject("list_order");
+              this.navCtrl.navigateRoot('/tabs/home');
+              this.modalCtrl.dismiss();
+            }
+          }
+        ]
+      }
+    }
+    let alert = await this.alertCtrl.create(options);
     await alert.present();
   }
 
