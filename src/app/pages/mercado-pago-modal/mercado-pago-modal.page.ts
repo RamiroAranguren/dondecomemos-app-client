@@ -98,6 +98,11 @@ export class MercadoPagoModalPage implements OnInit {
         this.loader.hide();
         this.mpId = this.mercadoPagoProvider.mpId;
         this.mpStatus = this.mercadoPagoProvider.mpStatus;
+        console.log("MP-RES", this.mpId, this.mpStatus);
+        if(this.mpId === undefined || this.mpStatus === undefined){
+          this.toast.show("Ha ocurrido un error con el pago, por favor verifique los datos ingresados");
+          return;
+        }
         if(this.tipo === 'RES'){
           this.reserveService.patch(this.userProvider.user, this.id, this.mpId, this.mpStatus).then((res:any) => {
             this.showAlert();
@@ -107,7 +112,7 @@ export class MercadoPagoModalPage implements OnInit {
             this.showAlertOrder(this.order_type);
           });
         }
-      }, 4500);
+      }, 8500);
     }).catch(err => {
       console.log("Error doPay", err);
       this.loader.hide();

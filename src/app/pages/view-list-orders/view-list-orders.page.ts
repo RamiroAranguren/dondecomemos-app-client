@@ -273,7 +273,7 @@ export class ViewListOrdersPage implements OnInit {
         await myCards.present();
 
         const { data } = await myCards.onDidDismiss();
-        if(data !== undefined){
+        if(data !== undefined && data.code !== null){
           this.data_payment.card = data.card;
           this.data_payment.code = data.code;
           this.inactiveConfirm = true;

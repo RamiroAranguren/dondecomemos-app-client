@@ -40,4 +40,9 @@ export class CardCodeComponent implements OnInit {
     }
   }
 
+  async DismissClick() {
+    await this.popOverCtrl.dismiss({code: null});
+  }
+
+
 }

@@ -147,6 +147,8 @@ export class MercadoPagoService {
       'Authorization': `token ${body.user.token}`
     });
 
+    console.log("BBBB", body);
+
     return new Promise((resolve, reject) => {
       this.http.post(`${apiUrl}payments/`, body, {headers}).subscribe((response: any) => {
         console.log("RES-sendToken", response, response.data.payment.attributes.id);
