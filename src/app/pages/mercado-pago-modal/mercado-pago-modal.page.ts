@@ -19,6 +19,7 @@ export class MercadoPagoModalPage implements OnInit {
   data: any;
   mpId: number;
   mpStatus:string;
+  mpStatus_detail:string;
 
   @Input() restaurantId;
   @Input() publicKey;
@@ -98,9 +99,10 @@ export class MercadoPagoModalPage implements OnInit {
         this.loader.hide();
         this.mpId = this.mercadoPagoProvider.mpId;
         this.mpStatus = this.mercadoPagoProvider.mpStatus;
+        this.mpStatus_detail = this.mercadoPagoProvider.mpStatus_detail;
         console.log("MP-RES", this.mpId, this.mpStatus);
-        if(this.mpId === undefined || this.mpStatus === undefined){
-          this.toast.show("Ha ocurrido un error con el pago, por favor verifique los datos ingresados");
+        if(this.mpId === undefined || (this.mpStatus === undefined || this.mpStatus !== "approved")){
+          this.toast.show("Ha ocurrido un error con el pago, por favor verifique los datos ingresados, Code: "+this.mpStatus_detail, 4500);
           return;
         }
         if(this.tipo === 'RES'){

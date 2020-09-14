@@ -25,6 +25,7 @@ export class MercadoPagoService {
   data:any = {};
   mpId:number;
   mpStatus:string;
+  mpStatus_detail:string;
 
   constructor(
     public http: HttpClient,
@@ -154,6 +155,7 @@ export class MercadoPagoService {
         console.log("RES-sendToken", response, response.data.payment.attributes.id);
         this.mpId = response.data.payment.attributes.id;
         this.mpStatus = response.data.payment.attributes.status;
+        this.mpStatus_detail = response.data.payment.attributes.status_detail;
         resolve(response);
       }, (errorResponse) => {
         console.log("ERR-sendToken", errorResponse);
