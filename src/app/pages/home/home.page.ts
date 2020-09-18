@@ -479,7 +479,7 @@ export class HomePage implements OnInit {
 
     // remove from list for filter
     this.chips = this.chips.filter(chip => chip.type !== data.type || chip.id !== data.id);
-    if(this.result_selected !== undefined){
+    if(this.result_selected !== undefined && this.valueSearch !== ''){
       console.log("ACAAAA-1");
       let result_searchs = this.restaurantService.getRestaurantByCity(null, this.result_selected);
       if(this.chips.length > 0){
