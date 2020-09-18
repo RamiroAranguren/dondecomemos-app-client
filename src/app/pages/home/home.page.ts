@@ -154,6 +154,7 @@ export class HomePage implements OnInit {
   }
 
   ionViewWillEnter() {
+    console.log("<-- ionViewWillEnter -->");
     //this.loaderService.display('Cargando listado...').then(() => {
       this.restaurantService.get().then((res: any) => {
         console.log("RES", res);
@@ -326,22 +327,16 @@ export class HomePage implements OnInit {
       this.restaurants = resulServiceFilters;
     }
 
-    this.resultSearchCity = Array.from(
-      new Set(this.resultSearchCity.map(res => res.influence_range)))
-      .map(influ => {
+    this.resultSearchCity = Array.from(new Set(this.resultSearchCity.map(res => res.influence_range))).map(influ => {
         return {
           influence_range: influ,
           name: this.resultSearchCity.find(city => city.influence_range === influ).name,
           count: this.restaurants.filter(resto => resto.influence_range === influ).length,
           type: "city"
         }
-      });
+    });
     this.resultSearchResto = this.resultSearchResto.reduce((newTempArr, el) => (newTempArr.includes(el) ? newTempArr : [...newTempArr, el]), [])
     this.resultSearch = this.resultSearchCity.concat(this.resultSearchResto);
-
-    // if(this.chips){
-    //   console.log("ACA VER EL TEMA DE LOS FILTROS + EL SEARCH");
-    // }
 
   }
 
@@ -355,30 +350,38 @@ export class HomePage implements OnInit {
   }
 
   selectResult(resto) {
+    console.log("SELECT_RES", resto);
     this.result_selected = resto;
     this.valueSearch = resto.name;
     this.searchChange = false;
     this.searchColor = true;
+
     if (resto.type === 'city') {
+
       let result = this.restaurantService.getRestaurantByCity(null, resto);
+
+      console.log("RESSULT", result);
       this.storage.getObject('filters').then(res => {
         if(res){
           this.chips = res;
         }
       });
+
       let resulServiceFilters = [];
+
       if(this.chips.length > 0){
+
         this.chips.forEach((chip:chip) => {
           if(chip.type === 'level'){
-            let data_level = this.restaurantService.getRestoForLevel(result, [chip.id]);
+            let data_level = this.restaurantService.getRestoForLevel(result, [chip.id], false);
             resulServiceFilters = data_level;
           }
           if(chip.type === 'cook'){
-            let data_cook = this.restaurantService.getRestoForCook(result, [chip.id]);
+            let data_cook = this.restaurantService.getRestoForCook(result, [chip.id], false);
             resulServiceFilters.concat(data_cook);
           }
           if(chip.type === 'place'){
-            let data_place = this.restaurantService.getRestoForPlace(result, [chip.id]);
+            let data_place = this.restaurantService.getRestoForPlace(result, [chip.id], false);
             resulServiceFilters.concat(data_place);
           }
         });
@@ -476,17 +479,40 @@ export class HomePage implements OnInit {
 
     // remove from list for filter
     this.chips = this.chips.filter(chip => chip.type !== data.type || chip.id !== data.id);
-    let result_filters = this.restaurantService.getRestaurantByFilters(this.chips);
     if(this.result_selected !== undefined){
-      let result_searchs = this.restaurantService.getRestaurantByCity(result_filters, this.result_selected);
-      this.restaurants = result_searchs;
+      console.log("ACAAAA-1");
+      let result_searchs = this.restaurantService.getRestaurantByCity(null, this.result_selected);
+      if(this.chips.length > 0){
+        let resulServiceFilters = [];
+        this.chips.forEach((chip:chip) => {
+          if(chip.type === 'level'){
+            let data_level = this.restaurantService.getRestoForLevel(result_searchs, [chip.id], false);
+            resulServiceFilters = data_level;
+          }
+          if(chip.type === 'cook'){
+            let data_cook = this.restaurantService.getRestoForCook(result_searchs, [chip.id], false);
+            resulServiceFilters.concat(data_cook);
+          }
+          if(chip.type === 'place'){
+            let data_place = this.restaurantService.getRestoForPlace(result_searchs, [chip.id], false);
+            resulServiceFilters.concat(data_place);
+          }
+        });
+        this.restaurants = resulServiceFilters;
+      } else {
+        this.restaurants = result_searchs;
+      }
     } else {
+      console.log("ACAAAA-2");
+      let result_filters = this.restaurantService.getRestaurantByFilters(this.chips);
       this.restaurants = result_filters;
     }
 
-    if(this.restaurants.length <= 0){
-      this.restaurants = this.restaurantsCopy;
-    }
+    console.log("RSSTTT", this.restaurants);
+
+    // if(this.restaurants.length <= 0){
+    //   this.restaurants = this.restaurantsCopy;
+    // }
     if (this.chips.length <= 0) {
       this.filterColor = false;
     }

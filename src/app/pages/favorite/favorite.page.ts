@@ -81,6 +81,7 @@ export class FavoritePage implements OnInit {
   }
 
   ionViewWillEnter() {
+    console.log("ACAA SIEMPRE");
     this.spinnFavorite = true;
     this.user = this.userService.user;
     if(this.user.guest){
@@ -150,16 +151,16 @@ export class FavoritePage implements OnInit {
   }
 
   loginFcbk(){
-    this.facebook.login(['public_profile', 'email']).then(rta => {
-        if(rta.status == 'connected'){
-        this.getInfo();
-        }
-    }).catch(error =>{
-        console.error( error );
-    });
-}
+      this.facebook.login(['public_profile', 'email']).then(rta => {
+          if(rta.status == 'connected'){
+          this.getInfo();
+          }
+      }).catch(error =>{
+          console.error( error );
+      });
+  }
 
-getInfo(){
+  getInfo(){
     this.facebook.api('/me?fields=id,name,email,first_name,picture,last_name,gender',['public_profile','email'])
     .then((data:any) => {
         this.loginSocial.net = "facebook";
@@ -181,9 +182,9 @@ getInfo(){
     }).catch(error =>{
         this.toastCtrl.show(`Hubo un error al intentar ingresar con Facebook`);
     });
-}
+  }
 
-loginGoogle(){
+  loginGoogle(){
     this.google.login({}).then(data => {
         this.loginSocial.net = "google";
         this.loginSocial.data = JSON.stringify(data);
@@ -208,6 +209,6 @@ loginGoogle(){
         console.log(`Error ${JSON.stringify(err)}`);
         this.toastCtrl.show("Hubo un error al intentar ingresar con Google");
     });
-}
+  }
 
 }

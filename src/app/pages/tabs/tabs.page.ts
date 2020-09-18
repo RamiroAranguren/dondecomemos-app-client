@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { Platform, NavController } from '@ionic/angular';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { Platform, NavController, IonTabs } from '@ionic/angular';
 import { Router } from '@angular/router';
+import { FavoritePage } from '../favorite/favorite.page';
 
 @Component({
   selector: 'app-tabs',
@@ -9,6 +10,10 @@ import { Router } from '@angular/router';
 })
 export class TabsPage implements OnInit {
   backButtonSuscription: any;
+  @ViewChild('myTabs') tabRef: IonTabs;
+
+  @ViewChild('fav') favoritePage: FavoritePage;
+
   constructor(
     private platform: Platform,
     private router: Router
@@ -19,12 +24,25 @@ export class TabsPage implements OnInit {
   ionViewWillEnter(){
     this.loadData();
     //this.backToHomeSuscription();
+    let tab = this.tabRef.getSelected();
+    console.log("TAAA", tab);
+    if(tab === 'favorite'){
+      this.favoritePage.ionViewWillEnter();
+    }
   }
 
   ionViewWillLeave(){
     console.log("a2");
     this.loadData();
     //this.backButtonSuscription.unsubscribe();
+  }
+
+  ionTabsWillChange() {
+    console.log("ACAAAA-2");
+  }
+
+  ionTabsDidChange() {
+    console.log("ACAAAA-3");
   }
 
   backToHomeSuscription() {

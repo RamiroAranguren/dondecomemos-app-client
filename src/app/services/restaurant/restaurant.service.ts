@@ -87,17 +87,24 @@ export class RestaurantService extends BaseService {
       places = filters.place.map((chip:chip) => chip.id);
     }
 
+    console.log("Se Filtra por:", this.restaurants, cooks, levels, places);
+
     let result_cook = this.getRestoForCook(this.restaurants, cooks);
+    console.log("RESULT-COOCKS", result_cook);
     let result_level = this.getRestoForLevel(result_cook, levels);
+    console.log("RESULT-LEVELS", result_level);
     let result_place = this.getRestoForPlace(result_level, places);
+    console.log("RESULT-PLACE", result_place);
 
     let result_end = result_place;
+
+    console.log("RESULT-END", result_end);
 
     result_end = result_end.reduce((newTempArr, el) => (newTempArr.includes(el) ? newTempArr : [...newTempArr, el]), []);
     return result_end;
   }
 
-  getRestoForCook(restos:any[], cooks){
+  getRestoForCook(restos:any[], cooks, all=true){
     let rest_cook = [];
     restos.forEach((resto:restaurant) => {
       let cook_ids = resto.chips.map((chip:chip) => chip.tag.id);
@@ -107,28 +114,30 @@ export class RestaurantService extends BaseService {
         }
       });
     });
-    if(rest_cook.length <= 0){
+    if(rest_cook.length <= 0 && all){
       return restos;
     } else {
       return rest_cook;
     }
   }
 
-  getRestoForLevel(restos:any[], levels){
+  getRestoForLevel(restos:any[], levels, all=true){
     let resto_level = [];
     restos.forEach((resto:restaurant) => {
+      console.log("RESTO-LEVEL", resto.level);
       if(levels.includes(resto.level)){
         resto_level.push(resto);
       }
     });
-    if(resto_level.length <= 0){
+    console.log("resto_level", resto_level.length, resto_level);
+    if(resto_level.length <= 0 && all){
       return restos;
     } else {
       return resto_level;
     }
   }
 
-  getRestoForPlace(restos:any[], places){
+  getRestoForPlace(restos:any[], places, all=true){
     let rest_place = [];
     restos.forEach((resto:restaurant) => {
       places.forEach(place => {
@@ -140,7 +149,7 @@ export class RestaurantService extends BaseService {
         }
       });
     });
-    if(rest_place.length <= 0){
+    if(rest_place.length <= 0 && all){
       return restos;
     }
     return rest_place;
