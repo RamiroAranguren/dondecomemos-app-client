@@ -29,6 +29,7 @@ export class ViewListOrdersPage implements OnInit {
     payPlace = true;
 
     inactiveFinalizar = false;
+    pressOk = false;
     inactiveConfirm = false;
 
     slideOptionsDate = {
@@ -124,50 +125,52 @@ export class ViewListOrdersPage implements OnInit {
         this.validateDiscount();
     }
 
-    ionViewDidEnter(){
+    ionViewWillEnter(){
+      console.log("ionViewWillEnter");
+    }
 
+    ionViewDidEnter(){
+      this.pressOk = false;
         this.cardsService.get(this.user).then((res:any) => {
             this.list_cards = res;
           }).catch(err => {
             console.log("Error get cards", err);
           })
 
-        setTimeout(() => {
-          this.storage.getObject("list_order").then(res => {
-            if(res){
-              this.orders = res.filter(ord => (ord.restaurant === this.restaurant.id && ord.user.id === this.user.id));
-              let prices_order = [];
-              this.orders.forEach(order => {
-                if(order.product !== null){
-                  if(order.product.variants !== undefined){
-                    if(order.product.variants.length > 0) {
-                      let prices_var = order.product.variants.map(vary => {
-                        return vary.price * vary.count;
-                      });
-                      prices_order = prices_order.concat(prices_var);
-                    }
+        this.storage.getObject("list_order").then(res => {
+          if(res){
+            this.orders = res.filter(ord => (ord.restaurant === this.restaurant.id && ord.user.id === this.user.id));
+            let prices_order = [];
+            this.orders.forEach(order => {
+              if(order.product !== null){
+                if(order.product.variants !== undefined){
+                  if(order.product.variants.length > 0) {
+                    let prices_var = order.product.variants.map(vary => {
+                      return vary.price * vary.count;
+                    });
+                    prices_order = prices_order.concat(prices_var);
                   }
+                }
 
-                  if(order.product.additionals !== undefined) {
-                    if(order.product.additionals.length > 0) {
-                      let prices_add = order.product.additionals.map(add => {
-                        return add.price * add.count;
-                      });
-                      prices_order = prices_order.concat(prices_add);
-                    }
+                if(order.product.additionals !== undefined) {
+                  if(order.product.additionals.length > 0) {
+                    let prices_add = order.product.additionals.map(add => {
+                      return add.price * add.count;
+                    });
+                    prices_order = prices_order.concat(prices_add);
                   }
-                  prices_order = prices_order.concat(order.product.price * order.product.count);
                 }
-                if(order.menu !== null){
-                  prices_order = prices_order.concat(order.menu.real_price * 1)
-                }
-              });
-              if(prices_order.length > 0){
-                this.price_total = prices_order.reduce((prev, curr) => prev + curr);
+                prices_order = prices_order.concat(order.product.price * order.product.count);
               }
+              if(order.menu !== null){
+                prices_order = prices_order.concat(order.menu.real_price * 1)
+              }
+            });
+            if(prices_order.length > 0){
+              this.price_total = prices_order.reduce((prev, curr) => prev + curr);
             }
-          });
-        }, 800);
+          }
+        });
     }
 
     validateDiscount(discount_type=null){
@@ -230,7 +233,7 @@ export class ViewListOrdersPage implements OnInit {
 
     changedAddress(ev){
       this.option_select.address = ev.detail.value;
-      this.inactiveFinalizar = this.option_select.hs !== '' && this.option_select.address !== '';
+      this.inactiveFinalizar = this.option_select.hs !== '' && this.option_select.address !== '' && this.option_select.expected_payment !== 0;
     }
 
     payNow(resp: boolean, clear=true) {
@@ -324,7 +327,7 @@ export class ViewListOrdersPage implements OnInit {
           let horarios = this.restaurant.hours_week.filter(data => data.day === item.day_n);
           horarios = horarios.map(data => [data.opening_hour, data.closing_hour]);
 
-          let date_now = moment();
+          let date_now = moment().set({minute:0});
           if(item.date.slice(-2) === date_now.format("DD")){
               isToday = true;
           }
@@ -348,15 +351,21 @@ export class ViewListOrdersPage implements OnInit {
               let start = moment(data[0], "HH:mm");
               let finish = moment(data[1], "HH:mm").subtract(toMinute, 'minutes');
 
+              console.log("RANGE", start.hours(), finish.hours());
+
               if(isToday){
 
                   if(date_now.isBetween(start, finish)) {
                       controlResto = true;
                       while(date_now < finish){
-                          list_hs.push(start.format("HH:mm"));
-                          start = start.add(15, 'minutes');
+                          console.log("WHILE-1", date_now.hours(), finish.hours());
+                          // list_hs.push(start.format("HH:mm"));
+                          list_hs.push(date_now.format("HH:mm"));
+                          // start = start.add(15, 'minutes');
                           date_now.add(15, 'minutes');
                       }
+
+                      console.log("PRE-LIST", list_hs);
 
                   } else if(date_now.isBefore(start)) {
 
@@ -409,7 +418,7 @@ export class ViewListOrdersPage implements OnInit {
       let horarios = this.restaurant.hours_week.filter(data => data.day === now.day().toString());
       horarios = horarios.map(data => [data.opening_hour, data.closing_hour]);
 
-      let date_now = moment();
+      let date_now = moment().set({minute:0});
 
       let time_str:any;
       let fecha:any;
@@ -430,15 +439,21 @@ export class ViewListOrdersPage implements OnInit {
           let start = moment(data[0], "HH:mm");
           let finish = moment(data[1], "HH:mm").subtract(toMinute, 'minutes');
 
+          console.log("RANGE", start.hours(), finish.hours());
+
           if(isToday){
 
               if(date_now.isBetween(start, finish)) {
                   controlResto = true;
                   while(date_now < finish){
-                      list_hs.push(start.format("HH:mm"));
-                      start = start.add(15, 'minutes');
-                      date_now.add(15, 'minutes');
+                    console.log("WHILE-1", date_now.hours(), finish.hours());
+                    // list_hs.push(start.format("HH:mm"));
+                    list_hs.push(date_now.format("HH:mm"));
+                    // start = start.add(15, 'minutes');
+                    date_now.add(15, 'minutes');
                   }
+
+                  console.log("PRE-LIST", list_hs);
 
               } else if(date_now.isBefore(start)) {
 
@@ -547,6 +562,7 @@ export class ViewListOrdersPage implements OnInit {
   }
 
   goToPaymentReserve(){
+    this.pressOk = true;
     let data:any;
     console.log('goToPaymentReserve-this.type', this.type)
     if(this.type === 'ORDER'){
@@ -615,6 +631,9 @@ export class ViewListOrdersPage implements OnInit {
     });
 
     await modal.present();
+
+    await modal.onDidDismiss();
+    this.pressOk = false;
   }
 
   async showAlert() {
@@ -635,7 +654,7 @@ export class ViewListOrdersPage implements OnInit {
 
   goToPaymentOrder(){
     let data:any;
-
+    this.pressOk = true;
     let order_type = "LOC";
 
     if(this.delivery){

@@ -236,7 +236,7 @@
         <ion-row>
             <ion-col size="12">
                 <ion-button
-                    [disabled]="option_select.hs === ''"
+                    [disabled]="option_select.hs === '' || pressOk"
                     [ngClass]="{'disabled-button': option_select.hs === ''}"
                     (click)="goToPaymentReserve()"
                     class="fixed-btn" shape="round">
@@ -312,7 +312,7 @@
         <ion-row>
             <ion-col size="12">
                 <ion-button
-                    [disabled]="option_select.hs === ''"
+                    [disabled]="option_select.hs === '' || pressOk"
                     [ngClass]="{'disabled-button': option_select.hs === ''}"
                     (click)="goToPaymentOrder()"
                     class="fixed-btn" shape="round">
@@ -352,11 +352,11 @@
                 </ion-item>
             </section>
         </ion-row>
-        <ion-row class="pre-order-question" *ngIf="type === 'RESERVE'">
+        <ion-row class="pre-order-question" *ngIf="type === 'ORDER'">
             <h2>Pago</h2>
             <div class="wrapper">
                 <div [ngClass]="{'check-color' : payPlace}" (click)="payNow(true)">
-                    <p>En el restaurante</p>
+                    <p>En efectivo al repartidor</p>
                 </div>
                 <div *ngIf="restaurant.public_key !== null" [ngClass]="{'check-color' : !payPlace}" (click)="presentPopover(false, $event)">
                     <p>Ahora</p>
@@ -366,12 +366,20 @@
                 <!-- <p><img src="../../../assets/logos/view-list-order/visa.svg" alt="" srcset="">.... 4517</p> -->
                 <p *ngIf="data_payment.card">Tarjeta terminada en: .... {{ data_payment.card.number | slice:-4 }}</p>
             </div>
-            <div class="noCard" *ngIf="!payPlace">
+        </ion-row>
+        <ion-row *ngIf="payPlace">
+            <ion-col size="6">
                 <p>¿Con cuanto abona?</p>
+            </ion-col>
+            <ion-col size="3">
                 <ion-item>
-                    <ion-input [(ngModel)]="option_select.expected_payment"></ion-input>
+                    <ion-input
+                        type="number"
+                        inputmode="number"
+                        [(ngModel)]="option_select.expected_payment"></ion-input>
                 </ion-item>
-            </div>
+            </ion-col>
+            <ion-col size="3">&nbsp;</ion-col>
         </ion-row>
         <ion-row class="price-info">
             <div class="price-wrapper">
@@ -406,7 +414,7 @@
         <ion-row>
             <ion-col size="12">
                 <ion-button
-                    [disabled]="!inactiveFinalizar"
+                    [disabled]="!inactiveFinalizar || pressOk"
                     [ngClass]="{'disabled-button': !inactiveFinalizar}"
                     (click)="goToPaymentOrder()"
                     class="fixed-btn" shape="round">

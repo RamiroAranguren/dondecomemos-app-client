@@ -137,7 +137,9 @@ export class BookTablePage implements OnInit {
             let horarios = this.restaurant.hours_week.filter(data => data.day === item.day_n);
             horarios = horarios.map(data => [data.opening_hour, data.closing_hour]);
 
-            let date_now = moment();
+            console.log("HORARIOS", horarios);
+
+            let date_now = moment().set({minute:0});
             console.log("isToday", item.date.slice(-2), date_now.format("DD"));
             if(item.date.slice(-2) === date_now.format("DD")){
                 isToday = true;
@@ -159,18 +161,26 @@ export class BookTablePage implements OnInit {
 
             horarios.forEach(data => {
 
+                console.log("toMinute", toMinute);
                 let start = moment(data[0], "HH:mm");
                 let finish = moment(data[1], "HH:mm").subtract(toMinute, 'minutes');
 
-                if(isToday){
+                console.log("RANGE", start.hours(), finish.hours());
 
+                if(isToday){
+                    console.log("isBetween", date_now,  date_now.isBetween(start, finish));
+                    console.log("isBefore", date_now,  date_now.isBefore(start));
                     if(date_now.isBetween(start, finish)) {
                         controlResto = true;
                         while(date_now < finish){
-                            list_hs.push(start.format("HH:mm"));
-                            start = start.add(15, 'minutes');
+                            console.log("WHILE-1", date_now.hours(), finish.hours());
+                            // list_hs.push(start.format("HH:mm"));
+                            list_hs.push(date_now.format("HH:mm"));
+                            // start = start.add(15, 'minutes');
                             date_now.add(15, 'minutes');
                         }
+
+                        console.log("PRE-LIST", list_hs);
 
                     } else if(date_now.isBefore(start)) {
 

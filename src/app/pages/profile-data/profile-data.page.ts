@@ -98,13 +98,13 @@ export class ProfileDataPage implements OnInit {
   }
 
   ionViewDidEnter() {
-    //this.backButtonSuscription = this.platform.backButton.subscribeWithPriority(100, () => {
-      //this.closeProfile();
-    //})
+    this.backButtonSuscription = this.platform.backButton.subscribeWithPriority(100, () => {
+      this.closeProfile();
+    })
   }
 
   ionViewWillLeave() {
-    //this.backButtonSuscription.unsubscribe();
+    this.backButtonSuscription.unsubscribe();
   }
 
   changedInput() {

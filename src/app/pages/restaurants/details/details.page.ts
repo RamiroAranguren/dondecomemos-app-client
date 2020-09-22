@@ -136,18 +136,22 @@ export class DetailsPage implements OnInit {
   // }
 
   ionViewDidEnter(){
-    //this.backButtonServiceService.changeStatusToMinimize.emit(false);
-    //this.backButtonSuscription = this.platform.backButton.subscribe(()=>{
-      //this.toBack();
-    //})
+    // this.backButtonServiceService.changeStatusToMinimize.emit(false);
+    this.backButtonSuscription = this.platform.backButton.subscribe(()=>{
+      if(this.price_total !== 0){
+        this.showAlertBack();
+      } else {
+        this.toBack();
+      }
+    })
 
     setTimeout(() => {
       this.calculatePrice();
-    }, 800);
+    }, 500);
   }
 
   ionViewWillLeave() {
-    //this.backButtonSuscription.unsubscribe();
+    this.backButtonSuscription.unsubscribe();
   }
 
   calculatePrice(){
@@ -198,7 +202,7 @@ export class DetailsPage implements OnInit {
   }
 
   toBack(){
-    //this.backButtonServiceService.changeStatusToMinimize.emit(true);
+    this.backButtonServiceService.changeStatusToMinimize.emit(true);
     this.navCtrl.navigateRoot([`/tabs/${this.page_call}`]);
   }
 
@@ -220,7 +224,7 @@ export class DetailsPage implements OnInit {
               this.storage.addObject("list_order", this.orders);
             });
             setTimeout(() => {
-              //this.backButtonServiceService.changeStatusToMinimize.emit(true);
+              this.backButtonServiceService.changeStatusToMinimize.emit(true);
               this.navCtrl.navigateRoot([`/tabs/${this.page_call}`]);
             }, 800);
           }

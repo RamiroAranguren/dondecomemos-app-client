@@ -23,7 +23,7 @@ export class TabsPage implements OnInit {
 
   ionViewWillEnter(){
     this.loadData();
-    //this.backToHomeSuscription();
+    this.backToHomeSuscription();
     let tab = this.tabRef.getSelected();
     console.log("TAAA", tab);
     if(tab === 'favorite'){
@@ -34,7 +34,7 @@ export class TabsPage implements OnInit {
   ionViewWillLeave(){
     console.log("a2");
     this.loadData();
-    //this.backButtonSuscription.unsubscribe();
+    this.backButtonSuscription.unsubscribe();
   }
 
   ionTabsWillChange() {
@@ -46,9 +46,9 @@ export class TabsPage implements OnInit {
   }
 
   backToHomeSuscription() {
-    //this.backButtonSuscription = this.platform.backButton.subscribe(() => {
-      //this.router.navigateByUrl('tabs/home');
-    //})
+    this.backButtonSuscription = this.platform.backButton.subscribe(() => {
+      this.router.navigateByUrl('tabs/home');
+    })
   }
 
   loadData(){

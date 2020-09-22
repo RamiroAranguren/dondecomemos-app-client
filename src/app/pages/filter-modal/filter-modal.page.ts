@@ -66,14 +66,14 @@ export class FilterModalPage implements OnInit {
   }
 
   ionViewDidEnter(){
-    // this.backButtonServiceService.changeStatusToMinimize.emit(false);
-    // this.backButtonSuscription = this.platform.backButton.subscribe(()=>{
-      //this.closeFilters();
-    // })
+    this.backButtonServiceService.changeStatusToMinimize.emit(false);
+    this.backButtonSuscription = this.platform.backButton.subscribe(()=>{
+      this.closeFilters();
+    })
   }
 
   ionViewWillLeave() {
-    // this.backButtonServiceService.changeStatusToMinimize.emit(true);
+    this.backButtonServiceService.changeStatusToMinimize.emit(true);
    }
 
   addChip(type:string, chip:any){

@@ -27,7 +27,7 @@
         </ion-thumbnail>
 
         <ion-label>
-            <div class="titulos">
+            <div class="titulos" (click)="details(fav.restaurant)">
                 <h2>{{ fav.restaurant.name }}</h2>
                 <h3 [innerHTML]="fav.restaurant | chips:'list'"></h3>
             </div>
