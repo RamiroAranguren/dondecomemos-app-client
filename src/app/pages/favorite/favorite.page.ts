@@ -3,7 +3,6 @@ import { UsersService } from '../../services/users/user.service';
 import { NavController, AlertController } from '@ionic/angular';
 import { restaurant } from 'src/app/interfaces/restaurant';
 import { FavoritesService } from '../../services/favorites/favorites.service';
-import { LoaderService } from '../../services/loader/loader.service';
 import { StorageService } from '../../services/storage/storage.service';
 import { ToastService } from '../../services/toast/toast.service';
 import { UserInterface } from 'src/app/interfaces/user';

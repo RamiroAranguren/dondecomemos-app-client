@@ -22,27 +22,12 @@ export class TabsPage implements OnInit {
   ngOnInit() { }
 
   ionViewWillEnter(){
-    this.loadData();
     this.backToHomeSuscription();
-    let tab = this.tabRef.getSelected();
-    console.log("TAAA", tab);
-    if(tab === 'favorite'){
-      this.favoritePage.ionViewWillEnter();
-    }
+    this.backToFavoriteSuscription();
   }
 
   ionViewWillLeave(){
-    console.log("a2");
-    this.loadData();
     this.backButtonSuscription.unsubscribe();
-  }
-
-  ionTabsWillChange() {
-    console.log("ACAAAA-2");
-  }
-
-  ionTabsDidChange() {
-    console.log("ACAAAA-3");
   }
 
   backToHomeSuscription() {
@@ -51,7 +36,10 @@ export class TabsPage implements OnInit {
     })
   }
 
-  loadData(){
-    console.log("data define tags");
+  backToFavoriteSuscription() {
+    console.log("backToFavoriteSuscription");
+    // this.backButtonSuscription = this.platform.backButton.subscribe(() => {
+    //   this.favoritePage.ionViewWillEnter();
+    // })
   }
 }

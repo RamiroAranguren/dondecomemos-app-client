@@ -94,7 +94,6 @@ export class MercadoPagoModalPage implements OnInit {
     this.mercadoPagoProvider.doPay(form).then((mpId:any)=>{
       this.loader.display('Realizando pago...');
       this.events.publish('mp:created', {});
-      this.storage.removeObject("list_order");
       setTimeout(() => {
         this.loader.hide();
         this.mpId = this.mercadoPagoProvider.mpId;

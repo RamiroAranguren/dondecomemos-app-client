@@ -19,6 +19,7 @@ export interface restaurant {
     }
     hours_week: any,
     renewal_time: String,
+    average_time: number,
     public_key:string,
     promotions: any,
     placediscounts: any[],

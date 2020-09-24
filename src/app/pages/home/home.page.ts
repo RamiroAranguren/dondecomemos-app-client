@@ -4,7 +4,6 @@ import { ModalController, AlertController, NavController, Platform } from '@ioni
 import { FilterModalPage } from '../filter-modal/filter-modal.page';
 
 import { RestaurantService } from '../../services/restaurant/restaurant.service';
-import { LoaderService } from '../../services/loader/loader.service';
 import { LocationService } from '../../services/location/location.service';
 import { StorageService } from '../../services/storage/storage.service';
 
@@ -81,7 +80,6 @@ export class HomePage implements OnInit {
     private favService: FavoritesService,
     public alertCtrl: AlertController,
     public locationService: LocationService,
-    private loaderService: LoaderService,
     private storage: StorageService,
     private userService: UsersService,
     private appMinimize: AppMinimize,
@@ -109,7 +107,7 @@ export class HomePage implements OnInit {
   ionViewWillLeave() {
     this.unsucribeBackButton()
   }
-  
+
   unsucribeBackButton() {
     this.backbuttonSubscription.unsubscribe();
   }
@@ -156,35 +154,32 @@ export class HomePage implements OnInit {
 
   ionViewWillEnter() {
 
-    //this.loaderService.display('Cargando listado...').then(() => {
-      this.restaurantService.get().then((res: any) => {
-        console.log("RES", res);
-        this.restaurants = res;
-        this.restaurantsCopy = [...res];
-        let resto_count = this.restaurants.reduce((cont, current, index) => {
-          return index + 1
-        }, 0);
-        let resto_delivery = this.restaurants.filter((resto:restaurant) => {
-          return resto.delivery === true;
-        });
-        let resto_local = this.restaurants.filter((resto:restaurant) => {
-          return resto.self_service === true;
-        });
-
-        this.storage.getObject("filters").then(filters_local => {
-          if (filters_local) {
-            this.filterColor = filters_local.length > 0;
-            this.chips = filters_local;
-            this.restaurants = this.restaurantService.getRestaurantByFilters(filters_local, this.restaurants);
-          } else {
-            this.filterColor = false;
-          }
-        }).catch(err => {
-          console.log("Error in get local filters", err);
-        });
-        //this.loaderService.hide();
+    this.restaurantService.get().then((res: any) => {
+      console.log("RES", res);
+      this.restaurants = res;
+      this.restaurantsCopy = [...res];
+      let resto_count = this.restaurants.reduce((cont, current, index) => {
+        return index + 1
+      }, 0);
+      let resto_delivery = this.restaurants.filter((resto:restaurant) => {
+        return resto.delivery === true;
       });
-    //});
+      let resto_local = this.restaurants.filter((resto:restaurant) => {
+        return resto.self_service === true;
+      });
+
+      this.storage.getObject("filters").then(filters_local => {
+        if (filters_local) {
+          this.filterColor = filters_local.length > 0;
+          this.chips = filters_local;
+          this.restaurants = this.restaurantService.getRestaurantByFilters(filters_local, this.restaurants);
+        } else {
+          this.filterColor = false;
+        }
+      }).catch(err => {
+        console.log("Error in get local filters", err);
+      });
+    });
   }
 
   doRefresh(evento) {

@@ -232,11 +232,27 @@ export class ViewListOrdersPage implements OnInit {
     }
 
     changedAddress(ev){
+      console.log(">>>", this.option_select.hs, this.option_select.address, this.option_select.expected_payment);
       this.option_select.address = ev.detail.value;
-      this.inactiveFinalizar = this.option_select.hs !== '' && this.option_select.address !== '' && this.option_select.expected_payment !== 0;
+      let result = (this.option_select.hs !== '' && this.option_select.address !== '' && Number(this.option_select.expected_payment) !== 0);
+      console.log("RES", result);
+      this.inactiveFinalizar = result;
+      console.log("BTN", this.inactiveFinalizar);
+      this.pressOk = this.inactiveFinalizar;
+    }
+
+    changedExpectedPayment(ev){
+      console.log(">>>", this.option_select.hs, this.option_select.address, this.option_select.expected_payment, (this.option_select.hs !== '' && this.option_select.address !== '' && this.option_select.expected_payment !== 0));
+      this.option_select.expected_payment = ev.detail.value;
+      let result = (this.option_select.hs !== '' && this.option_select.address !== '' && Number(this.option_select.expected_payment) !== 0);
+      console.log("RES", result);
+      this.inactiveFinalizar = result;
+      console.log("BTN", this.inactiveFinalizar);
+      this.pressOk = this.inactiveFinalizar;
     }
 
     payNow(resp: boolean, clear=true) {
+        this.option_select.expected_payment = 0;
         this.payPlace = resp;
         this.inactiveConfirm = false;
         if(clear){
@@ -286,6 +302,10 @@ export class ViewListOrdersPage implements OnInit {
           this.payNow(true);
         }
         await this.popOC.dismiss();
+        this.option_select.expected_payment = 1;
+        this.inactiveFinalizar = this.option_select.hs !== '' && this.option_select.address !== '' && this.option_select.expected_payment !== 0;
+        console.log("BTN", this.inactiveFinalizar);
+        this.pressOk = this.inactiveFinalizar;
     }
 
     uploadDays(){
@@ -418,55 +438,68 @@ export class ViewListOrdersPage implements OnInit {
       let horarios = this.restaurant.hours_week.filter(data => data.day === now.day().toString());
       horarios = horarios.map(data => [data.opening_hour, data.closing_hour]);
 
-      let date_now = moment().set({minute:0});
+      let date_now = moment();
+      if(this.restaurant.average_time !== null){
+        date_now.add(this.restaurant.average_time, 'minutes');
+        let evaluate = Number(date_now.format("mm"));
+          while((evaluate%15) !== 0){
+              date_now.add(1, 'minutes');
+              evaluate = Number(date_now.format("mm"));
+          }
+      } else {
+        date_now.set({minute:0});
+      }
 
       let time_str:any;
       let fecha:any;
       let renew:any;
       let toMinute = 0;
 
-      if(this.restaurant.renewal_time){
-          time_str = this.restaurant.renewal_time.split(":");
-          fecha = new Date(2020, 1, 1, Number(time_str[0]), Number(time_str[1]), 0);
-          renew = moment(fecha).format("HH:mm");
-          toMinute = moment.duration(renew).asMinutes();
-      }
+      // if(this.restaurant.renewal_time){
+      //     time_str = this.restaurant.renewal_time.split(":");
+      //     fecha = new Date(2020, 1, 1, Number(time_str[0]), Number(time_str[1]), 0);
+      //     renew = moment(fecha).format("HH:mm");
+      //     toMinute = moment.duration(renew).asMinutes();
+      // }
 
       let list_hs = [];
+
+      console.log("NOW", date_now);
 
       horarios.forEach(data => {
 
           let start = moment(data[0], "HH:mm");
-          let finish = moment(data[1], "HH:mm").subtract(toMinute, 'minutes');
+          // let finish = moment(data[1], "HH:mm").subtract(toMinute, 'minutes');
+          let finish = moment(data[1], "HH:mm").add(1, 'minutes');
 
           console.log("RANGE", start.hours(), finish.hours());
 
           if(isToday){
 
               if(date_now.isBetween(start, finish)) {
-                  controlResto = true;
-                  while(date_now < finish){
-                    console.log("WHILE-1", date_now.hours(), finish.hours());
-                    // list_hs.push(start.format("HH:mm"));
+                  //controlResto = true;
+                  while(date_now <= finish){
                     list_hs.push(date_now.format("HH:mm"));
-                    // start = start.add(15, 'minutes');
                     date_now.add(15, 'minutes');
+                    date_now.set({second:0});
                   }
 
                   console.log("PRE-LIST", list_hs);
 
               } else if(date_now.isBefore(start)) {
 
-                  while(start < finish){
+                  while(start <= finish){
                       list_hs.push(start.format("HH:mm"));
                       start = start.add(15, 'minutes');
+                      start.set({second:0});
                   }
 
               }
           } else {
-              while(start < finish){
+              while(start <= finish){
                   list_hs.push(start.format("HH:mm"));
                   start = start.add(15, 'minutes');
+                  start.set({second:0});
               }
           }
       });
@@ -483,7 +516,8 @@ export class ViewListOrdersPage implements OnInit {
           list_hs = list_hs.slice(index_hs);
       }
 
-      this.hours = list_hs.length === 1 ? list_hs: list_hs.slice(1);
+      // this.hours = list_hs.length === 1 ? list_hs: list_hs.slice(1);
+      this.hours = list_hs;
   }
 
   selectHour(ev, hs:any){
