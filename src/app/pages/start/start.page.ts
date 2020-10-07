@@ -172,7 +172,7 @@ export class StartPage implements OnInit {
       // alert(error.code + ' ' + error.localizedDescription);
       console.error(error);
       this.toast.show(error);
-      this.dataApple = error;
+      this.dataApple = `${error.code} - ${error.localizedDescription}`;
     });
   }
 
