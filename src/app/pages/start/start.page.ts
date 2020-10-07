@@ -50,7 +50,7 @@ export class StartPage implements OnInit {
     // console.log("PLATFORM mobileweb", this.platform.is('mobileweb'));
     // console.log("PLATFORM desktop", this.platform.is('desktop'));
 
-    this.showAppleSignIn = this.platform.is('mobileweb');
+    this.showAppleSignIn = this.platform.is('ios');
   }
 
   ionViewDidEnter() {
