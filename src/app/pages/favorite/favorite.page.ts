@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UsersService } from '../../services/users/user.service';
-import { NavController, AlertController } from '@ionic/angular';
+import { NavController, AlertController, Platform } from '@ionic/angular';
 import { restaurant } from 'src/app/interfaces/restaurant';
 import { FavoritesService } from '../../services/favorites/favorites.service';
 import { StorageService } from '../../services/storage/storage.service';
@@ -21,6 +21,8 @@ export class FavoritePage implements OnInit {
 
   isGuest = true;
 
+  showAppleSignIn:boolean = false;
+
   resto_favs: any[] = [];
   favorites: any[] = [];
   spinnFavorite = true;
@@ -38,6 +40,7 @@ export class FavoritePage implements OnInit {
   constructor(
     private navCtrl: NavController,
     private alertCtrl: AlertController,
+    private platform: Platform,
     private storage: StorageService,
     private userService: UsersService,
     private favService: FavoritesService,
@@ -50,6 +53,7 @@ export class FavoritePage implements OnInit {
 
   ngOnInit() {
     console.log("INIT");
+    this.showAppleSignIn = this.platform.is('ios');
     this.storage.getObject("favorites").then(res => {
       if(res){
         this.favorites = res;
@@ -208,6 +212,10 @@ export class FavoritePage implements OnInit {
         console.log(`Error ${JSON.stringify(err)}`);
         this.toastCtrl.show("Hubo un error al intentar ingresar con Google");
     });
+  }
+
+  loginApple() {
+    console.log("loginApple");
   }
 
 }

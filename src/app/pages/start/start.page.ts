@@ -8,6 +8,9 @@ import { AppMinimize } from '@ionic-native/app-minimize/ngx';
 import { Facebook, FacebookLoginResponse } from '@ionic-native/facebook/ngx';
 import { GooglePlus } from '@ionic-native/google-plus/ngx';
 
+import { SignInWithApple, AppleSignInResponse, AppleSignInErrorResponse, ASAuthorizationAppleIDRequest } from '@ionic-native/sign-in-with-apple/ngx';
+
+
 
 @Component({
   selector: 'app-start',
@@ -17,6 +20,10 @@ import { GooglePlus } from '@ionic-native/google-plus/ngx';
 export class StartPage implements OnInit {
 
   backbuttonSubscription: any;
+
+  showAppleSignIn:boolean = true;
+
+  dataApple:any = {};
 
   loginSocial = {
     email: "",
@@ -34,10 +41,16 @@ export class StartPage implements OnInit {
     private toast: ToastService,
     private appMinimize: AppMinimize,
     private facebook: Facebook,
-    private google: GooglePlus
+    private google: GooglePlus,
+    private signInWithApple: SignInWithApple
   ) { }
 
   ngOnInit() {
+    // console.log("PLATFORM IOS", this.platform.is('ios'));
+    // console.log("PLATFORM mobileweb", this.platform.is('mobileweb'));
+    // console.log("PLATFORM desktop", this.platform.is('desktop'));
+
+    this.showAppleSignIn = this.platform.is('mobileweb');
   }
 
   ionViewDidEnter() {
@@ -45,6 +58,7 @@ export class StartPage implements OnInit {
       console.log ('minimize');
       this.appMinimize.minimize();
     });
+
   }
 
   ionViewWillLeave(){
@@ -119,6 +133,47 @@ export class StartPage implements OnInit {
   loginAsGuestUser() {
     this.userService.loginAsGuest();
     this.navCtrl.navigateRoot('/tabs/home');
+  }
+
+  loginApple() {
+    console.log("loginApple");
+    this.signInWithApple.signin({
+      requestedScopes: [
+        ASAuthorizationAppleIDRequest.ASAuthorizationScopeFullName,
+        ASAuthorizationAppleIDRequest.ASAuthorizationScopeEmail
+      ]
+    })
+    .then((res: AppleSignInResponse) => {
+      // https://developer.apple.com/documentation/signinwithapplerestapi/verifying_a_user
+      alert('Send token to apple for verification: ' + res.identityToken);
+      console.log(res);
+      this.toast.show(res);
+      this.dataApple = res;
+      ////////////
+      this.loginSocial.net = "ios";
+      this.loginSocial.data = JSON.stringify(res);
+      this.loginSocial.email = res.email;
+      this.loginSocial.password = res.identityToken;
+      this.loginSocial.first_name = res.fullName.givenName;
+      this.loginSocial.last_name = res.fullName.familyName;
+      // SE INTENTA LOGUEAR PRIMERO POR SI YA ESTA REGISTRADO
+      // SINO, SE LO ENVIA A REGISTRAR
+      // this.userService.login(res.email, res.identityToken, "ios").then(res => {
+      //   this.navCtrl.navigateRoot('/tabs/home');
+      // }).catch(error => {
+      //   console.log("Error Login", error);
+      //   let navigationExtras: NavigationExtras = {
+      //     state: {data: this.loginSocial}};
+      //   this.navCtrl.navigateForward(['/verify-number'], navigationExtras);
+      // });
+      //
+    })
+    .catch((error: AppleSignInErrorResponse) => {
+      // alert(error.code + ' ' + error.localizedDescription);
+      console.error(error);
+      this.toast.show(error);
+      this.dataApple = error;
+    });
   }
 
 }

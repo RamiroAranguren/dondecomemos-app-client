@@ -25,6 +25,8 @@ import { Facebook } from '@ionic-native/facebook/ngx';
 import { GooglePlus } from '@ionic-native/google-plus/ngx';
 import { NativePageTransitions } from '@ionic-native/native-page-transitions/ngx';
 
+import { SignInWithApple, AppleSignInResponse, AppleSignInErrorResponse, ASAuthorizationAppleIDRequest } from '@ionic-native/sign-in-with-apple/ngx';
+
 import { SimpleMaskModule } from 'ngx-ion-simple-mask';
 
 registerLocaleData(localeEsAR, 'es-Ar');
@@ -55,7 +57,7 @@ registerLocaleData(localeEsAR, 'es-Ar');
     GooglePlus,
     Facebook,
     NativePageTransitions,
-
+    SignInWithApple
   ],
   bootstrap: [AppComponent],
   schemas: [

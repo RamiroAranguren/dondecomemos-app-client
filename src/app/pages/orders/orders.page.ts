@@ -1,10 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { IonSlides, NavController, AlertController } from '@ionic/angular';
+import { IonSlides, NavController, AlertController, Platform } from '@ionic/angular';
 import { UserInterface } from 'src/app/interfaces/user';
 import { UsersService } from '../../services/users/user.service';
 import { OrderService } from 'src/app/services/order/order.service';
 import { ReservationService } from '../../services/reservation/reservation.service';
-import { LoaderService } from '../../services/loader/loader.service';
 import { NavigationExtras } from '@angular/router';
 
 import { Facebook, FacebookLoginResponse } from '@ionic-native/facebook/ngx';
@@ -37,6 +36,8 @@ export class OrdersPage implements OnInit {
     isGuest:boolean = false;
     notQualify:boolean = false;
 
+    showAppleSignIn:boolean = false;
+
     user:UserInterface;
 
     spinnOrder = true;
@@ -57,7 +58,7 @@ export class OrdersPage implements OnInit {
     constructor(
         private navCtrl: NavController,
         private alertCtrl: AlertController,
-        private loaderService: LoaderService,
+        private platform: Platform,
         private storage: StorageService,
         private userService: UsersService,
         private orderService: OrderService,
@@ -69,6 +70,7 @@ export class OrdersPage implements OnInit {
 
     ngOnInit() {
         this.user = this.userService.user;
+        this.showAppleSignIn = this.platform.is('ios');
     }
 
     loadData(){
@@ -344,6 +346,10 @@ export class OrdersPage implements OnInit {
 
     goHome(){
         this.navCtrl.navigateRoot('/tabs/home');
+    }
+
+    loginApple() {
+        console.log("loginApple");
     }
 
 }

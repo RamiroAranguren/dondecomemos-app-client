@@ -150,6 +150,9 @@
             <ion-button (click)="loginFcbk()" expand="block" shape="round">
                 Facebook
             </ion-button>
+            <ion-button (click)="loginApple()" expand="block" shape="round" *ngIf="showAppleSignIn">
+                Sign in with Apple
+            </ion-button>
         </div>
     </ion-row>
 </ion-content>
