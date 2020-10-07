@@ -151,7 +151,7 @@ export class StartPage implements OnInit {
       this.dataApple = res;
       ////////////
       this.loginSocial.net = "ios";
-      this.loginSocial.data = JSON.stringify(res);
+      this.loginSocial.data = res;
       this.loginSocial.email = res.email;
       this.loginSocial.password = res.identityToken;
       this.loginSocial.first_name = res.fullName.givenName;
