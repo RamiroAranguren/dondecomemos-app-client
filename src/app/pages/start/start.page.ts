@@ -135,7 +135,7 @@ export class StartPage implements OnInit {
     this.navCtrl.navigateRoot('/tabs/home');
   }
 
-  loginApple() {
+  async loginApple() {
     console.log("loginApple");
     this.signInWithApple.signin({
       requestedScopes: [
@@ -150,23 +150,23 @@ export class StartPage implements OnInit {
       this.toast.show("1: "+res);
       this.dataApple = res;
       ////////////
-      // this.loginSocial.net = "ios";
-      // this.loginSocial.data = res;
-      // this.loginSocial.email = res.email;
-      // this.loginSocial.password = res.identityToken;
-      // this.loginSocial.first_name = res.fullName.givenName;
-      // this.loginSocial.last_name = res.fullName.familyName;
+      this.loginSocial.net = "ios";
+      this.loginSocial.data = res;
+      this.loginSocial.email = res.email;
+      this.loginSocial.password = res.identityToken;
+      this.loginSocial.first_name = res.fullName.givenName;
+      this.loginSocial.last_name = res.fullName.familyName;
       // SE INTENTA LOGUEAR PRIMERO POR SI YA ESTA REGISTRADO
       // SINO, SE LO ENVIA A REGISTRAR
-      // this.userService.login(res.email, res.identityToken, "ios").then(res => {
-      //   this.navCtrl.navigateRoot('/tabs/home');
-      // }).catch(error => {
-      //   console.log("Error Login", error);
-      //   let navigationExtras: NavigationExtras = {
-      //     state: {data: this.loginSocial}};
-      //   this.navCtrl.navigateForward(['/verify-number'], navigationExtras);
-      // });
-      //
+      this.userService.login(res.email, res.identityToken, "ios").then(res => {
+        this.navCtrl.navigateRoot('/tabs/home');
+      }).catch(error => {
+        console.log("Error Login", error);
+        let navigationExtras: NavigationExtras = {
+          state: {data: this.loginSocial}};
+        this.navCtrl.navigateForward(['/verify-number'], navigationExtras);
+      });
+
     })
     .catch((error: AppleSignInErrorResponse) => {
       // alert(error.code + ' ' + error.localizedDescription);
