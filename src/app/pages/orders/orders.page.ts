@@ -348,8 +348,45 @@ export class OrdersPage implements OnInit {
         this.navCtrl.navigateRoot('/tabs/home');
     }
 
-    loginApple() {
+    async loginApple() {
         console.log("loginApple");
-    }
+        this.signInWithApple.signin({
+          requestedScopes: [
+            ASAuthorizationAppleIDRequest.ASAuthorizationScopeFullName,
+            ASAuthorizationAppleIDRequest.ASAuthorizationScopeEmail
+          ]
+        })
+        .then((res: AppleSignInResponse) => {
+          // https://developer.apple.com/documentation/signinwithapplerestapi/verifying_a_user
+          // alert('Send token to apple for verification: ' + res.identityToken);
+          // console.log(res);
+          // this.toast.show("1: "+res);
+          // this.dataApple = res;
+          ////////////
+          this.loginSocial.net = "ios";
+          this.loginSocial.data = res;
+          this.loginSocial.email = res.email;
+          this.loginSocial.password = res.identityToken;
+          this.loginSocial.first_name = res.fullName.givenName;
+          this.loginSocial.last_name = res.fullName.familyName;
+          // SE INTENTA LOGUEAR PRIMERO POR SI YA ESTA REGISTRADO
+          // SINO, SE LO ENVIA A REGISTRAR
+          this.userService.login(res.email, res.identityToken, "ios").then(res => {
+            this.navCtrl.navigateRoot('/tabs/home');
+          }).catch(error => {
+            console.log("Error Login", error);
+            let navigationExtras: NavigationExtras = {
+              state: {data: this.loginSocial}};
+            this.navCtrl.navigateForward(['/verify-number'], navigationExtras);
+          });
+    
+        })
+        .catch((error: AppleSignInErrorResponse) => {
+          // alert(error.code + ' ' + error.localizedDescription);
+          console.error("2:"+error);
+          // this.toast.show("2: "+error);
+          // this.dataApple = `${error.code} - ${error.localizedDescription}`;
+        });
+      }
 
 }

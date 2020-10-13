@@ -147,8 +147,8 @@ export class StartPage implements OnInit {
       // https://developer.apple.com/documentation/signinwithapplerestapi/verifying_a_user
       // alert('Send token to apple for verification: ' + res.identityToken);
       // console.log(res);
-      this.toast.show("1: "+res);
-      this.dataApple = res;
+      // this.toast.show("1: "+res);
+      // this.dataApple = res;
       ////////////
       this.loginSocial.net = "ios";
       this.loginSocial.data = res;
@@ -170,9 +170,9 @@ export class StartPage implements OnInit {
     })
     .catch((error: AppleSignInErrorResponse) => {
       // alert(error.code + ' ' + error.localizedDescription);
-      // console.error("2:"+error);
-      this.toast.show("2: "+error);
-      this.dataApple = `${error.code} - ${error.localizedDescription}`;
+      console.error("2:"+error);
+      // this.toast.show("2: "+error);
+      // this.dataApple = `${error.code} - ${error.localizedDescription}`;
     });
   }
 
