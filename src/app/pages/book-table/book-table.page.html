@@ -37,11 +37,9 @@
                     *ngFor="let item of days"
                     (click)="checkHours(item)"
                     mode="md"
-                    [value]="item.day">
-                    <div>
-                        <p class="day">{{ item.day }}</p>
-                        <p>{{ item.date | slice:-2 }}</p>
-                    </div>
+                    [value]="item.day+item.date">
+                        <p><b>{{ item.day | uppercase }}</b></p>
+                        <p style="font-size: 16px; font-weight: bold;">{{ item.date | slice:-2 }}</p>
                 </ion-segment-button>
             </ion-segment>
         </ion-row>
@@ -54,9 +52,7 @@
                     mode="md"
                     id="option-{{ hour }}"
                     [value]="hour">
-                    <div>
-                        <p class="day">{{ hour }}</p>
-                    </div>
+                        <p><b>{{ hour }}</b></p>
                 </ion-segment-button>
             </ion-segment>
         </ion-row>
