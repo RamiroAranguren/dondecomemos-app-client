@@ -11,6 +11,8 @@ import { GooglePlus } from '@ionic-native/google-plus/ngx';
 import { ToastService } from '../../services/toast/toast.service';
 import { StorageService } from '../../services/storage/storage.service';
 
+import { SignInWithApple, AppleSignInResponse, AppleSignInErrorResponse, ASAuthorizationAppleIDRequest } from '@ionic-native/sign-in-with-apple/ngx';
+
 @Component({
     selector: 'app-orders',
     templateUrl: './orders.page.html',
@@ -65,7 +67,8 @@ export class OrdersPage implements OnInit {
         private reserveService: ReservationService,
         private toast: ToastService,
         private facebook: Facebook,
-        private google: GooglePlus
+        private google: GooglePlus,
+        private signInWithApple: SignInWithApple
     ) { }
 
     ngOnInit() {

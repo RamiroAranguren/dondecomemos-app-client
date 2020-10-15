@@ -11,6 +11,8 @@ import { NavigationExtras } from '@angular/router';
 import { Facebook, FacebookLoginResponse } from '@ionic-native/facebook/ngx';
 import { GooglePlus } from '@ionic-native/google-plus/ngx';
 
+import { SignInWithApple, AppleSignInResponse, AppleSignInErrorResponse, ASAuthorizationAppleIDRequest } from '@ionic-native/sign-in-with-apple/ngx';
+
 
 @Component({
   selector: 'app-favorite',
@@ -46,7 +48,8 @@ export class FavoritePage implements OnInit {
     private favService: FavoritesService,
     private toastCtrl: ToastService,
     private facebook: Facebook,
-    private google: GooglePlus
+    private google: GooglePlus,
+    private signInWithApple: SignInWithApple
   ) {
     console.log("constructor");
   }

@@ -1,1 +1,37 @@
 @import "../../../theme/custom.scss";
+
+
+
+@media (min-width: 768px) {
+    .header-content {
+        width: 70%;
+        margin-left: 97px;
+        .logo {
+            height: 92%;
+            img {
+                width: 85%;
+                height: 100%;
+            }
+        }
+    }
+
+    .body-content, .footer-content {
+        margin-left: 138px;
+    }
+
+    .body-content, .footer-content {
+        width: 60%;
+    }
+
+    .footer-content {
+        margin-bottom: 25px;
+        border-radius: 0 0 58px 58px;
+    }
+}
+
+@media (max-width: 375px) {
+    .footer-content {
+        height: 16.5vw;
+        padding: 0px 0px 37px;
+    }
+}
