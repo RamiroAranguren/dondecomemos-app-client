@@ -136,12 +136,15 @@
     <ion-row class="no-register">
         <img src="../../../assets/img/ordersPage/noReservation.svg" alt="">
         <h3>Por favor inicie sesión o regístrese para ver sus reservas y pedidos</h3>
-        <ion-button (click)="login()" expand="block" shape="round">
-            Iniciar sesión
-        </ion-button>
-        <ion-button (click)="register()" expand="block" shape="round">
-            Registrarse
-        </ion-button>
+        <div>
+            <ion-button (click)="login()" expand="block" shape="round">
+                Iniciar sesión
+            </ion-button>
+            <ion-button (click)="register()" expand="block" shape="round">
+                Registrarse
+            </ion-button>
+        </div>
+        
         <p>O ingresar con</p>
         <div class="login-GF">
             <ion-button (click)="loginGoogle()" expand="block" shape="round">
@@ -150,9 +153,11 @@
             <ion-button (click)="loginFcbk()" expand="block" shape="round">
                 Facebook
             </ion-button>
-            <ion-button (click)="loginApple()" expand="block" shape="round" *ngIf="showAppleSignIn">
-                Sign in with Apple
-            </ion-button>
         </div>
+        <br>
+        <ion-button (click)="loginApple()" class="cnx_ios_btn" expand="block" shape="round" *ngIf="showAppleSignIn">
+            <ion-icon name="logo-apple"></ion-icon>&nbsp;&nbsp;
+            Sign in with Apple
+        </ion-button>
     </ion-row>
 </ion-content>

@@ -127,6 +127,7 @@ ion-slide {
         width: 100%;
         padding: 8vw;
     }
+    div >
     ion-button{
         --color: #1d252d !important;
         color: #1d252d;
@@ -170,4 +171,17 @@ ion-slide {
 
 .spinner {
     margin-left: 147px
+}
+
+
+.cnx_ios_btn {
+    --color: #ffffff !important;
+    color: #ffffff;
+    font-family: FieldworkGeoLight !important;
+    font-size: 16px;
+    --background: black;
+    text-transform: capitalize;
+    width: 80vw;
+    margin-left: 10vw;
+    margin-bottom: 3vw;
 }
