@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 
 import { UserInterface } from '../../interfaces/user';
 import { environment } from '../../../environments/environment.prod';
@@ -9,6 +9,7 @@ import { FCM } from '@ionic-native/fcm/ngx';
 
 import { Facebook, FacebookLoginResponse } from '@ionic-native/facebook/ngx';
 import { GooglePlus } from '@ionic-native/google-plus/ngx';
+import {Login} from "../../pages/login/Login";
 
 const apiUrl = environment.apiUrl;
 
@@ -65,7 +66,8 @@ export class UsersService {
     const headers = new HttpHeaders();
     let params = {email: email}
     return new Promise((resolve, reject) => {
-      this.http.get(`${apiUrl}users/get_username/`, {params}).subscribe((res: any) => {
+      this.http.get(`${apiUrl}users/get_username/${email}`, {}).subscribe((res: any) => {
+      //this.http.get(`${apiUrl}users/get_username/`, {params}).subscribe((res: any) => {
         resolve(res);
       }, (res) => {
         reject(res);
@@ -75,13 +77,43 @@ export class UsersService {
 
   login(username: string, password: string, net=null) {
     return new Promise((resolve, reject) => {
-      this.http.post(`${apiUrl}login/`, { username, password }).subscribe((res: UserInterface) => {
-        this.user.token = res.token;
-        const headers = new HttpHeaders({
-          'Content-Type': 'application/json',
-          'Authorization': `Token ${this.user.token}`
-        });
-        this.http.get(`${apiUrl}users/get_from_token/`, { headers }).subscribe((res: UserInterface) => {
+      const headers = new HttpHeaders({
+        'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8',
+        'Authorization': 'Basic ' + btoa("angularapp:12345"),
+        'Accept': 'application/json'
+      });
+
+      const body = new HttpParams()
+          .set('username', username)
+          .set('password', password)
+          .set('grant_type', 'password');
+
+      this.http.post(`${apiUrl}login`, body.toString(),   {headers: headers}).subscribe((res: any) => {
+        console.log(res);
+        this.user.token = res.access_token;
+        let token = this.user.token;
+        this.user.email = res.email;
+        this.user.first_name = res.nombre;
+        this.user.last_name = res.apellido
+        this.user.token = token;
+        this.user.guest = false;
+        this.user.username = res.email;
+        this.user.net = (net !== null && net !== "") ? net : null;
+        this.storage.addObject("user", { ...this.user, password });
+        resolve(this.user);
+        //luego de loguear, pido el token y lo envio al back-end
+        /*this.fcm.getToken().then(token => {
+          this.registerFcmToken(token, this.user, headers);
+        }).catch(err => {
+          console.log(err);
+        });*/
+
+        /*
+headers.append('Content-type', 'application/x-www-form-urlencoded; charset=utf-8');
+    headers.append('Accept', 'application/json');
+    headers.append('Authorization', 'Basic ' + btoa("angularapp:12345"));
+         */
+       /* this.http.get(`${apiUrl}users/get_from_token/`, { headers }).subscribe((res: UserInterface) => {
           let token = this.user.token;
           this.user = res;
           this.user.token = token;
@@ -99,7 +131,7 @@ export class UsersService {
 
         }, (res) => {
           reject(res);
-        })
+        }) */
       }, (res) => {
         reject(res);
       })

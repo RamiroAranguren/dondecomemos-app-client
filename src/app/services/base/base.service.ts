@@ -32,8 +32,15 @@ export class BaseService {
   }
 
   protected _fetch(params){
+    let token: string = null;
+    this.getUserStore().then(
+        (user: any) => {
+          token = user.token;
+        }
+    );
 
     const headers = new HttpHeaders()
+    console.log("TOKENNNNNN => " + token);
     this.addHeaders(headers);
 
     return new Promise((resolve , reject) => {
