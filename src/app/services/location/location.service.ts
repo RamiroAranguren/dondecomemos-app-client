@@ -1,11 +1,13 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 
 import { LocationInterface } from 'src/app/interfaces/location';
 import { BaseService } from '../base/base.service';
 import { StorageService } from '../storage/storage.service';
+import {UserInterface} from "../../interfaces/user";
+import {environment} from "../../../environments/environment.prod";
 
-
+const apiUrl = environment.apiUrl;
 
 @Injectable({
   providedIn: 'root'
@@ -44,4 +46,7 @@ export class LocationService extends BaseService {
   removeCurrentLocation() {
     delete this.currentLocation
   }
+
+
+  // headers.append('Authorization', 'Bearer ' + localStorage.getItem('access_token'));
 }

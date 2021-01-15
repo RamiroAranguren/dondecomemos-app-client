@@ -63,10 +63,12 @@ export class UsersService {
   }
 
   checkUser(email:any) {
-    const headers = new HttpHeaders();
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json'
+    });
     let params = {email: email}
     return new Promise((resolve, reject) => {
-      this.http.get(`${apiUrl}users/get_username/${email}`, {}).subscribe((res: any) => {
+      this.http.get(`${apiUrl}users/get_username/${email}`, {headers: headers}).subscribe((res: any) => {
       //this.http.get(`${apiUrl}users/get_username/`, {params}).subscribe((res: any) => {
         resolve(res);
       }, (res) => {
@@ -95,9 +97,11 @@ export class UsersService {
         this.user.email = res.email;
         this.user.first_name = res.nombre;
         this.user.last_name = res.apellido
+        this.user.id = res.id;
         this.user.token = token;
         this.user.guest = false;
         this.user.username = res.email;
+        localStorage.setItem("token", token);
         this.user.net = (net !== null && net !== "") ? net : null;
         this.storage.addObject("user", { ...this.user, password });
         resolve(this.user);

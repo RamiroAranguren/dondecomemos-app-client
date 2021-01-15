@@ -115,7 +115,6 @@ export class HomePage implements OnInit {
   getStorageDataInit() {
     // TOMO LAS LOCACIONES SI EXISTEN EN EL STORAGE
     // SINO LO TRAIGO DESDE EL SERVICE
-
     this.storage.getObject("locations").then(locations => {
       this.locations = locations;
       if (!locations) {
@@ -142,6 +141,7 @@ export class HomePage implements OnInit {
     if (!isGuest) {
       this.user = this.userService.user;
       setTimeout(() => {
+        console.log("id: " + this.user.id);
         this.favService.get(this.user.id).then((favs_data: any) => {
           this.storage.addObject("favorites", favs_data);
         }).catch(error => {

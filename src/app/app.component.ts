@@ -61,15 +61,15 @@ export class AppComponent {
   checkFirstTime() {
     this.storage.get('firstTime').then((resp: any) => {
       if (resp == null) {
-        console.log('primera vez', resp);
+        //console.log('primera vez', resp);
         this.setFirstTime();
       } else {
-        console.log('no es primera vez', resp);
+        //console.log('no es primera vez', resp);
         this.autoLogin();
       }
     }).catch(error => {
       this.navCtrl.navigateRoot('/step-functions');
-      console.log('primera vez en la app');
+      //console.log('primera vez en la app');
     })
   }
 

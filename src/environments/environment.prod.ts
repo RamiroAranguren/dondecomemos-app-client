@@ -1,8 +1,8 @@
 export const environment = {
   production: true,
   baseUrl: "https://panel.dondecomemos.com.ar/",
-  apiUrl: "https://panel.dondecomemos.com.ar/api/",
-  //apiUrl: "http://127.0.0.1:8080/api/",
+  //apiUrl: "https://panel.dondecomemos.com.ar/api/",
+  apiUrl: "http://127.0.0.1:8080/api/",
   firebaseConfig: {
     apiKey: "AIzaSyCzIqBkghJT6vmQ0hMmo6DL40AZ6tHmRQg",
     authDomain: "dondecomemos-a73db.firebaseapp.com",
