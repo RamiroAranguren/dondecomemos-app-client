@@ -141,7 +141,6 @@ export class HomePage implements OnInit {
     if (!isGuest) {
       this.user = this.userService.user;
       setTimeout(() => {
-        console.log("id: " + this.user.id);
         this.favService.get(this.user.id).then((favs_data: any) => {
           this.storage.addObject("favorites", favs_data);
         }).catch(error => {

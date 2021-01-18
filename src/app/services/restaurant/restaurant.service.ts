@@ -28,7 +28,7 @@ export class RestaurantService extends BaseService {
   }
 
   protected getURL(restaurantId) {
-    return `restaurants`
+    return `restaurants-app`
   }
 
   protected process_get(response): void {
