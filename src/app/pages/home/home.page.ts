@@ -289,6 +289,7 @@ export class HomePage implements OnInit {
         }
 
         let resto_city = this.dict_locations[resto.influence_range];
+        console.log(this.dict_locations);
         if (resto_city.toLowerCase().search(val.toLowerCase()) !== -1) {
           resto.type = "city";
           this.resultSearchCity.push(

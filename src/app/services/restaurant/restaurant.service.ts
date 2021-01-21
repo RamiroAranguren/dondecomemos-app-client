@@ -107,7 +107,9 @@ export class RestaurantService extends BaseService {
   getRestoForCook(restos:any[], cooks, all=true){
     let rest_cook = [];
     restos.forEach((resto:restaurant) => {
-      let cook_ids = resto.chips.map((chip:chip) => chip.tag.id);
+      let cook_ids = resto.chips.map((chip:chip) =>{
+        return chip.tag.id;
+      });
       cook_ids.forEach(pk => {
         if(cooks.includes(pk)){
           rest_cook.push(resto);
@@ -124,7 +126,7 @@ export class RestaurantService extends BaseService {
   getRestoForLevel(restos:any[], levels, all=true){
     let resto_level = [];
     restos.forEach((resto:restaurant) => {
-      console.log("RESTO-LEVEL", resto.level);
+      console.log("RESTO-LEVEL", resto.level + " => levels: " + levels);
       if(levels.includes(resto.level)){
         resto_level.push(resto);
       }
