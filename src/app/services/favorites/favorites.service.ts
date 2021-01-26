@@ -32,7 +32,7 @@ export class FavoritesService {
   protected getURL(params) {
     if(params){
       //return `favorite-restaurants/?client=${params.client}`;
-      return `favorite-restaurants/${params.client}`;
+      return `favorite-restaurants/?client=${params.client}`;
     } else {
       return `favorite-restaurants/`;
     }
