@@ -61,7 +61,7 @@ export class FavoritesService {
 
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
-      'Authorization': `token ${this.user.token}`
+      'Authorization': `bearer ${this.user.token}`
     });
 
     return new Promise((resolve, reject) => {
@@ -77,7 +77,7 @@ export class FavoritesService {
   delete(id:number) {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
-      'Authorization': `token ${this.user.token}`
+      'Authorization': `bearer ${this.user.token}`
     });
     return new Promise((resolve, reject) => {
       this.http.delete(`${apiUrl}favorite-restaurants/${id}`, { headers }).subscribe((response) => {

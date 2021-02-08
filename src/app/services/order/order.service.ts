@@ -40,7 +40,7 @@ export class OrderService {
     }
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
-      'Authorization': `token ${data.user.token}`
+      'Authorization': `bearer ${data.user.token}`
     });
 
     return new Promise((resolve , reject) => {
@@ -77,7 +77,7 @@ export class OrderService {
 
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
-      'Authorization': `token ${data.user.token}`
+      'Authorization': `bearer ${data.user.token}`
     });
 
     return new Promise((resolve, reject) => {
@@ -92,7 +92,7 @@ export class OrderService {
   cancel(data){
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
-      'Authorization': `token ${data.user.token}`
+      'Authorization': `bearer ${data.user.token}`
     });
 
     return new Promise((resolve , reject) => {
@@ -108,7 +108,7 @@ export class OrderService {
   patch(user, id, data, status){
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
-      'Authorization': `token ${user.token}`
+      'Authorization': `bearer ${user.token}`
     });
 
     let body = {mp_id: data, mp_status: status};

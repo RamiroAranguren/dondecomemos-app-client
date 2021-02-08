@@ -137,7 +137,7 @@ export class MercadoPagoProvider {
 
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
-      'Authorization': `token ${this.userProvider.user.token}`
+      'Authorization': `bearer ${this.userProvider.user.token}`
     });
 
     let promise = new Promise((resolve, reject) => {

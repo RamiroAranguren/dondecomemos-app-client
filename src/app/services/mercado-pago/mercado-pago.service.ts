@@ -145,7 +145,7 @@ export class MercadoPagoService {
 
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
-      'Authorization': `token ${body.user.token}`
+      'Authorization': `bearer ${body.user.token}`
     });
 
     console.log("BBBB", body);

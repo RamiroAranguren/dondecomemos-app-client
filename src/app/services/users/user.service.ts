@@ -219,7 +219,7 @@ headers.append('Content-type', 'application/x-www-form-urlencoded; charset=utf-8
 
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
-      'Authorization': `Token ${this.user.token}`
+      'Authorization': `bearer ${this.user.token}`
     });
     return new Promise((resolve, reject) => {
       // this.http.patch(`${apiUrl}users/${this.user.id}/change/`, body, { headers })
@@ -268,7 +268,7 @@ headers.append('Content-type', 'application/x-www-form-urlencoded; charset=utf-8
 
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
-      'Authorization': `Token ${this.user.token}`
+      'Authorization': `bearer ${this.user.token}`
     });
 
     return new Promise((resolve, reject) => {
@@ -285,7 +285,7 @@ headers.append('Content-type', 'application/x-www-form-urlencoded; charset=utf-8
 
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
-      'Authorization': `Token ${this.user.token}`
+      'Authorization': `bearer ${this.user.token}`
     });
 
     return new Promise((resolve, reject) => {

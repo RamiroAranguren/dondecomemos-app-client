@@ -36,7 +36,7 @@ export class ProductAdditionalsService {
     }
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
-      'Authorization': `token ${data.user.token}`
+      'Authorization': `bearer ${data.user.token}`
     });
 
     return new Promise((resolve , reject) => {
@@ -56,7 +56,7 @@ export class ProductAdditionalsService {
 
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
-      'Authorization': `token ${user.token}`
+      'Authorization': `bearer ${user.token}`
     });
 
     return new Promise((resolve, reject) => {

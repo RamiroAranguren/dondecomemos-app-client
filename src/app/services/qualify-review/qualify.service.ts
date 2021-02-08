@@ -56,7 +56,7 @@ export class QualifyService {
     }
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
-      'Authorization': `token ${params.user.token}`
+      'Authorization': `bearer ${params.user.token}`
     });
 
     return new Promise((resolve , reject) => {
@@ -88,7 +88,7 @@ export class QualifyService {
     console.log("BODY-SAVE", body);
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
-      'Authorization': `token ${data.user.token}`
+      'Authorization': `bearer ${data.user.token}`
     });
 
     return new Promise((resolve, reject) => {
@@ -111,7 +111,7 @@ export class QualifyService {
 
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
-      'Authorization': `token ${data.user.token}`
+      'Authorization': `bearer ${data.user.token}`
     });
 
     return new Promise((resolve, reject) => {
@@ -126,7 +126,7 @@ export class QualifyService {
   getUserReviews(data){
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
-      'Authorization': `token ${data.user.token}`
+      'Authorization': `bearer ${data.user.token}`
     });
 
     return new Promise((resolve , reject) => {
@@ -142,7 +142,7 @@ export class QualifyService {
   getRestoReviews(data){
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
-      'Authorization': `token ${data.user.token}`
+      'Authorization': `bearer ${data.user.token}`
     });
 
     return new Promise((resolve , reject) => {
