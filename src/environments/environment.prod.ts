@@ -3,6 +3,7 @@ export const environment = {
   baseUrl: "https://panel.dondecomemos.com.ar/",
   //apiUrl: "https://panel.dondecomemos.com.ar/api/",
   apiUrl: "http://127.0.0.1:8080/api/",
+  //apiUrl: "http://ec2-18-230-199-42.sa-east-1.compute.amazonaws.com:8080/api/",
   firebaseConfig: {
     apiKey: "AIzaSyCzIqBkghJT6vmQ0hMmo6DL40AZ6tHmRQg",
     authDomain: "dondecomemos-a73db.firebaseapp.com",
