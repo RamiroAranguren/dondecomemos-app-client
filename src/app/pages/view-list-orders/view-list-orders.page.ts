@@ -715,7 +715,7 @@ export class ViewListOrdersPage implements OnInit {
 
     this.orderService.post(data).then((order:any) => {
       if(!this.payPlace){
-        this.modalMP(data, order.id, "ORD", order_type);
+        this.modalMP(data, order.response.id, "ORD", order_type);
       } else {
         this.showAlertOrder(order_type);
       }

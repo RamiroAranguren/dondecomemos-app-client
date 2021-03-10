@@ -16,6 +16,7 @@ export class MercadoPagoComponent implements OnInit {
   @ViewChild('payButton') payButton;
   @ViewChild('payForm') payForm;
   @ViewChild('docNumber') docNumber;
+  @ViewChild('docType') docType;
   @Input() data:any = {};
   @Input() publicKey:any;
   @Input('mpId') mpId;
@@ -46,6 +47,7 @@ export class MercadoPagoComponent implements OnInit {
 
     this.mercadoPagoProvider.setEmail(this.userProvider.user.email);
     this.mercadoPagoProvider.setDocNumber(this.docNumber);
+    this.mercadoPagoProvider.setDocType(this.docType);
     this.mercadoPagoProvider.setData(this.data);
 
     let form = document.getElementById("payForm");

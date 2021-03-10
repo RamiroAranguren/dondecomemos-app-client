@@ -74,7 +74,7 @@
 
       <ion-item>
         <label for="docType">Tipo de documento:</label>
-        <select id="docType" data-checkout="docType"></select>
+        <select id="docType" data-checkout="docType" #docType></select>
       </ion-item>
 
       <ion-item>
@@ -95,6 +95,7 @@
 
       <input type="hidden" name="paymentMethodId" [(ngModel)]="mercadoPagoProvider.paymentMethodId">
       <input type="hidden" name="token" [(ngModel)]="mercadoPagoProvider.token">
+      <input type="hidden" name="token" [(ngModel)]="mercadoPagoProvider.orderId">
 
       <ion-button
         [disabled]="disabledPay"

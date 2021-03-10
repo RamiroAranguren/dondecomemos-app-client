@@ -32,6 +32,7 @@ export class MercadoPagoModalPage implements OnInit {
 
   @ViewChild('payButton') payButton;
   @ViewChild('payForm') payForm;
+  @ViewChild('docType') docType;
 
   disabledPay = true;
   txtBtnPay = "PREPARANDO DATOS...";
@@ -77,6 +78,8 @@ export class MercadoPagoModalPage implements OnInit {
   ngAfterViewInit(){
     this.mercadoPagoProvider.initialize(this.publicKey);
     this.mercadoPagoProvider.setCardNumberElement(this.data_payment.card.number);
+    this.mercadoPagoProvider.setOrderId(this.id);
+
     this.mercadoPagoProvider.setPayButtonElement(this.payButton);
     this.mercadoPagoProvider.setPayFormElement(this.payForm);
 
@@ -87,6 +90,8 @@ export class MercadoPagoModalPage implements OnInit {
 
     this.mercadoPagoProvider.setEmail(this.userProvider.user.email);
     this.mercadoPagoProvider.setDocNumber(this.data_payment.card.document);
+    this.mercadoPagoProvider.setDocType(this.docType);
+    this.mercadoPagoProvider.setOrderId(this.id);
     this.mercadoPagoProvider.setData(this.data);
 
     let form = document.getElementById("payForm");

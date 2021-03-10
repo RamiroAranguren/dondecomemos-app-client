@@ -22,10 +22,12 @@ export class MercadoPagoService {
   token = null;
   email = null;
   docNumber = null;
+  docType = null;
   data:any = {};
   mpId:number;
   mpStatus:string;
   mpStatus_detail:string;
+  orderId: string;
 
   constructor(
     public http: HttpClient,
@@ -42,6 +44,10 @@ export class MercadoPagoService {
 
   setCardNumberElement(element) {
     this.cardNumberElement = element;
+  }
+
+  setOrderId(element){
+    this.orderId = element;
   }
 
   setPayButtonElement(element) {
@@ -113,6 +119,7 @@ export class MercadoPagoService {
     } else {
 
       this.token = response.id;
+      //this.token = "TEST-8076443971101487-111118-3e93b32a891cecee1c2e33e7b5403079-65442722";
 
       let data = {
         user:  this.userService.user,
@@ -122,6 +129,9 @@ export class MercadoPagoService {
         description: 'Compra Donde comemos',
         payment_method: this.paymentMethodId,
         token: this.token,
+        docType: this.docType.nativeElement.value,
+        docNumber: this.docNumber,
+        orderId: this.orderId,
       }
       let data_pay = this.sendToken(data);
       return data_pay;
@@ -134,7 +144,10 @@ export class MercadoPagoService {
 
   setDocNumber(docNumber) {
     this.docNumber = docNumber;
+  }
 
+  setDocType(docType) {
+    this.docType = docType;
   }
 
   setData(data: any) {
@@ -152,10 +165,10 @@ export class MercadoPagoService {
 
     return new Promise((resolve, reject) => {
       this.http.post(`${apiUrl}payments/`, body, {headers}).subscribe((response: any) => {
-        console.log("RES-sendToken", response, response.data.payment.attributes.id);
-        this.mpId = response.data.payment.attributes.id;
-        this.mpStatus = response.data.payment.attributes.status;
-        this.mpStatus_detail = response.data.payment.attributes.status_detail;
+        console.log("RES-sendToken", response, response.data.id);
+        this.mpId = response.data.id;
+        this.mpStatus = response.data.status;
+        this.mpStatus_detail = response.data.status_detail;
         resolve(response);
       }, (errorResponse) => {
         console.log("ERR-sendToken", errorResponse);
