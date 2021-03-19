@@ -117,7 +117,7 @@ export class HomePage implements OnInit {
     // SINO LO TRAIGO DESDE EL SERVICE
     this.storage.getObject("locations").then(locations => {
       this.locations = locations;
-      if (!locations) {
+      if (!locations || locations.length == 0) {
         this.locationService.get().then((locations: any) => {
           this.storage.addObject("locations", locations);
           this.locations = locations;
