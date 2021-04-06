@@ -25,7 +25,8 @@
                 </div>
                 <ion-item *ngFor="let item of pendientes">
                     <ion-thumbnail slot="end">
-                        <img style="border-radius: 8px;height: 180vw;width: 180vw;" src="{{item.restaurant.profile_picture}}" alt="{{ item.id }}" />
+                        <img *ngIf="item.restaurant.profile_picture != null" style="border-radius: 8px;height: 180vw;width: 180vw;" src="{{item.restaurant.profile_picture}}" alt="{{ item.id }}" />
+                        <img *ngIf="item.restaurant.profile_picture == null" style="border-radius: 8px;height: 180vw;width: 180vw;" src="assets/img/icon.png" alt="{{ item.id }}" />
                     </ion-thumbnail>
                     <div class="text-wrapper">
                         <div class="titulos">

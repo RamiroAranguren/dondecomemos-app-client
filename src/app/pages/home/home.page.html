@@ -32,7 +32,7 @@
   <ion-list>
     <ion-item *ngFor="let resto of resultSearch" (click)="selectResult( resto )">
         <ion-avatar slot="start">
-          <img [src]="resto.profile_picture" *ngIf="resto.type === 'resto'">
+          <img [src]="resto.profile_picture == null ? 'assets/img/icon.png' : resto.profile_picture" *ngIf="resto.type === 'resto'">
           <ion-icon size="large" name="location" *ngIf="resto.type === 'city'"></ion-icon>
         </ion-avatar>
         <ion-label *ngIf="resto.type === 'resto'">
