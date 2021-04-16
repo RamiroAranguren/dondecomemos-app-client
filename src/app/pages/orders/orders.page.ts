@@ -121,7 +121,9 @@ export class OrdersPage implements OnInit {
                                 client: res.client,
                                 orders: res.orders,
                                 order_type: "RES",
-                                diners: res.diners
+                                diners: res.diners,
+                                price_total_final: res.totalFinalPrice,
+                                discount: res.discount
                             }
                         });
                         let ends = res.filter(reserve => reserve.status === "FINALIZE");

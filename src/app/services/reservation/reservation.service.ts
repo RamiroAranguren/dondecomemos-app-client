@@ -65,7 +65,9 @@ export class ReservationService {
       comments: data.comments,
       motive: data.motive,
       products: data.products,
-      menus: data.menus
+      menus: data.menus,
+      price_total: data.price_total,
+      discount: data.discount
     };
 
     const headers = new HttpHeaders({

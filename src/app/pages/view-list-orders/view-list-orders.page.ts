@@ -91,6 +91,8 @@ export class ViewListOrdersPage implements OnInit {
 
     price_total = 0;
 
+    price_total_temporal = 0;
+
     data_payment = {
       card: null,
       code: null
@@ -168,6 +170,7 @@ export class ViewListOrdersPage implements OnInit {
             });
             if(prices_order.length > 0){
               this.price_total = prices_order.reduce((prev, curr) => prev + curr);
+              this.price_total_temporal = this.price_total;
             }
           }
         });
@@ -471,9 +474,7 @@ export class ViewListOrdersPage implements OnInit {
           let start = moment(data[0], "HH:mm");
           // let finish = moment(data[1], "HH:mm").subtract(toMinute, 'minutes');
           let finish = moment(data[1], "HH:mm").add(1, 'minutes');
-
           console.log("RANGE", start.hours(), finish.hours());
-
           if(isToday){
 
               if(date_now.isBetween(start, finish)) {
@@ -585,6 +586,8 @@ export class ViewListOrdersPage implements OnInit {
       if(this.countPeople < this.restaurant.max_diners){
           this.countPeople += 1;
       }
+
+      this.price_total = this.countPeople * this.price_total_temporal;
   }
 
   removePeople() {
@@ -593,6 +596,7 @@ export class ViewListOrdersPage implements OnInit {
       if(this.countPeople >= 2){
           this.countPeople -= 1;
       }
+      this.price_total = this.countPeople * this.price_total_temporal;
   }
 
   goToPaymentReserve(){
@@ -609,7 +613,9 @@ export class ViewListOrdersPage implements OnInit {
           comments: this.option_select.comments,
           motive: this.option_select.motive,
           products: [],
-          menus: []
+          menus: [],
+          price_total: this.price_total,
+          discount: this.discount
       };
     } else {
       data = {
@@ -621,14 +627,17 @@ export class ViewListOrdersPage implements OnInit {
           comments: this.data_order.comments,
           motive: this.data_order.motive,
           products: [],
-          menus: []
+          menus: [],
+          price_total: this.price_total,
+          discount: this.discount
       };
 
     }
 
     data.products = this.orders.filter(order => order.product !== null);
     data.menus = this.orders.filter(order => order.menu !== null);
-
+console.log("price: " + this.price_total);
+console.log("discount: " + this.discount);
     this.reserveService.post(data).then((res:any) => {
       if(!this.payPlace){
         this.modalMP(data, res.response.id, "RES", null);
@@ -707,7 +716,9 @@ export class ViewListOrdersPage implements OnInit {
         mp_id: null,
         comments: this.option_select.comments,
         products: [],
-        menus: []
+        menus: [],
+        price_total: this.price_total,
+        discount: this.discount
     };
 
     data.products = this.orders.filter(order => order.product !== null);

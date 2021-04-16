@@ -161,6 +161,7 @@ export class DetailsPage implements OnInit {
         let prices_order = [];
         this.orders.forEach(order => {
 
+          let isVariant = false;
           if(order.product !== null){
             if(order.product.variants !== undefined){
               if(order.product.variants.length > 0) {
@@ -168,6 +169,7 @@ export class DetailsPage implements OnInit {
                   return vary.price * vary.count;
                 });
                 prices_order = prices_order.concat(prices_var);
+                isVariant = true;
               }
             }
 
@@ -179,8 +181,9 @@ export class DetailsPage implements OnInit {
                 prices_order = prices_order.concat(prices_add);
               }
             }
-
-            prices_order = prices_order.concat(order.product.price * order.product.count);
+            if (!isVariant) {
+              prices_order = prices_order.concat(order.product.price * order.product.count);
+            }
           }
 
           if(order.menu !== null){

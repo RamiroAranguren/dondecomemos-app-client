@@ -12,6 +12,8 @@ export class ViewOrderPage implements OnInit {
   item:any;
   user:UserInterface;
   price_total = 0;
+  discount;
+  price_total_final = 0;
 
   constructor(
     private route: Router
@@ -47,6 +49,11 @@ export class ViewOrderPage implements OnInit {
 
     if(prices_order.length > 0){
       this.price_total = prices_order.reduce((prev, curr) => prev + curr);
+    }
+
+    if (this.item.discount ){
+      this.discount = this.item.discount;
+      this.price_total_final = this.item.totalFinalPrice;
     }
 
   }
