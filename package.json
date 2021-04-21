@@ -114,10 +114,8 @@
       "cordova-plugin-appminimize": {},
       "com.telerik.plugins.nativepagetransitions": {},
       "cordova-plugin-facebook4": {
-        "APP_ID": "375502420102577",
-        "APP_NAME": "DCLogin",
-        "FACEBOOK_HYBRID_APP_EVENTS": "false",
-        "FACEBOOK_ANDROID_SDK_VERSION": "5.13.0"
+        "APP_ID": "471369564177608",
+        "APP_NAME": "Donde Comemos"
       },
       "cordova-plugin-sign-in-with-apple": {}
     },

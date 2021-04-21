@@ -105,37 +105,7 @@ export class UsersService {
         this.user.net = (net !== null && net !== "") ? net : null;
         this.storage.addObject("user", { ...this.user, password });
         resolve(this.user);
-        //luego de loguear, pido el token y lo envio al back-end
-        /*this.fcm.getToken().then(token => {
-          this.registerFcmToken(token, this.user, headers);
-        }).catch(err => {
-          console.log(err);
-        });*/
 
-        /*
-headers.append('Content-type', 'application/x-www-form-urlencoded; charset=utf-8');
-    headers.append('Accept', 'application/json');
-    headers.append('Authorization', 'Basic ' + btoa("angularapp:12345"));
-         */
-       /* this.http.get(`${apiUrl}users/get_from_token/`, { headers }).subscribe((res: UserInterface) => {
-          let token = this.user.token;
-          this.user = res;
-          this.user.token = token;
-          this.user.guest = false;
-          this.user.net = (net !== null && net !== "") ? net : null;
-          //luego de loguear, pido el token y lo envio al back-end
-          this.fcm.getToken().then(token => {
-            this.registerFcmToken(token, this.user, headers);
-          }).catch(err => {
-            console.log(err);
-          });
-
-          this.storage.addObject("user", { ...this.user, password });
-          resolve(this.user);
-
-        }, (res) => {
-          reject(res);
-        }) */
       }, (res) => {
         reject(res);
       })

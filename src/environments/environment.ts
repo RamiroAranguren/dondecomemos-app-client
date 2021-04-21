@@ -5,8 +5,9 @@
 export const environment = {
   production: false,
   baseUrl: "http://localhost:8080/",
-  apiUrl: "http://localhost:8080/api/",
+  //apiUrl: "http://localhost:8080/api/",
   //apiUrl: "http://ec2-18-230-199-42.sa-east-1.compute.amazonaws.com:8080/api/",
+  apiUrl: "https://donde-comemos-back.herokuapp.com/api/",
   firebaseConfig: {
     apiKey: "AIzaSyCzIqBkghJT6vmQ0hMmo6DL40AZ6tHmRQg",
     authDomain: "dondecomemos-a73db.firebaseapp.com",
